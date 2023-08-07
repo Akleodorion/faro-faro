@@ -32,7 +32,7 @@ class MockUserAuthentificationRepository extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i4.Either<_i5.Failure, void>>? logUserIn(
+  _i3.Future<_i4.Either<_i5.Failure, bool>>? logUserIn(
     String? email,
     String? password,
   ) =>
@@ -42,9 +42,9 @@ class MockUserAuthentificationRepository extends _i1.Mock
           email,
           password,
         ],
-      )) as _i3.Future<_i4.Either<_i5.Failure, void>>?);
+      )) as _i3.Future<_i4.Either<_i5.Failure, bool>>?);
   @override
-  _i3.Future<_i4.Either<_i5.Failure, void>>? signUserIn(
+  _i3.Future<_i4.Either<_i5.Failure, bool>>? signUserIn(
     String? email,
     String? password,
     String? username,
@@ -58,5 +58,5 @@ class MockUserAuthentificationRepository extends _i1.Mock
           username,
           phoneNumber,
         ],
-      )) as _i3.Future<_i4.Either<_i5.Failure, void>>?);
+      )) as _i3.Future<_i4.Either<_i5.Failure, bool>>?);
 }

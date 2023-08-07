@@ -22,14 +22,14 @@ void main() {
   });
 
   test(
-    "should call the LogUserIn function",
+    "should log the user in",
     () async {
       //assert
       when(mockUserAuthentificationRepository.logUserIn(any, any))
-          .thenAnswer((realInvocation) async => const Right(null));
+          .thenAnswer((realInvocation) async => const Right(true));
 
       //act
-      logUserIn.logUserIn(tEmail, tPassword);
+      logUserIn(Params(email: tEmail, password: tPassword));
       //arrange
       verify(mockUserAuthentificationRepository.logUserIn(any, any)).called(1);
     },
