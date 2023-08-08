@@ -9,5 +9,5 @@ class User extends Equatable {
   final String phoneNumber;
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [username, email, phoneNumber];
 }
