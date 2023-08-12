@@ -4,8 +4,13 @@ class UserModel extends User {
   const UserModel({
     required email,
     required username,
+    required password,
     required phoneNumber,
-  }) : super(username: username, email: email, phoneNumber: phoneNumber);
+  }) : super(
+            username: username,
+            email: email,
+            phoneNumber: phoneNumber,
+            password: password);
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     getJsonInfo(Map<String, dynamic> json, String name) {
@@ -15,6 +20,7 @@ class UserModel extends User {
     return UserModel(
       email: getJsonInfo(json, 'email'),
       username: getJsonInfo(json, 'username'),
+      password: getJsonInfo(json, 'password'),
       phoneNumber: getJsonInfo(json, 'phone_number'),
     );
   }
@@ -24,6 +30,7 @@ class UserModel extends User {
       "email": email,
       "username": username,
       "phone_number": phoneNumber,
+      "password": password
     };
   }
 }

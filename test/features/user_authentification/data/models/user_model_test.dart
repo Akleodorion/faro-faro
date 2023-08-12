@@ -8,10 +8,10 @@ import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   const tUserModel = UserModel(
-    email: "test@gmail.com",
-    username: "chris",
-    phoneNumber: "06 06 06 06 06",
-  );
+      email: "test@gmail.com",
+      username: "chris",
+      phoneNumber: "06 06 06 06 06",
+      password: "hello");
 
   test(
     "should be a subclass of User",
@@ -51,7 +51,8 @@ void main() {
           final expectedMap = {
             'email': "test@gmail.com",
             "username": "chris",
-            "phone_number": "06 06 06 06 06"
+            "phone_number": "06 06 06 06 06",
+            "password": "hello"
           };
           expect(result, expectedMap);
         },

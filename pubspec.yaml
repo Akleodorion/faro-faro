@@ -35,9 +35,7 @@ dependencies:
   flutter:
     sdk: flutter
   mockito: ^5.4.2
-  path: ^1.8.3
-  sqflite: ^2.3.0
-  sqflite_common_ffi: ^2.3.0+2
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
