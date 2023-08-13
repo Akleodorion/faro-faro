@@ -11,7 +11,7 @@ void main() {
       email: "test@gmail.com",
       username: "chris",
       phoneNumber: "06 06 06 06 06",
-      password: "hello");
+      id: 9);
 
   test(
     "should be a subclass of User",
@@ -52,7 +52,7 @@ void main() {
             'email': "test@gmail.com",
             "username": "chris",
             "phone_number": "06 06 06 06 06",
-            "password": "hello"
+            "id": 9
           };
           expect(result, expectedMap);
         },
