@@ -6,14 +6,9 @@ import '../models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class UserRemoteDataSource {
-  Future<UserModel?> userLogInRequest(
-      {required String email, required String password});
-  Future<UserModel?> userSignInRequest({
-    required String email,
-    required String password,
-    required String username,
-    required String phoneNumber,
-  });
+  Future<UserModel?> userLogInRequest({required Map<String, String> logInInfo});
+  Future<UserModel?> userSignInRequest(
+      {required Map<String, String> signInInfo});
 }
 
 const LOG_IN_URL = 'http://localhost:3001/login';
@@ -25,23 +20,22 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final http.Client client;
   @override
   Future<UserModel?> userLogInRequest(
-      {required String email, required String password}) async {
-    final url = Uri.parse(LOG_IN_URL);
-    final response = await client.post(url, headers: {
-      'Content-Type': 'application/json'
-    }, body: {
-      "user": {"email": email, "password": password}
-    });
-    final userModel = UserModel.fromJson(json.decode(response.body));
-    return userModel;
+      {required Map<String, String> logInInfo}) async {
+    return _signInOrLogInRequest(LOG_IN_URL, logInInfo, true);
   }
 
   @override
   Future<UserModel?> userSignInRequest(
-      {required String email,
-      required String password,
-      required String username,
-      required String phoneNumber}) async {
-    return null;
+      {required Map<String, String> signInInfo}) async {
+    return _signInOrLogInRequest(LOG_IN_URL, signInInfo, false);
+  }
+
+  Future<UserModel?> _signInOrLogInRequest(
+      String url, Map<String, String> authInfo, bool isLogin) async {
+    final uri = Uri.parse(url);
+    final response = await client.post(uri,
+        headers: {'Content-Type': 'application/json'},
+        body: {"user": json.encode(authInfo)});
+    return UserModel.fromJson(json.decode(response.body), isLogin);
   }
 }

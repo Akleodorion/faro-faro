@@ -31,7 +31,7 @@ void main() {
           final Map<String, dynamic> jsonMap =
               json.decode(fixture('user.json'));
           //act
-          final result = UserModel.fromJson(jsonMap);
+          final result = UserModel.fromJson(jsonMap, true);
           //arrange
           expect(result, tUserModel);
         },

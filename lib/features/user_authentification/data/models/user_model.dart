@@ -13,9 +13,13 @@ class UserModel extends User {
           id: id,
         );
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+  factory UserModel.fromJson(Map<String, dynamic> json, bool logIn) {
     getJsonInfo(Map<String, dynamic> json, String name) {
-      return json['status']['data']['user'][name];
+      if (logIn) {
+        return json['status']['data']['user'][name];
+      } else {
+        return json['status']['data'][name];
+      }
     }
 
     return UserModel(
