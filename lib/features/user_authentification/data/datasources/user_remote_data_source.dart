@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+
 import '../models/user_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -36,6 +38,10 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final response = await client.post(uri,
         headers: {'Content-Type': 'application/json'},
         body: {"user": json.encode(authInfo)});
-    return UserModel.fromJson(json.decode(response.body), isLogin);
+    if (response.statusCode == 200) {
+      return UserModel.fromJson(json.decode(response.body), isLogin);
+    } else {
+      throw ServerException();
+    }
   }
 }

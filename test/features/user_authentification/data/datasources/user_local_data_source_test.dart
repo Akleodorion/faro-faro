@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -38,6 +39,19 @@ void main() {
           expect(result, tToken);
         },
       );
+
+      test(
+        "should throw a cacheException if there is no token",
+        () async {
+          //assert
+          when(mockSharedPreferences.getString(CACHED_JWT_TOKEN))
+              .thenReturn(null);
+          //act
+          final call = userLocalDataSourceImpl.getLastCachedToken;
+          //arrange
+          expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
+        },
+      );
     },
   );
 
@@ -46,15 +60,15 @@ void main() {
     () {
       final tDatetime = DateTime.now().toString();
       test(
-        "should return null there is no Data",
+        "should throw a cacheException if there is no data",
         () async {
           //assert
           when(mockSharedPreferences.getString(CACHED_LOGIN_DATETIME))
               .thenReturn(null);
           //act
-          final result = await userLocalDataSourceImpl.getLastLoginDatetime();
+          final call = userLocalDataSourceImpl.getLastLoginDatetime;
           //arrange
-          expect(result, null);
+          expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
         },
       );
       test(
@@ -94,18 +108,15 @@ void main() {
       );
 
       test(
-        "should return false if there is no pref set",
+        "should throw a cacheException if there is data",
         () async {
-          const tPref = null;
           //assert
           when(mockSharedPreferences.getBool(CACHED_CONNEXION_PREF))
-              .thenReturn(tPref);
+              .thenReturn(null);
           //act
-          final result = await userLocalDataSourceImpl.getLastPref();
+          final call = userLocalDataSourceImpl.getLastPref;
           //arrange
-          verify(mockSharedPreferences.getBool(CACHED_CONNEXION_PREF))
-              .called(1);
-          expect(result, false);
+          expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
         },
       );
     },
@@ -133,18 +144,15 @@ void main() {
       );
 
       test(
-        "should return an empty map if no data in cached",
+        "should throw a cacheException if there is no data present",
         () async {
           //assert
           when(mockSharedPreferences.getString(CACHED_USER_AUTH_DATA))
               .thenReturn(null);
           //act
-          final result = await userLocalDataSourceImpl.getUserAuth();
+          final call = userLocalDataSourceImpl.getUserAuth;
           //arrange
-          verify(mockSharedPreferences.getString(CACHED_USER_AUTH_DATA))
-              .called(1);
-          final expectedResult = {"email": "", 'password': ""};
-          expect(result, expectedResult);
+          expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
         },
       );
     },

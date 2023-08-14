@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class UserLocalDataSource {
@@ -38,7 +39,12 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
 
   @override
   Future<String?> getLastCachedToken() async {
-    return sharedPreferences.getString(CACHED_JWT_TOKEN);
+    final jwtToken = sharedPreferences.getString(CACHED_JWT_TOKEN);
+    if (jwtToken != null) {
+      return sharedPreferences.getString(CACHED_JWT_TOKEN);
+    } else {
+      throw CacheException();
+    }
   }
 
   @override
@@ -47,7 +53,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     if (datetimeAsString != null) {
       return DateTime.parse(datetimeAsString);
     } else {
-      return null;
+      throw CacheException();
     }
   }
 
@@ -57,7 +63,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     if (pref != null) {
       return pref;
     } else {
-      return false;
+      throw CacheException();
     }
   }
 
@@ -67,10 +73,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     if (userAuthData != null) {
       return json.decode(userAuthData);
     } else {
-      return {
-        "email": "",
-        "password": "",
-      };
+      throw CacheException();
     }
   }
 
