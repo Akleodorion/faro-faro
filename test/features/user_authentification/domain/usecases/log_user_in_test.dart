@@ -37,7 +37,8 @@ void main() {
       //act
       logUserIn(Params(email: tEmail, password: tPassword));
       //arrange
-      verify(mockUserAuthentificationRepository.logUserIn(any, any)).called(1);
+      verify(mockUserAuthentificationRepository.logUserIn(tEmail, tPassword))
+          .called(1);
     },
   );
 }

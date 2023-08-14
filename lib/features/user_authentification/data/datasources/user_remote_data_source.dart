@@ -8,8 +8,8 @@ import '../models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class UserRemoteDataSource {
-  Future<UserModel?> userLogInRequest(Map<String, String> logInInfo);
-  Future<UserModel?> userSignInRequest(
+  Future<UserModel> userLogInRequest(Map<String, String> logInInfo);
+  Future<UserModel> userSignInRequest(
       {required Map<String, String> signInInfo});
 }
 
@@ -21,17 +21,17 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
   final http.Client client;
   @override
-  Future<UserModel?> userLogInRequest(Map<String, String> logInInfo) async {
+  Future<UserModel> userLogInRequest(Map<String, String> logInInfo) async {
     return _signInOrLogInRequest(LOG_IN_URL, logInInfo, true);
   }
 
   @override
-  Future<UserModel?> userSignInRequest(
+  Future<UserModel> userSignInRequest(
       {required Map<String, String> signInInfo}) async {
     return _signInOrLogInRequest(LOG_IN_URL, signInInfo, false);
   }
 
-  Future<UserModel?> _signInOrLogInRequest(
+  Future<UserModel> _signInOrLogInRequest(
       String url, Map<String, String> authInfo, bool isLogin) async {
     final uri = Uri.parse(url);
     final response = await client.post(uri,

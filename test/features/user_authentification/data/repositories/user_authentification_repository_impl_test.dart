@@ -105,4 +105,83 @@ void main() {
       );
     },
   );
+
+  group(
+    "signUserIn",
+    () {
+      const tEmail = "test@gmail.com";
+      const tPassword = "123456";
+      const tUsername = "username";
+      const tPhoneNumber = "06 06 06 06 06";
+      const tSignInInfo = {
+        "email": tEmail,
+        "password": tPassword,
+        "username": tUsername,
+        "phone_number": tPhoneNumber
+      };
+      const tUserModel = UserModel(
+          email: tEmail, username: tUsername, id: 9, phoneNumber: tPhoneNumber);
+
+      group(
+        "when there is internet connexion",
+        () {
+          setUp(() => when(mockNetworkInfo.isConnected)
+              .thenAnswer((realInvocation) async => true));
+
+          test(
+            "should return a valid user model if the request is successful",
+            () async {
+              //assert
+              when(mockUserRemoteDataSource.userSignInRequest(
+                      signInInfo: anyNamed('signInInfo')))
+                  .thenAnswer((_) async => tUserModel);
+              //act
+              final result = await userAuthentificationRepositoryImpl
+                  .signUserIn(tEmail, tPassword, tUsername, tPhoneNumber);
+              //arrange
+              verify(mockUserRemoteDataSource.userSignInRequest(
+                  signInInfo: tSignInInfo));
+              expect(result, const Right(tUserModel));
+            },
+          );
+
+          test(
+            "should should return a ServerFailure if the request is unsuccessful",
+            () async {
+              //assert
+              when(mockUserRemoteDataSource.userSignInRequest(
+                      signInInfo: anyNamed('signInInfo')))
+                  .thenThrow(ServerException());
+              //act
+              final result = await userAuthentificationRepositoryImpl
+                  .signUserIn(tEmail, tPassword, tUsername, tPhoneNumber);
+              //arrange
+              verify(mockUserRemoteDataSource.userSignInRequest(
+                  signInInfo: tSignInInfo));
+              expect(result, Left(ServerFailure()));
+            },
+          );
+        },
+      );
+
+      group(
+        "when there is no internet connexion",
+        () {
+          setUp(() => when(mockNetworkInfo.isConnected)
+              .thenAnswer((realInvocation) async => false));
+
+          test(
+            "should return Server Failure",
+            () async {
+              //act
+              final result = await userAuthentificationRepositoryImpl
+                  .signUserIn(tEmail, tPassword, tUsername, tPhoneNumber);
+              //arrange
+              expect(result, Left(ServerFailure()));
+            },
+          );
+        },
+      );
+    },
+  );
 }
