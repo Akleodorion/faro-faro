@@ -50,13 +50,11 @@ class MockUserRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i5.UserModel?> userLogInRequest(
-          {required Map<String, String>? logInInfo}) =>
+  _i3.Future<_i5.UserModel?> userLogInRequest(Map<String, String>? logInInfo) =>
       (super.noSuchMethod(
         Invocation.method(
           #userLogInRequest,
-          [],
-          {#logInInfo: logInInfo},
+          [logInInfo],
         ),
         returnValue: _i3.Future<_i5.UserModel?>.value(),
       ) as _i3.Future<_i5.UserModel?>);

@@ -3,12 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:dartz/dartz.dart' as _i4;
+import 'package:dartz/dartz.dart' as _i2;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
+import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart'
+    as _i6;
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart'
-    as _i2;
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -22,41 +24,79 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
+  _FakeEither_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [UserAuthentificationRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserAuthentificationRepository extends _i1.Mock
-    implements _i2.UserAuthentificationRepository {
+    implements _i3.UserAuthentificationRepository {
   MockUserAuthentificationRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i4.Either<_i5.Failure, bool>>? logUserIn(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>> logUserIn(
     String? email,
     String? password,
   ) =>
-      (super.noSuchMethod(Invocation.method(
-        #logUserIn,
-        [
-          email,
-          password,
-        ],
-      )) as _i3.Future<_i4.Either<_i5.Failure, bool>>?);
+      (super.noSuchMethod(
+        Invocation.method(
+          #logUserIn,
+          [
+            email,
+            password,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>>.value(
+            _FakeEither_0<_i5.Failure, _i6.UserModel?>(
+          this,
+          Invocation.method(
+            #logUserIn,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>>);
   @override
-  _i3.Future<_i4.Either<_i5.Failure, bool>>? signUserIn(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>> signUserIn(
     String? email,
     String? password,
     String? username,
     String? phoneNumber,
   ) =>
-      (super.noSuchMethod(Invocation.method(
-        #signUserIn,
-        [
-          email,
-          password,
-          username,
-          phoneNumber,
-        ],
-      )) as _i3.Future<_i4.Either<_i5.Failure, bool>>?);
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUserIn,
+          [
+            email,
+            password,
+            username,
+            phoneNumber,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>>.value(
+            _FakeEither_0<_i5.Failure, _i6.UserModel?>(
+          this,
+          Invocation.method(
+            #signUserIn,
+            [
+              email,
+              password,
+              username,
+              phoneNumber,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>>);
 }
