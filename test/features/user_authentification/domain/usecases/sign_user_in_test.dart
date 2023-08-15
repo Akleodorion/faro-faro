@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart';
 import 'package:flutter_test/flutter_test.dart';
