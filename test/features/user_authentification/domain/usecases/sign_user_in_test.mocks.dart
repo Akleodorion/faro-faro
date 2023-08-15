@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
-import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart'
+import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart'
     as _i3;
@@ -44,7 +44,7 @@ class MockUserAuthentificationRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>> logUserIn(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.User?>> logUserIn(
     String? email,
     String? password,
   ) =>
@@ -56,8 +56,8 @@ class MockUserAuthentificationRepository extends _i1.Mock
             password,
           ],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>>.value(
-            _FakeEither_0<_i5.Failure, _i6.UserModel?>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>.value(
+            _FakeEither_0<_i5.Failure, _i6.User?>(
           this,
           Invocation.method(
             #logUserIn,
@@ -67,9 +67,9 @@ class MockUserAuthentificationRepository extends _i1.Mock
             ],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>> signUserIn(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.User?>> signUserIn(
     String? email,
     String? password,
     String? username,
@@ -85,8 +85,8 @@ class MockUserAuthentificationRepository extends _i1.Mock
             phoneNumber,
           ],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>>.value(
-            _FakeEither_0<_i5.Failure, _i6.UserModel?>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>.value(
+            _FakeEither_0<_i5.Failure, _i6.User?>(
           this,
           Invocation.method(
             #signUserIn,
@@ -98,5 +98,5 @@ class MockUserAuthentificationRepository extends _i1.Mock
             ],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.UserModel?>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>);
 }

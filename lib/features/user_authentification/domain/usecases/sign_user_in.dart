@@ -2,16 +2,15 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/usecases/usecase.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
 
-import '../../data/models/user_model.dart';
-
-class SignUserIn implements UseCase<UserModel, Params> {
+class SignUserIn implements UseCase<User?, Params> {
   SignUserIn({required this.repository});
   final UserAuthentificationRepository repository;
 
   @override
-  Future<Either<Failure, UserModel?>> call(Params params) {
+  Future<Either<Failure, User?>> call(Params params) {
     return repository.signUserIn(
         params.email, params.password, params.username, params.phoneNumber);
   }

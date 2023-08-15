@@ -3,15 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:faro_clean_tdd/core/network/network_info.dart' as _i2;
+import 'package:faro_clean_tdd/core/network/network_info.dart' as _i3;
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart'
-    as _i4;
-import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart'
     as _i5;
+import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart'
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -25,41 +25,57 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeUserModel_0 extends _i1.SmartFake implements _i2.UserModel {
+  _FakeUserModel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i2.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i3.NetworkInfo {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<bool> get isConnected => (super.noSuchMethod(
+  _i4.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 }
 
 /// A class which mocks [UserRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserRemoteDataSource extends _i1.Mock
-    implements _i4.UserRemoteDataSource {
+    implements _i5.UserRemoteDataSource {
   MockUserRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i5.UserModel?> userLogInRequest(Map<String, String>? logInInfo) =>
+  _i4.Future<_i2.UserModel> userLogInRequest(Map<String, String>? logInInfo) =>
       (super.noSuchMethod(
         Invocation.method(
           #userLogInRequest,
           [logInInfo],
         ),
-        returnValue: _i3.Future<_i5.UserModel?>.value(),
-      ) as _i3.Future<_i5.UserModel?>);
+        returnValue: _i4.Future<_i2.UserModel>.value(_FakeUserModel_0(
+          this,
+          Invocation.method(
+            #userLogInRequest,
+            [logInInfo],
+          ),
+        )),
+      ) as _i4.Future<_i2.UserModel>);
   @override
-  _i3.Future<_i5.UserModel?> userSignInRequest(
+  _i4.Future<_i2.UserModel> userSignInRequest(
           {required Map<String, String>? signInInfo}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -67,8 +83,15 @@ class MockUserRemoteDataSource extends _i1.Mock
           [],
           {#signInInfo: signInInfo},
         ),
-        returnValue: _i3.Future<_i5.UserModel?>.value(),
-      ) as _i3.Future<_i5.UserModel?>);
+        returnValue: _i4.Future<_i2.UserModel>.value(_FakeUserModel_0(
+          this,
+          Invocation.method(
+            #userSignInRequest,
+            [],
+            {#signInInfo: signInInfo},
+          ),
+        )),
+      ) as _i4.Future<_i2.UserModel>);
 }
 
 /// A class which mocks [UserLocalDataSource].
@@ -81,39 +104,39 @@ class MockUserLocalDataSource extends _i1.Mock
   }
 
   @override
-  _i3.Future<bool?> getLastPref() => (super.noSuchMethod(
+  _i4.Future<bool?> getLastPref() => (super.noSuchMethod(
         Invocation.method(
           #getLastPref,
           [],
         ),
-        returnValue: _i3.Future<bool?>.value(),
-      ) as _i3.Future<bool?>);
+        returnValue: _i4.Future<bool?>.value(),
+      ) as _i4.Future<bool?>);
   @override
-  _i3.Future<Map<String, dynamic>?> getUserAuth() => (super.noSuchMethod(
+  _i4.Future<Map<String, dynamic>?> getUserAuth() => (super.noSuchMethod(
         Invocation.method(
           #getUserAuth,
           [],
         ),
-        returnValue: _i3.Future<Map<String, dynamic>?>.value(),
-      ) as _i3.Future<Map<String, dynamic>?>);
+        returnValue: _i4.Future<Map<String, dynamic>?>.value(),
+      ) as _i4.Future<Map<String, dynamic>?>);
   @override
-  _i3.Future<DateTime?> getLastLoginDatetime() => (super.noSuchMethod(
+  _i4.Future<DateTime?> getLastLoginDatetime() => (super.noSuchMethod(
         Invocation.method(
           #getLastLoginDatetime,
           [],
         ),
-        returnValue: _i3.Future<DateTime?>.value(),
-      ) as _i3.Future<DateTime?>);
+        returnValue: _i4.Future<DateTime?>.value(),
+      ) as _i4.Future<DateTime?>);
   @override
-  _i3.Future<String?> getLastCachedToken() => (super.noSuchMethod(
+  _i4.Future<String?> getLastCachedToken() => (super.noSuchMethod(
         Invocation.method(
           #getLastCachedToken,
           [],
         ),
-        returnValue: _i3.Future<String?>.value(),
-      ) as _i3.Future<String?>);
+        returnValue: _i4.Future<String?>.value(),
+      ) as _i4.Future<String?>);
   @override
-  _i3.Future<void>? storeConnexionData({
+  _i4.Future<void>? storeConnexionData({
     required bool? pref,
     required Map<String, String>? userAuth,
     required String? dateTime,
@@ -130,6 +153,6 @@ class MockUserLocalDataSource extends _i1.Mock
             #jwtToken: jwtToken,
           },
         ),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>?);
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>?);
 }
