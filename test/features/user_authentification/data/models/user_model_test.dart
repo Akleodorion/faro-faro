@@ -8,10 +8,10 @@ import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   const tUserModel = UserModel(
-    email: "test@gmail.com",
-    username: "chris",
-    phoneNumber: "06 06 06 06 06",
-  );
+      email: "test@gmail.com",
+      username: "chris",
+      phoneNumber: "06 06 06 06 06",
+      id: 9);
 
   test(
     "should be a subclass of User",
@@ -31,7 +31,7 @@ void main() {
           final Map<String, dynamic> jsonMap =
               json.decode(fixture('user.json'));
           //act
-          final result = UserModel.fromJson(jsonMap);
+          final result = UserModel.fromJson(jsonMap, true);
           //arrange
           expect(result, tUserModel);
         },
@@ -51,7 +51,8 @@ void main() {
           final expectedMap = {
             'email': "test@gmail.com",
             "username": "chris",
-            "phone_number": "06 06 06 06 06"
+            "phone_number": "06 06 06 06 06",
+            "id": 9
           };
           expect(result, expectedMap);
         },

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,13 +25,18 @@ void main() {
     tUsername = "BakiHanma";
     tPhoneNumber = "06 06 06 06 06";
   });
+  const tUser = User(
+      email: 'chris@gmail.com',
+      username: "BakiHanma",
+      id: 9,
+      phoneNumber: "06 06 06 06 06");
 
   test(
     "should sign the user in",
     () async {
       //assert
       when(mockUserAuthentificationRepository.signUserIn(any, any, any, any))
-          .thenAnswer((realInvocation) async => const Right(true));
+          .thenAnswer((realInvocation) async => const Right(tUser));
 
       //act
       signUserIn(Params(
