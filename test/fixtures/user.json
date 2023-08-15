@@ -1,0 +1,14 @@
+{
+  "status": {
+    "code": 200,
+    "message": "Logged in successfully.",
+    "data": {
+      "user": {
+        "id": 9,
+        "email": "test@gmail.com",
+        "username": "chris",
+        "phone_number": "06 06 06 06 06"
+      }
+    }
+  }
+}

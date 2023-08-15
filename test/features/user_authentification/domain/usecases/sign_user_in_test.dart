@@ -24,13 +24,18 @@ void main() {
     tUsername = "BakiHanma";
     tPhoneNumber = "06 06 06 06 06";
   });
+  const tUser = User(
+      email: 'chris@gmail.com',
+      username: "BakiHanma",
+      id: 9,
+      phoneNumber: "06 06 06 06 06");
 
   test(
     "should sign the user in",
     () async {
       //assert
       when(mockUserAuthentificationRepository.signUserIn(any, any, any, any))
-          .thenAnswer((realInvocation) async => const Right(true));
+          .thenAnswer((realInvocation) async => const Right(tUser));
 
       //act
       signUserIn(Params(

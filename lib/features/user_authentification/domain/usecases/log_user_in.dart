@@ -4,15 +4,16 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/repositorie
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
+import '../entities/user.dart';
 
-class LogUserIn implements UseCase<bool, Params> {
+class LogUserIn implements UseCase<User?, Params> {
   LogUserIn({required this.repository});
 
   final UserAuthentificationRepository repository;
 
   @override
-  Future<Either<Failure, bool>>? call(Params params) {
-    return repository.logUserIn(params.email, params.password);
+  Future<Either<Failure, User?>> call(Params params) async {
+    return await repository.logUserIn(params.email, params.password);
   }
 }
 
