@@ -25,4 +25,20 @@ class UserNotifier extends StateNotifier<UserState> {
       state = Loaded(user: user!);
     });
   }
+
+  Future<void> signUserIn(String email, String password, String phoneNumber,
+      String username) async {
+    state = Loading();
+    final response = await signUserInUsecase.call(si.Params(
+        email: email,
+        password: password,
+        username: username,
+        phoneNumber: phoneNumber));
+
+    response.fold((failure) {
+      state = Error(message: 'oops');
+    }, (user) {
+      state = Loaded(user: user!);
+    });
+  }
 }
