@@ -1,20 +1,24 @@
 import 'dart:math';
 
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/email_text_form_field.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/password_text_form_field.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/remember_checkbox.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AuthCard extends StatefulWidget {
+class AuthCard extends ConsumerStatefulWidget {
   const AuthCard({super.key});
 
   @override
-  State<AuthCard> createState() => _AuthCardState();
+  ConsumerState<AuthCard> createState() => _AuthCardState();
 }
 
-class _AuthCardState extends State<AuthCard> {
+class _AuthCardState extends ConsumerState<AuthCard> {
   final _formKey = GlobalKey<FormState>();
+  String? _enteredEmail;
+  String? _enteredPassword;
   bool? _isChecked;
 
   @override
@@ -37,13 +41,18 @@ class _AuthCardState extends State<AuthCard> {
                   children: [
                     EmailTextFormField(
                       key: ValueKey(Random()),
-                      intialValue: '',
+                      onSaved: (value) {
+                        setState(() {
+                          _enteredEmail = value;
+                        });
+                      },
+                      intialValue: _enteredEmail ?? '',
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     PasswordTextFormField(
-                      intialValue: '',
+                      intialValue: _enteredPassword ?? '',
                       key: ValueKey(Random()),
                     ),
                     const SizedBox(
@@ -66,7 +75,11 @@ class _AuthCardState extends State<AuthCard> {
                       children: [
                         UsecaseElevatedButton(
                           usecaseTitle: "LogIn",
-                          onUsecaseCall: () {},
+                          onUsecaseCall: () {
+                            ref
+                                .read(userAuthProvider.notifier)
+                                .logUserIn('email', 'password');
+                          },
                         ),
                         const SizedBox(
                           width: 10,
