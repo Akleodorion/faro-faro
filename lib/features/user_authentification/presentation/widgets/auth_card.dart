@@ -21,6 +21,15 @@ class _AuthCardState extends ConsumerState<AuthCard> {
   String? _enteredPassword;
   bool? _isChecked;
 
+  void _userLogin() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      ref
+          .read(userAuthProvider.notifier)
+          .logUserIn(_enteredEmail!, _enteredPassword!);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -53,6 +62,11 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                     ),
                     PasswordTextFormField(
                       intialValue: _enteredPassword ?? '',
+                      onSaved: (value) {
+                        setState(() {
+                          _enteredPassword = value;
+                        });
+                      },
                       key: ValueKey(Random()),
                     ),
                     const SizedBox(
@@ -75,11 +89,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                       children: [
                         UsecaseElevatedButton(
                           usecaseTitle: "LogIn",
-                          onUsecaseCall: () {
-                            ref
-                                .read(userAuthProvider.notifier)
-                                .logUserIn('test@gmail.com', '123456');
-                          },
+                          onUsecaseCall: _userLogin,
                         ),
                         const SizedBox(
                           width: 10,
