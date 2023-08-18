@@ -78,7 +78,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                           onUsecaseCall: () {
                             ref
                                 .read(userAuthProvider.notifier)
-                                .logUserIn('email', 'password');
+                                .logUserIn('test@gmail.com', '123456');
                           },
                         ),
                         const SizedBox(
