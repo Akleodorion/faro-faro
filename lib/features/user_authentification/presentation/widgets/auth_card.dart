@@ -7,6 +7,7 @@ import 'package:faro_clean_tdd/features/user_authentification/presentation/widge
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/state/user_state.dart';
 
 class AuthCard extends ConsumerStatefulWidget {
   const AuthCard({super.key});
@@ -24,9 +25,14 @@ class _AuthCardState extends ConsumerState<AuthCard> {
   void _userLogin() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      ref
+      final state = await ref
           .read(userAuthProvider.notifier)
           .logUserIn(_enteredEmail!, _enteredPassword!);
+      if (state is Error) {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(state.message)));
+      }
     }
   }
 

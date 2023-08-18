@@ -21,8 +21,7 @@ class MyApp extends ConsumerWidget {
 
     if (userAuth is Initial) {}
     return MaterialApp(
-      title: 'Faro App',
-      home: userAuth is Loaded ? const HomePage() : const AuthScreen(),
-    );
+        title: 'Faro App',
+        home: userAuth is Loaded ? const HomePage() : const AuthScreen());
   }
 }

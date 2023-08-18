@@ -1,6 +1,5 @@
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../domain/usecases/log_user_in.dart';
 import '../../../domain/usecases/sign_user_in.dart' as si;
 
@@ -14,16 +13,17 @@ class UserNotifier extends StateNotifier<UserState> {
     required this.signUserInUsecase,
   }) : super(Initial());
 
-  Future<void> logUserIn(String email, String password) async {
+  Future<UserState> logUserIn(String email, String password) async {
     state = Loading();
     final response =
         await logUserInUsecase.call(Params(email: email, password: password));
-
     response.fold((failure) {
       state = Error(message: "An error as occured");
     }, (user) {
       state = Loaded(user: user!);
     });
+
+    return state;
   }
 
   Future<void> signUserIn(String email, String password, String phoneNumber,
