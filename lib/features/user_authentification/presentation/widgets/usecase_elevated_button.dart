@@ -10,6 +10,10 @@ class UsecaseElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+      ),
       onPressed: onUsecaseCall,
       child: Text(usecaseTitle),
     );

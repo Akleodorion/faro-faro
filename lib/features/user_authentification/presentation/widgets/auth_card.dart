@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/email_text_form_field.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/password_text_form_field.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/my_text_form_field.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/remember_checkbox.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +29,13 @@ class _AuthCardState extends ConsumerState<AuthCard> {
           .logUserIn(_enteredEmail!, _enteredPassword!);
       if (state is Error) {
         // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(state.message)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+          state.message,
+          style: TextStyle(
+              // ignore: use_build_context_synchronously
+              color: Theme.of(context).colorScheme.background),
+        )));
       }
     }
   }
@@ -43,7 +47,8 @@ class _AuthCardState extends ConsumerState<AuthCard> {
         padding: const EdgeInsets.all(25),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color.fromRGBO(186, 186, 186, 0.1),
+            color: Theme.of(context).colorScheme.surface,
+            boxShadow: kElevationToShadow[3],
             borderRadius: BorderRadius.circular(5),
           ),
           child: Form(
@@ -54,27 +59,27 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    EmailTextFormField(
-                      key: ValueKey(Random()),
-                      onSaved: (value) {
-                        setState(() {
-                          _enteredEmail = value;
-                        });
-                      },
-                      intialValue: _enteredEmail ?? '',
-                    ),
+                    MyTextFormField(
+                        key: ValueKey(Random()),
+                        intialValue: _enteredEmail ?? '',
+                        onSaved: (value) {
+                          setState(() {
+                            _enteredEmail = value;
+                          });
+                        },
+                        type: "email"),
                     const SizedBox(
                       height: 10,
                     ),
-                    PasswordTextFormField(
-                      intialValue: _enteredPassword ?? '',
-                      onSaved: (value) {
-                        setState(() {
-                          _enteredPassword = value;
-                        });
-                      },
-                      key: ValueKey(Random()),
-                    ),
+                    MyTextFormField(
+                        key: ValueKey(Random()),
+                        intialValue: _enteredPassword ?? '',
+                        onSaved: (value) {
+                          setState(() {
+                            _enteredPassword = value;
+                          });
+                        },
+                        type: "password"),
                     const SizedBox(
                       height: 10,
                     ),
