@@ -36,11 +36,11 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final uri = Uri.parse(url);
     final response = await client.post(uri,
         headers: {'Content-Type': 'application/json'},
-        body: {"user": json.encode(authInfo)});
+        body: json.encode({"user": authInfo}));
     if (response.statusCode == 200) {
       return UserModel.fromJson(json.decode(response.body), isLogin);
     } else {
-      throw ServerException();
+      throw ServerException(errorMessage: response.body);
     }
   }
 }

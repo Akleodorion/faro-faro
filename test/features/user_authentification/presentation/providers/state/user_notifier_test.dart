@@ -79,8 +79,8 @@ void main() {
         "should emits [loading, Error] when the connexion is unsuccessful",
         () async {
           //arrange
-          when(mockLogUserIn.call(any))
-              .thenAnswer((_) async => Left(ServerFailure()));
+          when(mockLogUserIn.call(any)).thenAnswer((_) async =>
+              const Left(ServerFailure(errorMessage: 'no connexion')));
           //assert later
           final expectedState = [
             Loading(),
@@ -146,8 +146,8 @@ void main() {
         "should emit [loading, error] if the request is unsuccessful",
         () async {
           //arrange
-          when(mockSignUserIn(any))
-              .thenAnswer((realInvocation) async => Left(ServerFailure()));
+          when(mockSignUserIn(any)).thenAnswer((realInvocation) async =>
+              const Left(ServerFailure(errorMessage: 'oops')));
           //assert later
           final expectedState = [Loading(), Error(message: 'oops')];
           expectLater(userNotifier.stream, emitsInOrder(expectedState));
