@@ -58,7 +58,10 @@ void main() {
               final result = await userAuthentificationRepositoryImpl.logUserIn(
                   tEmail, tPassword);
               //arrange
-              expect(result, equals(Left(ServerFailure())));
+              expect(
+                  result,
+                  equals(
+                      const Left(ServerFailure(errorMessage: 'no connexion'))));
             },
           );
         },
@@ -92,13 +95,13 @@ void main() {
             () async {
               //assert
               when(mockUserRemoteDataSource.userLogInRequest(any))
-                  .thenThrow(ServerException());
+                  .thenThrow(ServerException(errorMessage: 'oops'));
               //act
               final result = await userAuthentificationRepositoryImpl.logUserIn(
                   tEmail, tPassword);
               //arrange
 
-              expect(result, Left(ServerFailure()));
+              expect(result, const Left(ServerFailure(errorMessage: 'oops')));
             },
           );
         },
@@ -151,14 +154,14 @@ void main() {
               //assert
               when(mockUserRemoteDataSource.userSignInRequest(
                       signInInfo: anyNamed('signInInfo')))
-                  .thenThrow(ServerException());
+                  .thenThrow(ServerException(errorMessage: 'oops'));
               //act
               final result = await userAuthentificationRepositoryImpl
                   .signUserIn(tEmail, tPassword, tUsername, tPhoneNumber);
               //arrange
               verify(mockUserRemoteDataSource.userSignInRequest(
                   signInInfo: tSignInInfo));
-              expect(result, Left(ServerFailure()));
+              expect(result, const Left(ServerFailure(errorMessage: 'oops')));
             },
           );
         },
@@ -177,7 +180,8 @@ void main() {
               final result = await userAuthentificationRepositoryImpl
                   .signUserIn(tEmail, tPassword, tUsername, tPhoneNumber);
               //arrange
-              expect(result, Left(ServerFailure()));
+              expect(result,
+                  const Left(ServerFailure(errorMessage: 'no connexion')));
             },
           );
         },

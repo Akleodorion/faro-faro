@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/usecases/log_user_in.dart';
@@ -18,7 +19,9 @@ class UserNotifier extends StateNotifier<UserState> {
     final response =
         await logUserInUsecase.call(Params(email: email, password: password));
     response.fold((failure) {
-      state = Error(message: "An error as occured");
+      if (failure is ServerFailure) {
+        state = Error(message: failure.errorMessage);
+      }
     }, (user) {
       state = Loaded(user: user!);
     });

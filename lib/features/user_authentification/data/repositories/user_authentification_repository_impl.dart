@@ -49,11 +49,11 @@ class UserAuthentificationRepositoryImpl
       try {
         final response = await getSignInOrLogIn();
         return Right(response);
-      } on ServerException {
-        return Left(ServerFailure());
+      } on ServerException catch (error) {
+        return Left(ServerFailure(errorMessage: error.errorMessage));
       }
     } else {
-      return Left(ServerFailure());
+      return const Left(ServerFailure(errorMessage: "no connexion"));
     }
   }
 }
