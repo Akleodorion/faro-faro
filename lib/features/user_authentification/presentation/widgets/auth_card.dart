@@ -23,6 +23,8 @@ class _AuthCardState extends ConsumerState<AuthCard> {
   bool logingIn = true;
   String? _enteredEmail;
   String? _enteredPassword;
+  String? _enteredUsername;
+  String? _enteredPhoneNumber;
   bool? _isChecked;
 
   void _userLogin() async {
@@ -31,6 +33,28 @@ class _AuthCardState extends ConsumerState<AuthCard> {
       final state = await ref
           .read(userAuthProvider.notifier)
           .logUserIn(_enteredEmail!, _enteredPassword!);
+      if (state is Error) {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: theme.colorScheme.surface,
+            content: Text(
+              state.message,
+              style: TextStyle(
+                  // ignore: use_build_context_synchronously
+                  color: theme.colorScheme.secondary),
+            )));
+      }
+    }
+  }
+
+  void _userSignIn() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      final state = await ref.read(userAuthProvider.notifier).signUserIn(
+          _enteredEmail!,
+          _enteredPassword!,
+          _enteredPhoneNumber!,
+          _enteredUsername!);
       if (state is Error) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -97,10 +121,10 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                             MyTextFormField(
                                 key: ValueKey(Random()),
                                 label: "Nom d'utilisateur",
-                                intialValue: _enteredPassword ?? '',
+                                intialValue: _enteredUsername ?? '',
                                 onSaved: (value) {
                                   setState(() {
-                                    _enteredPassword = value;
+                                    _enteredUsername = value;
                                   });
                                 },
                                 type: TextFieldType.text),
@@ -112,10 +136,10 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                             MyTextFormField(
                                 key: ValueKey(Random()),
                                 label: 'numéro de téléphone',
-                                intialValue: _enteredPassword ?? '',
+                                intialValue: _enteredPhoneNumber ?? '',
                                 onSaved: (value) {
                                   setState(() {
-                                    _enteredPassword = value;
+                                    _enteredPhoneNumber = value;
                                   });
                                 },
                                 type: TextFieldType.number),
@@ -139,7 +163,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                         UsecaseElevatedButton(
                           usecaseTitle:
                               logingIn ? "Connecte-toi" : "Créer son compte",
-                          onUsecaseCall: _userLogin,
+                          onUsecaseCall: logingIn ? _userLogin : _userSignIn,
                         ),
                         const SizedBox(
                           width: 10,

@@ -93,6 +93,10 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         validator: (value) {
           return validation(value!);
         },
+        onSaved: (value) {
+          widget.onSaved(
+              PhoneNumberValidatorImpl().parseNumber(value.phoneNumber!));
+        },
         autoValidateMode: AutovalidateMode.disabled,
       );
     }

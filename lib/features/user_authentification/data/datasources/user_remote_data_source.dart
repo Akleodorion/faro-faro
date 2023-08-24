@@ -14,7 +14,7 @@ abstract class UserRemoteDataSource {
 }
 
 const LOG_IN_URL = 'http://localhost:3001/login';
-const SIGN_IN_URL = 'http://localhost:3001/signin';
+const SIGN_IN_URL = 'http://localhost:3001/signup';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   const UserRemoteDataSourceImpl({required this.client});
@@ -28,7 +28,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<UserModel> userSignInRequest(
       {required Map<String, String> signInInfo}) async {
-    return _signInOrLogInRequest(LOG_IN_URL, signInInfo, false);
+    return _signInOrLogInRequest(SIGN_IN_URL, signInInfo, false);
   }
 
   Future<UserModel> _signInOrLogInRequest(
