@@ -13,6 +13,7 @@ class UsecaseElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        elevation: 5,
       ),
       onPressed: onUsecaseCall,
       child: Text(usecaseTitle),
