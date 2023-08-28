@@ -18,7 +18,7 @@ class UserModel extends User {
       if (logIn) {
         return json['status']['data']['user'][name];
       } else {
-        return json['status']['data'][name];
+        return json['data'][name];
       }
     }
 

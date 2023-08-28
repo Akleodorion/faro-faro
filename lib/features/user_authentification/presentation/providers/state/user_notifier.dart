@@ -39,7 +39,9 @@ class UserNotifier extends StateNotifier<UserState> {
         phoneNumber: phoneNumber));
 
     response.fold((failure) {
-      state = Error(message: 'oops');
+      if (failure is ServerFailure) {
+        state = Error(message: failure.errorMessage);
+      }
     }, (user) {
       state = Loaded(user: user!);
     });

@@ -48,6 +48,7 @@ class UserAuthentificationRepositoryImpl
     if (await networkInfo.isConnected) {
       try {
         final response = await getSignInOrLogIn();
+        print(response);
         return Right(response);
       } on ServerException catch (error) {
         return Left(ServerFailure(errorMessage: error.errorMessage));
