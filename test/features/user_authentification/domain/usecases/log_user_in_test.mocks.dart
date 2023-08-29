@@ -99,4 +99,29 @@ class MockUserAuthentificationRepository extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i6.User?>> autoLogIn(
+    String? email,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #autoLogIn,
+          [
+            email,
+            password,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>.value(
+            _FakeEither_0<_i5.Failure, _i6.User?>(
+          this,
+          Invocation.method(
+            #autoLogIn,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>);
 }

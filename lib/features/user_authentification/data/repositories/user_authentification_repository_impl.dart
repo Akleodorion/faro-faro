@@ -5,6 +5,7 @@ import 'package:faro_clean_tdd/core/network/network_info.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
 
 typedef _SignInOrLogIn = Future<UserModel> Function();
@@ -48,7 +49,6 @@ class UserAuthentificationRepositoryImpl
     if (await networkInfo.isConnected) {
       try {
         final response = await getSignInOrLogIn();
-        print(response);
         return Right(response);
       } on ServerException catch (error) {
         return Left(ServerFailure(errorMessage: error.errorMessage));
@@ -56,5 +56,11 @@ class UserAuthentificationRepositoryImpl
     } else {
       return const Left(ServerFailure(errorMessage: "no connexion"));
     }
+  }
+
+  @override
+  Future<Either<Failure, User?>> autoLogIn(String email, String password) {
+    // TODO: implement autoLogIn
+    throw UnimplementedError();
   }
 }
