@@ -34,11 +34,15 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<UserModel> _signInOrLogInRequest(
       String url, Map<String, String> authInfo, bool isLogin) async {
     final uri = Uri.parse(url);
-    final response = await client.post(uri,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({"user": authInfo}));
+    final response = await client.post(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({"user": authInfo}),
+    );
     if (response.statusCode == 200) {
-      return UserModel.fromJson(json.decode(response.body), isLogin);
+      final jwtToken = response.headers["authorization"]!.split(' ');
+      return UserModel.fromJson(
+          json.decode(response.body), isLogin, jwtToken[1]);
     } else {
       if (isLogin) {
         final message = response.body;

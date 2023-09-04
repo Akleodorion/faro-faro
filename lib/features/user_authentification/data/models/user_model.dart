@@ -5,15 +5,18 @@ class UserModel extends User {
     required email,
     required username,
     required id,
+    required jwtToken,
     required phoneNumber,
   }) : super(
           username: username,
           email: email,
+          jwtToken: jwtToken,
           phoneNumber: phoneNumber,
           id: id,
         );
 
-  factory UserModel.fromJson(Map<String, dynamic> json, bool logIn) {
+  factory UserModel.fromJson(
+      Map<String, dynamic> json, bool logIn, String jwtToken) {
     getJsonInfo(Map<String, dynamic> json, String name) {
       if (logIn) {
         return json['status']['data']['user'][name];
@@ -26,6 +29,7 @@ class UserModel extends User {
         email: getJsonInfo(json, 'email'),
         username: getJsonInfo(json, 'username'),
         id: getJsonInfo(json, 'id'),
+        jwtToken: jwtToken,
         phoneNumber: getJsonInfo(json, 'phone_number'));
   }
 

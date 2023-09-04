@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart'
     as si;
@@ -12,24 +13,29 @@ import 'package:mockito/mockito.dart';
 
 import './user_notifier_test.mocks.dart';
 
-@GenerateMocks([LogUserIn, si.SignUserIn])
+@GenerateMocks([LogUserIn, si.SignUserIn, GetUserInfo])
 void main() {
   late MockLogUserIn mockLogUserIn;
   late MockSignUserIn mockSignUserIn;
+  late MockGetUserInfo mockGetUserInfo;
   late UserNotifier userNotifier;
 
   setUp(() {
     mockLogUserIn = MockLogUserIn();
     mockSignUserIn = MockSignUserIn();
+    mockGetUserInfo = MockGetUserInfo();
     userNotifier = UserNotifier(
-        logUserInUsecase: mockLogUserIn, signUserInUsecase: mockSignUserIn);
+      logUserInUsecase: mockLogUserIn,
+      signUserInUsecase: mockSignUserIn,
+      getUserInfoUsecase: mockGetUserInfo,
+    );
   });
 
   test(
-    "should be Initial",
+    "should be loading",
     () async {
       //arrange
-      expect(userNotifier.initialState, Initial());
+      expect(userNotifier.initialState, Loading());
     },
   );
 
@@ -38,10 +44,12 @@ void main() {
     () {
       const tEmail = "test@gmail.com";
       const tPassword = "123456";
+      const tPref = true;
       const tUser = User(
           username: 'username',
           email: tEmail,
           phoneNumber: 'phoneNumber',
+          jwtToken: "this is a token",
           id: 9);
 
       test(
@@ -51,12 +59,12 @@ void main() {
           when(mockLogUserIn.call(any))
               .thenAnswer((_) async => const Right(tUser));
           //act
-          await userNotifier.logUserIn(tEmail, tPassword);
+          await userNotifier.logUserIn(tEmail, tPassword, tPref);
           await untilCalled(mockLogUserIn.call(any));
           //arrange
 
-          verify(mockLogUserIn
-              .call(const Params(email: tEmail, password: tPassword)));
+          verify(mockLogUserIn.call(
+              const Params(email: tEmail, password: tPassword, pref: tPref)));
         },
       );
 
@@ -71,7 +79,7 @@ void main() {
 
           expectLater(userNotifier.stream, emitsInOrder(expectedState));
 
-          userNotifier.logUserIn(tEmail, tPassword);
+          userNotifier.logUserIn(tEmail, tPassword, tPref);
         },
       );
 
@@ -88,7 +96,7 @@ void main() {
           ];
           expectLater(userNotifier.stream, emitsInOrder(expectedState));
           // act
-          userNotifier.logUserIn(tEmail, tPassword);
+          userNotifier.logUserIn(tEmail, tPassword, tPref);
         },
       );
     },
@@ -101,10 +109,13 @@ void main() {
       const tPassword = "123456";
       const tUsername = "username";
       const tPhoneNumber = "06 06 06 06 06";
+      const tToken = "this is a token";
+      const tPref = true;
       const tUser = User(
         username: tUsername,
         email: tEmail,
         phoneNumber: tPhoneNumber,
+        jwtToken: tToken,
         id: 9,
       );
       test(
@@ -115,12 +126,13 @@ void main() {
               .thenAnswer((_) async => const Right(tUser));
           //act
           await userNotifier.signUserIn(
-              tEmail, tPassword, tPhoneNumber, tUsername);
+              tEmail, tPassword, tPhoneNumber, tUsername, tPref);
           //assert
           verify(mockSignUserIn.call(const si.Params(
               email: tEmail,
               password: tPassword,
               username: tUsername,
+              pref: tPref,
               phoneNumber: tPhoneNumber)));
         },
       );
@@ -138,7 +150,7 @@ void main() {
           //act
 
           await userNotifier.signUserIn(
-              tEmail, tPassword, tPhoneNumber, tUsername);
+              tEmail, tPassword, tPhoneNumber, tUsername, tPref);
         },
       );
 
@@ -153,7 +165,34 @@ void main() {
           expectLater(userNotifier.stream, emitsInOrder(expectedState));
           //assert
           await userNotifier.signUserIn(
-              tEmail, tPassword, tPhoneNumber, tUsername);
+              tEmail, tPassword, tPhoneNumber, tUsername, tPref);
+        },
+      );
+    },
+  );
+
+  group(
+    "getUserInfo",
+    () {
+      final tDatetime = DateTime.now();
+      const tToken =
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZWYyMGYwZC02OGY5LTQ5OTAtYjk4MC';
+      final tUserInfo = {
+        "email": "chris@gmail.com",
+        "password": "123456",
+        "token": tToken,
+        "datetime": tDatetime,
+        "pref": true,
+      };
+      test(
+        "should return the stored data",
+        () async {
+          //arrange
+          when(mockGetUserInfo.call()).thenAnswer((_) async => tUserInfo);
+          //act
+          await userNotifier.getUserInfo();
+          //assert
+          verify(mockGetUserInfo.call()).called(1);
         },
       );
     },

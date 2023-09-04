@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -24,10 +23,9 @@ void main() {
   group(
     "getLastCachedToken",
     () {
-      const tToken =
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZWYyMGYwZC02OGY5LTQ5OTAtYjk4MC';
+      const tToken = 'Bearer eyJhbGciOiJIUzI1NiJ9';
       test(
-        "should get the last cached Token",
+        "should get the last cached Token if it's present",
         () async {
           //assert
           when(mockSharedPreferences.getString(CACHED_JWT_TOKEN))
@@ -41,15 +39,15 @@ void main() {
       );
 
       test(
-        "should throw a cacheException if there is no token",
+        "should return an empty string if there is none",
         () async {
           //assert
           when(mockSharedPreferences.getString(CACHED_JWT_TOKEN))
               .thenReturn(null);
           //act
-          final call = userLocalDataSourceImpl.getLastCachedToken;
+          final result = await userLocalDataSourceImpl.getLastCachedToken();
           //arrange
-          expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
+          expect(result, equals(('')));
         },
       );
     },
@@ -60,19 +58,19 @@ void main() {
     () {
       final tDatetime = DateTime.now().toString();
       test(
-        "should throw a cacheException if there is no data",
+        "should return null if there is no data",
         () async {
           //assert
           when(mockSharedPreferences.getString(CACHED_LOGIN_DATETIME))
               .thenReturn(null);
           //act
-          final call = userLocalDataSourceImpl.getLastLoginDatetime;
+          final result = await userLocalDataSourceImpl.getLastLoginDatetime();
           //arrange
-          expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
+          expect(result, null);
         },
       );
       test(
-        "should get the last cached Token",
+        "should get the last dateTime",
         () async {
           //assert
           when(mockSharedPreferences.getString(CACHED_LOGIN_DATETIME))
@@ -108,15 +106,15 @@ void main() {
       );
 
       test(
-        "should throw a cacheException if there is data",
+        "should return false if there is no data",
         () async {
           //assert
           when(mockSharedPreferences.getBool(CACHED_CONNEXION_PREF))
               .thenReturn(null);
           //act
-          final call = userLocalDataSourceImpl.getLastPref;
+          final result = await userLocalDataSourceImpl.getLastPref();
           //arrange
-          expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
+          expect(result, equals(false));
         },
       );
     },
@@ -138,21 +136,21 @@ void main() {
           //act
           final result = await userLocalDataSourceImpl.getUserAuth();
           //arrange
-
           expect(result, tUserAuth);
         },
       );
 
       test(
-        "should throw a cacheException if there is no data present",
+        "should return an empty map if there is no data",
         () async {
           //assert
           when(mockSharedPreferences.getString(CACHED_USER_AUTH_DATA))
               .thenReturn(null);
           //act
-          final call = userLocalDataSourceImpl.getUserAuth;
+          final result = await userLocalDataSourceImpl.getUserAuth();
           //arrange
-          expect(() => call(), throwsA(const TypeMatcher<CacheException>()));
+          final tExpected = {"email": "", "password": ""};
+          expect(result, tExpected);
         },
       );
     },
@@ -170,8 +168,7 @@ void main() {
             "password": "123456"
           };
           final tDateTime = DateTime.now().toString();
-          const tToken =
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZWYyMGYwZC02OGY5LTQ5OTAtYjk4MC';
+          const tToken = 'Bearer eyJhbGciOiJIUzI1NiJ9';
 
           test(
             "should store the pref setting",

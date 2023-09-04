@@ -11,6 +11,8 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/entities/us
     as _i7;
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart'
     as _i2;
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart'
+    as _i9;
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart'
     as _i4;
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart'
@@ -115,4 +117,30 @@ class MockSignUserIn extends _i1.Mock implements _i8.SignUserIn {
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, _i7.User?>>);
+}
+
+/// A class which mocks [GetUserInfo].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetUserInfo extends _i1.Mock implements _i9.GetUserInfo {
+  MockGetUserInfo() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.UserAuthentificationRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeUserAuthentificationRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.UserAuthentificationRepository);
+  @override
+  _i5.Future<Map<String, dynamic>?> call() => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: _i5.Future<Map<String, dynamic>?>.value(),
+      ) as _i5.Future<Map<String, dynamic>?>);
 }

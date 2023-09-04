@@ -1,27 +1,33 @@
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
-class RememberCheckbox extends StatefulWidget {
-  RememberCheckbox({super.key, required this.isChecked});
-  bool isChecked;
+class RememberCheckbox extends ConsumerStatefulWidget {
+  const RememberCheckbox({super.key});
 
-  @override
-  State<RememberCheckbox> createState() => _RememberCheckboxState();
+  ConsumerState<RememberCheckbox> createState() => _RememberCheckboxState();
 }
 
-class _RememberCheckboxState extends State<RememberCheckbox> {
+class _RememberCheckboxState extends ConsumerState<RememberCheckbox> {
   @override
   Widget build(BuildContext context) {
+    final state = ref.read(userAuthProvider);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
         Checkbox(
-            value: widget.isChecked,
+            value: state is Initial ? state.userInfo["pref"] : false,
             onChanged: (value) {
               setState(() {
-                widget.isChecked = value!;
+                if (state is Initial) {
+                  ref
+                      .read(userAuthProvider.notifier)
+                      .togglePref(state.userInfo, value!);
+                }
               });
             }),
         const SizedBox(width: 10),

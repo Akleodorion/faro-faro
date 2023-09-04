@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class UserLocalDataSource {
@@ -43,17 +42,18 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     if (jwtToken != null) {
       return sharedPreferences.getString(CACHED_JWT_TOKEN);
     } else {
-      throw CacheException();
+      return '';
     }
   }
 
   @override
   Future<DateTime?> getLastLoginDatetime() async {
     final datetimeAsString = sharedPreferences.getString(CACHED_LOGIN_DATETIME);
-    if (datetimeAsString != null) {
+    if (datetimeAsString != null &&
+        DateTime.tryParse(datetimeAsString) != null) {
       return DateTime.parse(datetimeAsString);
     } else {
-      throw CacheException();
+      return null;
     }
   }
 
@@ -63,7 +63,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     if (pref != null) {
       return pref;
     } else {
-      throw CacheException();
+      return false;
     }
   }
 
@@ -73,7 +73,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     if (userAuthData != null) {
       return json.decode(userAuthData);
     } else {
-      throw CacheException();
+      return {"email": "", "password": ""};
     }
   }
 
@@ -83,9 +83,12 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
       required Map<String, String> userAuth,
       required String dateTime,
       required String jwtToken}) async {
+    final clearedUserAuth = {"email": "", "password": ""};
+
     sharedPreferences.setBool(CACHED_CONNEXION_PREF, pref);
-    sharedPreferences.setString(CACHED_USER_AUTH_DATA, json.encode(userAuth));
-    sharedPreferences.setString(CACHED_LOGIN_DATETIME, dateTime);
-    sharedPreferences.setString(CACHED_JWT_TOKEN, jwtToken);
+    sharedPreferences.setString(CACHED_USER_AUTH_DATA,
+        pref ? json.encode(userAuth) : json.encode(clearedUserAuth));
+    sharedPreferences.setString(CACHED_LOGIN_DATETIME, pref ? dateTime : "");
+    sharedPreferences.setString(CACHED_JWT_TOKEN, pref ? jwtToken : "");
   }
 }

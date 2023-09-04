@@ -1,8 +1,10 @@
 import 'package:faro_clean_tdd/core/network/network_info.dart';
+import 'package:faro_clean_tdd/core/util/datetime_comparator.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/repositories/user_authentification_repository_impl.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_notifier.dart';
@@ -19,20 +21,24 @@ Future<void> init() async {
 
   sl.registerFactory(
     () => UserNotifier(
-      logUserInUsecase: sl(),
-      signUserInUsecase: sl(),
-    ),
+        logUserInUsecase: sl(),
+        signUserInUsecase: sl(),
+        getUserInfoUsecase: sl()),
   );
 
   // usecases
   sl.registerLazySingleton(() => LogUserIn(repository: sl()));
   sl.registerLazySingleton(() => SignUserIn(repository: sl()));
+  sl.registerLazySingleton(() => GetUserInfo(repository: sl()));
 
   // Repository
 
   sl.registerLazySingleton<UserAuthentificationRepository>(() =>
       UserAuthentificationRepositoryImpl(
-          localDataSource: sl(), remoteDataSource: sl(), networkInfo: sl()));
+          dateTimeComparator: sl(),
+          localDataSource: sl(),
+          remoteDataSource: sl(),
+          networkInfo: sl()));
 
   // Datasource
 
@@ -44,6 +50,7 @@ Future<void> init() async {
 
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<DateTimeComparator>(() => DateTimeComparatorImpl());
 
   //! External
 

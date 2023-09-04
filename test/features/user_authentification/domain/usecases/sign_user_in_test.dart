@@ -12,42 +12,44 @@ import 'log_user_in_test.mocks.dart';
 void main() {
   late MockUserAuthentificationRepository mockUserAuthentificationRepository;
   late SignUserIn signUserIn;
-  late String tEmail;
-  late String tPassword;
-  late String tUsername;
-  late String tPhoneNumber;
 
   setUp(() {
     mockUserAuthentificationRepository = MockUserAuthentificationRepository();
     signUserIn = SignUserIn(repository: mockUserAuthentificationRepository);
-    tEmail = 'chris@gmail.com';
-    tPassword = "blabla123";
-    tUsername = "BakiHanma";
-    tPhoneNumber = "06 06 06 06 06";
   });
+  const tEmail = 'chris@gmail.com';
+  const tPassword = "blabla123";
+  const tUsername = "BakiHanma";
+  const tPhoneNumber = "06 06 06 06 06";
+  const tToken = "this-is-a-token";
+  const tPref = true;
+
   const tUser = User(
-      email: 'chris@gmail.com',
-      username: "BakiHanma",
+      email: tEmail,
+      username: tUsername,
       id: 9,
-      phoneNumber: "06 06 06 06 06");
+      jwtToken: tToken,
+      phoneNumber: tPhoneNumber);
 
   test(
-    "should sign the user in",
+    "should call the signUserIn function with the right parameters",
     () async {
       //assert
-      when(mockUserAuthentificationRepository.signUserIn(any, any, any, any))
+      when(mockUserAuthentificationRepository.signUserIn(
+              any, any, any, any, any))
           .thenAnswer((realInvocation) async => const Right(tUser));
 
       //act
-      signUserIn(Params(
+      signUserIn(const Params(
           email: tEmail,
           password: tPassword,
           username: tUsername,
+          pref: tPref,
           phoneNumber: tPhoneNumber));
 
       //arrange
       verify(mockUserAuthentificationRepository.signUserIn(
-          tEmail, tPassword, tUsername, tPhoneNumber));
+          tEmail, tPassword, tUsername, tPhoneNumber, tPref));
     },
   );
 }
