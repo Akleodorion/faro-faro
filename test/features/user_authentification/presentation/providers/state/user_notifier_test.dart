@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart'
     as si;
@@ -13,18 +14,21 @@ import 'package:mockito/mockito.dart';
 
 import './user_notifier_test.mocks.dart';
 
-@GenerateMocks([LogUserIn, si.SignUserIn, GetUserInfo])
+@GenerateMocks([LogUserIn, si.SignUserIn, GetUserInfo, LogInWithToken])
 void main() {
   late MockLogUserIn mockLogUserIn;
   late MockSignUserIn mockSignUserIn;
   late MockGetUserInfo mockGetUserInfo;
+  late MockLogInWithToken mockLogInWithToken;
   late UserNotifier userNotifier;
 
   setUp(() {
     mockLogUserIn = MockLogUserIn();
     mockSignUserIn = MockSignUserIn();
+    mockLogInWithToken = MockLogInWithToken();
     mockGetUserInfo = MockGetUserInfo();
     userNotifier = UserNotifier(
+      logInWithTokenUsecase: mockLogInWithToken,
       logUserInUsecase: mockLogUserIn,
       signUserInUsecase: mockSignUserIn,
       getUserInfoUsecase: mockGetUserInfo,

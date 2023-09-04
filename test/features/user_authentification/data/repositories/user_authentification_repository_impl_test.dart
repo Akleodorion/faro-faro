@@ -45,7 +45,6 @@ void main() {
       const tPassword = "123456";
       const tToken = "this is a token";
       const tPref = true;
-      const tLogInfo = {"email": tEmail, "password": tPassword};
       const tUserModel = UserModel(
           email: tEmail,
           username: "username",
@@ -92,7 +91,6 @@ void main() {
               final result = await userAuthentificationRepositoryImpl.logUserIn(
                   tEmail, tPassword, tPref);
               //arrange
-              verify(mockUserRemoteDataSource.userLogInRequest(tLogInfo));
 
               expect(result, const Right(tUserModel));
             },
@@ -293,4 +291,78 @@ void main() {
       );
     },
   );
+
+  group("logInWithToken", () {
+    const tToken = "this is a token";
+    final tDatetime = DateTime.now();
+
+    setUp(() {
+      when(mockUserLocalDataSource.getLastCachedToken())
+          .thenAnswer((_) async => tToken);
+      when(mockUserLocalDataSource.getLastLoginDatetime())
+          .thenAnswer((_) async => tDatetime);
+      when(mockDateTimeComparator.isValid(any)).thenAnswer((_) => true);
+    });
+
+    test(
+      "should retrieved the stored info",
+      () async {
+        //act
+        await userAuthentificationRepositoryImpl.logInWithToken();
+        //assert
+        verify(mockUserLocalDataSource.getLastCachedToken()).called(1);
+        verify(mockUserLocalDataSource.getLastLoginDatetime()).called(1);
+      },
+    );
+
+    group(
+      "when the token is valid ",
+      () {
+        const tUserModel = UserModel(
+            email: "test@gmail.com",
+            username: "username",
+            id: 9,
+            jwtToken: tToken,
+            phoneNumber: "06 06 06 06 06");
+        test(
+          "should make the http request and return the userModel",
+          () async {
+            //arrange
+            when(mockUserRemoteDataSource.userLogInWithToken(any))
+                .thenAnswer((realInvocation) async => tUserModel);
+            //act
+            final result =
+                await userAuthentificationRepositoryImpl.logInWithToken();
+            //assert
+
+            verify(mockUserRemoteDataSource.userLogInWithToken(tToken))
+                .called(1);
+            expect(result, tUserModel);
+          },
+        );
+      },
+    );
+
+    group(
+      "when the token is not valid",
+      () {
+        setUp(() {
+          when(mockDateTimeComparator.isValid(any)).thenAnswer((_) => false);
+          when(mockUserLocalDataSource.getLastCachedToken())
+              .thenAnswer((realInvocation) async => '');
+        });
+
+        test(
+          "should return null",
+          () async {
+            //act
+            final result =
+                await userAuthentificationRepositoryImpl.logInWithToken();
+            //assert
+            expect(result, null);
+          },
+        );
+      },
+    );
+  });
 }

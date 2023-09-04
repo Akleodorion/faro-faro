@@ -113,4 +113,12 @@ class MockUserAuthentificationRepository extends _i1.Mock
         ),
         returnValue: _i4.Future<Map<String, dynamic>?>.value(),
       ) as _i4.Future<Map<String, dynamic>?>);
+  @override
+  _i4.Future<_i6.User?> logInWithToken() => (super.noSuchMethod(
+        Invocation.method(
+          #logInWithToken,
+          [],
+        ),
+        returnValue: _i4.Future<_i6.User?>.value(),
+      ) as _i4.Future<_i6.User?>);
 }

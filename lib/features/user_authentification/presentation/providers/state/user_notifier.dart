@@ -1,5 +1,6 @@
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/usecases/log_user_in.dart';
@@ -7,6 +8,7 @@ import '../../../domain/usecases/sign_user_in.dart' as si;
 
 class UserNotifier extends StateNotifier<UserState> {
   final LogUserIn logUserInUsecase;
+  final LogInWithToken logInWithTokenUsecase;
   final si.SignUserIn signUserInUsecase;
   final GetUserInfo getUserInfoUsecase;
   UserState get initialState => Loading();
@@ -14,6 +16,7 @@ class UserNotifier extends StateNotifier<UserState> {
   UserNotifier(
       {required this.logUserInUsecase,
       required this.signUserInUsecase,
+      required this.logInWithTokenUsecase,
       required this.getUserInfoUsecase})
       : super(Loading());
 
@@ -55,8 +58,16 @@ class UserNotifier extends StateNotifier<UserState> {
 
   Future<UserState> getUserInfo() async {
     final response = await getUserInfoUsecase.call();
-    print(response);
     state = Initial(userInfo: response!);
+    return state;
+  }
+
+  Future<UserState> logInWithToken() async {
+    final response = await logInWithTokenUsecase.call();
+    if (response == null) {
+      return state;
+    }
+    state = Loaded(user: response);
     return state;
   }
 

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class RememberCheckbox extends ConsumerStatefulWidget {
   const RememberCheckbox({super.key});
 
+  @override
   ConsumerState<RememberCheckbox> createState() => _RememberCheckboxState();
 }
 

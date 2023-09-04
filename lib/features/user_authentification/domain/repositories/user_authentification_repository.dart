@@ -14,4 +14,6 @@ abstract class UserAuthentificationRepository {
 
   //récupère les informations de connexions précédentes
   Future<Map<String, dynamic>?> getUserInfo();
+
+  Future<User?> logInWithToken();
 }

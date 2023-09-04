@@ -13,6 +13,8 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/repositorie
     as _i2;
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart'
     as _i9;
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart'
+    as _i10;
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart'
     as _i4;
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart'
@@ -143,4 +145,30 @@ class MockGetUserInfo extends _i1.Mock implements _i9.GetUserInfo {
         ),
         returnValue: _i5.Future<Map<String, dynamic>?>.value(),
       ) as _i5.Future<Map<String, dynamic>?>);
+}
+
+/// A class which mocks [LogInWithToken].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLogInWithToken extends _i1.Mock implements _i10.LogInWithToken {
+  MockLogInWithToken() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.UserAuthentificationRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeUserAuthentificationRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.UserAuthentificationRepository);
+  @override
+  _i5.Future<_i7.User?> call() => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue: _i5.Future<_i7.User?>.value(),
+      ) as _i5.Future<_i7.User?>);
 }

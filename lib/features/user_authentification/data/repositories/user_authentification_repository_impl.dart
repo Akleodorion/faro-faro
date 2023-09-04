@@ -6,6 +6,7 @@ import 'package:faro_clean_tdd/core/util/datetime_comparator.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
 
 typedef _SignInOrLogIn = Future<UserModel> Function();
@@ -91,5 +92,15 @@ class UserAuthentificationRepositoryImpl
     return userInfo;
   }
 
-  void _logInUserWithToken(String token) {}
+  @override
+  Future<User?> logInWithToken() async {
+    final cachedToken = await localDataSource.getLastCachedToken();
+    final lastLoginDateTime = await localDataSource.getLastLoginDatetime();
+    if (cachedToken!.isNotEmpty &&
+        dateTimeComparator.isValid(lastLoginDateTime!)) {
+      return remoteDataSource.userLogInWithToken(cachedToken);
+    } else {
+      return null;
+    }
+  }
 }

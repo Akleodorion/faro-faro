@@ -5,6 +5,7 @@ import 'package:faro_clean_tdd/features/user_authentification/data/datasources/u
 import 'package:faro_clean_tdd/features/user_authentification/data/repositories/user_authentification_repository_impl.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_notifier.dart';
@@ -21,6 +22,7 @@ Future<void> init() async {
 
   sl.registerFactory(
     () => UserNotifier(
+        logInWithTokenUsecase: sl(),
         logUserInUsecase: sl(),
         signUserInUsecase: sl(),
         getUserInfoUsecase: sl()),
@@ -28,6 +30,7 @@ Future<void> init() async {
 
   // usecases
   sl.registerLazySingleton(() => LogUserIn(repository: sl()));
+  sl.registerLazySingleton(() => LogInWithToken(repository: sl()));
   sl.registerLazySingleton(() => SignUserIn(repository: sl()));
   sl.registerLazySingleton(() => GetUserInfo(repository: sl()));
 
