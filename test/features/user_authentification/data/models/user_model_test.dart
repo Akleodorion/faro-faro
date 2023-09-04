@@ -7,10 +7,13 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
+  const tToken = "this is a token";
+
   const tUserModel = UserModel(
       email: "test@gmail.com",
       username: "chris",
       phoneNumber: "06 06 06 06 06",
+      jwtToken: tToken,
       id: 9);
 
   test(
@@ -31,7 +34,7 @@ void main() {
           final Map<String, dynamic> jsonMap =
               json.decode(fixture('user.json'));
           //act
-          final result = UserModel.fromJson(jsonMap, true);
+          final result = UserModel.fromJson(jsonMap, true, tToken);
           //arrange
           expect(result, tUserModel);
         },

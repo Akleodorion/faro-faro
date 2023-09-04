@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 
 abstract class UserRemoteDataSource {
   Future<UserModel> userLogInRequest(Map<String, String> logInInfo);
+  Future<UserModel> userLogInWithToken(String token);
   Future<UserModel> userSignInRequest(
       {required Map<String, String> signInInfo});
 }
@@ -34,11 +35,15 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<UserModel> _signInOrLogInRequest(
       String url, Map<String, String> authInfo, bool isLogin) async {
     final uri = Uri.parse(url);
-    final response = await client.post(uri,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({"user": authInfo}));
+    final response = await client.post(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({"user": authInfo}),
+    );
     if (response.statusCode == 200) {
-      return UserModel.fromJson(json.decode(response.body), isLogin);
+      final jwtToken = response.headers["authorization"]!.split(' ');
+      return UserModel.fromJson(
+          json.decode(response.body), isLogin, jwtToken[1]);
     } else {
       if (isLogin) {
         final message = response.body;
@@ -47,6 +52,27 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         final message = json.decode(response.body)["status"]["message"];
         throw ServerException(errorMessage: message);
       }
+    }
+  }
+
+  @override
+  Future<UserModel> userLogInWithToken(
+    String token,
+  ) async {
+    final uri = Uri.parse(LOG_IN_URL);
+
+    // faire la requête de logIn  uniquement avec le Token
+    final response = await client.post(uri, headers: {
+      'Authorization': "Bearer $token",
+      'Content-Type': 'application/json',
+    });
+    // renvoyer le UserModel
+    if (response.statusCode == 200) {
+      final jwtToken = response.headers["authorization"]!.split(' ');
+      return UserModel.fromJson(json.decode(response.body), true, jwtToken[1]);
+    } else {
+      final message = response.body;
+      throw ServerException(errorMessage: message);
     }
   }
 }

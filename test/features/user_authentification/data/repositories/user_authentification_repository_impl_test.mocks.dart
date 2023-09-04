@@ -6,6 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:faro_clean_tdd/core/network/network_info.dart' as _i3;
+import 'package:faro_clean_tdd/core/util/datetime_comparator.dart' as _i7;
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart'
@@ -71,6 +72,21 @@ class MockUserRemoteDataSource extends _i1.Mock
           Invocation.method(
             #userLogInRequest,
             [logInInfo],
+          ),
+        )),
+      ) as _i4.Future<_i2.UserModel>);
+  @override
+  _i4.Future<_i2.UserModel> userLogInWithToken(String? token) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #userLogInWithToken,
+          [token],
+        ),
+        returnValue: _i4.Future<_i2.UserModel>.value(_FakeUserModel_0(
+          this,
+          Invocation.method(
+            #userLogInWithToken,
+            [token],
           ),
         )),
       ) as _i4.Future<_i2.UserModel>);
@@ -155,4 +171,23 @@ class MockUserLocalDataSource extends _i1.Mock
         ),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>?);
+}
+
+/// A class which mocks [DateTimeComparator].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDateTimeComparator extends _i1.Mock
+    implements _i7.DateTimeComparator {
+  MockDateTimeComparator() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  bool isValid(DateTime? dateTime) => (super.noSuchMethod(
+        Invocation.method(
+          #isValid,
+          [dateTime],
+        ),
+        returnValue: false,
+      ) as bool);
 }

@@ -35,7 +35,6 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userAuth = ref.watch(userAuthProvider);
 
-    if (userAuth is Initial) {}
     return MaterialApp(
         title: 'Faro App',
         theme: theme,

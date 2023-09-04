@@ -27,12 +27,28 @@ class _AuthCardState extends ConsumerState<AuthCard> {
   String? _enteredPhoneNumber;
   bool? _isChecked;
 
+  @override
+  void initState() {
+    super.initState();
+    // ref.read(userAuthProvider.notifier).logInWithToken();
+    final values = ref.read(userAuthProvider);
+    if (values is Initial) {
+      _enteredEmail = values.userInfo["email"];
+      _enteredPassword = values.userInfo["password"];
+      _isChecked = values.userInfo["pref"];
+    }
+  }
+
   void _userLogin() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      final currentState = ref.read(userAuthProvider);
+      if (currentState is Initial) {
+        _isChecked = currentState.userInfo["pref"];
+      }
       final state = await ref
           .read(userAuthProvider.notifier)
-          .logUserIn(_enteredEmail!, _enteredPassword!);
+          .logUserIn(_enteredEmail!, _enteredPassword!, _isChecked!);
       if (state is Error) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -54,7 +70,8 @@ class _AuthCardState extends ConsumerState<AuthCard> {
           _enteredEmail!,
           _enteredPassword!,
           _enteredPhoneNumber!,
-          _enteredUsername!);
+          _enteredUsername!,
+          _isChecked!);
       if (state is Error) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -147,9 +164,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                             const SizedBox(
                               height: 10,
                             ),
-                          RememberCheckbox(
-                            isChecked: _isChecked ?? false,
-                          )
+                          const RememberCheckbox(),
                         ],
                       ),
                     ),

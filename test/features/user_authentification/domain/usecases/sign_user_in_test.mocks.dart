@@ -47,6 +47,7 @@ class MockUserAuthentificationRepository extends _i1.Mock
   _i4.Future<_i2.Either<_i5.Failure, _i6.User?>> logUserIn(
     String? email,
     String? password,
+    bool? pref,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -54,6 +55,7 @@ class MockUserAuthentificationRepository extends _i1.Mock
           [
             email,
             password,
+            pref,
           ],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>.value(
@@ -64,6 +66,7 @@ class MockUserAuthentificationRepository extends _i1.Mock
             [
               email,
               password,
+              pref,
             ],
           ),
         )),
@@ -74,6 +77,7 @@ class MockUserAuthentificationRepository extends _i1.Mock
     String? password,
     String? username,
     String? phoneNumber,
+    bool? pref,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -83,6 +87,7 @@ class MockUserAuthentificationRepository extends _i1.Mock
             password,
             username,
             phoneNumber,
+            pref,
           ],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>.value(
@@ -95,8 +100,25 @@ class MockUserAuthentificationRepository extends _i1.Mock
               password,
               username,
               phoneNumber,
+              pref,
             ],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>);
+  @override
+  _i4.Future<Map<String, dynamic>?> getUserInfo() => (super.noSuchMethod(
+        Invocation.method(
+          #getUserInfo,
+          [],
+        ),
+        returnValue: _i4.Future<Map<String, dynamic>?>.value(),
+      ) as _i4.Future<Map<String, dynamic>?>);
+  @override
+  _i4.Future<_i6.User?> logInWithToken() => (super.noSuchMethod(
+        Invocation.method(
+          #logInWithToken,
+          [],
+        ),
+        returnValue: _i4.Future<_i6.User?>.value(),
+      ) as _i4.Future<_i6.User?>);
 }

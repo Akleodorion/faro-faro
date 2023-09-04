@@ -5,12 +5,14 @@ class User extends Equatable {
     required this.username,
     required this.email,
     required this.phoneNumber,
+    required this.jwtToken,
     required this.id,
   });
 
   final String username;
   final String email;
   final String phoneNumber;
+  final String jwtToken;
   final int id;
 
   @override
@@ -18,6 +20,7 @@ class User extends Equatable {
         username,
         email,
         phoneNumber,
+        jwtToken,
         id,
       ];
 }

@@ -20,19 +20,26 @@ void main() {
 
   const tEmail = "test@gmail.com";
   const tPassword = "123456";
+  const tToken = "this-is-a-token";
+  const tPref = true;
   const user = User(
-      username: 'username', email: tEmail, phoneNumber: 'phoneNumber', id: 9);
+      username: 'username',
+      email: tEmail,
+      phoneNumber: 'phoneNumber',
+      jwtToken: tToken,
+      id: 9);
 
   test(
-    "should log the user in",
+    "should call the logUserIn function with the right parameters",
     () async {
       //assert
-      when(mockUserAuthRepository.logUserIn(any, any))
+      when(mockUserAuthRepository.logUserIn(any, any, any))
           .thenAnswer((_) async => const Right(user));
       //act
-      await logUserIn.call(const Params(email: tEmail, password: tPassword));
+      await logUserIn
+          .call(const Params(email: tEmail, password: tPassword, pref: tPref));
       //arrange
-      verify(mockUserAuthRepository.logUserIn(tEmail, tPassword));
+      verify(mockUserAuthRepository.logUserIn(tEmail, tPassword, tPref));
     },
   );
 }
