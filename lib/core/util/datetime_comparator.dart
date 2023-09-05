@@ -5,7 +5,7 @@ abstract class DateTimeComparator {
 class DateTimeComparatorImpl implements DateTimeComparator {
   @override
   bool isValid(DateTime dateTime) {
-    final difference = dateTime.difference(DateTime.now()).inMinutes;
+    final difference = DateTime.now().difference(dateTime).inMinutes;
     if (difference < 60) {
       return true;
     } else {
