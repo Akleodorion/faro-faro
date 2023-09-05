@@ -3,7 +3,7 @@ import 'package:faro_clean_tdd/features/user_authentification/presentation/provi
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/user_authentification/presentation/pages/auth_screen_page.dart';
-import 'pages/home_page.dart';
+import 'pages/main_page.dart';
 import 'injection_container.dart' as di;
 
 final theme = ThemeData(
@@ -38,6 +38,6 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
         title: 'Faro App',
         theme: theme,
-        home: userAuth is Loaded ? const HomePage() : const AuthScreen());
+        home: userAuth is Loaded ? const MainPage() : const AuthScreen());
   }
 }
