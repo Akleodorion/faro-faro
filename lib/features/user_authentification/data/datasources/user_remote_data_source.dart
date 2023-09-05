@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 abstract class UserRemoteDataSource {
   Future<UserModel> userLogInRequest(Map<String, String> logInInfo);
-  Future<UserModel> userLogInWithToken(String token);
+  Future<UserModel?> userLogInWithToken(String token);
   Future<UserModel> userSignInRequest(
       {required Map<String, String> signInInfo});
 }
@@ -56,7 +56,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<UserModel> userLogInWithToken(
+  Future<UserModel?> userLogInWithToken(
     String token,
   ) async {
     final uri = Uri.parse(LOG_IN_URL);
@@ -71,8 +71,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       final jwtToken = response.headers["authorization"]!.split(' ');
       return UserModel.fromJson(json.decode(response.body), true, jwtToken[1]);
     } else {
-      final message = response.body;
-      throw ServerException(errorMessage: message);
+      return null;
     }
   }
 }
