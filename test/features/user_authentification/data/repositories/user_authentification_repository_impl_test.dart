@@ -295,6 +295,12 @@ void main() {
   group("logInWithToken", () {
     const tToken = "this is a token";
     final tDatetime = DateTime.now();
+    const tUserModel = UserModel(
+        email: "test@gmail.com",
+        username: "username",
+        id: 9,
+        jwtToken: tToken,
+        phoneNumber: "06 06 06 06 06");
 
     setUp(() {
       when(mockUserLocalDataSource.getLastCachedToken())
@@ -302,6 +308,8 @@ void main() {
       when(mockUserLocalDataSource.getLastLoginDatetime())
           .thenAnswer((_) async => tDatetime);
       when(mockDateTimeComparator.isValid(any)).thenAnswer((_) => true);
+      when(mockUserRemoteDataSource.userLogInWithToken(any))
+          .thenAnswer((realInvocation) async => tUserModel);
     });
 
     test(
@@ -318,12 +326,6 @@ void main() {
     group(
       "when the token is valid ",
       () {
-        const tUserModel = UserModel(
-            email: "test@gmail.com",
-            username: "username",
-            id: 9,
-            jwtToken: tToken,
-            phoneNumber: "06 06 06 06 06");
         test(
           "should make the http request and return the userModel",
           () async {
