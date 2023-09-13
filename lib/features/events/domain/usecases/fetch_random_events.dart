@@ -4,12 +4,12 @@ import 'package:faro_clean_tdd/features/events/domain/repositories/event_reposit
 
 import '../../../../core/errors/failures.dart';
 
-class FetchTrendingEvents {
+class FetchRandomEvents {
   final EventRepository repository;
 
-  FetchTrendingEvents({required this.repository});
+  FetchRandomEvents({required this.repository});
 
-  Future<Either<Failure, List<Event>>> execute() async {
-    return await repository.fetchTrendingEvent();
+  Future<Either<Failure, List<Event>>?> execute() async {
+    return await repository.fetchRandomEvents();
   }
 }

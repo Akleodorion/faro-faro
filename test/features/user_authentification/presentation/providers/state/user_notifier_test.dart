@@ -36,7 +36,7 @@ void main() {
   });
 
   test(
-    "should be loading",
+    "initialState test should be loading",
     () async {
       //arrange
       expect(userNotifier.initialState, Loading());

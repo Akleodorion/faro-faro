@@ -1,15 +1,23 @@
+import 'package:faro_clean_tdd/features/events/presentation/providers/event_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'home_page.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends ConsumerStatefulWidget {
   const MainPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  ConsumerState<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends ConsumerState<MainPage> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(eventProvider.notifier).fetchAllEvents();
+  }
 
   @override
   Widget build(BuildContext context) {

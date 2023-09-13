@@ -20,6 +20,7 @@ void main() {
 
   final tEvent1 = Event(
       name: 'Event 1',
+      eventId: 1,
       description: 'short description',
       date: DateTime.now(),
       location: 'Lille',
@@ -30,6 +31,7 @@ void main() {
 
   final tEvent2 = Event(
       name: 'Event 2',
+      eventId: 2,
       description: 'short description',
       date: DateTime.now(),
       location: 'Arras',
@@ -43,13 +45,13 @@ void main() {
     "should retrieve a list of upcoming events",
     () async {
       //arrange
-      when(mockEventRepository.fetchUpcomingEvent())
+      when(mockEventRepository.fetchUpcomingEvents())
           .thenAnswer((realInvocation) async => Right(tList));
       //act
       final result = await usecase.execute();
       //assert
       expect(result, Right(tList));
-      verify(mockEventRepository.fetchUpcomingEvent()).called(1);
+      verify(mockEventRepository.fetchUpcomingEvents()).called(1);
       verifyNoMoreInteractions(mockEventRepository);
     },
   );

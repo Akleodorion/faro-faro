@@ -20,10 +20,12 @@ class Event extends Equatable {
   final Category category;
   final String imageUrl;
   final int userId;
+  final int eventId;
   final ModelEco modelEco;
 
   const Event({
     required this.name,
+    required this.eventId,
     required this.description,
     required this.date,
     required this.location,

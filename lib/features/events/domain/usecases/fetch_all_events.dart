@@ -4,12 +4,11 @@ import 'package:faro_clean_tdd/features/events/domain/repositories/event_reposit
 import '../../../../core/errors/failures.dart';
 import '../entities/event.dart';
 
-class FetchUpcomingEvents {
+class FetchAllEvents {
   final EventRepository repository;
+  FetchAllEvents({required this.repository});
 
-  FetchUpcomingEvents({required this.repository});
-
-  Future<Either<Failure, List<Event>>> execute() async {
-    return await repository.fetchUpcomingEvents();
+  Future<Either<Failure, List<Event>>?> execute() async {
+    return repository.fetchAllEvents();
   }
 }
