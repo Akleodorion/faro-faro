@@ -1,4 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
+
+var formated = DateFormat.yMMMd('fr');
 
 enum Category {
   loisir,
@@ -34,6 +37,10 @@ class Event extends Equatable {
     required this.userId,
     required this.modelEco,
   });
+
+  String get formatedDate {
+    return formated.format(date);
+  }
 
   @override
   List<Object?> get props =>

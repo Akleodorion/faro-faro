@@ -1,6 +1,7 @@
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/user_authentification/presentation/pages/auth_screen_page.dart';
 import 'pages/main_page.dart';
@@ -8,6 +9,43 @@ import 'injection_container.dart' as di;
 
 final theme = ThemeData(
   useMaterial3: true,
+
+  //! Buttons
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(
+      foregroundColor: const Color.fromRGBO(243, 255, 198, 1),
+      textStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          decoration: TextDecoration.underline),
+    ),
+  ),
+
+  //! Text
+  textTheme: const TextTheme(
+    titleLarge: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 16,
+      color: Color.fromRGBO(235, 240, 217, 1),
+    ),
+    titleMedium: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 12,
+      color: Color.fromRGBO(235, 240, 217, 1),
+    ),
+    titleSmall: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 10,
+      color: Color.fromRGBO(235, 240, 217, 1),
+    ),
+    headlineSmall: TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: 12,
+        color: Color.fromRGBO(243, 255, 198, 1),
+        decoration: TextDecoration.underline),
+  ),
+
+  //! Colors
   colorScheme: const ColorScheme(
       brightness: Brightness.dark,
       primary: Color.fromRGBO(243, 255, 198, 1),
@@ -24,6 +62,7 @@ final theme = ThemeData(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('fr_FR', null);
   await di.init();
   runApp(const ProviderScope(child: MyApp()));
 }

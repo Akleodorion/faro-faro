@@ -27,13 +27,11 @@ class EventRepositoryImpl implements EventRepository {
 
   @override
   Future<Either<Failure, List<Event>>?> fetchRandomEvents() {
-    // TODO: implement fetchRandomEvents
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, List<Event>>> fetchUpcomingEvents() {
-    // TODO: implement fetchUpcomingEvents
     throw UnimplementedError();
   }
 }

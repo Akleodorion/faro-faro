@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/features/events/presentation/providers/event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'home_page.dart';
+import 'home_page/home_page.dart';
 
 class MainPage extends ConsumerStatefulWidget {
   const MainPage({super.key});
@@ -36,7 +36,7 @@ class _MainPageState extends ConsumerState<MainPage> {
               ],
             ),
           ),
-          child: content),
+          child: const SafeArea(child: content)),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (value) {

@@ -5,18 +5,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/state/user_state.dart';
 import '../providers/user_provider.dart';
 
-class AuthScreen extends ConsumerWidget {
+class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final userAuth = ref.watch(userAuthProvider);
-    Widget content = const Center(child: CircularProgressIndicator());
+  ConsumerState<AuthScreen> createState() {
+    return _AuthScreenState();
+  }
+}
 
-    if (userAuth is Loading) {
-      ref.read(userAuthProvider.notifier).getUserInfo();
-    } else if (userAuth is Initial) {
+class _AuthScreenState extends ConsumerState<AuthScreen> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(userAuthProvider.notifier).logInWithToken();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final userAuth = ref.watch(userAuthProvider);
+    late Widget content;
+
+    if (userAuth is Initial) {
       content = const AuthCard();
+    } else {
+      content = const Center(child: CircularProgressIndicator());
     }
     return Scaffold(
       backgroundColor: Colors.transparent,
