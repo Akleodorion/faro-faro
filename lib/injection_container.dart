@@ -1,5 +1,12 @@
 import 'package:faro_clean_tdd/core/network/network_info.dart';
 import 'package:faro_clean_tdd/core/util/datetime_comparator.dart';
+import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_data_source.dart';
+import 'package:faro_clean_tdd/features/events/data/repositories/event_repository_impl.dart';
+import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
+import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart';
+import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_random_events.dart';
+import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_upcoming_events.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/state/event_notifier.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/repositories/user_authentification_repository_impl.dart';
@@ -19,14 +26,11 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // Features - userAuth
-
-  sl.registerFactory(
-    () => UserNotifier(
-        logInWithTokenUsecase: sl(),
-        logUserInUsecase: sl(),
-        signUserInUsecase: sl(),
-        getUserInfoUsecase: sl()),
-  );
+  sl.registerFactory(() => UserNotifier(
+      logInWithTokenUsecase: sl(),
+      logUserInUsecase: sl(),
+      signUserInUsecase: sl(),
+      getUserInfoUsecase: sl()));
 
   // usecases
   sl.registerLazySingleton(() => LogUserIn(repository: sl()));
@@ -35,7 +39,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetUserInfo(repository: sl()));
 
   // Repository
-
   sl.registerLazySingleton<UserAuthentificationRepository>(() =>
       UserAuthentificationRepositoryImpl(
           dateTimeComparator: sl(),
@@ -44,19 +47,34 @@ Future<void> init() async {
           networkInfo: sl()));
 
   // Datasource
-
   sl.registerLazySingleton<UserLocalDataSource>(
       () => UserLocalDataSourceImpl(sharedPreferences: sl()));
-
   sl.registerLazySingleton<UserRemoteDataSource>(
       () => UserRemoteDataSourceImpl(client: sl()));
+
+  // Features - Fetch Event
+  sl.registerFactory(() => EventNotifier(
+      fetchAllEventsUsecase: sl(),
+      fetchRandomEventsUsecase: sl(),
+      fetchUpcomingEventsUsecase: sl()));
+
+  // Usecases
+  sl.registerLazySingleton(() => FetchAllEvents(repository: sl()));
+  sl.registerLazySingleton(() => FetchRandomEvents(repository: sl()));
+  sl.registerLazySingleton(() => FetchUpcomingEvents(repository: sl()));
+  // Repository
+  sl.registerLazySingleton<EventRepository>(
+      () => EventRepositoryImpl(remoteDatasource: sl(), networkInfo: sl()));
+
+  // Datasource
+  sl.registerLazySingleton<EventRemoteDatasource>(
+      () => EventRemoteDatasourceImpl(client: sl()));
 
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton<DateTimeComparator>(() => DateTimeComparatorImpl());
 
   //! External
-
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());

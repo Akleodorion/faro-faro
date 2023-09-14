@@ -65,7 +65,7 @@ class UserNotifier extends StateNotifier<UserState> {
   Future<UserState> logInWithToken() async {
     final response = await logInWithTokenUsecase.call();
     if (response == null) {
-      return state;
+      return await getUserInfo();
     }
     state = Loaded(user: response);
     return state;

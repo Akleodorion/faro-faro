@@ -1,17 +1,28 @@
+import 'package:faro_clean_tdd/features/events/presentation/providers/event_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'home_page/home_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MainPage extends ConsumerStatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends ConsumerState<MainPage> {
   int _currentIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    ref.read(eventProvider.notifier).fetchAllEvents();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    const Widget content = HomePage();
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -25,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          child: const Center()),
+          child: const SafeArea(child: content)),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (value) {
@@ -63,10 +74,10 @@ class _HomePageState extends State<HomePage> {
         // unselected Item style
         unselectedItemColor:
             Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-        unselectedIconTheme: const IconThemeData(size: 40),
+        unselectedIconTheme: const IconThemeData(size: 32),
         unselectedLabelStyle:
             const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-        showUnselectedLabels: false,
+        showUnselectedLabels: true,
         // General behavior
         type: BottomNavigationBarType.fixed,
       ),

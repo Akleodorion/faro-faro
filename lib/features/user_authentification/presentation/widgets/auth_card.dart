@@ -30,7 +30,6 @@ class _AuthCardState extends ConsumerState<AuthCard> {
   @override
   void initState() {
     super.initState();
-    ref.read(userAuthProvider.notifier).logInWithToken();
     final values = ref.read(userAuthProvider);
     if (values is Initial) {
       _enteredEmail = values.userInfo["email"];
