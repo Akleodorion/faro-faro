@@ -19,26 +19,40 @@ void main() {
   });
 
   final tEvent1 = Event(
-      name: 'Event 1',
-      eventId: 1,
-      description: 'short description',
-      date: DateTime.now(),
-      location: 'Lille',
-      category: Category.concert,
-      imageUrl: 'imageUrl',
-      userId: 1,
-      modelEco: ModelEco.gratuit);
+    name: 'Event 1',
+    eventId: 1,
+    description: 'short description',
+    date: DateTime.now(),
+    location: 'Lille',
+    category: Category.concert,
+    imageUrl: 'imageUrl',
+    userId: 1,
+    modelEco: ModelEco.gratuit,
+    standardTicketPrice: 5000,
+    maxStandardTicket: 50,
+    vipTicketPrice: 10000,
+    maxVipTicket: 25,
+    vvipTicketPrice: 15000,
+    maxVvipTicket: 10,
+  );
 
   final tEvent2 = Event(
-      name: 'Event 2',
-      eventId: 2,
-      description: 'short description',
-      date: DateTime.now(),
-      location: 'Arras',
-      category: Category.culture,
-      imageUrl: 'imageUrl',
-      userId: 1,
-      modelEco: ModelEco.payant);
+    name: 'Event 2',
+    eventId: 2,
+    description: 'short description',
+    date: DateTime.now(),
+    location: 'Arras',
+    category: Category.culture,
+    imageUrl: 'imageUrl',
+    userId: 1,
+    modelEco: ModelEco.payant,
+    standardTicketPrice: 5000,
+    maxStandardTicket: 50,
+    vipTicketPrice: 10000,
+    maxVipTicket: 25,
+    vvipTicketPrice: 15000,
+    maxVvipTicket: 10,
+  );
 
   final tEvents = [tEvent1, tEvent2];
 

@@ -25,14 +25,14 @@ class EventCard extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 190,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(5),
                   topRight: Radius.circular(5),
                 ),
                 image: DecorationImage(
-                  image: AssetImage('assets/images/flyers.jpg'),
-                  fit: BoxFit.cover,
+                  image: NetworkImage(event.imageUrl),
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
@@ -61,7 +61,7 @@ class EventCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Text(
-                      "10 000 XOF",
+                      "${event.standardTicketPrice} XOF",
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],

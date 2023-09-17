@@ -3,20 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
-import 'package:dartz/dartz.dart' as _i3;
+import 'package:dartz/dartz.dart' as _i5;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart'
     as _i7;
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart'
     as _i2;
 import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart'
-    as _i9;
-import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_random_events.dart'
-    as _i4;
-import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_upcoming_events.dart'
-    as _i8;
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -41,83 +37,10 @@ class _FakeEventRepository_0 extends _i1.SmartFake
         );
 }
 
-class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
-  _FakeEither_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-/// A class which mocks [FetchRandomEvents].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFetchRandomEvents extends _i1.Mock implements _i4.FetchRandomEvents {
-  MockFetchRandomEvents() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.EventRepository get repository => (super.noSuchMethod(
-        Invocation.getter(#repository),
-        returnValue: _FakeEventRepository_0(
-          this,
-          Invocation.getter(#repository),
-        ),
-      ) as _i2.EventRepository);
-  @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>?> execute() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #execute,
-          [],
-        ),
-        returnValue:
-            _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>?>.value(),
-      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>?>);
-}
-
-/// A class which mocks [FetchUpcomingEvents].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFetchUpcomingEvents extends _i1.Mock
-    implements _i8.FetchUpcomingEvents {
-  MockFetchUpcomingEvents() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.EventRepository get repository => (super.noSuchMethod(
-        Invocation.getter(#repository),
-        returnValue: _FakeEventRepository_0(
-          this,
-          Invocation.getter(#repository),
-        ),
-      ) as _i2.EventRepository);
-  @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>> execute() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #execute,
-          [],
-        ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>>.value(
-            _FakeEither_1<_i6.Failure, List<_i7.Event>>(
-          this,
-          Invocation.method(
-            #execute,
-            [],
-          ),
-        )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>>);
-}
-
 /// A class which mocks [FetchAllEvents].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFetchAllEvents extends _i1.Mock implements _i9.FetchAllEvents {
+class MockFetchAllEvents extends _i1.Mock implements _i3.FetchAllEvents {
   MockFetchAllEvents() {
     _i1.throwOnMissingStub(this);
   }
@@ -131,13 +54,13 @@ class MockFetchAllEvents extends _i1.Mock implements _i9.FetchAllEvents {
         ),
       ) as _i2.EventRepository);
   @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>?> execute() =>
+  _i4.Future<_i5.Either<_i6.Failure, List<_i7.Event>>?> execute() =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
         ),
         returnValue:
-            _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>?>.value(),
-      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>?>);
+            _i4.Future<_i5.Either<_i6.Failure, List<_i7.Event>>?>.value(),
+      ) as _i4.Future<_i5.Either<_i6.Failure, List<_i7.Event>>?>);
 }

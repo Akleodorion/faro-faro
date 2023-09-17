@@ -1,16 +1,23 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 
 class EventModel extends Event {
-  const EventModel(
-      {required super.name,
-      required super.description,
-      required super.date,
-      required super.location,
-      required super.category,
-      required super.imageUrl,
-      required super.userId,
-      required super.modelEco,
-      required super.eventId});
+  const EventModel({
+    required super.name,
+    required super.description,
+    required super.date,
+    required super.location,
+    required super.category,
+    required super.imageUrl,
+    required super.userId,
+    required super.modelEco,
+    required super.eventId,
+    required super.standardTicketPrice,
+    required super.maxStandardTicket,
+    required super.vipTicketPrice,
+    required super.maxVipTicket,
+    required super.vvipTicketPrice,
+    required super.maxVvipTicket,
+  });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
     late Category category;
@@ -38,10 +45,16 @@ class EventModel extends Event {
       date: DateTime.tryParse(json["date"])!,
       location: json["location"],
       category: category,
-      imageUrl: "imageUrl",
+      imageUrl: json["photo_url"],
       userId: json["user_id"],
       modelEco: modelEco,
       eventId: json["id"],
+      maxStandardTicket: json["max_standard_ticket"],
+      standardTicketPrice: json["standard_ticket_price"],
+      maxVipTicket: json["max_vip_ticket"],
+      vipTicketPrice: json["vip_ticket_price"],
+      maxVvipTicket: json["max_vvip_ticket"],
+      vvipTicketPrice: json["vvip_ticket_price"],
     );
   }
 
@@ -52,10 +65,16 @@ class EventModel extends Event {
       'date': date.toIso8601String(),
       'location': location,
       'category': category.name,
-      'image_url': imageUrl,
+      'photo_url': imageUrl,
       'user_id': userId,
       'free': modelEco == ModelEco.gratuit ? true : false,
-      "id": eventId,
+      'id': eventId,
+      'max_standard_ticket': maxStandardTicket,
+      'standard_ticket_price': standardTicketPrice,
+      'max_vip_ticket': maxVipTicket,
+      'vip_ticket_price': vipTicketPrice,
+      'max_vvip_ticket': maxVvipTicket,
+      'vvip_ticket_price': vvipTicketPrice,
     };
   }
 }

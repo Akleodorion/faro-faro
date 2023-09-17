@@ -4,22 +4,18 @@ import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.
 import 'package:faro_clean_tdd/features/events/presentation/providers/state/event_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/usecases/fetch_random_events.dart';
-import '../../../domain/usecases/fetch_upcoming_events.dart';
+import '../../../domain/entities/event.dart';
 
 class EventNotifier extends StateNotifier<EventState> {
   // usecases
   final FetchAllEvents fetchAllEventsUsecase;
-  final FetchRandomEvents fetchRandomEventsUsecase;
-  final FetchUpcomingEvents fetchUpcomingEventsUsecase;
+
   EventState get initialState => Loading();
 
   // initialisation
-  EventNotifier(
-      {required this.fetchAllEventsUsecase,
-      required this.fetchRandomEventsUsecase,
-      required this.fetchUpcomingEventsUsecase})
-      : super(Loading());
+  EventNotifier({
+    required this.fetchAllEventsUsecase,
+  }) : super(Loading());
 
   // Usecases
 
@@ -28,16 +24,37 @@ class EventNotifier extends StateNotifier<EventState> {
     response!.fold((failure) {
       state = Error(indexEvent: const [], message: "an error has occured");
     }, (events) {
-      state = Loaded(indexEvent: events);
+      state = Loaded(
+          indexEvent: events,
+          randomEvents: getRandomEvent(events),
+          upcomingEvents: getUpcomingEvent(events));
     });
     return state;
   }
 
-  Future<EventState?> fetchRandomEvents() async {
-    return null;
+  List<Event> getRandomEvent(List<Event> events) {
+    final List<Event> randomEvents = events;
+    randomEvents.shuffle();
+
+    if (randomEvents.length >= 20) {
+      return randomEvents.sublist(0, 10);
+    } else if (randomEvents.length >= 10) {
+      return randomEvents.sublist(0, 5);
+    } else {
+      return [];
+    }
   }
 
-  Future<EventState?> fetchUpcomingEvents() async {
-    return null;
+  List<Event> getUpcomingEvent(List<Event> events) {
+    final List<Event> upcomingEvents = events;
+    upcomingEvents.sort((event1, event2) => event1.date.compareTo(event2.date));
+
+    if (upcomingEvents.length >= 20) {
+      return upcomingEvents.sublist(0, 10);
+    } else if (upcomingEvents.length >= 10) {
+      return upcomingEvents.sublist(0, 5);
+    } else {
+      return [];
+    }
   }
 }

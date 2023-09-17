@@ -25,6 +25,12 @@ class Event extends Equatable {
   final int userId;
   final int eventId;
   final ModelEco modelEco;
+  final int standardTicketPrice;
+  final int maxStandardTicket;
+  final int vipTicketPrice;
+  final int maxVipTicket;
+  final int vvipTicketPrice;
+  final int maxVvipTicket;
 
   const Event({
     required this.name,
@@ -36,6 +42,12 @@ class Event extends Equatable {
     required this.imageUrl,
     required this.userId,
     required this.modelEco,
+    required this.standardTicketPrice,
+    required this.maxStandardTicket,
+    required this.vipTicketPrice,
+    required this.maxVipTicket,
+    required this.vvipTicketPrice,
+    required this.maxVvipTicket,
   });
 
   String get formatedDate {
@@ -43,6 +55,20 @@ class Event extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [name, description, date, location, category, imageUrl, userId, modelEco];
+  List<Object?> get props => [
+        name,
+        description,
+        date,
+        location,
+        category,
+        imageUrl,
+        userId,
+        modelEco,
+        standardTicketPrice,
+        maxStandardTicket,
+        vipTicketPrice,
+        maxVipTicket,
+        vvipTicketPrice,
+        maxVvipTicket,
+      ];
 }

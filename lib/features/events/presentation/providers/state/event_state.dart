@@ -6,17 +6,19 @@ abstract class EventState extends Equatable {
   List<Object?> get props => [];
 }
 
-
-
 class Loading extends EventState {}
 
 class Loaded extends EventState {
   Loaded({
     required this.indexEvent,
+    required this.randomEvents,
+    required this.upcomingEvents,
   });
 
-  // Index Events
+  // List of events
   final List<Event> indexEvent;
+  final List<Event> randomEvents;
+  final List<Event> upcomingEvents;
 }
 
 class Error extends EventState {
@@ -25,7 +27,7 @@ class Error extends EventState {
     required this.message,
   });
 
-  // Index Events
+  // List of events
   final List<Event> indexEvent;
 
   // Message

@@ -16,22 +16,9 @@ class EventRepositoryImpl implements EventRepository {
   Future<Either<Failure, List<Event>>?> fetchAllEvents() async {
     if (await networkInfo.isConnected) {
       final events = await remoteDatasource.fetchAllEvents();
-      // On stockera ici les events dans la mémoire cache
-
-      //
       return Right(events);
     } else {
-      return const Left(ServerFailure(errorMessage: "an error has occured"));
+      return const Left(ServerFailure(errorMessage: "No internet connexion"));
     }
-  }
-
-  @override
-  Future<Either<Failure, List<Event>>?> fetchRandomEvents() {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, List<Event>>> fetchUpcomingEvents() {
-    throw UnimplementedError();
   }
 }

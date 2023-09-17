@@ -4,8 +4,6 @@ import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_dat
 import 'package:faro_clean_tdd/features/events/data/repositories/event_repository_impl.dart';
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart';
-import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_random_events.dart';
-import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_upcoming_events.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/state/event_notifier.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart';
@@ -54,14 +52,12 @@ Future<void> init() async {
 
   // Features - Fetch Event
   sl.registerFactory(() => EventNotifier(
-      fetchAllEventsUsecase: sl(),
-      fetchRandomEventsUsecase: sl(),
-      fetchUpcomingEventsUsecase: sl()));
+        fetchAllEventsUsecase: sl(),
+      ));
 
   // Usecases
   sl.registerLazySingleton(() => FetchAllEvents(repository: sl()));
-  sl.registerLazySingleton(() => FetchRandomEvents(repository: sl()));
-  sl.registerLazySingleton(() => FetchUpcomingEvents(repository: sl()));
+
   // Repository
   sl.registerLazySingleton<EventRepository>(
       () => EventRepositoryImpl(remoteDatasource: sl(), networkInfo: sl()));
