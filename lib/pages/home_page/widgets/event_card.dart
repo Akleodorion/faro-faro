@@ -10,9 +10,9 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(10),
-      ),
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: kElevationToShadow[3]),
       height: 300,
       width: 210,
       margin: const EdgeInsets.only(right: 35),

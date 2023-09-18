@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/events/presentation/providers/state/event_state.dart';
-import 'package:faro_clean_tdd/pages/home_page/widgets/List_view_row.dart';
+import 'package:faro_clean_tdd/pages/home_page/widgets/list_view_row.dart';
 import 'package:faro_clean_tdd/pages/home_page/widgets/upper_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
