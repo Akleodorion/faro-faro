@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/core/network/network_info.dart';
-import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_data_source.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
+import '../../../../core/errors/failures.dart';
+import '../../../../core/network/network_info.dart';
+import '../datasources/event_remote_data_source.dart';
+import '../../domain/entities/event.dart';
+import '../../domain/repositories/event_repository.dart';
 
 class EventRepositoryImpl implements EventRepository {
   final EventRemoteDatasource remoteDatasource;

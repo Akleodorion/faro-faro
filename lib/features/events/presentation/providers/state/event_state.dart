@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import '../../../domain/entities/event.dart';
 
 abstract class EventState extends Equatable {
   @override

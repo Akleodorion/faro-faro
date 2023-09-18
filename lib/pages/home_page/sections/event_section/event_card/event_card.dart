@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../features/events/domain/entities/event.dart';
+import '../../../../../features/events/domain/entities/event.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({super.key, required this.event});

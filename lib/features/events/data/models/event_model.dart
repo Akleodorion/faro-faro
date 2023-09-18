@@ -1,4 +1,4 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import '../../domain/entities/event.dart';
 
 class EventModel extends Event {
   const EventModel({

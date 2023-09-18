@@ -1,4 +1,4 @@
-import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
+import '../../domain/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({

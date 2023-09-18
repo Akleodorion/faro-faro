@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/state/event_state.dart';
+import '../../../domain/usecases/fetch_all_events.dart';
+import 'event_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/entities/event.dart';

@@ -1,7 +1,7 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
+import '../../../../../core/errors/failures.dart';
+import '../../../domain/usecases/get_user_info.dart';
+import '../../../domain/usecases/log_in_with_token.dart';
+import 'user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/usecases/log_user_in.dart';
 import '../../../domain/usecases/sign_user_in.dart' as si;
