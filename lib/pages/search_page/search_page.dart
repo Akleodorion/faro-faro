@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/pages/search_page/sections/category_section/category_section.dart';
 import 'package:faro_clean_tdd/pages/search_page/sections/event_list_section/event_list_section.dart';
 import 'package:faro_clean_tdd/pages/search_page/sections/search_and_filter_section/search_and_filter_section.dart';
 
@@ -14,10 +15,7 @@ class SearchPage extends StatelessWidget {
         child: Column(
           children: [
             SearchAndFilterSection(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Text("Evènements disponibles"),
-            ),
+            CategorySection(),
             EventListSection(),
           ],
         ),
