@@ -1,5 +1,5 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
+import 'features/user_authentification/presentation/providers/state/user_state.dart';
+import 'features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

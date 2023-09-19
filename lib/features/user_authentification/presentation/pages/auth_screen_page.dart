@@ -1,4 +1,4 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card.dart';
+import '../widgets/auth_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

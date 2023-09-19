@@ -1,6 +1,6 @@
-import 'package:faro_clean_tdd/core/util/password_validator.dart';
-import 'package:faro_clean_tdd/core/util/phone_number_validator.dart';
-import 'package:faro_clean_tdd/core/util/text_field_enum.dart';
+import '../../../../core/util/password_validator.dart';
+import '../../../../core/util/phone_number_validator.dart';
+import '../../../../core/util/text_field_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 

@@ -1,6 +1,6 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
-import 'package:faro_clean_tdd/main.dart';
+import '../providers/state/user_state.dart';
+import '../providers/user_provider.dart';
+import '../../../../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

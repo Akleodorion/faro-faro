@@ -1,4 +1,7 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/event_provider.dart';
+import '../features/events/presentation/providers/event_provider.dart';
+import 'search_page/search_page.dart';
+import 'settings_page/settings_page.dart';
+import 'ticket_page/ticket_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'home_page/home_page.dart';
@@ -11,17 +14,31 @@ class MainPage extends ConsumerStatefulWidget {
 }
 
 class _MainPageState extends ConsumerState<MainPage> {
-  int _currentIndex = 0;
+  late int _currentIndex;
+  late Widget content;
 
   @override
   void initState() {
     super.initState();
     ref.read(eventProvider.notifier).fetchAllEvents();
+    _currentIndex = 0;
   }
 
   @override
   Widget build(BuildContext context) {
-    const Widget content = HomePage();
+    switch (_currentIndex) {
+      case 1:
+        content = const SearchPage();
+        break;
+      case 2:
+        content = const TicketPage();
+        break;
+      case 3:
+        content = const SettingsPage();
+        break;
+      default:
+        content = const HomePage();
+    }
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -36,7 +53,7 @@ class _MainPageState extends ConsumerState<MainPage> {
               ],
             ),
           ),
-          child: const SafeArea(child: content)),
+          child: SafeArea(child: content)),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (value) {

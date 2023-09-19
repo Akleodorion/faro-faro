@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
+import '../repositories/user_authentification_repository.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';

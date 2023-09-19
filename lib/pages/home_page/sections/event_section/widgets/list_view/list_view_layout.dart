@@ -1,11 +1,12 @@
-import 'package:faro_clean_tdd/pages/home_page/widgets/event_card.dart';
+import '../../../../../../features/events/domain/entities/event.dart';
+import '../../event_card/event_card.dart';
+import 'components/list_view_redirect.dart';
+import 'components/list_view_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../features/events/domain/entities/event.dart';
-
-class ListViewRow extends ConsumerWidget {
-  const ListViewRow(
+class ListViewLayout extends ConsumerWidget {
+  const ListViewLayout(
       {super.key, required this.events, required this.listViewTitle});
 
   final List<Event> events;
@@ -23,16 +24,8 @@ class ListViewRow extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    listViewTitle,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  TextButton(
-                      style: Theme.of(context).textButtonTheme.style,
-                      onPressed: () {},
-                      child: const Text(
-                        "See all",
-                      ))
+                  ListViewTitle(listViewTitle: listViewTitle),
+                  const ListViewRedirect()
                 ],
               ),
               const SizedBox(

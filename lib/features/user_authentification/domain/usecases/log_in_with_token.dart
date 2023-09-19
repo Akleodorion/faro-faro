@@ -1,4 +1,4 @@
-import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
+import '../repositories/user_authentification_repository.dart';
 
 import '../entities/user.dart';
 

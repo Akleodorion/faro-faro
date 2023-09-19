@@ -10,6 +10,13 @@ enum Category {
   culture,
 }
 
+final List<Category> availableCategories = [
+  Category.concert,
+  Category.culture,
+  Category.loisir,
+  Category.sport
+];
+
 enum ModelEco {
   gratuit,
   payant,

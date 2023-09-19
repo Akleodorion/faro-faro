@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
+import '../../../domain/entities/user.dart';
 
 abstract class UserState extends Equatable {
   @override

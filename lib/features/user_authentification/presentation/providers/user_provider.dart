@@ -1,8 +1,8 @@
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_notifier.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
-import 'package:faro_clean_tdd/injection_container.dart';
+import '../../domain/usecases/get_user_info.dart';
+import '../../domain/usecases/log_in_with_token.dart';
+import 'state/user_notifier.dart';
+import 'state/user_state.dart';
+import '../../../../injection_container.dart';
 import '../../domain/usecases/log_user_in.dart';
 import '../../domain/usecases/sign_user_in.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

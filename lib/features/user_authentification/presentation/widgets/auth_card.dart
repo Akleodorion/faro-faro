@@ -1,12 +1,12 @@
 import 'dart:math';
 
-import 'package:faro_clean_tdd/core/util/text_field_enum.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/my_text_button.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/my_text_form_field.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/remember_checkbox.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
-import 'package:faro_clean_tdd/main.dart';
+import '../../../../core/util/text_field_enum.dart';
+import '../providers/user_provider.dart';
+import 'my_text_button.dart';
+import 'my_text_form_field.dart';
+import 'remember_checkbox.dart';
+import 'usecase_elevated_button.dart';
+import '../../../../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/state/user_state.dart';
