@@ -80,6 +80,7 @@ void main() {
           final expectedState = [
             Loaded(
                 indexEvent: tEvents,
+                allEvents: tEvents,
                 randomEvents: tEvents,
                 upcomingEvents: tEvents)
           ];
@@ -267,6 +268,50 @@ void main() {
           final result = eventNotifier.getUpcomingEvent(tEvents);
           //assert
           expect(result, []);
+        },
+      );
+    },
+  );
+
+  group(
+    "searchEvent",
+    () {
+      final tEvents10 = [
+        tEvent1,
+        tEvent2,
+        tEvent1,
+        tEvent2,
+        tEvent1,
+        tEvent2,
+        tEvent1,
+        tEvent2,
+        tEvent1,
+        tEvent2,
+      ];
+      final teventState = Loaded(
+          indexEvent: tEvents10,
+          randomEvents: tEvents10,
+          upcomingEvents: tEvents10,
+          allEvents: tEvents10);
+      test(
+        "should return a eventState with the index Event filtered",
+        () async {
+          //act
+          final result = eventNotifier.searchEvent('Event 1 ', teventState);
+          //assert
+
+          final tExpected = Loaded(
+              indexEvent: [
+                tEvent1,
+                tEvent1,
+                tEvent1,
+                tEvent1,
+                tEvent1,
+              ],
+              randomEvents: tEvents10,
+              upcomingEvents: tEvents10,
+              allEvents: tEvents10);
+          expect(result, tExpected);
         },
       );
     },

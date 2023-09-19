@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import '../../../domain/usecases/fetch_all_events.dart';
 import 'event_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/entities/event.dart';
 
 class EventNotifier extends StateNotifier<EventState> {
-  // usecases
   final FetchAllEvents fetchAllEventsUsecase;
 
   EventState get initialState => Loading();
@@ -26,11 +23,14 @@ class EventNotifier extends StateNotifier<EventState> {
     }, (events) {
       state = Loaded(
           indexEvent: events,
+          allEvents: events,
           randomEvents: getRandomEvent(events),
           upcomingEvents: getUpcomingEvent(events));
     });
     return state;
   }
+
+  // Méthodes
 
   List<Event> getRandomEvent(List<Event> events) {
     final List<Event> randomEvents = events;
@@ -56,5 +56,24 @@ class EventNotifier extends StateNotifier<EventState> {
     } else {
       return [];
     }
+  }
+
+  EventState? searchEvent(String researchInput, EventState eventState) {
+    if (eventState is Loaded) {
+      final filteredEvent = eventState.allEvents
+          .where((event) =>
+              (event.name.toUpperCase().contains(researchInput.toUpperCase()) ||
+                  event.description
+                      .toUpperCase()
+                      .contains(researchInput.toUpperCase())))
+          .toList();
+      state = Loaded(
+          indexEvent: filteredEvent,
+          randomEvents: eventState.randomEvents,
+          upcomingEvents: eventState.upcomingEvents,
+          allEvents: eventState.allEvents);
+      return state;
+    }
+    return null;
   }
 }

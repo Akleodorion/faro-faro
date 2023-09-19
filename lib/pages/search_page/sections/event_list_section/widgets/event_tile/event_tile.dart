@@ -3,7 +3,7 @@ import 'components/event_tile_image_container.dart';
 import 'components/event_tile_more_info_container.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../features/events/domain/entities/event.dart';
+import '../../../../../../features/events/domain/entities/event.dart';
 
 class EventTile extends StatelessWidget {
   const EventTile({super.key, required this.event});

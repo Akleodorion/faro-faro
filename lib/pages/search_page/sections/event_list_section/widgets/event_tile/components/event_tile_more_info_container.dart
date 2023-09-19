@@ -1,4 +1,4 @@
-import '../../../../../features/events/domain/entities/event.dart';
+import '../../../../../../../features/events/domain/entities/event.dart';
 import 'package:flutter/material.dart';
 
 import 'event_tile_elevated_button.dart';
