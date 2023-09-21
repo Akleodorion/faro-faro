@@ -5,14 +5,12 @@ enum FilterCategory {
   loisir,
   sport,
   culture,
-  prixMin,
-  prixMax,
 }
 
 class Filter extends Equatable {
-  const Filter({required this.filters});
-  final Map<FilterCategory, dynamic> filters;
+  const Filter({required this.filter});
+  final Map<FilterCategory, dynamic> filter;
 
   @override
-  List<Object?> get props => [filters];
+  List<Object?> get props => [filter];
 }
