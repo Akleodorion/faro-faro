@@ -29,7 +29,7 @@ class EventModel extends Event {
       modelEco = ModelEco.payant;
     }
 
-    if (json["category"] == "losir") {
+    if (json["category"] == "loisir") {
       category = Category.loisir;
     } else if (json["category"] == "culture") {
       category = Category.culture;

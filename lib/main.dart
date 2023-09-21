@@ -64,7 +64,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('fr_FR', null);
   await di.init();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {
