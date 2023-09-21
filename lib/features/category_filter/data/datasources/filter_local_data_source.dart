@@ -2,7 +2,7 @@
 
 import 'package:faro_clean_tdd/features/category_filter/domain/entities/filter.dart';
 
-const FILTERS = [
+const CATEGORIES = [
   Category.concert,
   Category.loisir,
   Category.culture,
@@ -16,6 +16,6 @@ abstract class FilterLocalDataSource {
 class FilterLocalDataSourceImpl implements FilterLocalDataSource {
   @override
   Category getFilter(int index) {
-    return FILTERS.singleWhere((element) => element.index == index);
+    return CATEGORIES.singleWhere((element) => element.index == index);
   }
 }
