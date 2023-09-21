@@ -1,8 +1,8 @@
-import 'package:faro_clean_tdd/features/filters/data/datasources/filter_local_data_source.dart';
-import 'package:faro_clean_tdd/features/filters/data/repositories/filter_repository_impl.dart';
-import 'package:faro_clean_tdd/features/filters/domain/repositories/filter_repository.dart';
-import 'package:faro_clean_tdd/features/filters/domain/usecases/toggle_filter.dart';
-import 'package:faro_clean_tdd/features/filters/presentation/providers/state/filter_notifier.dart';
+import 'package:faro_clean_tdd/features/category_filter/data/datasources/filter_local_data_source.dart';
+import 'package:faro_clean_tdd/features/category_filter/data/repositories/filter_repository_impl.dart';
+import 'package:faro_clean_tdd/features/category_filter/domain/repositories/category_filter_repository.dart';
+import 'package:faro_clean_tdd/features/category_filter/domain/usecases/toggle_category_filter.dart';
+import 'package:faro_clean_tdd/features/category_filter/presentation/providers/state/filter_notifier.dart';
 
 import 'core/network/network_info.dart';
 import 'core/util/datetime_comparator.dart';
@@ -32,10 +32,10 @@ Future<void> init() async {
   // Features - Filters
   sl.registerFactory(() => FilterNotifier(toggleFilterUsecase: sl()));
   // Usecases
-  sl.registerLazySingleton(() => ToggleFilter(repository: sl()));
+  sl.registerLazySingleton(() => ToggleCategoryFilter(repository: sl()));
   // Repository
-  sl.registerLazySingleton<FilterRepository>(
-      () => FilterRepositoryImpl(localDataSource: sl()));
+  sl.registerLazySingleton<CategoryFilterRepository>(
+      () => CategoryFilterRepositoryImpl(localDataSource: sl()));
   // Datasource
   sl.registerLazySingleton<FilterLocalDataSource>(
       () => FilterLocalDataSourceImpl());
