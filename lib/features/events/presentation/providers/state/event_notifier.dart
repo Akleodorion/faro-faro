@@ -76,4 +76,6 @@ class EventNotifier extends StateNotifier<EventState> {
     }
     return null;
   }
+
+  
 }

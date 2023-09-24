@@ -3,23 +3,16 @@ import 'package:intl/intl.dart';
 
 var formated = DateFormat.yMMMd('fr');
 
-enum Category {
-  loisir,
-  concert,
-  sport,
-  culture,
-}
-
-final List<Category> availableCategories = [
-  Category.concert,
-  Category.culture,
-  Category.loisir,
-  Category.sport
-];
-
 enum ModelEco {
   gratuit,
   payant,
+}
+
+enum Category {
+  concert,
+  loisir,
+  sport,
+  culture,
 }
 
 class Event extends Equatable {

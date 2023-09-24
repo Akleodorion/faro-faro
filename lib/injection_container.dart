@@ -1,9 +1,3 @@
-import 'package:faro_clean_tdd/features/category_filter/data/datasources/filter_local_data_source.dart';
-import 'package:faro_clean_tdd/features/category_filter/data/repositories/filter_repository_impl.dart';
-import 'package:faro_clean_tdd/features/category_filter/domain/repositories/category_filter_repository.dart';
-import 'package:faro_clean_tdd/features/category_filter/domain/usecases/toggle_category_filter.dart';
-import 'package:faro_clean_tdd/features/category_filter/presentation/providers/state/filter_notifier.dart';
-
 import 'core/network/network_info.dart';
 import 'core/util/datetime_comparator.dart';
 import 'features/events/data/datasources/event_remote_data_source.dart';
@@ -29,17 +23,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Features - Filters
-  sl.registerFactory(() => FilterNotifier(toggleFilterUsecase: sl()));
-  // Usecases
-  sl.registerLazySingleton(() => ToggleCategoryFilter(repository: sl()));
-  // Repository
-  sl.registerLazySingleton<CategoryFilterRepository>(
-      () => CategoryFilterRepositoryImpl(localDataSource: sl()));
-  // Datasource
-  sl.registerLazySingleton<FilterLocalDataSource>(
-      () => FilterLocalDataSourceImpl());
-
   // Features - userAuth
   sl.registerFactory(() => UserNotifier(
       logInWithTokenUsecase: sl(),
