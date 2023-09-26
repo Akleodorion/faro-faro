@@ -20,13 +20,17 @@ class EventTileMoreInfoContainer extends StatelessWidget {
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
           ),
           Text(
-            "${event.standardTicketPrice} XOF",
+            event.modelEco == ModelEco.gratuit
+                ? "Gratuit"
+                : "${event.standardTicketPrice} XOF",
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           const SizedBox(
             height: 5,
           ),
-          const EventTileElevatedButton()
+          EventTileElevatedButton(
+            event: event,
+          )
         ],
       ),
     );

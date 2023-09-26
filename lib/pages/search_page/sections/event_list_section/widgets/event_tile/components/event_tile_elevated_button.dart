@@ -1,12 +1,22 @@
+import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/pages/event_show_page/event_show_page.dart';
 import 'package:flutter/material.dart';
 
 class EventTileElevatedButton extends StatelessWidget {
-  const EventTileElevatedButton({super.key});
+  const EventTileElevatedButton({super.key, required this.event});
+
+  final Event event;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+          return EventShowPage(
+            event: event,
+          );
+        }));
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,

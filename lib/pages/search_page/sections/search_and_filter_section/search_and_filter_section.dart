@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/pages/search_page/pop_page/general_filter_page.dart';
 import 'package:faro_clean_tdd/pages/search_page/sections/search_and_filter_section/widgets/event_list_search_bar/event_list_search_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,12 @@ class SearchAndFilterSection extends StatelessWidget {
       children: [
         const EventListSearchBar(),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                backgroundColor: Theme.of(context).colorScheme.background,
+                builder: (context) => const GeneralFilterPage());
+          },
           icon: const Icon(
             Icons.filter_list_alt,
             size: 40,

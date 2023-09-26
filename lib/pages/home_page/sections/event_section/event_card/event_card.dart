@@ -61,7 +61,9 @@ class EventCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Text(
-                      "${event.standardTicketPrice} XOF",
+                      event.modelEco == ModelEco.gratuit
+                          ? "Gratuit"
+                          : "${event.standardTicketPrice} XOF",
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
