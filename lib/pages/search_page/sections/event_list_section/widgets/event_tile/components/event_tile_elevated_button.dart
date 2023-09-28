@@ -7,15 +7,19 @@ class EventTileElevatedButton extends StatelessWidget {
 
   final Event event;
 
+  void _goToEventShowPage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      return EventShowPage(
+        event: event,
+      );
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-          return EventShowPage(
-            event: event,
-          );
-        }));
+        _goToEventShowPage(context);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary,

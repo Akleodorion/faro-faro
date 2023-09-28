@@ -45,6 +45,16 @@ final theme = ThemeData(
         fontSize: 12,
         color: Color.fromRGBO(243, 255, 198, 1),
         decoration: TextDecoration.underline),
+    bodyMedium: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      color: Color.fromRGBO(235, 240, 217, 1),
+    ),
+    bodyLarge: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      color: Color.fromRGBO(235, 240, 217, 1),
+    ),
   ),
 
   //! Colors

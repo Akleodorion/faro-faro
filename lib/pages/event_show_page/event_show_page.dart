@@ -1,6 +1,8 @@
+import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
+import 'package:faro_clean_tdd/core/util/number_formatter.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
-import 'package:faro_clean_tdd/pages/event_show_page/widgets/imaga_container.dart';
+import 'package:faro_clean_tdd/pages/event_show_page/widgets/image_container.dart';
 import 'package:flutter/material.dart';
 
 class EventShowPage extends StatelessWidget {
@@ -33,71 +35,106 @@ class EventShowPage extends StatelessWidget {
                 vertical: 20,
               ),
               child: SizedBox(
-                height: mediaHeight * 0.45,
+                height: mediaHeight * 0.47,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(event.name),
-                      const Row(
+                      Text(
+                        event.name,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Hello XXXXXX"),
-                          Text("World XXXXXX"),
+                          Row(
+                            children: [
+                              Text(
+                                  "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.location}",
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.pin_drop_outlined,
+                                  size: 24,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              )
+                            ],
+                          ),
+                          Text("World XXXXXX",
+                              style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
-                          "${event.name}: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                                text: "Description : ",
+                                style: Theme.of(context).textTheme.titleLarge),
+                            TextSpan(
+                                text:
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                                style: Theme.of(context).textTheme.bodyMedium)
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text("Tarifs"),
+                      Text("Tarifs",
+                          style: Theme.of(context).textTheme.titleLarge),
                       const SizedBox(
                         height: 5,
                       ),
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
-                            Icons.panorama_fish_eye_outlined,
-                            size: 8,
+                          const Icon(
+                            Icons.circle,
+                            size: 4,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
-                          Text("Ticket Standard : 5000 XOF")
+                          Text(
+                              "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice)} XOF")
                         ],
                       ),
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
-                            Icons.panorama_fish_eye_outlined,
-                            size: 8,
+                          const Icon(
+                            Icons.circle,
+                            size: 4,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
-                          Text("Ticket VIP : 10 000 XOF")
+                          Text(
+                              "Ticket VIP : ${NumberFormatterImpl().formatNumber(event.vipTicketPrice)} XOF")
                         ],
                       ),
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
-                            Icons.panorama_fish_eye_outlined,
-                            size: 8,
+                          const Icon(
+                            Icons.circle,
+                            size: 4,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
-                          Text("Ticket VVIP : 15 000 XOF")
+                          Text(
+                              "Ticket VVIP : ${NumberFormatterImpl().formatNumber(event.vvipTicketPrice)} XOF")
                         ],
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text("Localisation"),
+                      Text("Localisation",
+                          style: Theme.of(context).textTheme.titleLarge),
                       const SizedBox(
                         height: 10,
                       ),

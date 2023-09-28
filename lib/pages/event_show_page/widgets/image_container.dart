@@ -7,12 +7,12 @@ class ImageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double imageHeight = MediaQuery.of(context).size.height;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Container(
           width: double.infinity,
-          height: imageHeight * 0.40,
+          height: screenHeight * 0.40,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
@@ -22,7 +22,7 @@ class ImageContainer extends StatelessWidget {
         ),
         Container(
           width: double.infinity,
-          height: imageHeight * 0.40,
+          height: screenHeight * 0.40,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -34,6 +34,25 @@ class ImageContainer extends StatelessWidget {
             ),
           ),
         ),
+        Positioned(
+          top: screenHeight * 0.05,
+          left: 20,
+          child: Container(
+            decoration: BoxDecoration(
+                color:
+                    Theme.of(context).colorScheme.background.withOpacity(0.9)),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_new,
+                size: 24,
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
