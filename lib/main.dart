@@ -9,6 +9,8 @@ import 'injection_container.dart' as di;
 
 final theme = ThemeData(
   useMaterial3: true,
+  datePickerTheme:
+      const DatePickerThemeData(backgroundColor: Color.fromRGBO(42, 43, 42, 1)),
 
   //! Buttons
   textButtonTheme: TextButtonThemeData(
@@ -43,6 +45,16 @@ final theme = ThemeData(
         fontSize: 12,
         color: Color.fromRGBO(243, 255, 198, 1),
         decoration: TextDecoration.underline),
+    bodyMedium: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      color: Color.fromRGBO(235, 240, 217, 1),
+    ),
+    bodyLarge: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      color: Color.fromRGBO(235, 240, 217, 1),
+    ),
   ),
 
   //! Colors
@@ -64,7 +76,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('fr_FR', null);
   await di.init();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {

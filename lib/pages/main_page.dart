@@ -1,5 +1,6 @@
+import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
+
 import '../features/events/presentation/providers/event_provider.dart';
-import 'search_page/search_page.dart';
 import 'settings_page/settings_page.dart';
 import 'ticket_page/ticket_page.dart';
 import 'package:flutter/material.dart';
