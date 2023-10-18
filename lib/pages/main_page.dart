@@ -1,4 +1,5 @@
 import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page.dart';
 
 import '../features/events/presentation/providers/event_provider.dart';
 import 'settings_page/settings_page.dart';
@@ -16,6 +17,7 @@ class MainPage extends ConsumerStatefulWidget {
 
 class _MainPageState extends ConsumerState<MainPage> {
   late int _currentIndex;
+  late bool myEvent = false;
   late Widget content;
 
   @override
@@ -25,6 +27,12 @@ class _MainPageState extends ConsumerState<MainPage> {
     _currentIndex = 0;
   }
 
+  void setEvent(bool value) {
+    setState(() {
+      myEvent = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (_currentIndex) {
@@ -32,7 +40,9 @@ class _MainPageState extends ConsumerState<MainPage> {
         content = const SearchPage();
         break;
       case 2:
-        content = const TicketPage();
+        content = TicketPage(
+          setEvent: setEvent,
+        );
         break;
       case 3:
         content = const SettingsPage();
@@ -43,6 +53,20 @@ class _MainPageState extends ConsumerState<MainPage> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
+      floatingActionButton: (_currentIndex == 2 && myEvent == true)
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return const NewEventPage();
+                }));
+              },
+              child: const Icon(
+                Icons.add,
+                size: 40,
+              ),
+            )
+          : null,
       body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
