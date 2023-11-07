@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 abstract class EventRemoteDatasource {
   /// Fait une requête à http://localhost:3001/events
   ///
-  /// Jete une [ServerException] en cas d'erreur
+  /// Jette une [ServerException] en cas d'erreur
   Future<List<EventModel>> fetchAllEvents();
 }
 

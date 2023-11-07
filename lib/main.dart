@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'features/user_authentification/presentation/providers/state/user_state.dart';
 import 'features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +76,11 @@ final theme = ThemeData(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await initializeDateFormatting('fr_FR', null);
   await di.init();
+  await dotenv.load(fileName: ".env");
+
   runApp(
     const ProviderScope(
       child: MyApp(),

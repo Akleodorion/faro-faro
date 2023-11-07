@@ -1,3 +1,12 @@
+import 'package:faro_clean_tdd/core/util/get_location.dart';
+import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart';
+import 'package:faro_clean_tdd/features/address/data/repositories/address_repository_impl.dart';
+import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
+import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
+import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
+import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_notifier.dart';
+import 'package:location/location.dart';
+
 import 'core/network/network_info.dart';
 import 'core/util/datetime_comparator.dart';
 import 'features/events/data/datasources/event_remote_data_source.dart';
@@ -66,13 +75,32 @@ Future<void> init() async {
   sl.registerLazySingleton<EventRemoteDatasource>(
       () => EventRemoteDatasourceImpl(client: sl()));
 
+  // Features - Get Address
+  sl.registerFactory(() => AddressNotifier(
+      getCurrentLocationAddressUsecase: sl(),
+      getSelectedLocationAddressUsecase: sl()));
+
+  // Usecases
+  sl.registerLazySingleton(() => GetCurrentLocationAddress(repository: sl()));
+  sl.registerLazySingleton(() => GetSelectedLocationAddress(repository: sl()));
+
+  // Repository
+  sl.registerLazySingleton<AddressRepository>(
+      () => AddressRepositoryImpl(remoteDataSource: sl()));
+
+  // Datasource
+  sl.registerLazySingleton<AddressRemoteDataSource>(
+      () => AddressRemoteDataSourceImpl(client: sl(), location: sl()));
+
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton(() => GetLocationImpl(location: sl()));
   sl.registerLazySingleton<DateTimeComparator>(() => DateTimeComparatorImpl());
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
+  sl.registerLazySingleton(() => Location());
   sl.registerLazySingleton(() => InternetConnectionChecker());
 }
