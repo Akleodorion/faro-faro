@@ -11,12 +11,14 @@ void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
 
-  const tAddressModel = AddressModel(
+  final apiKey = dotenv.env['API_KEY'];
+
+  final tAddressModel = AddressModel(
       latitude: 37.4224428,
       longitude: -122.0842467,
       addressName: "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
       geocodeUrl:
-          'https://maps.googleapis.com/maps/api/staticmap?center=37.4224428,-122.0842467&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C37.4224428,-122.0842467&key=AIzaSyAPxDvPZeOXO5wu30KN2P6rc6-ub8Pt2V0');
+          'https://maps.googleapis.com/maps/api/staticmap?center=37.4224428,-122.0842467&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C37.4224428,-122.0842467&key=$apiKey');
 
   test(
     "should be a subclass of Address",

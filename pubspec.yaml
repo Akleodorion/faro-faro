@@ -43,6 +43,7 @@ dependencies:
   get_it: ^7.6.0
   google_maps_flutter: ^2.5.0
   http: ^1.1.0
+  image_picker: ^1.0.4
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.1
   intl_phone_number_input: ^0.7.3+1

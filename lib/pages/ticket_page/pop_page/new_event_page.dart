@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:faro_clean_tdd/features/address/presentation/providers/address_provider.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
@@ -6,6 +8,7 @@ import 'package:faro_clean_tdd/pages/ticket_page/pop_page/sections/title_and_ret
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/category_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/date_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/eco_picker_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/image_input.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/number_input_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/title_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +34,7 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
     final addressState = ref.watch(addressProvider);
 
     Widget locationContent = const Center(child: Text("No place choosen"));
+    File? imagePicked;
 
     void createNewEvent() {
       if (formKey.currentState!.validate()) {
@@ -167,22 +171,13 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Placeholder(
-                      fallbackHeight: 200,
-                    ),
+                    ImageInput(onPickImage: (File image) {
+                      imagePicked = image;
+                    }),
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(Icons.image),
-                          label: const Text("Selectionner une image"),
-                        ),
-                      ],
-                    ),
+
                     const SizedBox(
                       height: 20,
                     ),
