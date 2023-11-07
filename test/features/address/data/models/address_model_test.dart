@@ -2,15 +2,21 @@ import 'dart:convert';
 
 import 'package:faro_clean_tdd/features/address/data/models/address_model.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
-void main() {
+void main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
+
   const tAddressModel = AddressModel(
       latitude: 37.4224428,
       longitude: -122.0842467,
-      addressName: "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA");
+      addressName: "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
+      geocodeUrl:
+          'https://maps.googleapis.com/maps/api/staticmap?center=37.4224428,-122.0842467&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C37.4224428,-122.0842467&key=AIzaSyAPxDvPZeOXO5wu30KN2P6rc6-ub8Pt2V0');
 
   test(
     "should be a subclass of Address",
@@ -28,6 +34,7 @@ void main() {
         //act
         final Map<String, dynamic> jsonMap =
             json.decode(fixture('address.json'));
+
         //assert
         final result = AddressModel.fromJson(jsonMap);
         expect(result, tAddressModel);

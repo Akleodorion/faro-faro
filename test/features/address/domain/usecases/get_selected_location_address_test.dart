@@ -1,39 +1,43 @@
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
-import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
+import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'get_current_location_address_test.mocks.dart';
+import 'get_selected_location_address_test.mocks.dart';
 
 @GenerateMocks([AddressRepository])
 void main() {
   late MockAddressRepository mockAddressRepository;
-  late GetCurrentLocationAddress getCurrentLocationAddress;
+  late GetSelectedLocationAddress getSelectedLocationAddress;
 
   setUp(() {
     mockAddressRepository = MockAddressRepository();
-    getCurrentLocationAddress =
-        GetCurrentLocationAddress(repository: mockAddressRepository);
+    getSelectedLocationAddress =
+        GetSelectedLocationAddress(repository: mockAddressRepository);
   });
 
-  group('getCurrentLocationAddress', () {
+  group('getSelectedLocationAddress', () {
+    const tLatitude = 12.52;
+    const tLongitude = 52.45;
     const tAddress = Address(
-        latitude: 12.52,
-        longitude: 52.45,
+        latitude: tLatitude,
+        longitude: tLongitude,
         addressName: 'Sesame Street',
         geocodeUrl: 'geocodeUrlString');
 
     test(
-      "should return a valid Address model",
+      "should return a valid address model",
       () async {
         //arrange
-        when(mockAddressRepository.getCurrentLocationAddress())
+        when(mockAddressRepository.getSelectedLocationAddress(
+                tLatitude, tLongitude))
             .thenAnswer((_) async => const Right(tAddress));
         //act
-        final result = await getCurrentLocationAddress.call();
+        final result =
+            await getSelectedLocationAddress.call(tLatitude, tLongitude);
         //assert
         expect(result, const Right(tAddress));
       },

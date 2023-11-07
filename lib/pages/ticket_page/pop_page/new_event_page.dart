@@ -1,4 +1,7 @@
+import 'package:faro_clean_tdd/features/address/presentation/providers/address_provider.dart';
+import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/map_page.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/category_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/date_picker_field.dart';
@@ -6,28 +9,44 @@ import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/eco_picker_fie
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/number_input_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/title_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 
-class NewEventPage extends StatefulWidget {
+class NewEventPage extends ConsumerStatefulWidget {
   const NewEventPage({super.key});
 
   @override
-  State<NewEventPage> createState() => _NewEventPageState();
+  ConsumerState<NewEventPage> createState() => _NewEventPageState();
 }
 
-class _NewEventPageState extends State<NewEventPage> {
+class _NewEventPageState extends ConsumerState<NewEventPage> {
   String? _enteredTitle;
   String? selectedDate;
   Category? _selectedCategory;
   ModelEco? _selectedModelEco;
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
+    final addressState = ref.watch(addressProvider);
 
-    void _createNewEvent() {
-      if (_formKey.currentState!.validate()) {
-        _formKey.currentState!.save();
+    Widget locationContent = const Center(child: Text("No place choosen"));
+
+    void createNewEvent() {
+      if (formKey.currentState!.validate()) {
+        formKey.currentState!.save();
       }
+    }
+
+    if (addressState is Loading) {
+      locationContent = const Center(child: CircularProgressIndicator());
+    } else if (addressState is Loaded) {
+      locationContent = Image.network(
+        addressState.address.geocodeUrl,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+      );
     }
 
     return Scaffold(
@@ -45,7 +64,7 @@ class _NewEventPageState extends State<NewEventPage> {
         ),
         child: SafeArea(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -100,8 +119,15 @@ class _NewEventPageState extends State<NewEventPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Placeholder(
-                      fallbackHeight: 200,
+                    Container(
+                      height: 200,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1,
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      child: locationContent,
                     ),
                     const SizedBox(
                       height: 20,
@@ -110,14 +136,31 @@ class _NewEventPageState extends State<NewEventPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            ref
+                                .read(addressProvider.notifier)
+                                .getCurrentLocationAddress();
+                          },
                           icon: const Icon(Icons.pin_drop),
-                          label: const Text("Hello"),
+                          label: const Text("Current position"),
                         ),
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final pickedLocation = await Navigator.of(context)
+                                .push<LatLng>(MaterialPageRoute(builder: (ctx) {
+                              return const MapScreen();
+                            }));
+                            if (pickedLocation == null) {
+                              return;
+                            }
+                            ref
+                                .read(addressProvider.notifier)
+                                .getSelectedLociationAddress(
+                                    pickedLocation.latitude,
+                                    pickedLocation.longitude);
+                          },
                           icon: const Icon(Icons.map),
-                          label: const Text("Hello"),
+                          label: const Text("Select on map"),
                         )
                       ],
                     ),
@@ -179,9 +222,9 @@ class _NewEventPageState extends State<NewEventPage> {
 
                     ElevatedButton(
                         onPressed: () {
-                          _createNewEvent();
+                          createNewEvent();
                         },
-                        child: Text("hello"))
+                        child: const Text("hello"))
                   ],
                 ),
               ),
