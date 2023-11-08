@@ -34,7 +34,6 @@ class AddressNotifier extends StateNotifier<AddressState> {
     state = Loading();
     final response =
         await getSelectedLocationAddressUsecase.call(latitude, longitude);
-    print(1);
     response!.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);

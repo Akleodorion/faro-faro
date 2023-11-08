@@ -23,7 +23,7 @@ void main() {
   });
 
   test(
-    "should return Right(File) when successfull",
+    "should return Right(PickedImage) when successfull",
     () async {
       final File image = File('flyers.jpg');
 
@@ -34,7 +34,7 @@ void main() {
       //act
       final result = await pickImageFromGalery.call();
       //assert
-      expect(result, Right(image));
+      expect(result, Right(tPickedImage));
     },
   );
 
