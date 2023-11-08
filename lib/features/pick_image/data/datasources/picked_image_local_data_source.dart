@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/models/picked_image_model.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 abstract class PickedImageLocalDataSource {
@@ -15,11 +17,15 @@ class PickedImageLocalDataSourceImpl implements PickedImageLocalDataSource {
 
   @override
   Future<PickedImageModel?> pickImageFromGallery() async {
-    final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-    if (pickedImage == null) {
-      return null;
+    try {
+      final pickedImage =
+          await imagePicker.pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) {
+        return null;
+      }
+      return PickedImageModel(image: File(pickedImage.path));
+    } on PlatformException catch (code) {
+      throw ServerException(errorMessage: code.message!);
     }
-    return PickedImageModel(image: File(pickedImage.path));
   }
 }
