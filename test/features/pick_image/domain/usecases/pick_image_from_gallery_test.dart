@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart';
 import 'package:faro_clean_tdd/features/pick_image/domain/repositories/picked_image_repository.dart';
 import 'package:faro_clean_tdd/features/pick_image/domain/usecases/pick_image_from_galery.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,16 +23,18 @@ void main() {
   });
 
   test(
-    "should return Right(File) when successfull",
+    "should return Right(PickedImage) when successfull",
     () async {
       final File image = File('flyers.jpg');
+
+      final tPickedImage = PickedImage(image: image);
       //arrange
       when(mockPickedImageRepository.pickImageFromGalery())
-          .thenAnswer((_) async => Right(image));
+          .thenAnswer((_) async => Right(tPickedImage));
       //act
       final result = await pickImageFromGalery.call();
       //assert
-      expect(result, Right(image));
+      expect(result, Right(tPickedImage));
     },
   );
 

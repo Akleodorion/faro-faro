@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart';
 import 'package:faro_clean_tdd/features/pick_image/domain/repositories/picked_image_repository.dart';
 
 class PickImageFromGalery {
@@ -9,7 +8,7 @@ class PickImageFromGalery {
 
   final PickedImageRepository repository;
 
-  Future<Either<Failure, File?>?> call() async {
+  Future<Either<Failure, PickedImage?>?> call() async {
     return await repository.pickImageFromGalery();
   }
 }

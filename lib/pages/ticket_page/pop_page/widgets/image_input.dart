@@ -1,47 +1,44 @@
-import 'dart:io';
+import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
+import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_state.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ImageInput extends StatefulWidget {
-  const ImageInput({super.key, required this.onPickImage});
-
-  final void Function(File image) onPickImage;
+class ImageInput extends ConsumerStatefulWidget {
+  const ImageInput({
+    super.key,
+  });
 
   @override
-  State<ImageInput> createState() {
+  ConsumerState<ImageInput> createState() {
     return _ImageInputState();
   }
 }
 
-class _ImageInputState extends State<ImageInput> {
-  File? _selectedImage;
-
-  void _takePicture() async {
-    final imagePicker = ImagePicker();
-    final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.camera, maxWidth: 600);
-    if (pickedImage == null) {
-      return;
-    }
-    setState(() {
-      _selectedImage = File(pickedImage.path);
-    });
-
-    widget.onPickImage(_selectedImage!);
-  }
-
+class _ImageInputState extends ConsumerState<ImageInput> {
   @override
   Widget build(BuildContext context) {
-    Widget content = TextButton.icon(
-      icon: const Icon(Icons.camera),
-      label: const Text('Add a picture'),
-      onPressed: _takePicture,
-    );
+    final pickedImageState = ref.watch(pickedImageProvider);
+    late Widget content;
 
-    if (_selectedImage != null) {
+    if (pickedImageState is Initial) {
+      content = TextButton.icon(
+        icon: const Icon(Icons.camera),
+        label: const Text('Add a picture'),
+        onPressed: () {
+          ref.read(pickedImageProvider.notifier).pickImageFromGalery();
+        },
+      );
+    }
+    if (pickedImageState is Loading) {
+      content = const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (pickedImageState is Loaded) {
       content = Image.file(
+        pickedImageState.pickedImage.image,
         width: double.infinity,
-        _selectedImage!,
         fit: BoxFit.cover,
       );
     }
@@ -54,7 +51,11 @@ class _ImageInputState extends State<ImageInput> {
       height: 250,
       width: double.infinity,
       alignment: Alignment.center,
-      child: InkWell(onTap: _takePicture, child: content),
+      child: InkWell(
+          onTap: () {
+            ref.read(pickedImageProvider.notifier).pickImageFromGalery();
+          },
+          child: content),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:faro_clean_tdd/features/address/presentation/providers/address_provider.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
@@ -34,7 +33,6 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
     final addressState = ref.watch(addressProvider);
 
     Widget locationContent = const Center(child: Text("No place choosen"));
-    File? imagePicked;
 
     void createNewEvent() {
       if (formKey.currentState!.validate()) {
@@ -171,9 +169,7 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    ImageInput(onPickImage: (File image) {
-                      imagePicked = image;
-                    }),
+                    const ImageInput(),
                     const SizedBox(
                       height: 20,
                     ),

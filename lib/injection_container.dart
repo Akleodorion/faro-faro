@@ -5,6 +5,12 @@ import 'package:faro_clean_tdd/features/address/domain/repositories/address_repo
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_notifier.dart';
+import 'package:faro_clean_tdd/features/pick_image/data/datasources/picked_image_local_data_source.dart';
+import 'package:faro_clean_tdd/features/pick_image/data/repositories/picked_image_repository_impl.dart';
+import 'package:faro_clean_tdd/features/pick_image/domain/repositories/picked_image_repository.dart';
+import 'package:faro_clean_tdd/features/pick_image/domain/usecases/pick_image_from_galery.dart';
+import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_notifier.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
 import 'core/network/network_info.dart';
@@ -92,6 +98,21 @@ Future<void> init() async {
   sl.registerLazySingleton<AddressRemoteDataSource>(
       () => AddressRemoteDataSourceImpl(client: sl(), location: sl()));
 
+  // Features - Pick Image
+  sl.registerFactory(
+      () => PickedImageNotifier(pickImageFromGaleryUsecase: sl()));
+
+  // Usecases
+  sl.registerLazySingleton(() => PickImageFromGalery(repository: sl()));
+
+  // Repository
+  sl.registerLazySingleton<PickedImageRepository>(
+      () => PickedImageRepositoryImpl(repository: sl()));
+
+  // Datasource
+  sl.registerLazySingleton<PickedImageLocalDataSource>(
+      () => PickedImageLocalDataSourceImpl(imagePicker: sl()));
+
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton(() => GetLocationImpl(location: sl()));
@@ -103,4 +124,5 @@ Future<void> init() async {
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => Location());
   sl.registerLazySingleton(() => InternetConnectionChecker());
+  sl.registerLazySingleton(() => ImagePicker());
 }

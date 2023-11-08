@@ -4,10 +4,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
-import 'dart:io' as _i6;
 
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
+import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart'
+    as _i6;
 import 'package:faro_clean_tdd/features/pick_image/domain/repositories/picked_image_repository.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -33,12 +34,13 @@ class MockPickedImageRepository extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i4.Either<_i5.Failure, _i6.File?>?> pickImageFromGalery() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #pickImageFromGalery,
-          [],
-        ),
-        returnValue: _i3.Future<_i4.Either<_i5.Failure, _i6.File?>?>.value(),
-      ) as _i3.Future<_i4.Either<_i5.Failure, _i6.File?>?>);
+  _i3.Future<_i4.Either<_i5.Failure, _i6.PickedImage?>?>
+      pickImageFromGalery() => (super.noSuchMethod(
+            Invocation.method(
+              #pickImageFromGalery,
+              [],
+            ),
+            returnValue:
+                _i3.Future<_i4.Either<_i5.Failure, _i6.PickedImage?>?>.value(),
+          ) as _i3.Future<_i4.Either<_i5.Failure, _i6.PickedImage?>?>);
 }

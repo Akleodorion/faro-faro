@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/datasources/picked_image_local_data_source.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/models/picked_image_model.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
@@ -24,20 +26,49 @@ void main() {
     "pickImageFromGallery",
     () {
       final tXfile = XFile('flyers.jpg');
-      final tPickedImageModel = PickedImageModel(image: File(tXfile.path));
-      // test(
-      //   "should return the PickedImageModel",
-      //   () async {
-      //     //arrange
-      //     when(mockImagePicker.pickImage(source: ImageSource.gallery))
-      //         .thenAnswer((_) async => tXfile);
-      //     //act
-      //     final result =
-      //         await pickedImageLocalDataSourceImpl.pickImageFromGallery();
-      //     //assert
-      //     expect(result, tPickedImageModel);
-      //   },
-      // );
+      final tFile = File(tXfile.path);
+      final tPickedImageModel = PickedImageModel(image: tFile);
+      test(
+        "should return a valid PickedImageModel",
+        () async {
+          //arrange
+          when(mockImagePicker.pickImage(source: ImageSource.gallery))
+              .thenAnswer((_) async => tXfile);
+          //act
+          final result =
+              await pickedImageLocalDataSourceImpl.pickImageFromGallery();
+          //assert
+          expect(result!.image.path, tPickedImageModel.image.path);
+        },
+      );
+
+      test(
+        "should return null if no image was picked",
+        () async {
+          //arrange
+          when(mockImagePicker.pickImage(source: ImageSource.gallery))
+              .thenAnswer((_) async => null);
+          //act
+          final result =
+              await pickedImageLocalDataSourceImpl.pickImageFromGallery();
+          //assert
+          expect(result, null);
+        },
+      );
+
+      test(
+        "should return a ServerException if an PlatformException is sent",
+        () async {
+          //arrange
+          when(mockImagePicker.pickImage(source: ImageSource.gallery))
+              .thenThrow(PlatformException(code: 'any', message: 'oops'));
+          //act et assert
+          expect(
+            () => pickedImageLocalDataSourceImpl.pickImageFromGallery(),
+            throwsA(isA<ServerException>()),
+          );
+        },
+      );
     },
   );
 }
