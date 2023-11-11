@@ -41,17 +41,22 @@ void main() {
             eventId: 1,
             description: 'short description',
             date: DateTime.now(),
-            location: 'Lille',
+            address: 'Lille',
+            latitude: 42.41454,
+            longitude: -127.5345,
             category: Category.concert,
             imageUrl: 'imageUrl',
             userId: 1,
             modelEco: ModelEco.gratuit,
             standardTicketPrice: 5000,
             maxStandardTicket: 50,
+            standardTicketDescription: "Standard ticket simple description",
             vipTicketPrice: 10000,
             maxVipTicket: 25,
+            vipTicketDescription: "vip ticket simple description",
             vvipTicketPrice: 15000,
             maxVvipTicket: 10,
+            vvipTicketDescription: "vvip ticket simple description",
           );
 
           final tEvent2 = EventModel(
@@ -59,17 +64,22 @@ void main() {
             eventId: 2,
             description: 'short description',
             date: DateTime.now(),
-            location: 'Arras',
+            address: 'Arras',
+            latitude: 42.41454,
+            longitude: -127.5345,
             category: Category.culture,
             imageUrl: 'imageUrl',
             userId: 1,
             modelEco: ModelEco.payant,
             standardTicketPrice: 5000,
             maxStandardTicket: 50,
+            standardTicketDescription: "Standard ticket simple description",
             vipTicketPrice: 10000,
             maxVipTicket: 25,
+            vipTicketDescription: "vip ticket simple description",
             vvipTicketPrice: 15000,
             maxVvipTicket: 10,
+            vvipTicketDescription: "vvip ticket simple description",
           );
 
           final tEvents = [tEvent1, tEvent2];
@@ -79,7 +89,7 @@ void main() {
             () async {
               //arrange
               when(mockEventRemoteDatasource.fetchAllEvents())
-                  .thenAnswer((realInvocation) async => tEvents);
+                  .thenAnswer((_) async => tEvents);
               //act
               final result = await eventRepositoryImpl.fetchAllEvents();
               //assert

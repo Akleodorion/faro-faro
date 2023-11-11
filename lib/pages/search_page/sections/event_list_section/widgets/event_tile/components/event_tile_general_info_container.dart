@@ -22,7 +22,7 @@ class EventTileGeneralInfoContainer extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary),
           ),
-          Text(event.location,
+          Text(event.address,
               style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.normal,

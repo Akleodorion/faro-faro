@@ -1,11 +1,12 @@
-
 import 'package:faro_clean_tdd/features/address/presentation/providers/address_provider.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/map_page.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/category_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/date_picker_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/description_text_form_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/eco_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/image_input.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/number_input_field.dart';
@@ -24,6 +25,9 @@ class NewEventPage extends ConsumerStatefulWidget {
 
 class _NewEventPageState extends ConsumerState<NewEventPage> {
   String? _enteredTitle;
+  String? _enteredStandardTicketDescription;
+  String? _enteredVipStandardTicketDescription;
+  String? _enteredVVipStandardTicketDescription;
   String? selectedDate;
   Category? _selectedCategory;
   ModelEco? _selectedModelEco;
@@ -121,6 +125,19 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                     const SizedBox(
                       height: 20,
                     ),
+                    DescriptionTextFormField(
+                        isTicket: false,
+                        initialValue:
+                            _enteredVVipStandardTicketDescription ?? '',
+                        onSave: (value) {
+                          setState(() {
+                            _enteredTitle = value;
+                          });
+                        }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+
                     Container(
                       height: 200,
                       width: double.infinity,
@@ -174,48 +191,134 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                       height: 20,
                     ),
 
+                    //! Standard
+                    const Center(
+                      child: Text('Ticket Standard',
+                          style: TextStyle(
+                              fontSize: 20,
+                              decoration: TextDecoration.underline)),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Nombre de ticket disponible : ',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
-                              ),
-                              const TextSpan(
-                                text: 'XX',
-                                style:
-                                    TextStyle(fontSize: 24, color: Colors.red),
-                              )
-                            ],
-                          ),
-                        )
+                        NumberInputField(
+                          trailingText: "Nombre de ticket :",
+                          isQuantity: true,
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        NumberInputField(
+                          trailingText: "Prix d'un ticket :",
+                          isQuantity: false,
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    DescriptionTextFormField(
+                        initialValue: _enteredStandardTicketDescription ?? '',
+                        isTicket: true,
+                        onSave: (value) {
+                          setState(() {
+                            _enteredTitle = value;
+                          });
+                        }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    //! Vip
+                    const Center(
+                      child: Text('Ticket Vip',
+                          style: TextStyle(
+                              fontSize: 20,
+                              decoration: TextDecoration.underline)),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        NumberInputField(
+                          trailingText: "Nombre de ticket :",
+                          isQuantity: true,
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        NumberInputField(
+                          trailingText: "Prix d'un ticket :",
+                          isQuantity: false,
+                        ),
                       ],
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    //! modif
-                    const NumberInputField(
-                      trailingText: "Nombre de ticket standard :",
+                    DescriptionTextFormField(
+                        initialValue:
+                            _enteredVipStandardTicketDescription ?? '',
+                        isTicket: true,
+                        onSave: (value) {
+                          setState(() {
+                            _enteredTitle = value;
+                          });
+                        }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    //! Vvip
+                    const Center(
+                      child: Text('Ticket Vvip',
+                          style: TextStyle(
+                              fontSize: 20,
+                              decoration: TextDecoration.underline)),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 20,
                     ),
-
-                    ElevatedButton(
-                        onPressed: () {
-                          createNewEvent();
-                        },
-                        child: const Text("hello"))
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        NumberInputField(
+                          trailingText: "Nombre de ticket :",
+                          isQuantity: true,
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        NumberInputField(
+                          trailingText: "Prix d'un ticket :",
+                          isQuantity: false,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    DescriptionTextFormField(
+                        initialValue:
+                            _enteredVVipStandardTicketDescription ?? '',
+                        isTicket: true,
+                        onSave: (value) {
+                          setState(() {
+                            _enteredTitle = value;
+                          });
+                        }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: UsecaseElevatedButton(
+                          usecaseTitle: 'Poste ton évènement !',
+                          onUsecaseCall: createNewEvent),
+                    ),
                   ],
                 ),
               ),

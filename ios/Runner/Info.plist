@@ -4,6 +4,8 @@
 <dict>
   <key>NSPhotoLibraryUsageDescription</key>
   <string>Access to galery</string>
+<key>FLTEnableImpeller</key>
+<false />
   <key>NSLocationWhenInUseUsageDescription</key>
   <string>Get your location</string>
   <key>NSLocationAlwaysUsageDescription</key>

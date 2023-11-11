@@ -50,7 +50,7 @@ class EventShowPage extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                  "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.location}",
+                                  "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address}",
                                   style:
                                       Theme.of(context).textTheme.bodyMedium),
                               IconButton(
