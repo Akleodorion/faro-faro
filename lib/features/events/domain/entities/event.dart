@@ -19,7 +19,9 @@ class Event extends Equatable {
   final String name;
   final String description;
   final DateTime date;
-  final String location;
+  final String address;
+  final double latitude;
+  final double longitude;
   final Category category;
   final String imageUrl;
   final int userId;
@@ -27,28 +29,35 @@ class Event extends Equatable {
   final ModelEco modelEco;
   final int standardTicketPrice;
   final int maxStandardTicket;
+  final String standardTicketDescription;
   final int vipTicketPrice;
   final int maxVipTicket;
+  final String vipTicketDescription;
   final int vvipTicketPrice;
   final int maxVvipTicket;
+  final String vvipTicketDescription;
 
-  const Event({
-    required this.name,
-    required this.eventId,
-    required this.description,
-    required this.date,
-    required this.location,
-    required this.category,
-    required this.imageUrl,
-    required this.userId,
-    required this.modelEco,
-    required this.standardTicketPrice,
-    required this.maxStandardTicket,
-    required this.vipTicketPrice,
-    required this.maxVipTicket,
-    required this.vvipTicketPrice,
-    required this.maxVvipTicket,
-  });
+  const Event(
+      {required this.name,
+      required this.eventId,
+      required this.description,
+      required this.date,
+      required this.address,
+      required this.latitude,
+      required this.longitude,
+      required this.category,
+      required this.imageUrl,
+      required this.userId,
+      required this.modelEco,
+      required this.standardTicketPrice,
+      required this.maxStandardTicket,
+      required this.standardTicketDescription,
+      required this.vipTicketPrice,
+      required this.maxVipTicket,
+      required this.vipTicketDescription,
+      required this.vvipTicketPrice,
+      required this.maxVvipTicket,
+      required this.vvipTicketDescription});
 
   String get formatedDate {
     return formated.format(date);
@@ -59,16 +68,21 @@ class Event extends Equatable {
         name,
         description,
         date,
-        location,
+        address,
+        longitude,
+        latitude,
         category,
         imageUrl,
         userId,
         modelEco,
         standardTicketPrice,
         maxStandardTicket,
+        standardTicketDescription,
         vipTicketPrice,
         maxVipTicket,
+        vipTicketDescription,
         vvipTicketPrice,
         maxVvipTicket,
+        vvipTicketDescription,
       ];
 }

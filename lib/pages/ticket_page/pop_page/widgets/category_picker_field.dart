@@ -2,17 +2,22 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/internal_features/category_filter/data_source.dart';
 import 'package:flutter/material.dart';
 
-class CategoryPickerField extends StatelessWidget {
-  const CategoryPickerField(
-      {super.key, required this.initialValue, required this.setValue});
+class CategoryPickerField extends StatefulWidget {
+  const CategoryPickerField({super.key, required this.onSave});
 
-  final Category initialValue;
-  final void Function(Category) setValue;
+  final void Function(Category) onSave;
 
-  final double minHeight = 70.0;
+  @override
+  State<CategoryPickerField> createState() => _CategoryPickerFieldState();
+}
+
+class _CategoryPickerFieldState extends State<CategoryPickerField> {
+  Category pickedValue = Category.concert;
 
   @override
   Widget build(BuildContext context) {
+    const double minHeight = 70.0;
+
     final double mediaWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration:
@@ -22,24 +27,28 @@ class CategoryPickerField extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: DropdownButtonFormField(
-            decoration: const InputDecoration(
-                label: Text(
-              'Categorie',
-              style: TextStyle(fontSize: 12),
-            )),
-            value: initialValue,
-            items: [
-              for (var category in CATEGORIES)
-                DropdownMenuItem(
-                  value: category,
-                  child: Text(
-                    category.name,
-                  ),
-                )
-            ],
-            onChanged: (value) {
-              setValue(value!);
-            }),
+          decoration: const InputDecoration(
+              label: Text(
+            'Categorie',
+            style: TextStyle(fontSize: 12),
+          )),
+          value: pickedValue,
+          items: [
+            for (var category in CATEGORIES)
+              DropdownMenuItem(
+                value: category,
+                child: Text(
+                  category.name,
+                ),
+              )
+          ],
+          onChanged: (value) {
+            pickedValue = value!;
+          },
+          onSaved: (value) {
+            widget.onSave(value!);
+          },
+        ),
       ),
     );
   }

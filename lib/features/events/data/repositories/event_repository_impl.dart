@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
 import '../datasources/event_remote_data_source.dart';
@@ -21,6 +24,22 @@ class EventRepositoryImpl implements EventRepository {
         return Right(events);
       } else {
         return const Left(ServerFailure(errorMessage: "No internet connexion"));
+      }
+    } on ServerException catch (error) {
+      return Left(ServerFailure(errorMessage: error.errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Event>?> postAnEvent(
+      {required EventModel event, required File image}) async {
+    try {
+      if (await networkInfo.isConnected) {
+        final myEvent =
+            await remoteDatasource.postAnEvent(event: event, image: image);
+        return Right(myEvent!);
+      } else {
+        return const Left(ServerFailure(errorMessage: 'No internet connexion'));
       }
     } on ServerException catch (error) {
       return Left(ServerFailure(errorMessage: error.errorMessage));

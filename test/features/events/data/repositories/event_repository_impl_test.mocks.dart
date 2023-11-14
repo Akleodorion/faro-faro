@@ -40,6 +40,16 @@ class MockEventRemoteDatasource extends _i1.Mock
         ),
         returnValue: _i3.Future<List<_i4.EventModel>>.value(<_i4.EventModel>[]),
       ) as _i3.Future<List<_i4.EventModel>>);
+  @override
+  _i3.Future<_i4.EventModel?> postAnEvent({required _i4.EventModel? event}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #postAnEvent,
+          [],
+          {#event: event},
+        ),
+        returnValue: _i3.Future<_i4.EventModel?>.value(),
+      ) as _i3.Future<_i4.EventModel?>);
 }
 
 /// A class which mocks [NetworkInfo].

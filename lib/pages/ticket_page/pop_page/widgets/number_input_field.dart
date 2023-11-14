@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class NumberInputField extends StatefulWidget {
-  const NumberInputField({super.key, required this.trailingText});
+  const NumberInputField(
+      {super.key,
+      required this.trailingText,
+      required this.isQuantity,
+      required this.onSave});
 
   final String trailingText;
+  final bool isQuantity;
+  final void Function(String value) onSave;
 
   @override
   State<NumberInputField> createState() => _NumberInputFieldState();
@@ -41,7 +47,7 @@ class _NumberInputFieldState extends State<NumberInputField> {
           ),
         ),
         const SizedBox(
-          width: 10,
+          height: 5,
         ),
         Container(
           decoration: BoxDecoration(
@@ -53,14 +59,21 @@ class _NumberInputFieldState extends State<NumberInputField> {
               SizedBox(
                 child: IconButton(
                   onPressed: () {
-                    setState(() {
-                      if (inputValue > 0) {
-                        inputValue = inputValue - 1;
-                      } else {
-                        return;
-                      }
-                      textEditingController.text = inputValue.toString();
-                    });
+                    final int calculus =
+                        inputValue - (widget.isQuantity == true ? 1 : 1000);
+                    if (calculus < 0) {
+                      setState(() {
+                        inputValue = 0;
+                        textEditingController.text = inputValue.toString();
+                      });
+                    } else {
+                      setState(() {
+                        inputValue =
+                            inputValue - (widget.isQuantity == true ? 1 : 1000);
+
+                        textEditingController.text = inputValue.toString();
+                      });
+                    }
                   },
                   icon: const Icon(Icons.remove),
                 ),
@@ -74,6 +87,14 @@ class _NumberInputFieldState extends State<NumberInputField> {
                   style: const TextStyle(fontSize: 20),
                   decoration: const InputDecoration(),
                   textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    final int? intValue = int.tryParse(value);
+                    if (intValue != null && intValue >= 0) {
+                      setState(() {
+                        inputValue = intValue;
+                      });
+                    }
+                  },
                   validator: (value) {
                     setState(() {
                       hasError = false;
@@ -90,14 +111,28 @@ class _NumberInputFieldState extends State<NumberInputField> {
                       return null;
                     }
                   },
+                  onSaved: (value) {
+                    widget.onSave(value!);
+                  },
                 ),
               ),
               IconButton(
                 onPressed: () {
-                  setState(() {
-                    inputValue = inputValue + 1;
-                    textEditingController.text = inputValue.toString();
-                  });
+                  final int calculus =
+                      inputValue + (widget.isQuantity == true ? 1 : 1000);
+                  if (calculus < 0) {
+                    setState(() {
+                      inputValue = calculus;
+                      textEditingController.text = inputValue.toString();
+                    });
+                  } else {
+                    setState(() {
+                      inputValue =
+                          inputValue + (widget.isQuantity == true ? 1 : 1000);
+
+                      textEditingController.text = inputValue.toString();
+                    });
+                  }
                 },
                 icon: const Icon(Icons.add),
               ),

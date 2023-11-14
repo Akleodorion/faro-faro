@@ -5,6 +5,7 @@ import 'package:faro_clean_tdd/features/address/domain/repositories/address_repo
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_notifier.dart';
+import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/datasources/picked_image_local_data_source.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/repositories/picked_image_repository_impl.dart';
 import 'package:faro_clean_tdd/features/pick_image/domain/repositories/picked_image_repository.dart';
@@ -66,12 +67,12 @@ Future<void> init() async {
       () => UserRemoteDataSourceImpl(client: sl()));
 
   // Features - Fetch Event
-  sl.registerFactory(() => EventNotifier(
-        fetchAllEventsUsecase: sl(),
-      ));
+  sl.registerFactory(() =>
+      EventNotifier(fetchAllEventsUsecase: sl(), postAnEventUsecase: sl()));
 
   // Usecases
   sl.registerLazySingleton(() => FetchAllEvents(repository: sl()));
+  sl.registerLazySingleton(() => PostAnEvent(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<EventRepository>(
