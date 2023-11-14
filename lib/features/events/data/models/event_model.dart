@@ -90,4 +90,27 @@ class EventModel extends Event {
       'vvip_ticket_description': vvipTicketDescription,
     };
   }
+
+  Map<String, dynamic> toJsonCreate() {
+    return {
+      'name': name,
+      'description': description,
+      'date': date.toIso8601String(),
+      'location': address,
+      'latitude': latitude,
+      'longitude': longitude,
+      'category': category.name,
+      'user_id': userId,
+      'free': modelEco == ModelEco.gratuit ? true : false,
+      'max_standard_ticket': maxStandardTicket,
+      'standard_ticket_price': standardTicketPrice,
+      'standard_ticket_description': standardTicketDescription,
+      'max_vip_ticket': maxVipTicket,
+      'vip_ticket_price': vipTicketPrice,
+      'vip_ticket_description': vipTicketDescription,
+      'max_vvip_ticket': maxVvipTicket,
+      'vvip_ticket_price': vvipTicketPrice,
+      'vvip_ticket_description': vvipTicketDescription,
+    };
+  }
 }

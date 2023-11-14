@@ -1,20 +1,30 @@
-import 'package:faro_clean_tdd/features/address/presentation/providers/address_provider.dart';
-import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
+import 'dart:io';
+
+import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
+import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_state.dart'
+    as pi;
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart'
+    as ua;
+import 'package:faro_clean_tdd/features/events/presentation/providers/state/event_state.dart';
+import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/event_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/map_page.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/category_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/date_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/description_text_form_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/eco_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/image_input.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/map_input.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/number_input_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/title_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+
+import '../../../main.dart';
 
 class NewEventPage extends ConsumerStatefulWidget {
   const NewEventPage({super.key});
@@ -25,34 +35,81 @@ class NewEventPage extends ConsumerStatefulWidget {
 
 class _NewEventPageState extends ConsumerState<NewEventPage> {
   String? _enteredTitle;
-  String? _enteredStandardTicketDescription;
+  String? _enteredEventDescription;
   String? _enteredVipStandardTicketDescription;
   String? _enteredVVipStandardTicketDescription;
+  String? _enteredStandardTicketDescription;
+  int? standardTicketPrice;
+  int? maxStandardTicket;
+  int? vipTicketPrice;
+  int? maxVipTicket;
+  int? vvipTicketPrice;
+  int? maxVvipTicket;
+  String? enteredAddress;
+  double? pickedLatitude;
+  double? pickedLongitude;
+  String? pickedImageUrl;
   String? selectedDate;
   Category? _selectedCategory;
   ModelEco? _selectedModelEco;
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final addressState = ref.watch(addressProvider);
 
-    Widget locationContent = const Center(child: Text("No place choosen"));
-
-    void createNewEvent() {
+    void createNewEvent() async {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
-      }
-    }
+        final userState = ref.read(userAuthProvider);
+        final pickImageState = ref.read(pickedImageProvider);
 
-    if (addressState is Loading) {
-      locationContent = const Center(child: CircularProgressIndicator());
-    } else if (addressState is Loaded) {
-      locationContent = Image.network(
-        addressState.address.geocodeUrl,
-        fit: BoxFit.cover,
-        width: double.infinity,
-        height: double.infinity,
-      );
+        final myEventModel = EventModel(
+            name: _enteredTitle!,
+            eventId: 0,
+            description: _enteredEventDescription!,
+            date: DateFormat('dd/MM/yyyy').parse(selectedDate!),
+            address: enteredAddress!,
+            latitude: pickedLatitude!,
+            longitude: pickedLongitude!,
+            category: _selectedCategory!,
+            imageUrl: pickImageState is pi.Loaded
+                ? pickImageState.pickedImage.image.path
+                : '',
+            userId: userState is ua.Loaded ? userState.user.id : 1,
+            modelEco: _selectedModelEco!,
+            standardTicketPrice: standardTicketPrice!,
+            maxStandardTicket: maxStandardTicket!,
+            standardTicketDescription: _enteredStandardTicketDescription!,
+            vipTicketPrice: vipTicketPrice!,
+            maxVipTicket: maxVipTicket!,
+            vipTicketDescription: _enteredVipStandardTicketDescription!,
+            vvipTicketPrice: vvipTicketPrice!,
+            maxVvipTicket: maxVvipTicket!,
+            vvipTicketDescription: _enteredVVipStandardTicketDescription!);
+
+        final state = await ref.read(eventProvider.notifier).postAnEvent(
+              event: myEventModel,
+              image: pickImageState is pi.Loaded
+                  ? pickImageState.pickedImage.image
+                  : File(''),
+            );
+
+        if (state is Error) {
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: theme.colorScheme.surface,
+              content: Text(
+                state.message,
+                style: TextStyle(
+                    // ignore: use_build_context_synchronously
+                    color: theme.colorScheme.secondary),
+              )));
+        }
+
+        if (state is Loaded) {
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pop();
+        }
+      }
     }
 
     return Scaffold(
@@ -83,7 +140,6 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                       height: 30,
                     ),
                     TitleTextFormField(
-                      initialValue: _enteredTitle ?? '',
                       onSave: (value) {
                         setState(() {
                           _enteredTitle = value;
@@ -97,24 +153,21 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         DatePickerField(
-                          initialValue: selectedDate ?? '',
-                          setValue: (value) {
+                          onSave: (value) {
                             setState(() {
-                              selectedDate = DateFormat.yMd('fr').format(value);
+                              selectedDate = value;
                             });
                           },
                         ),
                         CategoryPickerField(
-                          initialValue: _selectedCategory ?? Category.concert,
-                          setValue: (value) {
+                          onSave: (value) {
                             setState(() {
                               _selectedCategory = value;
                             });
                           },
                         ),
                         EcoPickerField(
-                          initialValue: _selectedModelEco ?? ModelEco.gratuit,
-                          setValue: (value) {
+                          onSave: (value) {
                             setState(() {
                               _selectedModelEco = value;
                             });
@@ -127,62 +180,22 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                     ),
                     DescriptionTextFormField(
                         isTicket: false,
-                        initialValue:
-                            _enteredVVipStandardTicketDescription ?? '',
                         onSave: (value) {
                           setState(() {
-                            _enteredTitle = value;
+                            _enteredEventDescription = value;
                           });
                         }),
                     const SizedBox(
                       height: 20,
                     ),
+                    MapInput(
+                      onSetAddress: (address) {
+                        enteredAddress = address.addressName;
+                        pickedLatitude = address.latitude;
+                        pickedLongitude = address.longitude;
+                      },
+                    ),
 
-                    Container(
-                      height: 200,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1,
-                            color: Theme.of(context).colorScheme.primary),
-                      ),
-                      child: locationContent,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton.icon(
-                          onPressed: () async {
-                            ref
-                                .read(addressProvider.notifier)
-                                .getCurrentLocationAddress();
-                          },
-                          icon: const Icon(Icons.pin_drop),
-                          label: const Text("Current position"),
-                        ),
-                        ElevatedButton.icon(
-                          onPressed: () async {
-                            final pickedLocation = await Navigator.of(context)
-                                .push<LatLng>(MaterialPageRoute(builder: (ctx) {
-                              return const MapScreen();
-                            }));
-                            if (pickedLocation == null) {
-                              return;
-                            }
-                            ref
-                                .read(addressProvider.notifier)
-                                .getSelectedLociationAddress(
-                                    pickedLocation.latitude,
-                                    pickedLocation.longitude);
-                          },
-                          icon: const Icon(Icons.map),
-                          label: const Text("Select on map"),
-                        )
-                      ],
-                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -201,19 +214,29 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         NumberInputField(
                           trailingText: "Nombre de ticket :",
                           isQuantity: true,
+                          onSave: (value) {
+                            setState(() {
+                              maxStandardTicket = int.tryParse(value);
+                            });
+                          },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         NumberInputField(
                           trailingText: "Prix d'un ticket :",
                           isQuantity: false,
+                          onSave: (value) {
+                            setState(() {
+                              standardTicketPrice = int.tryParse(value);
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -222,11 +245,10 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                       height: 20,
                     ),
                     DescriptionTextFormField(
-                        initialValue: _enteredStandardTicketDescription ?? '',
                         isTicket: true,
                         onSave: (value) {
                           setState(() {
-                            _enteredTitle = value;
+                            _enteredStandardTicketDescription = value;
                           });
                         }),
                     const SizedBox(
@@ -242,19 +264,29 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         NumberInputField(
                           trailingText: "Nombre de ticket :",
                           isQuantity: true,
+                          onSave: (value) {
+                            setState(() {
+                              maxVipTicket = int.tryParse(value);
+                            });
+                          },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         NumberInputField(
                           trailingText: "Prix d'un ticket :",
                           isQuantity: false,
+                          onSave: (value) {
+                            setState(() {
+                              vipTicketPrice = int.tryParse(value);
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -262,12 +294,10 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                       height: 20,
                     ),
                     DescriptionTextFormField(
-                        initialValue:
-                            _enteredVipStandardTicketDescription ?? '',
                         isTicket: true,
                         onSave: (value) {
                           setState(() {
-                            _enteredTitle = value;
+                            _enteredVipStandardTicketDescription = value;
                           });
                         }),
                     const SizedBox(
@@ -283,19 +313,29 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         NumberInputField(
                           trailingText: "Nombre de ticket :",
                           isQuantity: true,
+                          onSave: (value) {
+                            setState(() {
+                              maxVvipTicket = int.tryParse(value);
+                            });
+                          },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         NumberInputField(
                           trailingText: "Prix d'un ticket :",
                           isQuantity: false,
+                          onSave: (value) {
+                            setState(() {
+                              vvipTicketPrice = int.tryParse(value);
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -303,12 +343,10 @@ class _NewEventPageState extends ConsumerState<NewEventPage> {
                       height: 20,
                     ),
                     DescriptionTextFormField(
-                        initialValue:
-                            _enteredVVipStandardTicketDescription ?? '',
                         isTicket: true,
                         onSave: (value) {
                           setState(() {
-                            _enteredTitle = value;
+                            _enteredVVipStandardTicketDescription = value;
                           });
                         }),
                     const SizedBox(

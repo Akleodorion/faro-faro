@@ -7,12 +7,16 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i5;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
+import 'package:faro_clean_tdd/features/events/data/models/event_model.dart'
+    as _i9;
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart'
     as _i7;
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart'
     as _i2;
 import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart'
     as _i3;
+import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart'
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -63,4 +67,33 @@ class MockFetchAllEvents extends _i1.Mock implements _i3.FetchAllEvents {
         returnValue:
             _i4.Future<_i5.Either<_i6.Failure, List<_i7.Event>>?>.value(),
       ) as _i4.Future<_i5.Either<_i6.Failure, List<_i7.Event>>?>);
+}
+
+/// A class which mocks [PostAnEvent].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPostAnEvent extends _i1.Mock implements _i8.PostAnEvent {
+  MockPostAnEvent() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.EventRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeEventRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.EventRepository);
+  @override
+  _i4.Future<_i5.Either<_i6.Failure, _i7.Event>?> execute(
+          {required _i9.EventModel? event}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {#event: event},
+        ),
+        returnValue: _i4.Future<_i5.Either<_i6.Failure, _i7.Event>?>.value(),
+      ) as _i4.Future<_i5.Either<_i6.Failure, _i7.Event>?>);
 }

@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class NumberInputField extends StatefulWidget {
   const NumberInputField(
-      {super.key, required this.trailingText, required this.isQuantity});
+      {super.key,
+      required this.trailingText,
+      required this.isQuantity,
+      required this.onSave});
 
   final String trailingText;
   final bool isQuantity;
+  final void Function(String value) onSave;
 
   @override
   State<NumberInputField> createState() => _NumberInputFieldState();
@@ -106,6 +110,9 @@ class _NumberInputFieldState extends State<NumberInputField> {
                     } else {
                       return null;
                     }
+                  },
+                  onSaved: (value) {
+                    widget.onSave(value!);
                   },
                 ),
               ),

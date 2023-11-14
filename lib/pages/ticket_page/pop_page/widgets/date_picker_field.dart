@@ -1,24 +1,47 @@
 import 'package:faro_clean_tdd/core/util/date_format_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DatePickerField extends StatefulWidget {
-  const DatePickerField(
-      {super.key, required this.initialValue, required this.setValue});
+  const DatePickerField({
+    super.key,
+    required this.onSave,
+  });
 
-  final String initialValue;
-  final void Function(DateTime) setValue;
+  final void Function(String value) onSave;
 
   @override
   State<DatePickerField> createState() => _DatePickerFieldState();
 }
 
 class _DatePickerFieldState extends State<DatePickerField> {
+  final TextEditingController _dateController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
   bool hasError = false;
-  double minHeight = 70.0;
-  double maxHeight = 90.0;
+
   @override
   Widget build(BuildContext context) {
+    double minHeight = 70.0;
+    double maxHeight = 90.0;
     final double mediaWidth = MediaQuery.of(context).size.width;
+
+    // ignore: no_leading_underscores_for_local_identifiers
+    Future<void> _selectDate(BuildContext context) async {
+      final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: _selectedDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2101),
+      );
+
+      if (pickedDate != null && pickedDate != _selectedDate) {
+        setState(() {
+          _selectedDate = pickedDate;
+          _dateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
+        });
+      }
+    }
+
     return Container(
       width: (mediaWidth - 40) * 0.30,
       height: hasError ? maxHeight : minHeight,
@@ -27,6 +50,7 @@ class _DatePickerFieldState extends State<DatePickerField> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: TextFormField(
+          readOnly: true,
           decoration: const InputDecoration(
             label: Text(
               "Date :",
@@ -35,34 +59,16 @@ class _DatePickerFieldState extends State<DatePickerField> {
           ),
           validator: (value) {
             setState(() {
-              hasError = false;
+              hasError = !DateFormatValidatorImpl()
+                  .isValidDateFormat(value!, 'dd/MM/yyyy');
             });
-            if (!DateFormatValidatorImpl()
-                .isValidDateFormat(value!, 'dd/MM/yyyy')) {
-              setState(() {
-                hasError = true;
-              });
-              return 'Date invalide';
-            }
-            return null;
+            return hasError ? 'Date invalide' : null;
           },
-          initialValue: widget.initialValue,
-          onTap: () async {
-            // pick a date
-            final pickedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-                lastDate:
-                    DateTime.now().copyWith(year: DateTime.now().year + 1));
-            // if no value selected nothing is done.
-            if (pickedDate == null) {
-              return;
-            }
-            // Change the value of the selectedDate
-            widget.setValue(pickedDate);
+          controller: _dateController,
+          onTap: () => _selectDate(context),
+          onSaved: (value) {
+            widget.onSave(value!);
           },
-          keyboardType: null,
         ),
       ),
     );

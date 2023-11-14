@@ -1,18 +1,21 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:flutter/material.dart';
 
-class EcoPickerField extends StatelessWidget {
-  const EcoPickerField(
-      {super.key, required this.initialValue, required this.setValue});
-
-  final ModelEco initialValue;
-  final void Function(ModelEco) setValue;
-
-  final double minHeight = 70.0;
+class EcoPickerField extends StatefulWidget {
+  const EcoPickerField({super.key, required this.onSave});
+  final void Function(ModelEco) onSave;
 
   @override
+  State<EcoPickerField> createState() => _EcoPickerFieldState();
+}
+
+class _EcoPickerFieldState extends State<EcoPickerField> {
+  ModelEco pickedValue = ModelEco.gratuit;
+  @override
   Widget build(BuildContext context) {
+    const double minHeight = 70.0;
     final double mediaWidth = MediaQuery.of(context).size.width;
+
     return Container(
       decoration:
           BoxDecoration(color: Theme.of(context).colorScheme.background),
@@ -21,29 +24,33 @@ class EcoPickerField extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: DropdownButtonFormField(
-            decoration: const InputDecoration(
-                label: Text(
-              'Model Eco',
-              style: TextStyle(fontSize: 12),
-            )),
-            value: initialValue,
-            items: [
-              DropdownMenuItem(
-                value: ModelEco.gratuit,
-                child: Text(
-                  ModelEco.gratuit.name,
-                ),
+          decoration: const InputDecoration(
+              label: Text(
+            'Model Eco',
+            style: TextStyle(fontSize: 12),
+          )),
+          value: pickedValue,
+          items: [
+            DropdownMenuItem(
+              value: ModelEco.gratuit,
+              child: Text(
+                ModelEco.gratuit.name,
               ),
-              DropdownMenuItem(
-                value: ModelEco.payant,
-                child: Text(
-                  ModelEco.payant.name,
-                ),
-              )
-            ],
-            onChanged: (value) {
-              setValue(value!);
-            }),
+            ),
+            DropdownMenuItem(
+              value: ModelEco.payant,
+              child: Text(
+                ModelEco.payant.name,
+              ),
+            )
+          ],
+          onChanged: (value) {
+            pickedValue = value!;
+          },
+          onSaved: (value) {
+            widget.onSave(value!);
+          },
+        ),
       ),
     );
   }

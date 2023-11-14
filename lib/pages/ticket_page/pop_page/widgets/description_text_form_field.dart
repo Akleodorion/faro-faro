@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 
 class DescriptionTextFormField extends StatefulWidget {
   const DescriptionTextFormField(
-      {super.key,
-      required this.initialValue,
-      required this.onSave,
-      required this.isTicket});
+      {super.key, required this.onSave, required this.isTicket});
 
-  final String initialValue;
   final bool isTicket;
   final void Function(String value) onSave;
 
@@ -18,18 +14,22 @@ class DescriptionTextFormField extends StatefulWidget {
 
 class _DescriptionTextFormFieldState extends State<DescriptionTextFormField> {
   bool hasError = false;
-  int maxCharsValue = 151;
-  int minCharsValue = 20;
-
-  double minHeight = 130.0; // Taille minimale
-  double maxHeight = 150.0; // Taille maximale en cas d'erreur
 
   @override
   Widget build(BuildContext context) {
+    int minCharsValue = 20;
+    int maxCharsValue;
+    double minHeight;
+    double maxHeight;
+
     if (widget.isTicket == false) {
       minHeight = 180;
       maxHeight = 200;
       maxCharsValue = 601;
+    } else {
+      maxCharsValue = 151;
+      minHeight = 130.0;
+      maxHeight = 150.0;
     }
     // final double mediaHeight = MediaQuery.of(context).size.height;
     final double mediaWidth = MediaQuery.of(context).size.width;
@@ -44,11 +44,12 @@ class _DescriptionTextFormFieldState extends State<DescriptionTextFormField> {
         child: TextFormField(
           maxLines: widget.isTicket == true ? 3 : 5,
           maxLength: maxCharsValue,
-          initialValue: widget.initialValue,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             label: Text(
-              "Description des prestations du ticket :",
-              style: TextStyle(fontSize: 14),
+              widget.isTicket == true
+                  ? "Description des prestations du ticket :"
+                  : "Description de l'évènement :",
+              style: const TextStyle(fontSize: 14),
             ),
           ),
           keyboardType: TextInputType.name,

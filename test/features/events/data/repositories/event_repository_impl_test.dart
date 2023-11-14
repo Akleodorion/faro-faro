@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
 import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_data_source.dart';
@@ -122,4 +123,78 @@ void main() {
       );
     },
   );
+
+  group('postAnEvent', () {
+    final tEvent = EventModel(
+        name: "My test event",
+        eventId: 20,
+        description: "Short description for the test event !",
+        date: DateTime.now(),
+        address: "Lille",
+        latitude: 42.54596,
+        longitude: -127.5345,
+        category: Category.concert,
+        imageUrl: "flyers.jpg",
+        userId: 1,
+        modelEco: ModelEco.gratuit,
+        standardTicketPrice: 5000,
+        maxStandardTicket: 15,
+        standardTicketDescription: "Short ticket description for the test",
+        vipTicketPrice: 5000,
+        maxVipTicket: 15,
+        vipTicketDescription: "Short ticket description for the test",
+        vvipTicketPrice: 5000,
+        maxVvipTicket: 15,
+        vvipTicketDescription: "Short ticket description for the test");
+    group('if there is an internet connexion', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test(
+        "should return a  valid EventModel if the request is successfull ",
+        () async {
+          //arrange
+          when(mockEventRemoteDatasource.postAnEvent(
+                  event: anyNamed(('event'))))
+              .thenAnswer((realInvocation) async => tEvent);
+          //act
+          final result = await eventRepositoryImpl.postAnEvent(event: tEvent);
+          //assert
+          expect(result, Right(tEvent));
+        },
+      );
+
+      test(
+        "should return a ServerFailure if the request is unsuccessfull ",
+        () async {
+          //arrange
+          when(mockEventRemoteDatasource.postAnEvent(
+                  event: anyNamed(('event'))))
+              .thenThrow(ServerException(errorMessage: 'oops'));
+          //act
+          final result = await eventRepositoryImpl.postAnEvent(event: tEvent);
+          //assert
+          expect(result, const Left(ServerFailure(errorMessage: 'oops')));
+        },
+      );
+    });
+
+    group('if there is no internet connexion', () {
+      test(
+        "should return a ServerFailure with the correct message",
+        () async {
+          //arrange
+          when(mockNetworkInfo.isConnected)
+              .thenAnswer((realInvocation) async => false);
+          //act
+          final result = await eventRepositoryImpl.postAnEvent(event: tEvent);
+          //assert
+          verify(mockNetworkInfo.isConnected).called(1);
+          expect(result,
+              const Left(ServerFailure(errorMessage: 'No internet connexion')));
+        },
+      );
+    });
+  });
 }

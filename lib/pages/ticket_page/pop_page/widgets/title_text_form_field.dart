@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TitleTextFormField extends StatefulWidget {
-  const TitleTextFormField(
-      {super.key, required this.initialValue, required this.onSave});
+  const TitleTextFormField({super.key, required this.onSave});
 
-  final String initialValue;
   final void Function(String value) onSave;
 
   @override
@@ -13,13 +11,12 @@ class TitleTextFormField extends StatefulWidget {
 
 class _TitleTextFormFieldState extends State<TitleTextFormField> {
   bool hasError = false;
-  double minHeight = 70.0; // Taille minimale
-  double maxHeight = 90.0; // Taille maximale en cas d'erreur
 
   @override
   Widget build(BuildContext context) {
-    // final double mediaHeight = MediaQuery.of(context).size.height;
     final double mediaWidth = MediaQuery.of(context).size.width;
+    double minHeight = 70.0;
+    double maxHeight = 90.0;
 
     return Container(
       width: (mediaWidth - 40),
@@ -29,7 +26,6 @@ class _TitleTextFormFieldState extends State<TitleTextFormField> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: TextFormField(
-          initialValue: widget.initialValue,
           decoration: const InputDecoration(
             label: Text(
               "Nom de l'évènement :",

@@ -7,6 +7,8 @@ import 'dart:async' as _i3;
 
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
+import 'package:faro_clean_tdd/features/events/data/models/event_model.dart'
+    as _i7;
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart'
@@ -43,52 +45,13 @@ class MockEventRepository extends _i1.Mock implements _i2.EventRepository {
             _i3.Future<_i4.Either<_i5.Failure, List<_i6.Event>>?>.value(),
       ) as _i3.Future<_i4.Either<_i5.Failure, List<_i6.Event>>?>);
   @override
-  _i3.Future<_i4.Either<_i5.Failure, _i6.Event>?> postAnEvent({
-    required String? title,
-    required String? description,
-    required DateTime? date,
-    required String? address,
-    required double? longitude,
-    required double? latitude,
-    required _i6.Category? category,
-    required String? imageUrl,
-    required int? userId,
-    required _i6.ModelEco? modelEco,
-    required int? standardTicketPrice,
-    required int? maxStandardTicket,
-    required String? standardTicketDescription,
-    required int? vipTicketPrice,
-    required int? maxVipTicket,
-    required String? vipTicketDescription,
-    required int? vvipTicketPrice,
-    required int? maxVvipTicket,
-    required String? vvipTicketDescription,
-  }) =>
+  _i3.Future<_i4.Either<_i5.Failure, _i6.Event>?> postAnEvent(
+          {required _i7.EventModel? event}) =>
       (super.noSuchMethod(
         Invocation.method(
           #postAnEvent,
           [],
-          {
-            #title: title,
-            #description: description,
-            #date: date,
-            #address: address,
-            #longitude: longitude,
-            #latitude: latitude,
-            #category: category,
-            #imageUrl: imageUrl,
-            #userId: userId,
-            #modelEco: modelEco,
-            #standardTicketPrice: standardTicketPrice,
-            #maxStandardTicket: maxStandardTicket,
-            #standardTicketDescription: standardTicketDescription,
-            #vipTicketPrice: vipTicketPrice,
-            #maxVipTicket: maxVipTicket,
-            #vipTicketDescription: vipTicketDescription,
-            #vvipTicketPrice: vvipTicketPrice,
-            #maxVvipTicket: maxVvipTicket,
-            #vvipTicketDescription: vvipTicketDescription,
-          },
+          {#event: event},
         ),
         returnValue: _i3.Future<_i4.Either<_i5.Failure, _i6.Event>?>.value(),
       ) as _i3.Future<_i4.Either<_i5.Failure, _i6.Event>?>);
