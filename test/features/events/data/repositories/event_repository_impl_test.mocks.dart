@@ -4,8 +4,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
+import 'dart:io' as _i5;
 
-import 'package:faro_clean_tdd/core/network/network_info.dart' as _i5;
+import 'package:faro_clean_tdd/core/network/network_info.dart' as _i6;
 import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_data_source.dart'
     as _i2;
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart'
@@ -41,12 +42,18 @@ class MockEventRemoteDatasource extends _i1.Mock
         returnValue: _i3.Future<List<_i4.EventModel>>.value(<_i4.EventModel>[]),
       ) as _i3.Future<List<_i4.EventModel>>);
   @override
-  _i3.Future<_i4.EventModel?> postAnEvent({required _i4.EventModel? event}) =>
+  _i3.Future<_i4.EventModel?> postAnEvent({
+    required _i4.EventModel? event,
+    required _i5.File? image,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #postAnEvent,
           [],
-          {#event: event},
+          {
+            #event: event,
+            #image: image,
+          },
         ),
         returnValue: _i3.Future<_i4.EventModel?>.value(),
       ) as _i3.Future<_i4.EventModel?>);
@@ -55,7 +62,7 @@ class MockEventRemoteDatasource extends _i1.Mock
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i5.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i6.NetworkInfo {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }

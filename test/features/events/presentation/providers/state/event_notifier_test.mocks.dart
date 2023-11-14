@@ -4,6 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:io' as _i10;
 
 import 'package:dartz/dartz.dart' as _i5;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
@@ -86,13 +87,18 @@ class MockPostAnEvent extends _i1.Mock implements _i8.PostAnEvent {
         ),
       ) as _i2.EventRepository);
   @override
-  _i4.Future<_i5.Either<_i6.Failure, _i7.Event>?> execute(
-          {required _i9.EventModel? event}) =>
+  _i4.Future<_i5.Either<_i6.Failure, _i7.Event>?> execute({
+    required _i9.EventModel? event,
+    required _i10.File? image,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
-          {#event: event},
+          {
+            #event: event,
+            #image: image,
+          },
         ),
         returnValue: _i4.Future<_i5.Either<_i6.Failure, _i7.Event>?>.value(),
       ) as _i4.Future<_i5.Either<_i6.Failure, _i7.Event>?>);

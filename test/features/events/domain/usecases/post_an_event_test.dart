@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
@@ -43,14 +45,16 @@ void main() {
         maxVvipTicket: 15,
         vvipTicketDescription: "Short ticket description for the test");
 
+    final tImage = File('flyers.jpg');
+
     test(
       "should return the newly created Event",
       () async {
         //arrange
-        when(mockEventRepository.postAnEvent(event: tEvent))
+        when(mockEventRepository.postAnEvent(event: tEvent, image: tImage))
             .thenAnswer((_) async => Right(tEvent));
         //act
-        final result = await postAnEvent.execute(event: tEvent);
+        final result = await postAnEvent.execute(event: tEvent, image: tImage);
         //assert
         expect(result, Right(tEvent));
       },
@@ -60,10 +64,11 @@ void main() {
       "should return Left Failure message is unsuccessful",
       () async {
         //arrange
-        when(mockEventRepository.postAnEvent(event: tEvent)).thenAnswer(
-            (_) async => const Left(ServerFailure(errorMessage: 'oops')));
+        when(mockEventRepository.postAnEvent(event: tEvent, image: tImage))
+            .thenAnswer(
+                (_) async => const Left(ServerFailure(errorMessage: 'oops')));
         //act
-        final result = await postAnEvent.execute(event: tEvent);
+        final result = await postAnEvent.execute(event: tEvent, image: tImage);
         //assert
         expect(result, const Left(ServerFailure(errorMessage: 'oops')));
       },

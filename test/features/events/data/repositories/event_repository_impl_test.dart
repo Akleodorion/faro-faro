@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
@@ -146,6 +148,8 @@ void main() {
         vvipTicketPrice: 5000,
         maxVvipTicket: 15,
         vvipTicketDescription: "Short ticket description for the test");
+
+    final tImage = File('flyers.jpg');
     group('if there is an internet connexion', () {
       setUp(() {
         when(mockNetworkInfo.isConnected)
@@ -156,10 +160,11 @@ void main() {
         () async {
           //arrange
           when(mockEventRemoteDatasource.postAnEvent(
-                  event: anyNamed(('event'))))
+                  event: anyNamed(('event')), image: tImage))
               .thenAnswer((realInvocation) async => tEvent);
           //act
-          final result = await eventRepositoryImpl.postAnEvent(event: tEvent);
+          final result = await eventRepositoryImpl.postAnEvent(
+              event: tEvent, image: tImage);
           //assert
           expect(result, Right(tEvent));
         },
@@ -170,10 +175,11 @@ void main() {
         () async {
           //arrange
           when(mockEventRemoteDatasource.postAnEvent(
-                  event: anyNamed(('event'))))
+                  event: anyNamed(('event')), image: tImage))
               .thenThrow(ServerException(errorMessage: 'oops'));
           //act
-          final result = await eventRepositoryImpl.postAnEvent(event: tEvent);
+          final result = await eventRepositoryImpl.postAnEvent(
+              event: tEvent, image: tImage);
           //assert
           expect(result, const Left(ServerFailure(errorMessage: 'oops')));
         },
@@ -188,7 +194,8 @@ void main() {
           when(mockNetworkInfo.isConnected)
               .thenAnswer((realInvocation) async => false);
           //act
-          final result = await eventRepositoryImpl.postAnEvent(event: tEvent);
+          final result = await eventRepositoryImpl.postAnEvent(
+              event: tEvent, image: tImage);
           //assert
           verify(mockNetworkInfo.isConnected).called(1);
           expect(result,

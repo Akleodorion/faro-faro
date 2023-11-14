@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
@@ -71,6 +73,8 @@ void main() {
     maxVvipTicket: 10,
     vvipTicketDescription: "vvip ticket simple description",
   );
+
+  final tImage = File('flyers.jpg');
 
   final tEvents = [tEvent1, tEvent2];
 
@@ -154,7 +158,7 @@ void main() {
       "should emit [Loading, Loaded] if the request is successfull ",
       () async {
         //arrange
-        when(mockPostAnEvent.execute(event: tEvent))
+        when(mockPostAnEvent.execute(event: tEvent, image: tImage))
             .thenAnswer((_) async => Right(tEvent));
         //assert
         final expectedState = [
@@ -167,7 +171,7 @@ void main() {
         ];
         expectLater(eventNotifier.stream, emitsInOrder(expectedState));
         // act
-        await eventNotifier.postAnEvent(event: tEvent);
+        await eventNotifier.postAnEvent(event: tEvent, image: tImage);
       },
     );
 
@@ -175,7 +179,7 @@ void main() {
       "should emit [Error] if the request is unsuccessful",
       () async {
         //arrange
-        when(mockPostAnEvent.execute(event: tEvent)).thenAnswer(
+        when(mockPostAnEvent.execute(event: tEvent, image: tImage)).thenAnswer(
             (realInvocation) async => const Left(
                 ServerFailure(errorMessage: "an error has occured")));
         //act
@@ -185,7 +189,7 @@ void main() {
         ];
         expectLater(eventNotifier.stream, emitsInOrder(expectedState));
         //assert
-        await eventNotifier.postAnEvent(event: tEvent);
+        await eventNotifier.postAnEvent(event: tEvent, image: tImage);
       },
     );
   });
