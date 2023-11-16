@@ -1,40 +1,64 @@
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NumberInputField extends StatefulWidget {
+class NumberInputField extends ConsumerStatefulWidget {
   const NumberInputField(
       {super.key,
       required this.trailingText,
       required this.isQuantity,
-      required this.onSave});
+      required this.onSave,
+      required this.mapKey});
 
   final String trailingText;
   final bool isQuantity;
+  final String mapKey;
   final void Function(String value) onSave;
 
   @override
-  State<NumberInputField> createState() => _NumberInputFieldState();
+  ConsumerState<NumberInputField> createState() => _NumberInputFieldState();
 }
 
-class _NumberInputFieldState extends State<NumberInputField> {
-  int inputValue = 0;
-  bool hasError = false;
+class _NumberInputFieldState extends ConsumerState<NumberInputField> {
   TextEditingController textEditingController = TextEditingController();
+  final FocusNode inputFocusNode = FocusNode();
+
+  bool hasError = false;
 
   @override
   void initState() {
     super.initState();
-    textEditingController.text = inputValue.toString();
+    inputFocusNode.addListener(() {
+      if (!inputFocusNode.hasFocus) {
+        // Le focus a été perdu
+        ref.read(postEventProvider.notifier).updateKey(
+            widget.mapKey, int.tryParse(textEditingController.text) ?? 0);
+      }
+    });
   }
 
   @override
   void dispose() {
     textEditingController.dispose();
+    inputFocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final double maxWidth = MediaQuery.of(context).size.width;
+    final state = ref.watch(postEventProvider);
+    int quantity;
+
+    if (state is Initial) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        textEditingController.text = state.infoMap[widget.mapKey].toString();
+      });
+      quantity = state.infoMap[widget.mapKey];
+    } else {
+      quantity = 0;
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,19 +84,18 @@ class _NumberInputFieldState extends State<NumberInputField> {
                 child: IconButton(
                   onPressed: () {
                     final int calculus =
-                        inputValue - (widget.isQuantity == true ? 1 : 1000);
+                        quantity - (widget.isQuantity == true ? 1 : 1000);
                     if (calculus < 0) {
-                      setState(() {
-                        inputValue = 0;
-                        textEditingController.text = inputValue.toString();
-                      });
+                      ref
+                          .read(postEventProvider.notifier)
+                          .updateKey(widget.mapKey, 0);
                     } else {
-                      setState(() {
-                        inputValue =
-                            inputValue - (widget.isQuantity == true ? 1 : 1000);
+                      quantity =
+                          quantity - (widget.isQuantity == true ? 1 : 1000);
 
-                        textEditingController.text = inputValue.toString();
-                      });
+                      ref
+                          .read(postEventProvider.notifier)
+                          .updateKey(widget.mapKey, quantity);
                     }
                   },
                   icon: const Icon(Icons.remove),
@@ -84,16 +107,24 @@ class _NumberInputFieldState extends State<NumberInputField> {
                 width: hasError ? maxWidth * 0.30 : maxWidth * 0.15,
                 child: TextFormField(
                   controller: textEditingController,
+                  focusNode: inputFocusNode,
+                  keyboardType: TextInputType.number,
                   style: const TextStyle(fontSize: 20),
                   decoration: const InputDecoration(),
                   textAlign: TextAlign.center,
-                  onChanged: (value) {
-                    final int? intValue = int.tryParse(value);
+                  onEditingComplete: () {
+                    final int? intValue =
+                        int.tryParse(textEditingController.text);
                     if (intValue != null && intValue >= 0) {
-                      setState(() {
-                        inputValue = intValue;
-                      });
+                      ref
+                          .read(postEventProvider.notifier)
+                          .updateKey(widget.mapKey, intValue);
+                    } else if (intValue == null) {
+                      ref
+                          .read(postEventProvider.notifier)
+                          .updateKey(widget.mapKey, 0);
                     }
+                    inputFocusNode.unfocus();
                   },
                   validator: (value) {
                     setState(() {
@@ -112,26 +143,27 @@ class _NumberInputFieldState extends State<NumberInputField> {
                     }
                   },
                   onSaved: (value) {
-                    widget.onSave(value!);
+                    ref
+                        .read(postEventProvider.notifier)
+                        .updateKey(widget.mapKey, int.tryParse(value!));
                   },
                 ),
               ),
               IconButton(
                 onPressed: () {
                   final int calculus =
-                      inputValue + (widget.isQuantity == true ? 1 : 1000);
+                      quantity + (widget.isQuantity == true ? 1 : 1000);
                   if (calculus < 0) {
-                    setState(() {
-                      inputValue = calculus;
-                      textEditingController.text = inputValue.toString();
-                    });
+                    ref
+                        .read(postEventProvider.notifier)
+                        .updateKey(widget.mapKey, 0);
                   } else {
-                    setState(() {
-                      inputValue =
-                          inputValue + (widget.isQuantity == true ? 1 : 1000);
+                    quantity =
+                        quantity + (widget.isQuantity == true ? 1 : 1000);
 
-                      textEditingController.text = inputValue.toString();
-                    });
+                    ref
+                        .read(postEventProvider.notifier)
+                        .updateKey(widget.mapKey, quantity);
                   }
                 },
                 icon: const Icon(Icons.add),

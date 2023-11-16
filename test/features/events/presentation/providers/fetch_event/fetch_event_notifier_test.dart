@@ -1,31 +1,26 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart';
-import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/state/event_notifier.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/state/event_state.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/state/fetch_event_notifier.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/state/fetch_event_state.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'event_notifier_test.mocks.dart';
+import 'fetch_event_notifier_test.mocks.dart';
 
-@GenerateMocks([FetchAllEvents, PostAnEvent])
+
+@GenerateMocks([FetchAllEvents])
 void main() {
   late MockFetchAllEvents mockFetchAllEvents;
-  late MockPostAnEvent mockPostAnEvent;
-  late EventNotifier eventNotifier;
+  late FetchEventNotifier fetchEventNotifier;
 
   setUpAll(() {
     mockFetchAllEvents = MockFetchAllEvents();
-    mockPostAnEvent = MockPostAnEvent();
-    eventNotifier = EventNotifier(
-        fetchAllEventsUsecase: mockFetchAllEvents,
-        postAnEventUsecase: mockPostAnEvent);
+    fetchEventNotifier = FetchEventNotifier(
+      fetchAllEventsUsecase: mockFetchAllEvents,
+    );
   });
 
   final tEvent1 = Event(
@@ -74,8 +69,6 @@ void main() {
     vvipTicketDescription: "vvip ticket simple description",
   );
 
-  final tImage = File('flyers.jpg');
-
   final tEvents = [tEvent1, tEvent2];
 
   // Usecases tests
@@ -83,7 +76,7 @@ void main() {
     "initialState should be Loading",
     () async {
       //assert
-      expect(eventNotifier.initialState, Loading());
+      expect(fetchEventNotifier.initialState, Loading());
     },
   );
 
@@ -105,10 +98,10 @@ void main() {
                 randomEvents: tEvents,
                 upcomingEvents: tEvents)
           ];
-          expectLater(eventNotifier.stream, emitsInOrder(expectedState));
+          expectLater(fetchEventNotifier.stream, emitsInOrder(expectedState));
           //act
 
-          await eventNotifier.fetchAllEvents();
+          await fetchEventNotifier.fetchAllEvents();
         },
       );
 
@@ -123,78 +116,13 @@ void main() {
           final expectedState = [
             Error(indexEvent: const [], message: "an error has occured")
           ];
-          expectLater(eventNotifier.stream, emitsInOrder(expectedState));
+          expectLater(fetchEventNotifier.stream, emitsInOrder(expectedState));
           //assert
-          await eventNotifier.fetchAllEvents();
+          await fetchEventNotifier.fetchAllEvents();
         },
       );
     },
   );
-
-  group('postAnEvent', () {
-    final tEvent = EventModel(
-        name: "My test event",
-        eventId: 20,
-        description: "Short description for the test event !",
-        date: DateTime.now(),
-        address: "Lille",
-        latitude: 42.54596,
-        longitude: -127.5345,
-        category: Category.concert,
-        imageUrl: "flyers.jpg",
-        userId: 1,
-        modelEco: ModelEco.gratuit,
-        standardTicketPrice: 5000,
-        maxStandardTicket: 15,
-        standardTicketDescription: "Short ticket description for the test",
-        vipTicketPrice: 5000,
-        maxVipTicket: 15,
-        vipTicketDescription: "Short ticket description for the test",
-        vvipTicketPrice: 5000,
-        maxVvipTicket: 15,
-        vvipTicketDescription: "Short ticket description for the test");
-
-    test(
-      "should emit [Loading, Loaded] if the request is successfull ",
-      () async {
-        //arrange
-        when(mockPostAnEvent.execute(event: tEvent, image: tImage))
-            .thenAnswer((_) async => Right(tEvent));
-        //assert
-        final expectedState = [
-          Loading(),
-          Loaded(
-              indexEvent: tEvents,
-              allEvents: tEvents,
-              randomEvents: tEvents,
-              upcomingEvents: tEvents)
-        ];
-        expectLater(eventNotifier.stream, emitsInOrder(expectedState));
-        // act
-        await eventNotifier.postAnEvent(event: tEvent, image: tImage);
-      },
-    );
-
-    test(
-      "should emit [Error] if the request is unsuccessful",
-      () async {
-        //arrange
-        when(mockPostAnEvent.execute(event: tEvent, image: tImage)).thenAnswer(
-            (realInvocation) async => const Left(
-                ServerFailure(errorMessage: "an error has occured")));
-        //act
-        final expectedState = [
-          Loading(),
-          Error(indexEvent: const [], message: "an error has occured")
-        ];
-        expectLater(eventNotifier.stream, emitsInOrder(expectedState));
-        //assert
-        await eventNotifier.postAnEvent(event: tEvent, image: tImage);
-      },
-    );
-  });
-
-  // Methods tests
 
   group(
     "getRandomEvent",
@@ -239,7 +167,7 @@ void main() {
         "should return a suffled list of 10 events if the list of events is more than 20",
         () async {
           //act
-          final result = eventNotifier.getRandomEvent(tEvents20);
+          final result = fetchEventNotifier.getRandomEvent(tEvents20);
           //assert
           expect(result, isNot(tEvents));
           expect(result.length, equals(10));
@@ -250,7 +178,7 @@ void main() {
         "should return a suffled list of 5 events if the list of events is more than 10 and less than 20",
         () async {
           //act
-          final result = eventNotifier.getRandomEvent(tEvents10);
+          final result = fetchEventNotifier.getRandomEvent(tEvents10);
           //assert
           expect(result, isNot(tEvents));
           expect(result.length, equals(5));
@@ -261,7 +189,7 @@ void main() {
         "should return an empty list of events if the list of events is less than 5",
         () async {
           //act
-          final result = eventNotifier.getRandomEvent(tEvents);
+          final result = fetchEventNotifier.getRandomEvent(tEvents);
           //assert
           expect(result, []);
         },
@@ -310,7 +238,7 @@ void main() {
         "should return an ordered list of 10 events if the list of events is more than 20",
         () async {
           //act
-          final result = eventNotifier.getUpcomingEvent(tEvents20);
+          final result = fetchEventNotifier.getUpcomingEvent(tEvents20);
           final expected = [
             tEvent2,
             tEvent2,
@@ -333,7 +261,7 @@ void main() {
         "should return an ordered list of 5 events if the list of events is more than 10 and less than 20",
         () async {
           //act
-          final result = eventNotifier.getUpcomingEvent(tEvents10);
+          final result = fetchEventNotifier.getUpcomingEvent(tEvents10);
           final expected = [
             tEvent2,
             tEvent2,
@@ -351,7 +279,7 @@ void main() {
         "should return an empty list of events if the list of events is less than 5",
         () async {
           //act
-          final result = eventNotifier.getUpcomingEvent(tEvents);
+          final result = fetchEventNotifier.getUpcomingEvent(tEvents);
           //assert
           expect(result, []);
         },
@@ -383,7 +311,8 @@ void main() {
         "should return a eventState with the index Event filtered",
         () async {
           //act
-          final result = eventNotifier.searchEvent('Event 1 ', teventState);
+          final result =
+              fetchEventNotifier.searchEvent('Event 1 ', teventState);
           //assert
 
           final tExpected = Loaded(

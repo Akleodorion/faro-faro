@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
-import '../../../domain/entities/event.dart';
+import '../../../../domain/entities/event.dart';
 
-abstract class EventState extends Equatable {
+abstract class FetchEventState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-class Loading extends EventState {}
+class Loading extends FetchEventState {}
 
-class Loaded extends EventState {
+class Loaded extends FetchEventState {
   Loaded({
     required this.indexEvent,
     required this.randomEvents,
@@ -23,7 +23,7 @@ class Loaded extends EventState {
   final List<Event> upcomingEvents;
 }
 
-class Error extends EventState {
+class Error extends FetchEventState {
   Error({
     required this.indexEvent,
     required this.message,

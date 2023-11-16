@@ -6,6 +6,7 @@ import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_loca
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_notifier.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_notifier.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/datasources/picked_image_local_data_source.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/repositories/picked_image_repository_impl.dart';
 import 'package:faro_clean_tdd/features/pick_image/domain/repositories/picked_image_repository.dart';
@@ -20,7 +21,7 @@ import 'features/events/data/datasources/event_remote_data_source.dart';
 import 'features/events/data/repositories/event_repository_impl.dart';
 import 'features/events/domain/repositories/event_repository.dart';
 import 'features/events/domain/usecases/fetch_all_events.dart';
-import 'features/events/presentation/providers/state/event_notifier.dart';
+import 'features/events/presentation/providers/fetch_event/state/fetch_event_notifier.dart';
 import 'features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'features/user_authentification/data/datasources/user_remote_data_source.dart';
 import 'features/user_authentification/data/repositories/user_authentification_repository_impl.dart';
@@ -66,9 +67,14 @@ Future<void> init() async {
   sl.registerLazySingleton<UserRemoteDataSource>(
       () => UserRemoteDataSourceImpl(client: sl()));
 
-  // Features - Fetch Event
-  sl.registerFactory(() =>
-      EventNotifier(fetchAllEventsUsecase: sl(), postAnEventUsecase: sl()));
+  // Features - Fetch Event - Post Event
+  sl.registerFactory(() => FetchEventNotifier(
+        fetchAllEventsUsecase: sl(),
+      ));
+  //
+  sl.registerFactory(() => PostEventNotifier(
+        postAnEventUsecase: sl(),
+      ));
 
   // Usecases
   sl.registerLazySingleton(() => FetchAllEvents(repository: sl()));

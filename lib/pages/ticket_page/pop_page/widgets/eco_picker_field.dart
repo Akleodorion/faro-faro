@@ -1,20 +1,31 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EcoPickerField extends StatefulWidget {
-  const EcoPickerField({super.key, required this.onSave});
-  final void Function(ModelEco) onSave;
+import '../../../../features/events/presentation/providers/post_event/state/post_event_state.dart';
+
+class EcoPickerField extends ConsumerStatefulWidget {
+  const EcoPickerField({super.key});
 
   @override
-  State<EcoPickerField> createState() => _EcoPickerFieldState();
+  ConsumerState<EcoPickerField> createState() => _EcoPickerFieldState();
 }
 
-class _EcoPickerFieldState extends State<EcoPickerField> {
+class _EcoPickerFieldState extends ConsumerState<EcoPickerField> {
   ModelEco pickedValue = ModelEco.gratuit;
+
   @override
   Widget build(BuildContext context) {
     const double minHeight = 70.0;
     final double mediaWidth = MediaQuery.of(context).size.width;
+    final state = ref.watch(postEventProvider);
+
+    if (state is Initial) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        pickedValue = state.infoMap["modelEco"];
+      });
+    }
 
     return Container(
       decoration:
@@ -45,10 +56,10 @@ class _EcoPickerFieldState extends State<EcoPickerField> {
             )
           ],
           onChanged: (value) {
-            pickedValue = value!;
+            ref.read(postEventProvider.notifier).updateKey('modelEco', value);
           },
           onSaved: (value) {
-            widget.onSave(value!);
+            ref.read(postEventProvider.notifier).updateKey('modelEco', value);
           },
         ),
       ),

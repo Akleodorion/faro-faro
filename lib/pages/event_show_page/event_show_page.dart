@@ -4,6 +4,11 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/widgets/image_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
+
+import 'pop_page/map_page.dart';
 
 class EventShowPage extends StatelessWidget {
   const EventShowPage({super.key, required this.event});
@@ -13,6 +18,9 @@ class EventShowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double mediaHeight = MediaQuery.of(context).size.height;
+    final double mediaWidth = MediaQuery.of(context).size.width;
+    final String geocoderUrl =
+        "https://maps.googleapis.com/maps/api/staticmap?center=${event.latitude},${event.longitude}&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C${event.latitude},${event.longitude}&key=${dotenv.env['API_KEY']}";
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -46,25 +54,21 @@ class EventShowPage extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Text(
-                                  "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address}",
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.pin_drop_outlined,
-                                  size: 24,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              )
-                            ],
+                          SizedBox(
+                            width: (mediaWidth * 0.6 - 20),
+                            child: Text(
+                                "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address}",
+                                style: Theme.of(context).textTheme.bodyMedium),
                           ),
-                          Text("World XXXXXX",
-                              style: Theme.of(context).textTheme.bodyMedium),
+                          SizedBox(
+                            width: (mediaWidth * 0.4 - 20),
+                            child: Text(
+                                DateFormat('dd/MM/yyyy').format(event.date),
+                                textAlign: TextAlign.end,
+                                style: Theme.of(context).textTheme.bodyMedium),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -77,8 +81,7 @@ class EventShowPage extends StatelessWidget {
                                 text: "Description : ",
                                 style: Theme.of(context).textTheme.titleLarge),
                             TextSpan(
-                                text:
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                                text: event.description,
                                 style: Theme.of(context).textTheme.bodyMedium)
                           ],
                         ),
@@ -91,45 +94,92 @@ class EventShowPage extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      Row(
+                      Column(
                         children: [
-                          const Icon(
-                            Icons.circle,
-                            size: 4,
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.circle,
+                                size: 4,
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text(event.modelEco == ModelEco.gratuit
+                                  ? "Ticket Standard : Gratuit"
+                                  : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice)} XOF")
+                            ],
                           ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                              "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice)} XOF")
+                          Row(
+                            children: [
+                              Text(
+                                "Description : ${event.standardTicketDescription}",
+                                textAlign: TextAlign.start,
+                              ),
+                            ],
+                          )
                         ],
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.circle,
-                            size: 4,
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                              "Ticket VIP : ${NumberFormatterImpl().formatNumber(event.vipTicketPrice)} XOF")
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.circle,
-                            size: 4,
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                              "Ticket VVIP : ${NumberFormatterImpl().formatNumber(event.vvipTicketPrice)} XOF")
-                        ],
-                      ),
+                      if (event.modelEco != ModelEco.gratuit)
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      if (event.modelEco != ModelEco.gratuit)
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.circle,
+                                  size: 4,
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                    "Ticket VIP : ${NumberFormatterImpl().formatNumber(event.vipTicketPrice)} XOF")
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Description : ${event.vipTicketDescription}",
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      if (event.modelEco != ModelEco.gratuit)
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      if (event.modelEco != ModelEco.gratuit)
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.circle,
+                                  size: 4,
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                    "Ticket VVIP : ${NumberFormatterImpl().formatNumber(event.vvipTicketPrice)} XOF")
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Description : ${event.vvipTicketDescription}",
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -138,8 +188,31 @@ class EventShowPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Placeholder(
-                        fallbackHeight: mediaHeight * 0.2,
+                      Container(
+                        height: mediaHeight * 0.2,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1,
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .push<LatLng>(MaterialPageRoute(builder: (ctx) {
+                              return MapScreen(
+                                markerLat: event.latitude,
+                                markerLng: event.longitude,
+                              );
+                            }));
+                          },
+                          child: Image.network(
+                            geocoderUrl,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       )
                     ],
                   ),

@@ -38,26 +38,29 @@ class _AuthCardState extends ConsumerState<AuthCard> {
     }
   }
 
-  void _userLogin() async {
+  _userLogin() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       final currentState = ref.read(userAuthProvider);
+
       if (currentState is Initial) {
         _isChecked = currentState.userInfo["pref"];
       }
       final state = await ref
           .read(userAuthProvider.notifier)
           .logUserIn(_enteredEmail!, _enteredPassword!, _isChecked!);
+
       if (state is Error) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: theme.colorScheme.surface,
-            content: Text(
-              state.message,
-              style: TextStyle(
-                  // ignore: use_build_context_synchronously
-                  color: theme.colorScheme.secondary),
-            )));
+          backgroundColor: theme.colorScheme.background,
+          content: Text(
+            state.message,
+            style: TextStyle(
+              color: theme.colorScheme.onBackground,
+            ),
+          ),
+        ));
       }
     }
   }
@@ -74,13 +77,14 @@ class _AuthCardState extends ConsumerState<AuthCard> {
       if (state is Error) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: theme.colorScheme.surface,
-            content: Text(
-              state.message,
-              style: TextStyle(
-                  // ignore: use_build_context_synchronously
-                  color: theme.colorScheme.secondary),
-            )));
+          backgroundColor: theme.colorScheme.background,
+          content: Text(
+            state.message,
+            style: TextStyle(
+              color: theme.colorScheme.onBackground,
+            ),
+          ),
+        ));
       }
     }
   }

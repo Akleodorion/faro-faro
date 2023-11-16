@@ -1,3 +1,4 @@
+import 'dart:async';
 import '../../../../../core/errors/failures.dart';
 import '../../../domain/usecases/get_user_info.dart';
 import '../../../domain/usecases/log_in_with_token.dart';
@@ -11,6 +12,8 @@ class UserNotifier extends StateNotifier<UserState> {
   final LogInWithToken logInWithTokenUsecase;
   final si.SignUserIn signUserInUsecase;
   final GetUserInfo getUserInfoUsecase;
+  // final _errorController = StreamController<String>();
+  // Stream<String> get errorStream => _errorController.stream;
   UserState get initialState => Loading();
 
   UserNotifier(
@@ -26,12 +29,22 @@ class UserNotifier extends StateNotifier<UserState> {
         .call(Params(email: email, password: password, pref: pref));
     response.fold((failure) {
       if (failure is ServerFailure) {
+        // On affiche le message d'erreur
         state = Error(message: failure.errorMessage);
+        // showError(failure.errorMessage);
+
+        // On ré-initialise l'état
+        // reset();
       }
     }, (user) {
       state = Loaded(user: user!);
     });
+    return state;
+  }
 
+  Future<UserState> reset() async {
+    state = Loading();
+    state = await getUserInfo();
     return state;
   }
 

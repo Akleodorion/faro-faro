@@ -1,5 +1,5 @@
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,9 +8,8 @@ import '../../../../features/address/presentation/providers/address_provider.dar
 import '../map_page.dart';
 
 class MapInput extends ConsumerStatefulWidget {
-  const MapInput({super.key, required this.onSetAddress});
+  const MapInput({super.key});
 
-  final void Function(Address address) onSetAddress;
   @override
   ConsumerState<MapInput> createState() => _MapInputState();
 }
@@ -23,7 +22,8 @@ class _MapInputState extends ConsumerState<MapInput> {
 
     if (addressState is Loading) {
       locationContent = const Center(child: CircularProgressIndicator());
-    } else if (addressState is Loaded) {
+    }
+    if (addressState is Loaded) {
       locationContent = Image.network(
         addressState.address.geocodeUrl,
         fit: BoxFit.cover,
@@ -50,12 +50,19 @@ class _MapInputState extends ConsumerState<MapInput> {
           children: [
             ElevatedButton.icon(
               onPressed: () async {
-                final addressState = await ref
+                final state = await ref
                     .read(addressProvider.notifier)
                     .getCurrentLocationAddress();
-
-                if (addressState is Loaded) {
-                  widget.onSetAddress(addressState.address);
+                if (state is Loaded) {
+                  ref
+                      .read(postEventProvider.notifier)
+                      .updateKey('address', state.address.addressName);
+                  ref
+                      .read(postEventProvider.notifier)
+                      .updateKey('latitude', state.address.latitude);
+                  ref
+                      .read(postEventProvider.notifier)
+                      .updateKey('longitude', state.address.longitude);
                 }
               },
               icon: const Icon(Icons.pin_drop),
@@ -70,13 +77,21 @@ class _MapInputState extends ConsumerState<MapInput> {
                 if (pickedLocation == null) {
                   return;
                 }
-                final addressState = await ref
+                final state = await ref
                     .read(addressProvider.notifier)
                     .getSelectedLociationAddress(
                         pickedLocation.latitude, pickedLocation.longitude);
 
-                if (addressState is Loaded) {
-                  widget.onSetAddress(addressState.address);
+                if (state is Loaded) {
+                  ref
+                      .read(postEventProvider.notifier)
+                      .updateKey('address', state.address.addressName);
+                  ref
+                      .read(postEventProvider.notifier)
+                      .updateKey('latitude', state.address.latitude);
+                  ref
+                      .read(postEventProvider.notifier)
+                      .updateKey('longitude', state.address.longitude);
                 }
               },
               icon: const Icon(Icons.map),
