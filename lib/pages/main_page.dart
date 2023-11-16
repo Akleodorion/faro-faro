@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page.dart';
 
-import '../features/events/presentation/providers/event_provider.dart';
+import '../features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'settings_page/settings_page.dart';
 import 'ticket_page/ticket_page.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class _MainPageState extends ConsumerState<MainPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(eventProvider.notifier).fetchAllEvents();
+    ref.read(fetchEventProvider.notifier).fetchAllEvents();
     _currentIndex = 0;
   }
 

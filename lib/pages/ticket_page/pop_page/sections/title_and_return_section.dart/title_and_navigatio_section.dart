@@ -1,4 +1,6 @@
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TitleAndNavigationSection extends StatelessWidget {
   const TitleAndNavigationSection({super.key});
@@ -41,7 +43,7 @@ class MainTitle extends StatelessWidget {
 
 // Widget du bouton de retour
 
-class ReturnButton extends StatelessWidget {
+class ReturnButton extends ConsumerWidget {
   const ReturnButton({
     super.key,
     required this.mediaWidth,
@@ -50,12 +52,13 @@ class ReturnButton extends StatelessWidget {
   final double mediaWidth;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       alignment: Alignment.centerLeft,
       width: mediaWidth * 0.1,
       child: IconButton(
         onPressed: () {
+          ref.read(postEventProvider.notifier).reset(null);
           Navigator.of(context).pop();
         },
         icon: Icon(

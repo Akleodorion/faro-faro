@@ -1,20 +1,50 @@
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TitleTextFormField extends StatefulWidget {
-  const TitleTextFormField({super.key, required this.onSave});
-
-  final void Function(String value) onSave;
+class TitleTextFormField extends ConsumerStatefulWidget {
+  const TitleTextFormField({
+    super.key,
+  });
 
   @override
-  State<TitleTextFormField> createState() => _TitleTextFormFieldState();
+  ConsumerState<TitleTextFormField> createState() => _TitleTextFormFieldState();
 }
 
-class _TitleTextFormFieldState extends State<TitleTextFormField> {
+class _TitleTextFormFieldState extends ConsumerState<TitleTextFormField> {
   bool hasError = false;
+
+  TextEditingController titleController = TextEditingController();
+  final FocusNode _titleFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _titleFocusNode.addListener(() {
+      if (!_titleFocusNode.hasFocus) {
+        // Le focus a été perdu
+        ref
+            .read(postEventProvider.notifier)
+            .updateKey('name', titleController.text);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    _titleFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final double mediaWidth = MediaQuery.of(context).size.width;
+    final state = ref.watch(postEventProvider);
+    if (state is Initial) {
+      titleController.text = state.infoMap["name"];
+    }
     double minHeight = 70.0;
     double maxHeight = 90.0;
 
@@ -32,7 +62,11 @@ class _TitleTextFormFieldState extends State<TitleTextFormField> {
               style: TextStyle(fontSize: 12),
             ),
           ),
+          controller: titleController,
+          focusNode: _titleFocusNode,
           keyboardType: TextInputType.name,
+
+          // validation
           validator: (value) {
             setState(() {
               hasError = false;
@@ -50,8 +84,16 @@ class _TitleTextFormFieldState extends State<TitleTextFormField> {
             }
             return null;
           },
+
+          onEditingComplete: () {
+            final enteredTitle = titleController.text;
+            ref
+                .read(postEventProvider.notifier)
+                .updateKey('name', enteredTitle);
+            _titleFocusNode.unfocus();
+          },
           onSaved: (value) {
-            widget.onSave(value!);
+            ref.read(postEventProvider.notifier).updateKey('name', value);
           },
         ),
       ),

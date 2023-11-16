@@ -1,24 +1,33 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/internal_features/category_filter/data_source.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CategoryPickerField extends StatefulWidget {
-  const CategoryPickerField({super.key, required this.onSave});
+import '../../../../features/events/presentation/providers/post_event/post_event_provider.dart';
+import '../../../../features/events/presentation/providers/post_event/state/post_event_state.dart';
 
-  final void Function(Category) onSave;
+class CategoryPickerField extends ConsumerStatefulWidget {
+  const CategoryPickerField({super.key});
 
   @override
-  State<CategoryPickerField> createState() => _CategoryPickerFieldState();
+  ConsumerState<CategoryPickerField> createState() =>
+      _CategoryPickerFieldState();
 }
 
-class _CategoryPickerFieldState extends State<CategoryPickerField> {
+class _CategoryPickerFieldState extends ConsumerState<CategoryPickerField> {
   Category pickedValue = Category.concert;
+  final double minHeight = 70.0;
 
   @override
   Widget build(BuildContext context) {
-    const double minHeight = 70.0;
-
     final double mediaWidth = MediaQuery.of(context).size.width;
+    final state = ref.watch(postEventProvider);
+
+    if (state is Initial) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        pickedValue = state.infoMap["category"];
+      });
+    }
     return Container(
       decoration:
           BoxDecoration(color: Theme.of(context).colorScheme.background),
@@ -43,10 +52,10 @@ class _CategoryPickerFieldState extends State<CategoryPickerField> {
               )
           ],
           onChanged: (value) {
-            pickedValue = value!;
+            ref.read(postEventProvider.notifier).updateKey('category', value);
           },
           onSaved: (value) {
-            widget.onSave(value!);
+            ref.read(postEventProvider.notifier).updateKey('category', value);
           },
         ),
       ),

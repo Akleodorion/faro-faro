@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_state.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,16 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       content = TextButton.icon(
         icon: const Icon(Icons.camera),
         label: const Text('Add a picture'),
-        onPressed: () {
-          ref.read(pickedImageProvider.notifier).pickImageFromGalery();
+        onPressed: () async {
+          final result = await ref
+              .read(pickedImageProvider.notifier)
+              .pickImageFromGalery();
+
+          if (result is Loaded) {
+            ref
+                .read(postEventProvider.notifier)
+                .updateKey('imageFile', result.pickedImage.image);
+          }
         },
       );
     }
@@ -52,8 +61,15 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       width: double.infinity,
       alignment: Alignment.center,
       child: InkWell(
-          onTap: () {
-            ref.read(pickedImageProvider.notifier).pickImageFromGalery();
+          onTap: () async {
+            final result = await ref
+                .read(pickedImageProvider.notifier)
+                .pickImageFromGalery();
+            if (result is Loaded) {
+              ref
+                  .read(postEventProvider.notifier)
+                  .updateKey('imageFile', result.pickedImage.image);
+            }
           },
           child: content),
     );

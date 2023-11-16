@@ -1,38 +1,66 @@
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DescriptionTextFormField extends StatefulWidget {
+class DescriptionTextFormField extends ConsumerStatefulWidget {
   const DescriptionTextFormField(
-      {super.key, required this.onSave, required this.isTicket});
+      {super.key, required this.isTicket, required this.mapKey});
 
   final bool isTicket;
-  final void Function(String value) onSave;
+  final String mapKey;
 
   @override
-  State<DescriptionTextFormField> createState() =>
+  ConsumerState<DescriptionTextFormField> createState() =>
       _DescriptionTextFormFieldState();
 }
 
-class _DescriptionTextFormFieldState extends State<DescriptionTextFormField> {
+class _DescriptionTextFormFieldState
+    extends ConsumerState<DescriptionTextFormField> {
+  TextEditingController textEditingController = TextEditingController();
+  final FocusNode _descriptionFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    _descriptionFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _descriptionFocusNode.addListener(() {
+      if (!_descriptionFocusNode.hasFocus) {
+        // Le focus a été perdu
+        ref
+            .read(postEventProvider.notifier)
+            .updateKey(widget.mapKey, textEditingController.text);
+        // Ajoutez ici le code à exécuter lorsque le champ perd le focus
+      }
+    });
+  }
+
   bool hasError = false;
+  double minHeight = 180;
+  double maxHeight = 200;
+  int maxCharsValue = 601;
+  int minCharsValue = 50;
 
   @override
   Widget build(BuildContext context) {
-    int minCharsValue = 20;
-    int maxCharsValue;
-    double minHeight;
-    double maxHeight;
-
-    if (widget.isTicket == false) {
-      minHeight = 180;
-      maxHeight = 200;
-      maxCharsValue = 601;
-    } else {
+    if (widget.isTicket == true) {
+      minCharsValue = 20;
       maxCharsValue = 151;
-      minHeight = 130.0;
-      maxHeight = 150.0;
+      minHeight = 130;
+      maxHeight = 150;
     }
-    // final double mediaHeight = MediaQuery.of(context).size.height;
     final double mediaWidth = MediaQuery.of(context).size.width;
+    final state = ref.watch(postEventProvider);
+
+    if (state is Initial) {
+      textEditingController.text = state.infoMap[widget.mapKey];
+    }
 
     return Container(
       width: (mediaWidth - 40),
@@ -53,6 +81,8 @@ class _DescriptionTextFormFieldState extends State<DescriptionTextFormField> {
             ),
           ),
           keyboardType: TextInputType.name,
+          controller: textEditingController,
+          focusNode: _descriptionFocusNode,
           validator: (value) {
             setState(() {
               hasError = false;
@@ -71,8 +101,16 @@ class _DescriptionTextFormFieldState extends State<DescriptionTextFormField> {
             }
             return null;
           },
+          onEditingComplete: () {
+            ref
+                .read(postEventProvider.notifier)
+                .updateKey(widget.mapKey, textEditingController.text);
+            _descriptionFocusNode.unfocus();
+          },
           onSaved: (value) {
-            widget.onSave(value!);
+            ref
+                .read(postEventProvider.notifier)
+                .updateKey(widget.mapKey, value);
           },
         ),
       ),

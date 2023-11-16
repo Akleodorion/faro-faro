@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/event_provider.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum GeneralFilter {

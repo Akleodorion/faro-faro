@@ -1,4 +1,4 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/event_provider.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:faro_clean_tdd/pages/search_page/sections/search_and_filter_section/widgets/event_list_search_bar/components/event_list_search_bar_icon.dart';
 import 'package:faro_clean_tdd/pages/search_page/sections/search_and_filter_section/widgets/event_list_search_bar/components/search_bar_text_field.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +24,8 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
       formKey.currentState!.save();
       // Appel de la fonction de filtrage avec comme paramètre le contenu de la recherche
       ref
-          .read(eventProvider.notifier)
-          .searchEvent(enteredSearchString!, ref.read(eventProvider));
+          .read(fetchEventProvider.notifier)
+          .searchEvent(enteredSearchString!, ref.read(fetchEventProvider));
     }
 
     return Container(

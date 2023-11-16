@@ -1,5 +1,5 @@
-import '../../../../features/events/presentation/providers/event_provider.dart';
-import '../../../../features/events/presentation/providers/state/event_state.dart';
+import '../../../../features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
+import '../../../../features/events/presentation/providers/fetch_event/state/fetch_event_state.dart';
 import 'widgets/list_view/list_view_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +9,7 @@ class EventSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventState = ref.read(eventProvider);
+    final eventState = ref.read(fetchEventProvider);
 
     return SizedBox(
       height: (MediaQuery.of(context).size.height) * 0.76,
