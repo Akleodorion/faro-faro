@@ -34,39 +34,6 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
     return state;
   }
 
-  // Future<EventState?> postAnEvent(
-  //     {required EventModel event, required File image}) async {
-  //   List<Event> indexEvent = [];
-  //   List<Event> allEvents = [];
-  //   List<Event> randomEvents = [];
-  //   List<Event> upcomingEvents = [];
-  //   EventState eventState = state;
-
-  //   if (eventState is Loaded) {
-  //     indexEvent = List.from(eventState.indexEvent);
-  //     allEvents = List.from(eventState.allEvents);
-  //     randomEvents = List.from(eventState.randomEvents);
-  //     upcomingEvents = List.from(eventState.upcomingEvents);
-  //   }
-
-  //   state = Loading();
-  //   final response =
-  //       await postAnEventUsecase.execute(event: event, image: image);
-  //   response!.fold((failure) {
-  //     if (failure is ServerFailure) {
-  //       state = Error(indexEvent: indexEvent, message: failure.errorMessage);
-  //     }
-  //   }, (event) {
-  //     allEvents.add(event);
-  //     state = Loaded(
-  //         indexEvent: indexEvent,
-  //         randomEvents: randomEvents,
-  //         upcomingEvents: upcomingEvents,
-  //         allEvents: allEvents);
-  //   });
-  //   return state;
-  // }
-
   // Méthodes
 
   List<Event> getRandomEvent(List<Event> events) {

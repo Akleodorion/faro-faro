@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/pages/ticket_page/widgets/my_event_list.dart';
 import 'package:flutter/material.dart';
 
 class TicketPage extends StatefulWidget {
@@ -10,7 +11,7 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> {
-  bool isMyTicket = false;
+  bool isMyTicket = true;
   ButtonStyle unSelectedPageStyle = TextButton.styleFrom(
     foregroundColor: Colors.grey,
     textStyle: const TextStyle(
@@ -65,6 +66,17 @@ class _TicketPageState extends State<TicketPage> {
               )
             ],
           ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: isMyTicket
+                ? const Placeholder(
+                    fallbackHeight: 200,
+                  )
+                : const MyEventList(),
+          )
         ],
       ),
     );

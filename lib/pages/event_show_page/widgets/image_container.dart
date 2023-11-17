@@ -52,6 +52,23 @@ class ImageContainer extends StatelessWidget {
               ),
             ),
           ),
+        ),
+        Positioned(
+          top: screenHeight * 0.05,
+          right: 20,
+          child: Container(
+            decoration: BoxDecoration(
+                color:
+                    Theme.of(context).colorScheme.background.withOpacity(0.9)),
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.edit,
+                size: 24,
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
+          ),
         )
       ],
     );

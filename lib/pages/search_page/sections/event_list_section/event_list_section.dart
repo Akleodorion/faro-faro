@@ -9,7 +9,7 @@ class EventListSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filteredEventList = ref.watch(filteredEventProvider);
-    late Widget content;
+    Widget content;
 
     content = Expanded(
       child: ListView.builder(

@@ -1,26 +1,44 @@
 import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
 import 'package:faro_clean_tdd/core/util/number_formatter.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/widgets/image_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 
 import 'pop_page/map_page.dart';
 
-class EventShowPage extends StatelessWidget {
+class EventShowPage extends ConsumerWidget {
   const EventShowPage({super.key, required this.event});
 
   final Event event;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    //variables
+    bool isMine = false;
     final double mediaHeight = MediaQuery.of(context).size.height;
     final double mediaWidth = MediaQuery.of(context).size.width;
     final String geocoderUrl =
-        "https://maps.googleapis.com/maps/api/staticmap?center=${event.latitude},${event.longitude}&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C${event.latitude},${event.longitude}&key=${dotenv.env['API_KEY']}";
+        """https://maps.googleapis.com/maps/api/staticmap?center=${event.latitude},${event.longitude}&zoom=
+        16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C${event.latitude},${event.longitude}
+        &key=${dotenv.env['API_KEY']}""";
+
+    //state
+    final userState = ref.read(userAuthProvider);
+
+    // Condition
+
+    if (userState is Loaded) {
+      userState.user.id == event.userId ? isMine = true : null;
+    }
+
+    // Widget
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -51,6 +69,9 @@ class EventShowPage extends StatelessWidget {
                       Text(
                         event.name,
                         style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(
+                        height: 5,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,9 +133,12 @@ class EventShowPage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Text(
-                                "Description : ${event.standardTicketDescription}",
-                                textAlign: TextAlign.start,
+                              SizedBox(
+                                width: mediaWidth - 40,
+                                child: Text(
+                                  "Description : ${event.standardTicketDescription}",
+                                  textAlign: TextAlign.start,
+                                ),
                               ),
                             ],
                           )
@@ -219,8 +243,9 @@ class EventShowPage extends StatelessWidget {
                 ),
               ),
             ),
-            UsecaseElevatedButton(
-                usecaseTitle: "Achète ton ticket", onUsecaseCall: () {})
+            if (!isMine)
+              UsecaseElevatedButton(
+                  usecaseTitle: "Achète ton ticket", onUsecaseCall: () {})
           ],
         ),
       ),

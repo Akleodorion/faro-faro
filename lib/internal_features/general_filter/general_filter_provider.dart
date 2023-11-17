@@ -9,11 +9,17 @@ enum GeneralFilter {
   date,
 }
 
+final today = DateTime.now();
+
 final baseFilter = {
   GeneralFilter.free: true,
   GeneralFilter.paid: true,
   GeneralFilter.minPrice: 0.0,
-  GeneralFilter.date: DateTime.now()
+  GeneralFilter.date: DateTime(
+    today.year,
+    today.month,
+    today.day,
+  )
 };
 
 class GeneralFiltersNotifier

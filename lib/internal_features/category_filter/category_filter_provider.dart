@@ -24,7 +24,6 @@ final filtersProvider =
 
 final filteredEventProvider = Provider((ref) {
   final List<Event> events = ref.watch(generalFiltersEventProvider);
-
   final filters = ref.watch(filtersProvider);
 
   final filteredEvents = events.where((event) {
