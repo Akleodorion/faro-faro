@@ -3,9 +3,8 @@ import '../../event_card/event_card.dart';
 import 'components/list_view_redirect.dart';
 import 'components/list_view_title.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ListViewLayout extends ConsumerWidget {
+class ListViewLayout extends StatelessWidget {
   const ListViewLayout(
       {super.key, required this.events, required this.listViewTitle});
 
@@ -13,7 +12,7 @@ class ListViewLayout extends ConsumerWidget {
   final String listViewTitle;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(

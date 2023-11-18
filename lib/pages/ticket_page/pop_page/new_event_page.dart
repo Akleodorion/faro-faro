@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart'
-    as us;
 
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
@@ -28,21 +24,28 @@ class NewEventPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
+    final state = ref.read(postEventProvider);
+    Widget content;
 
     void createNewEvent() async {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
-        final userState = ref.read(userAuthProvider);
-        final postAnEventState = ref.read(postEventProvider);
 
-        final myEventModel = getEventModel(
-            postEventState: postAnEventState, userState: userState);
+        // récupération des infos utilisateurs & de l'event en cours de création
+        final userId = ref.read(userInfoProvider)["user_id"];
+        final postEventMap = ref.read(postEventMapProvider);
+
+        // Création du model
+        final myEventModel =
+            getEventModel(postEventMap: postEventMap, userId: userId);
+
+        // Usecase
         final state = await ref.read(postEventProvider.notifier).postAnEvent(
-            event: myEventModel!,
-            image: postAnEventState is Initial
-                ? postAnEventState.infoMap["imageFile"]
-                : File(''));
+              event: myEventModel,
+              image: postEventMap["imageFile"],
+            );
 
+        // Si une erreur alors snackbar
         if (state is Error) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -58,11 +61,80 @@ class NewEventPage extends ConsumerWidget {
           ref.read(postEventProvider.notifier).reset(state.infoMap);
         }
 
+        // Si tout bon alors pop
         if (state is Loaded) {
           // ignore: use_build_context_synchronously
           Navigator.of(context).pop();
         }
       }
+    }
+
+    if (state is Loading) {
+      content = const Center(child: CircularProgressIndicator());
+    } else {
+      content = SafeArea(
+        child: Form(
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, top: 10, bottom: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TitleAndNavigationSection(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const TitleTextFormField(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      DatePickerField(),
+                      CategoryPickerField(),
+                      EcoPickerField()
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const DescriptionTextFormField(
+                    key: ValueKey('hi'),
+                    isTicket: false,
+                    mapKey: "description",
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const MapInput(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const ImageInput(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const TicketColumn(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: UsecaseElevatedButton(
+                        usecaseTitle: 'Poste ton évènement !',
+                        onUsecaseCall: createNewEvent),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
     }
 
     return Scaffold(
@@ -78,103 +150,8 @@ class NewEventPage extends ConsumerWidget {
             ],
           ),
         ),
-        child: SafeArea(
-          child: Form(
-            key: formKey,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 10, bottom: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TitleAndNavigationSection(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const TitleTextFormField(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        DatePickerField(),
-                        CategoryPickerField(),
-                        EcoPickerField()
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const DescriptionTextFormField(
-                      key: ValueKey('hi'),
-                      isTicket: false,
-                      mapKey: "description",
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const MapInput(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const ImageInput(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const TicketColumn(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: UsecaseElevatedButton(
-                          usecaseTitle: 'Poste ton évènement !',
-                          onUsecaseCall: createNewEvent),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
+        child: content,
       ),
     );
   }
-}
-
-EventModel? getEventModel(
-    {required PostEventState postEventState, required us.UserState userState}) {
-  if (postEventState is Initial && userState is us.Loaded) {
-    final myEventModel = EventModel(
-        name: postEventState.infoMap["name"],
-        eventId: 0,
-        description: postEventState.infoMap["description"]!,
-        date: postEventState.infoMap["date"],
-        address: postEventState.infoMap["address"],
-        latitude: postEventState.infoMap["latitude"]!,
-        longitude: postEventState.infoMap["longitude"]!,
-        category: postEventState.infoMap["category"]!,
-        imageUrl: '',
-        userId: userState.user.id,
-        modelEco: postEventState.infoMap["modelEco"],
-        standardTicketPrice: postEventState.infoMap["standardTicketPrice"],
-        maxStandardTicket: postEventState.infoMap["maxStandardTicket"],
-        standardTicketDescription:
-            postEventState.infoMap["standardTicketDescription"],
-        vipTicketPrice: postEventState.infoMap["vipTicketPrice"]!,
-        maxVipTicket: postEventState.infoMap["maxVipTicket"],
-        vipTicketDescription: postEventState.infoMap["vipTicketDescription"],
-        vvipTicketPrice: postEventState.infoMap["vvipTicketPrice"],
-        maxVvipTicket: postEventState.infoMap["maxVvipTicket"]!,
-        vvipTicketDescription:
-            postEventState.infoMap["vvipTicketDescription"]!);
-
-    return myEventModel;
-  }
-
-  return null;
 }

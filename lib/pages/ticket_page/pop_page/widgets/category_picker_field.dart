@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../features/events/presentation/providers/post_event/post_event_provider.dart';
-import '../../../../features/events/presentation/providers/post_event/state/post_event_state.dart';
 
 class CategoryPickerField extends ConsumerStatefulWidget {
   const CategoryPickerField({super.key});
@@ -21,13 +20,8 @@ class _CategoryPickerFieldState extends ConsumerState<CategoryPickerField> {
   @override
   Widget build(BuildContext context) {
     final double mediaWidth = MediaQuery.of(context).size.width;
-    final state = ref.watch(postEventProvider);
+    pickedValue = ref.read(postEventMapProvider)["category"];
 
-    if (state is Initial) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        pickedValue = state.infoMap["category"];
-      });
-    }
     return Container(
       decoration:
           BoxDecoration(color: Theme.of(context).colorScheme.background),

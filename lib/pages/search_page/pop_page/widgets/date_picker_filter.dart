@@ -14,6 +14,7 @@ class _DatePickerFilterState extends ConsumerState<DatePickerFilter> {
   @override
   Widget build(BuildContext context) {
     final pickedDate = ref.watch(generalFiltersProvider)[GeneralFilter.date];
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

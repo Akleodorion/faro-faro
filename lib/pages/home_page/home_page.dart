@@ -10,8 +10,9 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventState = ref.watch(fetchEventProvider);
     late Widget content;
+    final eventState = ref.watch(fetchEventProvider);
+
     if (eventState is Loading) {
       content = const Center(child: CircularProgressIndicator());
     } else {

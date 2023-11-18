@@ -114,3 +114,30 @@ class EventModel extends Event {
     };
   }
 }
+
+EventModel getEventModel(
+    {required Map<String, dynamic> postEventMap, required int userId}) {
+  final myEventModel = EventModel(
+      name: postEventMap["name"],
+      eventId: 0,
+      description: postEventMap["description"],
+      date: postEventMap["date"],
+      address: postEventMap["address"],
+      latitude: postEventMap["latitude"],
+      longitude: postEventMap["longitude"],
+      category: postEventMap["category"],
+      imageUrl: '',
+      userId: userId,
+      modelEco: postEventMap["modelEco"],
+      standardTicketPrice: postEventMap["standardTicketPrice"],
+      maxStandardTicket: postEventMap["maxStandardTicket"],
+      standardTicketDescription: postEventMap["standardTicketDescription"],
+      vipTicketPrice: postEventMap["vipTicketPrice"],
+      maxVipTicket: postEventMap["maxVipTicket"],
+      vipTicketDescription: postEventMap["vipTicketDescription"],
+      vvipTicketPrice: postEventMap["vvipTicketPrice"],
+      maxVvipTicket: postEventMap["maxVvipTicket"],
+      vvipTicketDescription: postEventMap["vvipTicketDescription"]);
+
+  return myEventModel;
+}

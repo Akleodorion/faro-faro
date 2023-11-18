@@ -11,16 +11,12 @@ class Loading extends FetchEventState {}
 class Loaded extends FetchEventState {
   Loaded({
     required this.indexEvent,
-    required this.randomEvents,
-    required this.upcomingEvents,
     required this.allEvents,
   });
 
   // List of events
   final List<Event> indexEvent;
   final List<Event> allEvents;
-  final List<Event> randomEvents;
-  final List<Event> upcomingEvents;
 }
 
 class Error extends FetchEventState {

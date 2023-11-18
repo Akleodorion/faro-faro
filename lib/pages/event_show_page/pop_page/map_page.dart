@@ -13,7 +13,7 @@ class MapScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: const Text('Pick a location'),
+        title: const Text('Location of the event'),
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(

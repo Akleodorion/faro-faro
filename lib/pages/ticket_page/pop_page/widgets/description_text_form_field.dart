@@ -1,5 +1,4 @@
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,7 +35,6 @@ class _DescriptionTextFormFieldState
         ref
             .read(postEventProvider.notifier)
             .updateKey(widget.mapKey, textEditingController.text);
-        // Ajoutez ici le code à exécuter lorsque le champ perd le focus
       }
     });
   }
@@ -56,11 +54,8 @@ class _DescriptionTextFormFieldState
       maxHeight = 150;
     }
     final double mediaWidth = MediaQuery.of(context).size.width;
-    final state = ref.watch(postEventProvider);
 
-    if (state is Initial) {
-      textEditingController.text = state.infoMap[widget.mapKey];
-    }
+    textEditingController.text = ref.read(postEventMapProvider)[widget.mapKey];
 
     return Container(
       width: (mediaWidth - 40),

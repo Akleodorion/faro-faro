@@ -8,7 +8,7 @@ class CategorySection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filterState = ref.watch(filtersProvider);
+    final filterMap = ref.watch(filtersProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -21,10 +21,10 @@ class CategorySection extends ConsumerWidget {
                 padding: const EdgeInsets.only(right: 10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: filterState[category] == true
+                    backgroundColor: filterMap[category] == true
                         ? Theme.of(context).colorScheme.primary
                         : Theme.of(context).colorScheme.background,
-                    foregroundColor: filterState[category] == true
+                    foregroundColor: filterMap[category] == true
                         ? Theme.of(context).colorScheme.onPrimary
                         : Theme.of(context).colorScheme.onBackground,
                   ),

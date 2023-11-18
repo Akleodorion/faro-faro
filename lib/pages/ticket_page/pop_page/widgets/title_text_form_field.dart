@@ -1,5 +1,4 @@
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,15 +37,13 @@ class _TitleTextFormFieldState extends ConsumerState<TitleTextFormField> {
     super.dispose();
   }
 
+  double minHeight = 70.0;
+  double maxHeight = 90.0;
+
   @override
   Widget build(BuildContext context) {
     final double mediaWidth = MediaQuery.of(context).size.width;
-    final state = ref.watch(postEventProvider);
-    if (state is Initial) {
-      titleController.text = state.infoMap["name"];
-    }
-    double minHeight = 70.0;
-    double maxHeight = 90.0;
+    titleController.text = ref.read(postEventMapProvider)["name"];
 
     return Container(
       width: (mediaWidth - 40),

@@ -3,22 +3,14 @@ import '../../../../../features/user_authentification/presentation/providers/use
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../features/user_authentification/presentation/providers/state/user_state.dart';
-
 class UserInfoDisplay extends ConsumerWidget {
   const UserInfoDisplay({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // initialisations des  variables
-    late String username;
-    final userState = ref.read(userAuthProvider);
-
-    // vérification de la connexion pour récupérer le username
-    if (userState is Loaded) {
-      username =
-          CapitalizeFirstLetterImpl().capitalizeInput(userState.user.username);
-    }
+    final username = CapitalizeFirstLetterImpl()
+        .capitalizeInput(ref.read(userInfoProvider)["username"]);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

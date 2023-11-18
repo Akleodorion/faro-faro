@@ -38,7 +38,7 @@ final generalFiltersProvider =
 });
 
 final generalFiltersEventProvider = Provider((ref) {
-  final List<Event> events = ref.watch(eventsProvider);
+  final List<Event> events = ref.watch(indexEventProvider);
   final generalFilters = ref.watch(generalFiltersProvider);
 
   final filteredEvents = events.where((event) {
@@ -66,7 +66,7 @@ final generalFiltersEventProvider = Provider((ref) {
 
 final maxPaidEventPrice = Provider((ref) {
   late int price;
-  final events = ref.watch(eventsProvider);
+  final events = ref.watch(indexEventProvider);
   if (events != []) {
     price = events[0].standardTicketPrice;
   }

@@ -4,8 +4,6 @@ import '../../../../domain/usecases/fetch_all_events.dart';
 import 'fetch_event_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../domain/entities/event.dart';
-
 class FetchEventNotifier extends StateNotifier<FetchEventState> {
   final FetchAllEvents fetchAllEventsUsecase;
 
@@ -26,43 +24,16 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
       }
     }, (events) {
       state = Loaded(
-          indexEvent: events,
-          allEvents: events,
-          randomEvents: getRandomEvent(events),
-          upcomingEvents: getUpcomingEvent(events));
+        indexEvent: events,
+        allEvents: events,
+      );
     });
     return state;
   }
 
   // Méthodes
 
-  List<Event> getRandomEvent(List<Event> events) {
-    final List<Event> randomEvents = events;
-    randomEvents.shuffle();
-
-    if (randomEvents.length >= 20) {
-      return randomEvents.sublist(0, 10);
-    } else if (randomEvents.length >= 10) {
-      return randomEvents.sublist(0, 5);
-    } else {
-      return [];
-    }
-  }
-
-  List<Event> getUpcomingEvent(List<Event> events) {
-    final List<Event> upcomingEvents = events;
-    upcomingEvents.sort((event1, event2) => event1.date.compareTo(event2.date));
-
-    if (upcomingEvents.length >= 20) {
-      return upcomingEvents.sublist(0, 10);
-    } else if (upcomingEvents.length >= 10) {
-      return upcomingEvents.sublist(0, 5);
-    } else {
-      return [];
-    }
-  }
-
-  FetchEventState? searchEvent(
+  FetchEventState searchEvent(
       String researchInput, FetchEventState eventState) {
     if (eventState is Loaded) {
       final filteredEvent = eventState.allEvents
@@ -72,11 +43,8 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
                       .toUpperCase()
                       .contains(researchInput.toUpperCase())))
           .toList();
-      state = Loaded(
-          indexEvent: filteredEvent,
-          randomEvents: eventState.randomEvents,
-          upcomingEvents: eventState.upcomingEvents,
-          allEvents: eventState.allEvents);
+      state =
+          Loaded(indexEvent: filteredEvent, allEvents: eventState.allEvents);
     }
     return state;
   }

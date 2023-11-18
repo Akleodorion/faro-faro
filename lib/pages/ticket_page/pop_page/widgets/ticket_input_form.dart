@@ -1,6 +1,5 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/description_text_form_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/number_input_field.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,6 @@ class TicketInputForm extends ConsumerStatefulWidget {
 class _TicketInputFormState extends ConsumerState<TicketInputForm> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(postEventProvider);
-
     final String descriptionMapKey;
     final String quantityMapKey;
     final String priceMapKey;
@@ -40,11 +37,9 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
       priceMapKey = 'vvipTicketPrice';
     }
 
-    if (state is Initial) {
-      state.infoMap["modelEco"] == ModelEco.gratuit
-          ? isFree = true
-          : isFree = false;
-    }
+    ref.read(postEventMapProvider)["modelEco"] == ModelEco.gratuit
+        ? isFree = true
+        : isFree = false;
 
     return Column(
       children: [

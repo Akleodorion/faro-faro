@@ -15,9 +15,23 @@ final userAuthProvider = StateNotifierProvider<UserNotifier, UserState>(
     final LogInWithToken logInWithToken = sl<LogInWithToken>();
 
     return UserNotifier(
-      logInWithTokenUsecase: logInWithToken,
+        logInWithTokenUsecase: logInWithToken,
         logUserInUsecase: logUserIn,
         signUserInUsecase: signUserInUsecase,
         getUserInfoUsecase: getUserInfoUsecase);
   },
 );
+
+final userInfoProvider = Provider<Map<String, dynamic>>((ref) {
+  final state = ref.read(userAuthProvider);
+  if (state is Loaded) {
+    return {
+      'username': state.user.username,
+      'phone_number': state.user.phoneNumber,
+      'user_id': state.user.id,
+      'email': state.user.email,
+      'jwt': state.user.jwtToken
+    };
+  }
+  return {};
+});

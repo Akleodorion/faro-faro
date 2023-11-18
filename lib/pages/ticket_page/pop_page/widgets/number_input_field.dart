@@ -1,5 +1,4 @@
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -48,17 +47,13 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
   @override
   Widget build(BuildContext context) {
     final double maxWidth = MediaQuery.of(context).size.width;
-    final state = ref.watch(postEventProvider);
     int quantity;
 
-    if (state is Initial) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        textEditingController.text = state.infoMap[widget.mapKey].toString();
-      });
-      quantity = state.infoMap[widget.mapKey];
-    } else {
-      quantity = 0;
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      textEditingController.text =
+          ref.watch(postEventMapProvider)[widget.mapKey].toString();
+    });
+    quantity = ref.watch(postEventMapProvider)[widget.mapKey];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

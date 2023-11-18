@@ -10,7 +10,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'fetch_event_notifier_test.mocks.dart';
 
-
 @GenerateMocks([FetchAllEvents])
 void main() {
   late MockFetchAllEvents mockFetchAllEvents;
@@ -93,10 +92,9 @@ void main() {
           //assert
           final expectedState = [
             Loaded(
-                indexEvent: tEvents,
-                allEvents: tEvents,
-                randomEvents: tEvents,
-                upcomingEvents: tEvents)
+              indexEvent: tEvents,
+              allEvents: tEvents,
+            )
           ];
           expectLater(fetchEventNotifier.stream, emitsInOrder(expectedState));
           //act
@@ -125,169 +123,6 @@ void main() {
   );
 
   group(
-    "getRandomEvent",
-    () {
-      final tEvents20 = [
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-      ];
-      final tEvents10 = [
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-      ];
-      test(
-        "should return a suffled list of 10 events if the list of events is more than 20",
-        () async {
-          //act
-          final result = fetchEventNotifier.getRandomEvent(tEvents20);
-          //assert
-          expect(result, isNot(tEvents));
-          expect(result.length, equals(10));
-        },
-      );
-
-      test(
-        "should return a suffled list of 5 events if the list of events is more than 10 and less than 20",
-        () async {
-          //act
-          final result = fetchEventNotifier.getRandomEvent(tEvents10);
-          //assert
-          expect(result, isNot(tEvents));
-          expect(result.length, equals(5));
-        },
-      );
-
-      test(
-        "should return an empty list of events if the list of events is less than 5",
-        () async {
-          //act
-          final result = fetchEventNotifier.getRandomEvent(tEvents);
-          //assert
-          expect(result, []);
-        },
-      );
-    },
-  );
-
-  group(
-    "getUpcomingEvent",
-    () {
-      final tEvents20 = [
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-      ];
-      final tEvents10 = [
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-        tEvent1,
-        tEvent2,
-      ];
-      test(
-        "should return an ordered list of 10 events if the list of events is more than 20",
-        () async {
-          //act
-          final result = fetchEventNotifier.getUpcomingEvent(tEvents20);
-          final expected = [
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-          ];
-          //assert
-          expect(result, expected);
-          expect(result.length, equals(10));
-        },
-      );
-
-      test(
-        "should return an ordered list of 5 events if the list of events is more than 10 and less than 20",
-        () async {
-          //act
-          final result = fetchEventNotifier.getUpcomingEvent(tEvents10);
-          final expected = [
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-            tEvent2,
-          ];
-          //assert
-          expect(result, expected);
-          expect(result.length, equals(5));
-        },
-      );
-
-      test(
-        "should return an empty list of events if the list of events is less than 5",
-        () async {
-          //act
-          final result = fetchEventNotifier.getUpcomingEvent(tEvents);
-          //assert
-          expect(result, []);
-        },
-      );
-    },
-  );
-
-  group(
     "searchEvent",
     () {
       final tEvents10 = [
@@ -302,11 +137,7 @@ void main() {
         tEvent1,
         tEvent2,
       ];
-      final teventState = Loaded(
-          indexEvent: tEvents10,
-          randomEvents: tEvents10,
-          upcomingEvents: tEvents10,
-          allEvents: tEvents10);
+      final teventState = Loaded(indexEvent: tEvents10, allEvents: tEvents10);
       test(
         "should return a eventState with the index Event filtered",
         () async {
@@ -315,17 +146,13 @@ void main() {
               fetchEventNotifier.searchEvent('Event 1 ', teventState);
           //assert
 
-          final tExpected = Loaded(
-              indexEvent: [
-                tEvent1,
-                tEvent1,
-                tEvent1,
-                tEvent1,
-                tEvent1,
-              ],
-              randomEvents: tEvents10,
-              upcomingEvents: tEvents10,
-              allEvents: tEvents10);
+          final tExpected = Loaded(indexEvent: [
+            tEvent1,
+            tEvent1,
+            tEvent1,
+            tEvent1,
+            tEvent1,
+          ], allEvents: tEvents10);
           expect(result, tExpected);
         },
       );

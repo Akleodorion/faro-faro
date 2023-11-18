@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../features/events/presentation/providers/post_event/state/post_event_state.dart';
-
 class DatePickerField extends ConsumerStatefulWidget {
   const DatePickerField({super.key});
 
@@ -25,19 +23,14 @@ class _DatePickerFieldState extends ConsumerState<DatePickerField> {
     super.dispose();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     final double mediaWidth = MediaQuery.of(context).size.width;
-    final state = ref.watch(postEventProvider);
 
-    if (state is Initial) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _dateController.text =
-            DateFormat('dd/MM/yyyy').format(state.infoMap["date"]);
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _dateController.text = DateFormat('dd/MM/yyyy')
+          .format(ref.watch(postEventMapProvider)["date"]);
+    });
 
     // ignore: no_leading_underscores_for_local_identifiers
     Future<DateTime?> _selectDate(BuildContext context) async {

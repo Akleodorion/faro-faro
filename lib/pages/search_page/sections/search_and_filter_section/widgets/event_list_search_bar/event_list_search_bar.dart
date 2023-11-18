@@ -1,8 +1,9 @@
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
-import 'package:faro_clean_tdd/pages/search_page/sections/search_and_filter_section/widgets/event_list_search_bar/components/event_list_search_bar_icon.dart';
 import 'package:faro_clean_tdd/pages/search_page/sections/search_and_filter_section/widgets/event_list_search_bar/components/search_bar_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'components/event_list_search_bar_icon.dart';
 
 class EventListSearchBar extends ConsumerStatefulWidget {
   const EventListSearchBar({super.key});
@@ -12,20 +13,24 @@ class EventListSearchBar extends ConsumerStatefulWidget {
 }
 
 class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
+  final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    String? enteredSearchString;
     final formKey = GlobalKey<FormState>();
 
     void searchEvent() {
-      // Validation du contenu de la recherche
       formKey.currentState!.save();
-      // Appel de la fonction de filtrage avec comme paramètre le contenu de la recherche
-      ref
-          .read(fetchEventProvider.notifier)
-          .searchEvent(enteredSearchString!, ref.read(fetchEventProvider));
+      ref.read(fetchEventProvider.notifier).searchEvent(
+          textEditingController.text, ref.read(fetchEventProvider));
     }
 
     return Container(
@@ -42,16 +47,12 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              EventListSearchBarTextField(
-                onSaved: (value) {
-                  setState(() {
-                    enteredSearchString = value;
-                  });
-                },
-              ),
+              SearchBarTextField(
+                  screenWidth: screenWidth,
+                  textEditingController: textEditingController),
               EventListSearchBarIcon(
-                onTap: searchEvent,
-              ),
+                  textEditingController: textEditingController,
+                  onPressed: searchEvent),
             ],
           ),
         ),

@@ -3,8 +3,6 @@ import 'package:faro_clean_tdd/features/events/presentation/providers/post_event
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../features/events/presentation/providers/post_event/state/post_event_state.dart';
-
 class EcoPickerField extends ConsumerStatefulWidget {
   const EcoPickerField({super.key});
 
@@ -19,13 +17,10 @@ class _EcoPickerFieldState extends ConsumerState<EcoPickerField> {
   Widget build(BuildContext context) {
     const double minHeight = 70.0;
     final double mediaWidth = MediaQuery.of(context).size.width;
-    final state = ref.watch(postEventProvider);
 
-    if (state is Initial) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        pickedValue = state.infoMap["modelEco"];
-      });
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      pickedValue = ref.read(postEventMapProvider)["modelEco"];
+    });
 
     return Container(
       decoration:

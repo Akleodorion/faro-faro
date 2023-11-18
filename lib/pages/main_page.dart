@@ -17,7 +17,7 @@ class MainPage extends ConsumerStatefulWidget {
 
 class _MainPageState extends ConsumerState<MainPage> {
   late int _currentIndex;
-  late bool myEvent = false;
+  bool isMyTicket = true;
   late Widget content;
 
   @override
@@ -29,7 +29,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   void setEvent(bool value) {
     setState(() {
-      myEvent = value;
+      isMyTicket = value;
     });
   }
 
@@ -42,6 +42,7 @@ class _MainPageState extends ConsumerState<MainPage> {
       case 2:
         content = TicketPage(
           setEvent: setEvent,
+          isMyTicket: isMyTicket,
         );
         break;
       case 3:
@@ -53,7 +54,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      floatingActionButton: (_currentIndex == 2 && myEvent == true)
+      floatingActionButton: (_currentIndex == 2 && isMyTicket == false)
           ? FloatingActionButton(
               onPressed: () {
                 Navigator.of(context)

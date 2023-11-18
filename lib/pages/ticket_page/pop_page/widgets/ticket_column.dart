@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../features/events/domain/entities/event.dart';
-import '../../../../features/events/presentation/providers/post_event/state/post_event_state.dart';
 
 class TicketColumn extends ConsumerWidget {
   const TicketColumn({super.key});
@@ -12,13 +11,10 @@ class TicketColumn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isFree = false;
-    final state = ref.watch(postEventProvider);
 
-    if (state is Initial) {
-      state.infoMap["modelEco"] == ModelEco.gratuit
-          ? isFree = true
-          : isFree = false;
-    }
+    ref.watch(postEventMapProvider)["modelEco"] == ModelEco.gratuit
+        ? isFree = true
+        : isFree = false;
 
     return Column(
       children: [

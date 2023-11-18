@@ -2,16 +2,17 @@ import 'package:faro_clean_tdd/pages/ticket_page/widgets/my_event_list.dart';
 import 'package:flutter/material.dart';
 
 class TicketPage extends StatefulWidget {
-  const TicketPage({super.key, required this.setEvent});
+  const TicketPage(
+      {super.key, required this.setEvent, required this.isMyTicket});
 
   final void Function(bool value) setEvent;
+  final bool isMyTicket;
 
   @override
   State<TicketPage> createState() => _TicketPageState();
 }
 
 class _TicketPageState extends State<TicketPage> {
-  bool isMyTicket = true;
   ButtonStyle unSelectedPageStyle = TextButton.styleFrom(
     foregroundColor: Colors.grey,
     textStyle: const TextStyle(
@@ -31,19 +32,19 @@ class _TicketPageState extends State<TicketPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMyTicket = widget.isMyTicket;
+
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton(
                 onPressed: () {
-                  setState(() {
-                    isMyTicket = true;
-                  });
-                  widget.setEvent(false);
+                  widget.setEvent(true);
                 },
                 style: isMyTicket == true
                     ? selectedPageStyle
@@ -54,10 +55,7 @@ class _TicketPageState extends State<TicketPage> {
               ),
               TextButton(
                 onPressed: () {
-                  setState(() {
-                    isMyTicket = false;
-                  });
-                  widget.setEvent(true);
+                  widget.setEvent(false);
                 },
                 style: isMyTicket == false
                     ? selectedPageStyle
@@ -72,9 +70,7 @@ class _TicketPageState extends State<TicketPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: isMyTicket
-                ? const Placeholder(
-                    fallbackHeight: 200,
-                  )
+                ? const Text("Vous n'avez pas encore de ticket !")
                 : const MyEventList(),
           )
         ],

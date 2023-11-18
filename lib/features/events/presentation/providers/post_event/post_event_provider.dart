@@ -12,3 +12,11 @@ final postEventProvider =
     postAnEventUsecase: postAnEvent,
   );
 });
+
+final postEventMapProvider = Provider<Map<String, dynamic>>((ref) {
+  final state = ref.watch(postEventProvider);
+  if (state is Initial) {
+    return state.infoMap;
+  }
+  return {};
+});
