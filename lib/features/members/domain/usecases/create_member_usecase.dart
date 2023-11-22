@@ -8,7 +8,8 @@ class CreateMemberUsecase {
 
   CreateMemberUsecase({required this.repository});
 
-  Future<Either<Failure, Member>?> execute() async {
-    return await repository.createMember();
+  Future<Either<Failure, Member>?> execute(
+      {required int eventId, required int userId}) async {
+    return await repository.createMember(eventId: eventId, userId: userId);
   }
 }

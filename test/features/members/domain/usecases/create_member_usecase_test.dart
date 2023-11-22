@@ -21,18 +21,23 @@ void main() {
   group(
     "Execute",
     () {
-      const tMember = Member(id: 1, userId: 1, eventIid: 1);
+      const tUserId = 1;
+      const tEventId = 1;
+      const tMember = Member(id: 1, userId: tUserId, eventIid: tEventId);
       test(
         "should return a valid Member if call is successfull",
         () async {
           //arrange
-          when(mockMemberRepository.createMember())
+          when(mockMemberRepository.createMember(
+                  eventId: anyNamed('eventId'), userId: anyNamed('userId')))
               .thenAnswer((_) async => const Right(tMember));
           //act
-          final result = await sut.execute();
+          final result = await sut.execute(eventId: tEventId, userId: tUserId);
           //assert
           expect(result, const Right(tMember));
-          verify(mockMemberRepository.createMember()).called(1);
+          verify(mockMemberRepository.createMember(
+                  eventId: tEventId, userId: tUserId))
+              .called(1);
         },
       );
 
@@ -40,13 +45,17 @@ void main() {
         "should return a Server Failure is the test is unsuccessful",
         () async {
           //arrange
-          when(mockMemberRepository.createMember()).thenAnswer(
-              (_) async => const Left(ServerFailure(errorMessage: 'oops')));
+          when(mockMemberRepository.createMember(
+                  eventId: anyNamed('eventId'), userId: anyNamed('userId')))
+              .thenAnswer(
+                  (_) async => const Left(ServerFailure(errorMessage: 'oops')));
           //act
-          final result = await sut.execute();
+          final result = await sut.execute(eventId: tEventId, userId: tUserId);
           //assert
           expect(result, const Left(ServerFailure(errorMessage: 'oops')));
-          verify(mockMemberRepository.createMember()).called(1);
+          verify(mockMemberRepository.createMember(
+                  eventId: tEventId, userId: tUserId))
+              .called(1);
         },
       );
     },

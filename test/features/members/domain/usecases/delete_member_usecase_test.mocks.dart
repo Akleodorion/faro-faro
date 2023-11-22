@@ -33,11 +33,18 @@ class MockMemberRepository extends _i1.Mock implements _i2.MemberRepository {
   }
 
   @override
-  _i3.Future<_i4.Either<_i5.Failure, _i6.Member>?> createMember() =>
+  _i3.Future<_i4.Either<_i5.Failure, _i6.Member>?> createMember({
+    required int? eventId,
+    required int? userId,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #createMember,
           [],
+          {
+            #eventId: eventId,
+            #userId: userId,
+          },
         ),
         returnValue: _i3.Future<_i4.Either<_i5.Failure, _i6.Member>?>.value(),
       ) as _i3.Future<_i4.Either<_i5.Failure, _i6.Member>?>);
