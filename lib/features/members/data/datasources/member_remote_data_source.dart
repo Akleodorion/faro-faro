@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/errors/failures.dart';
@@ -15,7 +14,7 @@ abstract class MemberRemoteDataSource {
   /// Fait une requête http à l'addresse http://localhost:3001/members
   ///
   /// En cas d'erreur jette un [ServerException]
-  Future<Member> createMember({required int eventId, required int userId});
+  Future<MemberModel> createMember({required int eventId, required int userId});
 
   /// Supprimé le member d'un évènement donnée.
   /// Fait une requête http à l'addresse http://localhost:3001/members/id
@@ -27,12 +26,12 @@ abstract class MemberRemoteDataSource {
   ///
   /// En cas d'erreur jette un [ServerException]
   // Récupère l'ensemble des members de l'utilisateur connecté.
-  Future<List<Member>> fetchMembers({required int userId});
+  Future<List<MemberModel>> fetchMembers({required int userId});
 }
 
 class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   @override
-  Future<Member> createMember(
+  Future<MemberModel> createMember(
       {required int eventId, required int userId}) async {
     // initialisation des variables.
     final params = {
@@ -78,7 +77,7 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   }
 
   @override
-  Future<List<Member>> fetchMembers({required int userId}) async {
+  Future<List<MemberModel>> fetchMembers({required int userId}) async {
     final Map<String, int> params = {
       "user_id": userId,
     };

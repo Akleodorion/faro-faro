@@ -3,6 +3,7 @@ import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
 import 'package:faro_clean_tdd/features/members/data/datasources/member_remote_data_source.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart';
 
@@ -53,6 +54,15 @@ class MemberRepositoryImpl implements MemberRepository {
   @override
   Future<Either<Failure, List<Member>>?> fetchMembers(
       {required int userId}) async {
-    return null;
+    if (await networkInfo.isConnected) {
+      try {
+        final List<MemberModel> members =
+            await remoteDataSource.fetchMembers(userId: userId);
+        return Right(members);
+      } on ServerException catch (failure) {
+        return Left(ServerFailure(errorMessage: failure.errorMessage));
+      }
+    }
+    return const Left(ServerFailure(errorMessage: noInternetConnexion));
   }
 }

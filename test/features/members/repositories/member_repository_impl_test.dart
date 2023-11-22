@@ -162,6 +162,77 @@ void main() {
 
   group(
     "fetchMembers",
-    () {},
+    () {
+      const tUserId = 1;
+      test(
+        "should verify if there is an internet connexion.",
+        () async {
+          //arrange
+          when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+          //act
+          await sut.fetchMembers(userId: tUserId);
+          //assert
+          verify(mockNetworkInfo.isConnected);
+        },
+      );
+
+      group(
+        "when there is no internet connexion.",
+        () {
+          setUp(() =>
+              when(mockNetworkInfo.isConnected).thenAnswer((_) async => false));
+          test(
+            "should return a ServerFailure",
+            () async {
+              //act
+              final result = await sut.fetchMembers(userId: tUserId);
+              //assert
+              expect(result,
+                  const Left(ServerFailure(errorMessage: noInternetConnexion)));
+            },
+          );
+        },
+      );
+
+      group(
+        "when there is an internet connexion.",
+        () {
+          setUp(() =>
+              when(mockNetworkInfo.isConnected).thenAnswer((_) async => true));
+
+          const tMember1 = MemberModel(id: 1, userId: 1, eventIid: 2);
+          const tMember2 = MemberModel(id: 2, userId: 2, eventIid: 2);
+          const List<MemberModel> tMembers = [tMember1, tMember2];
+
+          test(
+            "should return a valid List of Members if the call is successfull",
+            () async {
+              //arrange
+              when(mockMemberRemoteDataSource.fetchMembers(
+                      userId: anyNamed("userId")))
+                  .thenAnswer((_) async => tMembers);
+              //act
+              final result = await sut.fetchMembers(userId: tUserId);
+              //assert
+              expect(result, const Right(tMembers));
+            },
+          );
+
+          test(
+            "should return Server Failure if the call is unsuccessfull",
+            () async {
+              //arrange
+              when(mockMemberRemoteDataSource.fetchMembers(
+                      userId: anyNamed("userId")))
+                  .thenThrow(ServerException(errorMessage: 'oops'));
+              //act
+              final result = await sut.fetchMembers(userId: tUserId);
+              //assert
+              expect(result, const Left(ServerFailure(errorMessage: 'oops')));
+            },
+          );
+        },
+      );
+    },
   );
 }

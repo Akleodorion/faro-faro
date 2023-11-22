@@ -9,7 +9,7 @@ import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
 import 'package:faro_clean_tdd/core/network/network_info.dart' as _i3;
 import 'package:faro_clean_tdd/features/members/data/datasources/member_remote_data_source.dart'
     as _i5;
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart'
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -24,8 +24,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeMember_0 extends _i1.SmartFake implements _i2.Member {
-  _FakeMember_0(
+class _FakeMemberModel_0 extends _i1.SmartFake implements _i2.MemberModel {
+  _FakeMemberModel_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -59,7 +59,7 @@ class MockMemberRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Member> createMember({
+  _i4.Future<_i2.MemberModel> createMember({
     required int? eventId,
     required int? userId,
   }) =>
@@ -72,7 +72,7 @@ class MockMemberRemoteDataSource extends _i1.Mock
             #userId: userId,
           },
         ),
-        returnValue: _i4.Future<_i2.Member>.value(_FakeMember_0(
+        returnValue: _i4.Future<_i2.MemberModel>.value(_FakeMemberModel_0(
           this,
           Invocation.method(
             #createMember,
@@ -83,7 +83,7 @@ class MockMemberRemoteDataSource extends _i1.Mock
             },
           ),
         )),
-      ) as _i4.Future<_i2.Member>);
+      ) as _i4.Future<_i2.MemberModel>);
   @override
   _i4.Future<_i6.Failure?> deleteMember({required int? memberId}) =>
       (super.noSuchMethod(
@@ -95,13 +95,14 @@ class MockMemberRemoteDataSource extends _i1.Mock
         returnValue: _i4.Future<_i6.Failure?>.value(),
       ) as _i4.Future<_i6.Failure?>);
   @override
-  _i4.Future<List<_i2.Member>> fetchMembers({required int? userId}) =>
+  _i4.Future<List<_i2.MemberModel>> fetchMembers({required int? userId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchMembers,
           [],
           {#userId: userId},
         ),
-        returnValue: _i4.Future<List<_i2.Member>>.value(<_i2.Member>[]),
-      ) as _i4.Future<List<_i2.Member>>);
+        returnValue:
+            _i4.Future<List<_i2.MemberModel>>.value(<_i2.MemberModel>[]),
+      ) as _i4.Future<List<_i2.MemberModel>>);
 }
