@@ -6,7 +6,7 @@ import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../../../members/domain/usecases/fetch_all_events_test.mocks.dart';
+import 'fetch_all_events_test.mocks.dart';
 
 @GenerateMocks([EventRepository])
 void main() {

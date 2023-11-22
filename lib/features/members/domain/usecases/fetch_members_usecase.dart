@@ -7,7 +7,7 @@ class FetchMembersUsecase {
   const FetchMembersUsecase({required this.repository});
   final MemberRepository repository;
 
-  Future<Either<Failure, List<Member>>?> execute() async {
-    return await repository.fetchMembers();
+  Future<Either<Failure, List<Member>>?> execute({required int userId}) async {
+    return await repository.fetchMembers(userId: userId);
   }
 }

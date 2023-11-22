@@ -11,5 +11,5 @@ abstract class MemberRepository {
   Future<Failure?> deleteMember({required int memberId});
 
   // récupérer une liste de members
-  Future<Either<Failure, List<Member>>?> fetchMembers();
+  Future<Either<Failure, List<Member>>?> fetchMembers({required int userId});
 }

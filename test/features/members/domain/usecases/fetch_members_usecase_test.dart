@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../events/domain/usecases/fetch_members_usecase_test.mocks.dart';
+import 'fetch_members_usecase_test.mocks.dart';
 
 @GenerateMocks([MemberRepository])
 void main() {
@@ -22,21 +22,22 @@ void main() {
   group(
     "execute",
     () {
-      const tMember1 = Member(id: 1, userId: 1, eventIid: 1);
-      const tMember2 = Member(id: 2, userId: 2, eventIid: 1);
+      const tUserId = 1;
+      const tMember1 = Member(id: 1, userId: tUserId, eventIid: 1);
+      const tMember2 = Member(id: 2, userId: tUserId, eventIid: 2);
 
       const tMembers = [tMember1, tMember2];
       test(
         "should return a valid List of Members if the call is successfull",
         () async {
           //arrange
-          when(mockMemberRepository.fetchMembers())
+          when(mockMemberRepository.fetchMembers(userId: anyNamed('userId')))
               .thenAnswer((_) async => const Right(tMembers));
           //act
-          final result = await sut.execute();
+          final result = await sut.execute(userId: tUserId);
           //assert
           expect(result, const Right(tMembers));
-          verify(mockMemberRepository.fetchMembers()).called(1);
+          verify(mockMemberRepository.fetchMembers(userId: tUserId)).called(1);
         },
       );
 
@@ -44,10 +45,11 @@ void main() {
         "should return a Server Failure if the call is unsuccessfull",
         () async {
           //arrange
-          when(mockMemberRepository.fetchMembers()).thenAnswer(
-              (_) async => const Left(ServerFailure(errorMessage: 'oops')));
+          when(mockMemberRepository.fetchMembers(userId: anyNamed('userId')))
+              .thenAnswer(
+                  (_) async => const Left(ServerFailure(errorMessage: 'oops')));
           //act
-          final result = await sut.execute();
+          final result = await sut.execute(userId: tUserId);
           //assert
           expect(result, const Left(ServerFailure(errorMessage: 'oops')));
         },
