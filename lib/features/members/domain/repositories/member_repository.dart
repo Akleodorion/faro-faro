@@ -7,7 +7,7 @@ abstract class MemberRepository {
   Future<Either<Failure, Member>?> createMember();
 
   // Supprimé un member
-  Future<Either<Failure, void>?> deleteMember();
+  Future<Failure?> deleteMember({required int memberId});
 
   // récupérer une liste de members
   Future<Either<Failure, List<Member>>?> fetchMembers();
