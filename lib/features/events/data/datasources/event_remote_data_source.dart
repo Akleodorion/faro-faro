@@ -94,7 +94,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   @override
   Future<EventModel?> updateAnEvent(
       {required Event event, required int userId}) async {
-    final uri = Uri.parse(UPDATE_EVENT_URL + event.eventId.toString());
+    // final uri = Uri.parse(UPDATE_EVENT_URL + event.eventId.toString());
 
     return null;
   }

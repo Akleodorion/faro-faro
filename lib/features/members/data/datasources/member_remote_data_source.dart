@@ -1,8 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
 import 'dart:convert';
-
-import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
@@ -17,8 +15,7 @@ abstract class MemberRemoteDataSource {
   /// Fait une requête http à l'addresse http://localhost:3001/members
   ///
   /// En cas d'erreur jette un [ServerException]
-  Future<Either<Failure, Member>?> createMember(
-      {required int eventId, required int userId});
+  Future<Member> createMember({required int eventId, required int userId});
 
   /// Supprimé le member d'un évènement donnée.
   /// Fait une requête http à l'addresse http://localhost:3001/members/id
@@ -30,12 +27,12 @@ abstract class MemberRemoteDataSource {
   ///
   /// En cas d'erreur jette un [ServerException]
   // Récupère l'ensemble des members de l'utilisateur connecté.
-  Future<Either<Failure, List<Member>>?> fetchMembers({required int userId});
+  Future<List<Member>> fetchMembers({required int userId});
 }
 
 class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   @override
-  Future<Either<Failure, Member>?> createMember(
+  Future<Member> createMember(
       {required int eventId, required int userId}) async {
     // initialisation des variables.
     final params = {
@@ -53,7 +50,7 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       final MemberModel createMember =
           MemberModel.fromJson(json.decode(response.body));
-      return Right(createMember);
+      return createMember;
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
       throw ServerException(
           errorMessage: json.decode(response.body)["error"][0]);
@@ -81,8 +78,28 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, List<Member>>?> fetchMembers({required int userId}) {
-    // TODO: implement fetchMembers
-    throw UnimplementedError();
+  Future<List<Member>> fetchMembers({required int userId}) async {
+    final Map<String, int> params = {
+      "user_id": userId,
+    };
+    final uri = Uri.parse(MEMBERS_URL).replace(queryParameters: params);
+
+    final response = await http.get(uri);
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      late List<MemberModel> members = [];
+      final List<dynamic> array = json.decode(response.body);
+
+      for (var element in array) {
+        members.add(MemberModel.fromJson(element));
+      }
+      return members;
+    } else if (response.statusCode >= 400 && response.statusCode < 500) {
+      throw ServerException(
+          errorMessage: json.decode(response.body)["error"][0]);
+    } else {
+      throw ServerException(
+          errorMessage: "An error as occured please try again later");
+    }
   }
 }
