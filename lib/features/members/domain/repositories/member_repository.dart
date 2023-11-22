@@ -4,11 +4,11 @@ import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 
 abstract class MemberRepository {
   // Créer un member
-  Future<Either<Failure, Member>>? createMember();
+  Future<Either<Failure, Member>?> createMember();
 
   // Supprimé un member
-  Future<Either<Failure, void>>? deleteMember();
+  Future<Either<Failure, void>?> deleteMember();
 
   // récupérer une liste de members
-  Future<Either<Failure, List<Member>>>? fetchMembers();
+  Future<Either<Failure, List<Member>>?> fetchMembers();
 }
