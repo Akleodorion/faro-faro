@@ -6,6 +6,8 @@ import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../../domain/entities/event.dart';
+
 abstract class EventRemoteDatasource {
   /// Fait une requête à http://localhost:3001/events
   ///
@@ -17,10 +19,18 @@ abstract class EventRemoteDatasource {
     required EventModel event,
     required File image,
   });
+
+  /// Fait une requête à http://localhost:3001/event/:id/
+  ///
+  /// Jette une [ServerException] en cas d'erreur
+  ///
+  Future<EventModel?> updateAnEvent(
+      {required Event event, required int userId});
 }
 
 const FETCH_URL = 'http://localhost:3001/events';
 const POST_EVENT_URL = 'http://localhost:3001/events';
+const UPDATE_EVENT_URL = 'http://localhost:3001/event/';
 
 class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   const EventRemoteDatasourceImpl({required this.client});
@@ -79,5 +89,13 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
       // Si la requête est infructueuse
       throw ServerException(errorMessage: response.body);
     }
+  }
+
+  @override
+  Future<EventModel?> updateAnEvent(
+      {required Event event, required int userId}) async {
+    final uri = Uri.parse(UPDATE_EVENT_URL + event.eventId.toString());
+
+    return null;
   }
 }

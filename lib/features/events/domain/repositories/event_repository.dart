@@ -14,4 +14,16 @@ abstract class EventRepository {
     required EventModel event,
     required File image,
   });
+
+  // Update un évènement
+  Future<Either<Failure, Event>?> updateAnEvent({
+    required EventModel event,
+    required File image,
+  });
+
+  // ActiveAnEvent
+  Future<Either<Failure, Event>?> activateAnEvent({
+    required Event event,
+    required int userId,
+  });
 }

@@ -45,4 +45,18 @@ class EventRepositoryImpl implements EventRepository {
       return Left(ServerFailure(errorMessage: error.errorMessage));
     }
   }
+
+  @override
+  Future<Either<Failure, Event>?> activateAnEvent(
+      {required Event event, required int userId}) {
+    // TODO: implement activateAnEvent
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Event>?> updateAnEvent(
+      {required EventModel event, required File image}) {
+    // TODO: implement updateAnEvent
+    throw UnimplementedError();
+  }
 }
