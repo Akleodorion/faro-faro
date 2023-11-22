@@ -64,9 +64,20 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   }
 
   @override
-  Future<Failure?> deleteMember({required int memberId}) {
-    // TODO: implement deleteMember
-    throw UnimplementedError();
+  Future<Failure?> deleteMember({required int memberId}) async {
+    final uri = Uri.parse("$MEMBERS_URL/$memberId");
+
+    final response = await http.delete(uri);
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return null;
+    } else if (response.statusCode >= 400 && response.statusCode < 500) {
+      throw ServerException(
+          errorMessage: json.decode(response.body)["error"][0]);
+    } else {
+      throw ServerException(
+          errorMessage: "An error as occured please try again later");
+    }
   }
 
   @override
