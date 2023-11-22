@@ -164,17 +164,6 @@ void main() {
     "fetchMembers",
     () {
       const tUserId = 1;
-      test(
-        "should verify if there is an internet connexion.",
-        () async {
-          //arrange
-          when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-          //act
-          await sut.fetchMembers(userId: tUserId);
-          //assert
-          verify(mockNetworkInfo.isConnected);
-        },
-      );
 
       group(
         "when there is no internet connexion.",
@@ -187,6 +176,7 @@ void main() {
               //act
               final result = await sut.fetchMembers(userId: tUserId);
               //assert
+              verify(mockNetworkInfo.isConnected);
               expect(result,
                   const Left(ServerFailure(errorMessage: noInternetConnexion)));
             },

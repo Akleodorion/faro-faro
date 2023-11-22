@@ -7,9 +7,6 @@ import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart';
 
-// Verification Internet.
-// Remote repository
-
 const String noInternetConnexion =
     'No internet connexion, please try again later.';
 
