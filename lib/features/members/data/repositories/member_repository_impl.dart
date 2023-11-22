@@ -40,7 +40,14 @@ class MemberRepositoryImpl implements MemberRepository {
 
   @override
   Future<Failure?> deleteMember({required int memberId}) async {
-    return null;
+    if (await networkInfo.isConnected) {
+      try {
+        return await remoteDataSource.deleteMember(memberId: memberId);
+      } on ServerException catch (failure) {
+        return ServerFailure(errorMessage: failure.errorMessage);
+      }
+    }
+    return const ServerFailure(errorMessage: noInternetConnexion);
   }
 
   @override

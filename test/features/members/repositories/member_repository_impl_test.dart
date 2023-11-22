@@ -103,7 +103,61 @@ void main() {
 
   group(
     "deleteMember",
-    () {},
+    () {
+      const int tMemberId = 1;
+      group(
+        "when there is no internet connexion",
+        () {
+          test(
+            "should return a Server Failure",
+            () async {
+              //arrange
+              when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+              //act
+              final result = await sut.deleteMember(memberId: tMemberId);
+              //assert
+              verify(mockNetworkInfo.isConnected).called(1);
+              expect(result,
+                  const ServerFailure(errorMessage: noInternetConnexion));
+            },
+          );
+        },
+      );
+
+      group('when there is an internet connexion.', () {
+        setUp(() =>
+            when(mockNetworkInfo.isConnected).thenAnswer((_) async => true));
+        test(
+          "should return null if the call is successful",
+          () async {
+            //arrange
+            when(mockMemberRemoteDataSource.deleteMember(memberId: tMemberId))
+                .thenAnswer((_) async => null);
+            //act
+            final result = await sut.deleteMember(memberId: tMemberId);
+            //assert
+            verify(mockMemberRemoteDataSource.deleteMember(memberId: tMemberId))
+                .called(1);
+            expect(result, null);
+          },
+        );
+
+        test(
+          "should return a ServerFailure is the call throw an error",
+          () async {
+            //arrange
+            when(mockMemberRemoteDataSource.deleteMember(memberId: tMemberId))
+                .thenThrow(ServerException(errorMessage: 'oops'));
+            //act
+            final result = await sut.deleteMember(memberId: tMemberId);
+            //assert
+            verify(mockMemberRemoteDataSource.deleteMember(memberId: tMemberId))
+                .called(1);
+            expect(result, const ServerFailure(errorMessage: 'oops'));
+          },
+        );
+      });
+    },
   );
 
   group(
