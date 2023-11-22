@@ -60,13 +60,13 @@ class MockEventRemoteDatasource extends _i1.Mock
         returnValue: _i3.Future<_i4.EventModel?>.value(),
       ) as _i3.Future<_i4.EventModel?>);
   @override
-  _i3.Future<_i4.EventModel?> activateAnEvent({
+  _i3.Future<_i4.EventModel?> updateAnEvent({
     required _i6.Event? event,
     required int? userId,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #activateAnEvent,
+          #updateAnEvent,
           [],
           {
             #event: event,
