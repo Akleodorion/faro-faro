@@ -48,17 +48,15 @@ void main() {
       test(
         "should return a valid Event when call is successful",
         () async {
-          //arrange
           when(mockEventRepository.activateAnEvent(
-                  eventId: anyNamed('eventId'), userId: anyNamed('userId')))
+                  event: anyNamed('event'), userId: anyNamed('userId')))
               .thenAnswer((_) async => Right(tEvent));
           //act
-          final result =
-              await usecase.execute(eventId: tEventId, userId: tUserId);
+          final result = await usecase.execute(event: tEvent, userId: tUserId);
           //assert
           expect(result, Right(tEvent));
           verify(mockEventRepository.activateAnEvent(
-              eventId: tEventId, userId: tUserId));
+              event: tEvent, userId: tUserId));
         },
       );
 
@@ -67,16 +65,15 @@ void main() {
         () async {
           //arrange
           when(mockEventRepository.activateAnEvent(
-                  eventId: anyNamed('eventId'), userId: anyNamed('userId')))
+                  event: anyNamed('event'), userId: anyNamed('userId')))
               .thenAnswer((_) async =>
                   const Left(ServerFailure(errorMessage: 'oops ')));
           //act
-          final result =
-              await usecase.execute(eventId: tEventId, userId: tUserId);
+          final result = await usecase.execute(event: tEvent, userId: tUserId);
           //assert
           expect(result, const Left(ServerFailure(errorMessage: 'oops ')));
           verify(mockEventRepository.activateAnEvent(
-                  eventId: tEventId, userId: tUserId))
+                  event: tEvent, userId: tUserId))
               .called(1);
         },
       );

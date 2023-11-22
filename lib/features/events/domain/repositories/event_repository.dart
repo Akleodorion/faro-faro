@@ -23,7 +23,7 @@ abstract class EventRepository {
 
   // ActiveAnEvent
   Future<Either<Failure, Event>?> activateAnEvent({
-    required int eventId,
+    required Event event,
     required int userId,
   });
 }

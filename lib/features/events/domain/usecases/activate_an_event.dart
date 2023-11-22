@@ -8,7 +8,7 @@ class ActivateAnEvent {
   final EventRepository repository;
 
   Future<Either<Failure, Event>?>? execute(
-      {required int eventId, required int userId}) {
-    return repository.activateAnEvent(eventId: eventId, userId: userId);
+      {required Event event, required int userId}) {
+    return repository.activateAnEvent(event: event, userId: userId);
   }
 }

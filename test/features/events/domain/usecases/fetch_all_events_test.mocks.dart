@@ -79,7 +79,7 @@ class MockEventRepository extends _i1.Mock implements _i2.EventRepository {
       ) as _i3.Future<_i4.Either<_i5.Failure, _i6.Event>?>);
   @override
   _i3.Future<_i4.Either<_i5.Failure, _i6.Event>?> activateAnEvent({
-    required int? eventId,
+    required _i6.Event? event,
     required int? userId,
   }) =>
       (super.noSuchMethod(
@@ -87,7 +87,7 @@ class MockEventRepository extends _i1.Mock implements _i2.EventRepository {
           #activateAnEvent,
           [],
           {
-            #eventId: eventId,
+            #event: event,
             #userId: userId,
           },
         ),

@@ -48,7 +48,7 @@ class EventRepositoryImpl implements EventRepository {
 
   @override
   Future<Either<Failure, Event>?> activateAnEvent(
-      {required int eventId, required int userId}) {
+      {required Event event, required int userId}) {
     // TODO: implement activateAnEvent
     throw UnimplementedError();
   }
