@@ -36,8 +36,27 @@ class NewEventPage extends ConsumerWidget {
         final postEventMap = ref.read(postEventMapProvider);
 
         // Création du model
-        final myEventModel =
-            getEventModel(postEventMap: postEventMap, userId: userId);
+        final myEventModel = EventModel(
+            name: postEventMap["name"],
+            eventId: postEventMap["event_id"],
+            description: postEventMap["description"],
+            date: postEventMap["date"],
+            address: postEventMap["address"],
+            category: postEventMap["category"],
+            imageUrl: postEventMap["image_url"],
+            userId: userId,
+            modelEco: postEventMap["model_eco"],
+            members: const [],
+            standardTicketPrice: postEventMap["standard_ticket_price"],
+            maxStandardTicket: postEventMap["max_standard_ticket"],
+            standardTicketDescription:
+                postEventMap["standard_ticket_description"],
+            vipTicketPrice: postEventMap["vip_ticket_price"],
+            maxVipTicket: postEventMap["max_vip_ticket"],
+            vipTicketDescription: postEventMap["vip_ticket_description"],
+            vvipTicketPrice: postEventMap["vvip_ticket_price"],
+            maxVvipTicket: postEventMap["max_vvip_ticket"],
+            vvipTicketDescription: postEventMap["vvip_ticket_description"]);
 
         // Usecase
         final state = await ref.read(postEventProvider.notifier).postAnEvent(

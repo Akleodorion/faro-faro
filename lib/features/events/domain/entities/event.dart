@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
+import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:intl/intl.dart';
 
 var formated = DateFormat.yMMMd('fr');
@@ -26,6 +27,7 @@ class Event extends Equatable {
   final int userId;
   final int eventId;
   final ModelEco modelEco;
+  final List<Member> members;
   final int standardTicketPrice;
   final int maxStandardTicket;
   final String standardTicketDescription;
@@ -46,6 +48,7 @@ class Event extends Equatable {
       required this.imageUrl,
       required this.userId,
       required this.modelEco,
+      required this.members,
       required this.standardTicketPrice,
       required this.maxStandardTicket,
       required this.standardTicketDescription,
@@ -70,6 +73,7 @@ class Event extends Equatable {
         imageUrl,
         userId,
         modelEco,
+        members,
         standardTicketPrice,
         maxStandardTicket,
         standardTicketDescription,

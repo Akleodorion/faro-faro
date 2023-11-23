@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
-  const tMemberModel = MemberModel(id: 1, userId: 1, eventIid: 1);
+  const tMemberModel = MemberModel(id: 1, userId: 1, eventId: 1);
 
   test(
     "should be a subclass of Member",

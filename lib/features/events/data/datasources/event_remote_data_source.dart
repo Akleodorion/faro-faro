@@ -61,7 +61,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   Future<EventModel?> postAnEvent(
       {required EventModel event, required File image}) async {
     // initialisation des variables
-    final Map<String, dynamic> myEvent = event.toJsonCreate();
+    final Map<String, dynamic> myEvent = event.toJson();
     final uri = Uri.parse(POST_EVENT_URL);
 
     var request = http.MultipartRequest('POST', uri)

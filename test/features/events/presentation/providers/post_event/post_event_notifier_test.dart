@@ -7,6 +7,7 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_notifier.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
+import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -31,7 +32,9 @@ void main() {
       expect(postEventNotifier.initialState, Initial(infoMap: const {}));
     },
   );
-
+  const tMember1 = Member(id: 1, userId: 1, eventId: 1);
+  const tMember2 = Member(id: 2, userId: 2, eventId: 1);
+  const tMembers = [tMember1, tMember2];
   group('postAnEvent', () {
     final tEvent = EventModel(
         name: "My test event",
@@ -47,6 +50,7 @@ void main() {
         imageUrl: "flyers.jpg",
         userId: 1,
         modelEco: ModelEco.gratuit,
+        members: tMembers,
         standardTicketPrice: 5000,
         maxStandardTicket: 15,
         standardTicketDescription: "Short ticket description for the test",
