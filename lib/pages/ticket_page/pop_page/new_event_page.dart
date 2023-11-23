@@ -47,6 +47,7 @@ class NewEventPage extends ConsumerWidget {
             userId: userId,
             modelEco: postEventMap["model_eco"],
             members: const [],
+            activated: false,
             standardTicketPrice: postEventMap["standard_ticket_price"],
             maxStandardTicket: postEventMap["max_standard_ticket"],
             standardTicketDescription:

@@ -44,6 +44,7 @@ void main() {
           userId: tUserId,
           modelEco: ModelEco.gratuit,
           members: tMembers,
+          activated: false,
           standardTicketPrice: 5000,
           maxStandardTicket: 10,
           standardTicketDescription: "standardTicketDescription",

@@ -24,7 +24,8 @@ class EventModel extends Event {
       required super.vipTicketDescription,
       required super.vvipTicketPrice,
       required super.maxVvipTicket,
-      required super.vvipTicketDescription});
+      required super.vvipTicketDescription,
+      required super.activated});
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
     late Category category;
@@ -68,6 +69,7 @@ class EventModel extends Event {
         modelEco: json["free"] == true ? ModelEco.gratuit : ModelEco.payant,
         members: members,
         eventId: json["id"],
+        activated: json["activated"],
         maxStandardTicket: json["max_standard_ticket"],
         standardTicketPrice: json["standard_ticket_price"],
         standardTicketDescription: json["standard_ticket_description"],
@@ -132,6 +134,7 @@ class EventModel extends Event {
         userId: userId,
         modelEco: postEventMap["modelEco"],
         members: postEventMap["members"],
+        activated: false,
         standardTicketPrice: postEventMap["standardTicketPrice"],
         maxStandardTicket: postEventMap["maxStandardTicket"],
         standardTicketDescription: postEventMap["standardTicketDescription"],
