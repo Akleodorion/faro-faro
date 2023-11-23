@@ -6,7 +6,6 @@ import 'package:faro_clean_tdd/features/user_authentification/presentation/provi
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/widgets/image_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -24,10 +23,6 @@ class EventShowPage extends ConsumerWidget {
     bool isMine = false;
     final double mediaHeight = MediaQuery.of(context).size.height;
     final double mediaWidth = MediaQuery.of(context).size.width;
-    final String geocoderUrl =
-        """https://maps.googleapis.com/maps/api/staticmap?center=${event.latitude},${event.longitude}&zoom=
-        16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C${event.latitude},${event.longitude}
-        &key=${dotenv.env['API_KEY']}""";
 
     //state
     final userState = ref.read(userAuthProvider);
@@ -225,13 +220,13 @@ class EventShowPage extends ConsumerWidget {
                             Navigator.of(context)
                                 .push<LatLng>(MaterialPageRoute(builder: (ctx) {
                               return MapScreen(
-                                markerLat: event.latitude,
-                                markerLng: event.longitude,
+                                markerLat: event.address.latitude,
+                                markerLng: event.address.longitude,
                               );
                             }));
                           },
                           child: Image.network(
-                            geocoderUrl,
+                            event.address.geocodeUrl,
                             width: double.infinity,
                             height: double.infinity,
                             fit: BoxFit.cover,

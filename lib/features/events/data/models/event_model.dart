@@ -1,3 +1,6 @@
+import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import '../../domain/entities/event.dart';
 
 class EventModel extends Event {
@@ -7,8 +10,6 @@ class EventModel extends Event {
       required super.description,
       required super.date,
       required super.address,
-      required super.latitude,
-      required super.longitude,
       required super.category,
       required super.imageUrl,
       required super.userId,
@@ -33,6 +34,9 @@ class EventModel extends Event {
       modelEco = ModelEco.payant;
     }
 
+    final geocodeUrl =
+        "https://maps.googleapis.com/maps/api/staticmap?center=${json["latitude"]},${json["longitude"]}&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C${json["latitude"]},${json["longitude"]}&key=${dotenv.env['API_KEY']}";
+
     if (json["category"] == "loisir") {
       category = Category.loisir;
     } else if (json["category"] == "culture") {
@@ -47,9 +51,11 @@ class EventModel extends Event {
         name: json["name"],
         description: json["description"],
         date: DateTime.tryParse(json["date"])!,
-        address: json["location"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        address: Address(
+            latitude: json["latitude"],
+            longitude: json["longitude"],
+            addressName: json["location"],
+            geocodeUrl: geocodeUrl),
         category: category,
         imageUrl: json["photo_url"],
         userId: json["user_id"],
@@ -71,9 +77,9 @@ class EventModel extends Event {
       'name': name,
       'description': description,
       'date': date.toIso8601String(),
-      'location': address,
-      'latitude': latitude,
-      'longitude': longitude,
+      'location': address.addressName,
+      'latitude': address.latitude,
+      'longitude': address.longitude,
       'category': category.name,
       'photo_url': imageUrl,
       'user_id': userId,
@@ -97,8 +103,8 @@ class EventModel extends Event {
       'description': description,
       'date': date.toIso8601String(),
       'location': address,
-      'latitude': latitude,
-      'longitude': longitude,
+      'latitude': address.latitude,
+      'longitude': address.longitude,
       'category': category.name,
       'user_id': userId,
       'free': modelEco == ModelEco.gratuit ? true : false,
@@ -122,9 +128,11 @@ EventModel getEventModel(
       eventId: 0,
       description: postEventMap["description"],
       date: postEventMap["date"],
-      address: postEventMap["address"],
-      latitude: postEventMap["latitude"],
-      longitude: postEventMap["longitude"],
+      address: Address(
+          latitude: postEventMap["latitude"],
+          longitude: postEventMap["longitude"],
+          addressName: postEventMap["address"],
+          geocodeUrl: postEventMap["geocodeUrl"]),
       category: postEventMap["category"],
       imageUrl: '',
       userId: userId,

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:intl/intl.dart';
 
 var formated = DateFormat.yMMMd('fr');
@@ -19,9 +20,7 @@ class Event extends Equatable {
   final String name;
   final String description;
   final DateTime date;
-  final String address;
-  final double latitude;
-  final double longitude;
+  final Address address;
   final Category category;
   final String imageUrl;
   final int userId;
@@ -43,8 +42,6 @@ class Event extends Equatable {
       required this.description,
       required this.date,
       required this.address,
-      required this.latitude,
-      required this.longitude,
       required this.category,
       required this.imageUrl,
       required this.userId,
@@ -69,8 +66,6 @@ class Event extends Equatable {
         description,
         date,
         address,
-        longitude,
-        latitude,
         category,
         imageUrl,
         userId,

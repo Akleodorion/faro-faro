@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart';
@@ -23,9 +24,11 @@ void main() {
     eventId: 1,
     description: 'short description',
     date: DateTime.now(),
-    address: 'Lille',
-    latitude: 42.41454,
-    longitude: -127.5345,
+    address: const Address(
+        latitude: 42.41454,
+        longitude: -127.5345,
+        addressName: "Lille",
+        geocodeUrl: "geocodeUrl"),
     category: Category.concert,
     imageUrl: 'imageUrl',
     userId: 1,
@@ -46,9 +49,11 @@ void main() {
     eventId: 2,
     description: 'short description',
     date: DateTime.now(),
-    address: 'Arras',
-    latitude: 42.41454,
-    longitude: -127.5345,
+    address: const Address(
+        latitude: 42.41454,
+        longitude: -127.5345,
+        addressName: "Arras",
+        geocodeUrl: "geocodeUrl"),
     category: Category.culture,
     imageUrl: 'imageUrl',
     userId: 1,

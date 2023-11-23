@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
@@ -38,9 +38,11 @@ void main() {
         eventId: 20,
         description: "Short description for the test event !",
         date: DateTime.now(),
-        address: "Lille",
-        latitude: 42.54596,
-        longitude: -127.5345,
+        address: const Address(
+            latitude: 10.5264,
+            longitude: 20.4585,
+            addressName: "addressName",
+            geocodeUrl: "geocodeUrl"),
         category: Category.concert,
         imageUrl: "flyers.jpg",
         userId: 1,

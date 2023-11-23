@@ -1,20 +1,26 @@
 import 'dart:convert';
 
+import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   final tEventModel = EventModel(
     name: 'Event 1',
     eventId: 1,
     description: 'short description',
     date: DateTime.tryParse("2023-09-06T10:46:37.232Z")!,
-    address: 'Lille',
-    latitude: 42.41454,
-    longitude: -127.5345,
+    address: Address(
+        latitude: 42.41454,
+        longitude: -127.5345,
+        addressName: "Lille",
+        geocodeUrl:
+            "https://maps.googleapis.com/maps/api/staticmap?center=42.41454,-127.5345&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C42.41454,-127.5345&key=${dotenv.env['API_KEY']}"),
     category: Category.concert,
     imageUrl: 'imageUrl',
     userId: 20,

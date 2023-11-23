@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
+import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/data/repositories/event_repository_impl.dart';
@@ -44,9 +45,11 @@ void main() {
             eventId: 1,
             description: 'short description',
             date: DateTime.now(),
-            address: 'Lille',
-            latitude: 42.41454,
-            longitude: -127.5345,
+            address: const Address(
+                latitude: 10.5264,
+                longitude: 20.4585,
+                addressName: "Lille",
+                geocodeUrl: "geocodeUrl"),
             category: Category.concert,
             imageUrl: 'imageUrl',
             userId: 1,
@@ -67,9 +70,11 @@ void main() {
             eventId: 2,
             description: 'short description',
             date: DateTime.now(),
-            address: 'Arras',
-            latitude: 42.41454,
-            longitude: -127.5345,
+            address: const Address(
+                latitude: 10.5264,
+                longitude: 20.4585,
+                addressName: "Arras",
+                geocodeUrl: "geocodeUrl"),
             category: Category.culture,
             imageUrl: 'imageUrl',
             userId: 1,
@@ -132,9 +137,11 @@ void main() {
         eventId: 20,
         description: "Short description for the test event !",
         date: DateTime.now(),
-        address: "Lille",
-        latitude: 42.54596,
-        longitude: -127.5345,
+        address: const Address(
+            latitude: 10.5264,
+            longitude: 20.4585,
+            addressName: "addressName",
+            geocodeUrl: "geocodeUrl"),
         category: Category.concert,
         imageUrl: "flyers.jpg",
         userId: 1,

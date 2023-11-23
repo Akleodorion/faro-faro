@@ -3,7 +3,6 @@ import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 
 class FetchMembersState extends Equatable {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 

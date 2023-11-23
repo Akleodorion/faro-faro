@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/activate_an_event.dart';
@@ -29,9 +30,11 @@ void main() {
           eventId: tEventId,
           description: "description",
           date: DateTime.now(),
-          address: "address",
-          latitude: 10.5264,
-          longitude: 20.4585,
+          address: const Address(
+              latitude: 10.5264,
+              longitude: 20.4585,
+              addressName: "addressName",
+              geocodeUrl: "geocodeUrl"),
           category: Category.concert,
           imageUrl: "imageUrl",
           userId: tUserId,
