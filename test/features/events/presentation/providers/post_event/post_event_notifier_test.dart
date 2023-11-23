@@ -51,6 +51,7 @@ void main() {
         userId: 1,
         modelEco: ModelEco.gratuit,
         members: tMembers,
+        activated: false,
         standardTicketPrice: 5000,
         maxStandardTicket: 15,
         standardTicketDescription: "Short ticket description for the test",

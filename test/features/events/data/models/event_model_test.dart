@@ -32,6 +32,7 @@ void main() async {
     userId: 20,
     modelEco: ModelEco.payant,
     members: tMembers,
+    activated: false,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",

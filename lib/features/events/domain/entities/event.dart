@@ -28,6 +28,7 @@ class Event extends Equatable {
   final int eventId;
   final ModelEco modelEco;
   final List<Member> members;
+  final bool activated;
   final int standardTicketPrice;
   final int maxStandardTicket;
   final String standardTicketDescription;
@@ -49,6 +50,7 @@ class Event extends Equatable {
       required this.userId,
       required this.modelEco,
       required this.members,
+      required this.activated,
       required this.standardTicketPrice,
       required this.maxStandardTicket,
       required this.standardTicketDescription,
