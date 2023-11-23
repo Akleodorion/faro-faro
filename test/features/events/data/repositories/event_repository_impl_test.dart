@@ -9,6 +9,7 @@ import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_dat
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/data/repositories/event_repository_impl.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
@@ -40,6 +41,10 @@ void main() {
                 .thenAnswer((realInvocation) async => true);
           });
 
+          const tMember1 = Member(id: 1, userId: 1, eventId: 1);
+          const tMember2 = Member(id: 2, userId: 2, eventId: 1);
+          const tMembers = [tMember1, tMember2];
+
           final tEvent1 = EventModel(
             name: 'Event 1',
             eventId: 1,
@@ -54,6 +59,7 @@ void main() {
             imageUrl: 'imageUrl',
             userId: 1,
             modelEco: ModelEco.gratuit,
+            members: tMembers,
             standardTicketPrice: 5000,
             maxStandardTicket: 50,
             standardTicketDescription: "Standard ticket simple description",
@@ -79,6 +85,7 @@ void main() {
             imageUrl: 'imageUrl',
             userId: 1,
             modelEco: ModelEco.payant,
+            members: tMembers,
             standardTicketPrice: 5000,
             maxStandardTicket: 50,
             standardTicketDescription: "Standard ticket simple description",
@@ -132,6 +139,9 @@ void main() {
   );
 
   group('postAnEvent', () {
+    const tMember1 = Member(id: 1, userId: 1, eventId: 1);
+    const tMember2 = Member(id: 2, userId: 2, eventId: 1);
+    const tMembers = [tMember1, tMember2];
     final tEvent = EventModel(
         name: "My test event",
         eventId: 20,
@@ -146,6 +156,7 @@ void main() {
         imageUrl: "flyers.jpg",
         userId: 1,
         modelEco: ModelEco.gratuit,
+        members: tMembers,
         standardTicketPrice: 5000,
         maxStandardTicket: 15,
         standardTicketDescription: "Short ticket description for the test",

@@ -5,6 +5,7 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/state/fetch_event_notifier.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/state/fetch_event_state.dart';
+import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -23,6 +24,10 @@ void main() {
     );
   });
 
+  const tMember1 = Member(id: 1, userId: 1, eventId: 1);
+  const tMember2 = Member(id: 2, userId: 2, eventId: 1);
+  const tMembers = [tMember1, tMember2];
+
   final tEvent1 = Event(
     name: 'Event 1',
     eventId: 1,
@@ -37,6 +42,7 @@ void main() {
     imageUrl: 'imageUrl',
     userId: 1,
     modelEco: ModelEco.gratuit,
+    members: tMembers,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",
@@ -62,6 +68,7 @@ void main() {
     imageUrl: 'imageUrl',
     userId: 1,
     modelEco: ModelEco.payant,
+    members: tMembers,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",

@@ -23,7 +23,7 @@ void main() {
     () {
       const tUserId = 1;
       const tEventId = 1;
-      const tMember = Member(id: 1, userId: tUserId, eventIid: tEventId);
+      const tMember = Member(id: 1, userId: tUserId, eventId: tEventId);
       test(
         "should return a valid Member if call is successfull",
         () async {
