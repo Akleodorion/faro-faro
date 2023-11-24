@@ -7,6 +7,8 @@ abstract class TicketRepository {
   // Creates a ticket.
   Future<Either<Failure, Ticket>>? createTicket({required Ticket ticket});
 
+  // Delete a ticket
+
   // Updates a ticket.
   Future<Either<Failure, Ticket>>? updateTicket(
       {required int userId, required Ticket updatedTicket});
