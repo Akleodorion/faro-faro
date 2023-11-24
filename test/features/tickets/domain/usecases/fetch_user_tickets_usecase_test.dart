@@ -24,17 +24,19 @@ void main() {
     () {
       const tUserId = 1;
       const tTicket1 = Ticket(
+          id: 1,
           type: Type.standard,
           description: "short description",
           userId: tUserId,
           eventId: 2,
-          verfied: true);
+          verified: true);
       const tTicket2 = Ticket(
+          id: 2,
           type: Type.standard,
           description: "short description",
           eventId: 1,
           userId: tUserId,
-          verfied: false);
+          verified: false);
       const tTickets = [
         tTicket1,
         tTicket2,

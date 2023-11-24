@@ -24,11 +24,12 @@ void main() {
     () {
       const tUserId = 1;
       const tTicket = Ticket(
+          id: 1,
           type: Type.standard,
           description: "short description",
           eventId: 1,
           userId: tUserId,
-          verfied: true);
+          verified: true);
       test(
         "should return a valid Ticket if the call is a success",
         () async {
