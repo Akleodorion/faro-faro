@@ -11,12 +11,14 @@ class Ticket extends Equatable {
   final String description;
   final int? price;
   final int userId;
+  final int eventId;
   final bool verfied;
 
   const Ticket({
     required this.type,
     required this.description,
     this.price, // can be null if event is free
+    required this.eventId,
     required this.userId,
     required this.verfied,
   });
@@ -26,6 +28,7 @@ class Ticket extends Equatable {
         type,
         description,
         price,
+        eventId,
         userId,
         verfied,
       ];

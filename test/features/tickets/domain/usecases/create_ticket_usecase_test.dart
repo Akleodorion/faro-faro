@@ -25,6 +25,7 @@ void main() {
       const tTicket = Ticket(
           type: Type.standard,
           description: "short description",
+          eventId: 1,
           userId: 1,
           verfied: true);
       test(
