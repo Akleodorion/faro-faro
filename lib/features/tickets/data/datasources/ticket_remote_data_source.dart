@@ -13,13 +13,13 @@ abstract class TicketRemoteDataSource {
   /// Fait une requête http à l'addresse http://localhost:3001/tickets
   ///
   /// En cas d'erreur jette un [ServerException]
-  Future<TicketModel?> createTicket({required TicketModel ticket});
+  Future<TicketModel> createTicket({required TicketModel ticket});
 
   /// Modifie un ticket pour un évènement donnée (utilisé pour changé de propriétaire).
   /// Fait une requête http à l'addresse http://localhost:3001/tickets/:id
   ///
   /// En cas d'erreur jette un [ServerException]
-  Future<TicketModel?> updateTicket({
+  Future<TicketModel> updateTicket({
     required int ticketId,
     required int userId,
   });
@@ -28,12 +28,12 @@ abstract class TicketRemoteDataSource {
   /// Fait une requête http à l'addresse http://localhost:3001/tickets
   ///
   /// En cas d'erreur jette un [ServerException]
-  Future<List<TicketModel>?> fetchUserTickets({required int userId});
+  Future<List<TicketModel>> fetchUserTickets({required int userId});
 }
 
 class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   @override
-  Future<TicketModel?> createTicket({required TicketModel ticket}) async {
+  Future<TicketModel> createTicket({required TicketModel ticket}) async {
     final uri = Uri.parse(TICKETS_URL);
 
     final response = await http.post(uri,
@@ -54,7 +54,7 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   }
 
   @override
-  Future<List<TicketModel>?> fetchUserTickets({required int userId}) async {
+  Future<List<TicketModel>> fetchUserTickets({required int userId}) async {
     final List<TicketModel> myList = [];
     final Map<String, int> params = {
       "user_id": userId,
@@ -80,7 +80,7 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   }
 
   @override
-  Future<TicketModel?> updateTicket(
+  Future<TicketModel> updateTicket(
       {required int ticketId, required int userId}) async {
     final uri = Uri.parse('$TICKETS_URL/$ticketId');
     // faire la requête

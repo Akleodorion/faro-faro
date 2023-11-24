@@ -9,8 +9,7 @@ class UpdateTicketUsecase {
   final TicketRepository repository;
 
   Future<Either<Failure, Ticket>?> execute(
-      {required Ticket updatedTicket, required int userId}) async {
-    return await repository.updateTicket(
-        userId: userId, updatedTicket: updatedTicket);
+      {required int ticketId, required int userId}) async {
+    return await repository.updateTicket(userId: userId, ticketId: ticketId);
   }
 }

@@ -35,11 +35,11 @@ void main() {
         () async {
           //arrange
           when(mockTicketRepository.updateTicket(
-                  userId: anyNamed('userId'), updatedTicket: tTicket))
+                  userId: anyNamed('userId'), ticketId: anyNamed('ticketId')))
               .thenAnswer((realInvocation) async => const Right(tTicket));
           //act
           final result =
-              await sut.execute(updatedTicket: tTicket, userId: tUserId);
+              await sut.execute(ticketId: tTicket.id, userId: tUserId);
           //assert
           expect(result, const Right(tTicket));
         },
@@ -50,12 +50,12 @@ void main() {
         () async {
           //arrange
           when(mockTicketRepository.updateTicket(
-                  userId: anyNamed('userId'), updatedTicket: tTicket))
+                  userId: anyNamed('userId'), ticketId: anyNamed(('ticketId'))))
               .thenAnswer((realInvocation) async =>
                   const Left(ServerFailure(errorMessage: 'oops')));
           //act
           final result =
-              await sut.execute(updatedTicket: tTicket, userId: tUserId);
+              await sut.execute(ticketId: tTicket.id, userId: tUserId);
           //assert
           expect(result, const Left(ServerFailure(errorMessage: 'oops')));
         },

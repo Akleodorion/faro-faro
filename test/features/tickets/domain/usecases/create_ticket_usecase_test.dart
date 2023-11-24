@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/repositories/ticket_repository.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/usecases/create_ticket_usecase.dart';
@@ -22,7 +23,7 @@ void main() {
   group(
     "Execute",
     () {
-      const tTicket = Ticket(
+      const tTicket = TicketModel(
           id: 1,
           type: Type.standard,
           description: "short description",

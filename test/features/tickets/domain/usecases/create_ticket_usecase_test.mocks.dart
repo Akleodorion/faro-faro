@@ -7,6 +7,8 @@ import 'dart:async' as _i3;
 
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
+import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart'
+    as _i7;
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/tickets/domain/repositories/ticket_repository.dart'
@@ -33,32 +35,32 @@ class MockTicketRepository extends _i1.Mock implements _i2.TicketRepository {
   }
 
   @override
-  _i3.Future<_i4.Either<_i5.Failure, _i6.Ticket>>? createTicket(
-          {required _i6.Ticket? ticket}) =>
+  _i3.Future<_i4.Either<_i5.Failure, _i6.Ticket>?>? createTicket(
+          {required _i7.TicketModel? ticket}) =>
       (super.noSuchMethod(Invocation.method(
         #createTicket,
         [],
         {#ticket: ticket},
-      )) as _i3.Future<_i4.Either<_i5.Failure, _i6.Ticket>>?);
+      )) as _i3.Future<_i4.Either<_i5.Failure, _i6.Ticket>?>?);
   @override
-  _i3.Future<_i4.Either<_i5.Failure, _i6.Ticket>>? updateTicket({
+  _i3.Future<_i4.Either<_i5.Failure, _i6.Ticket>?>? updateTicket({
     required int? userId,
-    required _i6.Ticket? updatedTicket,
+    required int? ticketId,
   }) =>
       (super.noSuchMethod(Invocation.method(
         #updateTicket,
         [],
         {
           #userId: userId,
-          #updatedTicket: updatedTicket,
+          #ticketId: ticketId,
         },
-      )) as _i3.Future<_i4.Either<_i5.Failure, _i6.Ticket>>?);
+      )) as _i3.Future<_i4.Either<_i5.Failure, _i6.Ticket>?>?);
   @override
-  _i3.Future<_i4.Either<_i5.Failure, List<_i6.Ticket>>>? fetchUserTickets(
+  _i3.Future<_i4.Either<_i5.Failure, List<_i6.Ticket>>?>? fetchUserTickets(
           {required int? userId}) =>
       (super.noSuchMethod(Invocation.method(
         #fetchUserTickets,
         [],
         {#userId: userId},
-      )) as _i3.Future<_i4.Either<_i5.Failure, List<_i6.Ticket>>>?);
+      )) as _i3.Future<_i4.Either<_i5.Failure, List<_i6.Ticket>>?>?);
 }
