@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:http/http.dart' as http;
 
 const TICKETS_URL = "http://localhost:3001/members";
@@ -21,7 +20,7 @@ abstract class TicketRemoteDataSource {
   ///
   /// En cas d'erreur jette un [ServerException]
   Future<TicketModel?> updateTicket({
-    required Ticket newTicket,
+    required int ticketId,
     required int userId,
   });
 
@@ -35,12 +34,16 @@ abstract class TicketRemoteDataSource {
 class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   @override
   Future<TicketModel?> createTicket({required TicketModel ticket}) async {
-    final uri = Uri.parse('$TICKETS_URL/${ticket.id}');
-    // faire la requête
-    final response = await http.patch(uri, body: json.encode(ticket.toJson()));
-    // retour model si tout boon
+    final uri = Uri.parse(TICKETS_URL);
+
+    final response = await http.post(uri,
+        headers: {"Content-Type": 'application/json'},
+        body: json.encode(ticket.toJson()));
+
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return TicketModel.fromJson(json.decode(response.body));
+      final TicketModel createMember =
+          TicketModel.fromJson(json.decode(response.body));
+      return createMember;
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
       throw ServerException(
           errorMessage: json.decode(response.body)["error"][0]);
@@ -78,8 +81,19 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
 
   @override
   Future<TicketModel?> updateTicket(
-      {required Ticket newTicket, required int userId}) {
-    // TODO: implement updateTicket
-    throw UnimplementedError();
+      {required int ticketId, required int userId}) async {
+    final uri = Uri.parse('$TICKETS_URL/$ticketId');
+    // faire la requête
+    final response = await http.patch(uri, body: {"user_id": userId});
+    // retour model si tout boon
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return TicketModel.fromJson(json.decode(response.body));
+    } else if (response.statusCode >= 400 && response.statusCode < 500) {
+      throw ServerException(
+          errorMessage: json.decode(response.body)["error"][0]);
+    } else {
+      throw ServerException(
+          errorMessage: "An error as occured please try again later");
+    }
   }
 }
