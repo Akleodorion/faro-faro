@@ -35,7 +35,7 @@ abstract class TicketRemoteDataSource {
 class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   @override
   Future<TicketModel?> createTicket({required TicketModel ticket}) async {
-    final uri = Uri.parse('TICKETS_URL/${ticket.id}');
+    final uri = Uri.parse('$TICKETS_URL/${ticket.id}');
     // faire la requête
     final response = await http.patch(uri, body: json.encode(ticket.toJson()));
     // retour model si tout boon
@@ -51,9 +51,29 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   }
 
   @override
-  Future<List<TicketModel>?> fetchUserTickets({required int userId}) {
-    // TODO: implement fetchUserTickets
-    throw UnimplementedError();
+  Future<List<TicketModel>?> fetchUserTickets({required int userId}) async {
+    final List<TicketModel> myList = [];
+    final Map<String, int> params = {
+      "user_id": userId,
+    };
+    final uri = Uri.parse(TICKETS_URL).replace(queryParameters: params);
+    // faire la requête
+    final response = await http.get(uri);
+    // retour model si tout boon
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      final List<Map<String, dynamic>> myDataMap = json.decode(response.body);
+
+      for (var map in myDataMap) {
+        myList.add(TicketModel.fromJson(map));
+      }
+      return myList;
+    } else if (response.statusCode >= 400 && response.statusCode < 500) {
+      throw ServerException(
+          errorMessage: json.decode(response.body)["error"][0]);
+    } else {
+      throw ServerException(
+          errorMessage: "An error as occured please try again later");
+    }
   }
 
   @override
