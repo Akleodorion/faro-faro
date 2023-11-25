@@ -30,6 +30,10 @@ abstract class MemberRemoteDataSource {
 }
 
 class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
+  MemberRemoteDataSourceImpl({required this.client});
+
+  final http.Client client;
+
   @override
   Future<MemberModel> createMember(
       {required int eventId, required int userId}) async {
@@ -41,7 +45,7 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
     final uri = Uri.parse(MEMBERS_URL);
 
     // Fait la requête au serveur.
-    final response = await http.post(uri,
+    final response = await client.post(uri,
         headers: {"Content-Type": 'application/json'},
         body: json.encode(params));
 
@@ -63,7 +67,7 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   Future<Failure?> deleteMember({required int memberId}) async {
     final uri = Uri.parse("$MEMBERS_URL/$memberId");
 
-    final response = await http.delete(uri);
+    final response = await client.delete(uri);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return null;
@@ -83,7 +87,7 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
     };
     final uri = Uri.parse(MEMBERS_URL).replace(queryParameters: params);
 
-    final response = await http.get(uri);
+    final response = await client.get(uri);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       late List<MemberModel> members = [];

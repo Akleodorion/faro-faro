@@ -7,11 +7,29 @@ import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_loc
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_notifier.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_notifier.dart';
+import 'package:faro_clean_tdd/features/members/data/datasources/member_remote_data_source.dart';
+import 'package:faro_clean_tdd/features/members/data/repositories/member_repository_impl.dart';
+import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart';
+import 'package:faro_clean_tdd/features/members/domain/usecases/create_member_usecase.dart';
+import 'package:faro_clean_tdd/features/members/domain/usecases/delete_member_usecase.dart';
+import 'package:faro_clean_tdd/features/members/domain/usecases/fetch_members_usecase.dart';
+import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/state/create_member_notifier.dart';
+import 'package:faro_clean_tdd/features/members/presentation/providers/delete_member/state/delete_member_notifier.dart';
+import 'package:faro_clean_tdd/features/members/presentation/providers/fetch_members/state/fetch_members_notifier.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/datasources/picked_image_local_data_source.dart';
 import 'package:faro_clean_tdd/features/pick_image/data/repositories/picked_image_repository_impl.dart';
 import 'package:faro_clean_tdd/features/pick_image/domain/repositories/picked_image_repository.dart';
 import 'package:faro_clean_tdd/features/pick_image/domain/usecases/pick_image_from_galery.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_notifier.dart';
+import 'package:faro_clean_tdd/features/tickets/data/datasources/ticket_remote_data_source.dart';
+import 'package:faro_clean_tdd/features/tickets/data/repositories/ticket_repository_impl.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/repositories/ticket_repository.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/usecases/create_ticket_usecase.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/usecases/fetch_user_tickets_usecase.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/usecases/update_ticket_usecase.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ticket/state/create_ticket_notifier.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_notifier.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/state/update_ticket_notifier.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
@@ -87,6 +105,42 @@ Future<void> init() async {
   // Datasource
   sl.registerLazySingleton<EventRemoteDatasource>(
       () => EventRemoteDatasourceImpl(client: sl()));
+
+  // Features - Fetch Tickets - Create Ticket - Update Ticket
+  sl.registerFactory(() => FetchTicketsNotifier(usecase: sl()));
+  sl.registerFactory(() => CreateTicketNotifier(usecase: sl()));
+  sl.registerFactory(() => UpdateTicketNotifier(usecase: sl()));
+
+  // Usecases
+  sl.registerLazySingleton(() => FetchUserTicketsUsecase(repository: sl()));
+  sl.registerLazySingleton(() => CreateTicketUsecase(repository: sl()));
+  sl.registerLazySingleton(() => UpdateTicketUsecase(repository: sl()));
+
+  // Repository
+  sl.registerLazySingleton<TicketRepository>(
+      () => TicketRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+
+  // Datasource
+  sl.registerLazySingleton<TicketRemoteDataSource>(
+      () => TicketRemoteDataSourceImpl(client: sl()));
+
+  // Features - Create Member - Delete Member - Fetch Member
+  sl.registerFactory(() => FetchMemberNotifier(usecase: sl()));
+  sl.registerFactory(() => CreateMemberNotifier(usecase: sl()));
+  sl.registerFactory(() => DeleteMemberNotifier(usecase: sl()));
+
+  // Usecases
+  sl.registerLazySingleton(() => FetchMembersUsecase(repository: sl()));
+  sl.registerLazySingleton(() => CreateMemberUsecase(repository: sl()));
+  sl.registerLazySingleton(() => DeleteMemberUsecase(repository: sl()));
+
+  // Repository
+  sl.registerLazySingleton<MemberRepository>(
+      () => MemberRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+
+  // Datasource
+  sl.registerLazySingleton<MemberRemoteDataSource>(
+      () => MemberRemoteDataSourceImpl(client: sl()));
 
   // Features - Get Address
   sl.registerFactory(() => AddressNotifier(
