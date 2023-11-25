@@ -10,6 +10,7 @@ import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/data/repositories/event_repository_impl.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
@@ -43,6 +44,21 @@ void main() {
 
           const tMember1 = Member(id: 1, userId: 1, eventId: 1);
           const tMember2 = Member(id: 2, userId: 2, eventId: 1);
+          const tTicket1 = Ticket(
+              id: 1,
+              type: Type.standard,
+              description: "description",
+              eventId: 1,
+              userId: 1,
+              verified: false);
+          const tTicket2 = Ticket(
+              id: 2,
+              type: Type.standard,
+              description: "description",
+              eventId: 1,
+              userId: 2,
+              verified: false);
+          const tTickets = [tTicket1, tTicket2];
           const tMembers = [tMember1, tMember2];
 
           final tEvent1 = EventModel(
@@ -60,16 +76,17 @@ void main() {
             userId: 1,
             modelEco: ModelEco.gratuit,
             members: tMembers,
+            tickets: const [],
             activated: false,
             standardTicketPrice: 5000,
             maxStandardTicket: 50,
             standardTicketDescription: "Standard ticket simple description",
-            vipTicketPrice: 10000,
-            maxVipTicket: 25,
-            vipTicketDescription: "vip ticket simple description",
-            vvipTicketPrice: 15000,
-            maxVvipTicket: 10,
-            vvipTicketDescription: "vvip ticket simple description",
+            goldTicketPrice: 10000,
+            maxGoldTicket: 25,
+            goldTicketDescription: "vip ticket simple description",
+            platinumTicketPrice: 15000,
+            maxPlatinumTicket: 10,
+            platinumTicketDescription: "vvip ticket simple description",
           );
 
           final tEvent2 = EventModel(
@@ -87,16 +104,17 @@ void main() {
             userId: 1,
             modelEco: ModelEco.payant,
             members: tMembers,
+            tickets: tTickets,
             activated: false,
             standardTicketPrice: 5000,
             maxStandardTicket: 50,
             standardTicketDescription: "Standard ticket simple description",
-            vipTicketPrice: 10000,
-            maxVipTicket: 25,
-            vipTicketDescription: "vip ticket simple description",
-            vvipTicketPrice: 15000,
-            maxVvipTicket: 10,
-            vvipTicketDescription: "vvip ticket simple description",
+            goldTicketPrice: 10000,
+            maxGoldTicket: 25,
+            goldTicketDescription: "vip ticket simple description",
+            platinumTicketPrice: 15000,
+            maxPlatinumTicket: 10,
+            platinumTicketDescription: "vvip ticket simple description",
           );
 
           final tEvents = [tEvent1, tEvent2];
@@ -141,6 +159,21 @@ void main() {
   );
 
   group('postAnEvent', () {
+    const tTicket1 = Ticket(
+        id: 1,
+        type: Type.standard,
+        description: "description",
+        eventId: 1,
+        userId: 1,
+        verified: false);
+    const tTicket2 = Ticket(
+        id: 2,
+        type: Type.standard,
+        description: "description",
+        eventId: 1,
+        userId: 2,
+        verified: false);
+    const tTickets = [tTicket1, tTicket2];
     const tMember1 = Member(id: 1, userId: 1, eventId: 1);
     const tMember2 = Member(id: 2, userId: 2, eventId: 1);
     const tMembers = [tMember1, tMember2];
@@ -159,16 +192,17 @@ void main() {
         userId: 1,
         modelEco: ModelEco.gratuit,
         members: tMembers,
+        tickets: tTickets,
         activated: false,
         standardTicketPrice: 5000,
         maxStandardTicket: 15,
         standardTicketDescription: "Short ticket description for the test",
-        vipTicketPrice: 5000,
-        maxVipTicket: 15,
-        vipTicketDescription: "Short ticket description for the test",
-        vvipTicketPrice: 5000,
-        maxVvipTicket: 15,
-        vvipTicketDescription: "Short ticket description for the test");
+        goldTicketPrice: 5000,
+        maxGoldTicket: 15,
+        goldTicketDescription: "Short ticket description for the test",
+        platinumTicketPrice: 5000,
+        maxPlatinumTicket: 15,
+        platinumTicketDescription: "Short ticket description for the test");
 
     final tImage = File('flyers.jpg');
     group('if there is an internet connexion', () {

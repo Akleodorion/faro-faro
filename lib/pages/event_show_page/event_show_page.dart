@@ -123,7 +123,7 @@ class EventShowPage extends ConsumerWidget {
                               ),
                               Text(event.modelEco == ModelEco.gratuit
                                   ? "Ticket Standard : Gratuit"
-                                  : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice)} XOF")
+                                  : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice!)} XOF")
                             ],
                           ),
                           Row(
@@ -156,13 +156,13 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket VIP : ${NumberFormatterImpl().formatNumber(event.vipTicketPrice)} XOF")
+                                    "Ticket VIP : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF")
                               ],
                             ),
                             Row(
                               children: [
                                 Text(
-                                  "Description : ${event.vipTicketDescription}",
+                                  "Description : ${event.goldTicketDescription!}",
                                   textAlign: TextAlign.start,
                                 ),
                               ],
@@ -186,13 +186,13 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket VVIP : ${NumberFormatterImpl().formatNumber(event.vvipTicketPrice)} XOF")
+                                    "Ticket VVIP : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF")
                               ],
                             ),
                             Row(
                               children: [
                                 Text(
-                                  "Description : ${event.vvipTicketDescription}",
+                                  "Description : ${event.platinumTicketDescription}",
                                   textAlign: TextAlign.start,
                                 ),
                               ],
