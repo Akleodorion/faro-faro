@@ -8,7 +8,7 @@ class UpdateTicketUsecase {
   const UpdateTicketUsecase({required this.repository});
   final TicketRepository repository;
 
-  Future<Either<Failure, Ticket>?> execute(
+  Future<Either<Failure, Ticket>> execute(
       {required int ticketId, required int userId}) async {
     return await repository.updateTicket(userId: userId, ticketId: ticketId);
   }

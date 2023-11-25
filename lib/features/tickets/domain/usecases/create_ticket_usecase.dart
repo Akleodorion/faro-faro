@@ -9,8 +9,7 @@ class CreateTicketUsecase {
   const CreateTicketUsecase({required this.repository});
   final TicketRepository repository;
 
-  Future<Either<Failure, Ticket>?> execute(
-      {required TicketModel ticket}) async {
+  Future<Either<Failure, Ticket>> execute({required TicketModel ticket}) async {
     return await repository.createTicket(ticket: ticket);
   }
 }
