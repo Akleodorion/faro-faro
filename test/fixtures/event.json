@@ -14,14 +14,33 @@
   "max_standard_ticket": 50,
   "standard_ticket_price": 5000,
   "standard_ticket_description": "Standard ticket simple description",
-  "max_vip_ticket": 25,
-  "vip_ticket_description": "vip ticket simple description",
-  "vip_ticket_price": 10000,
-  "max_vvip_ticket": 10,
-  "vvip_ticket_description": "vvip ticket simple description",
-  "vvip_ticket_price": 15000,
+  "max_gold_ticket": 25,
+  "gold_ticket_description": "gold ticket simple description",
+  "gold_ticket_price": 10000,
+  "max_platinum_ticket": 10,
+  "platinum_ticket_description": "platinum ticket simple description",
+  "platinum_ticket_price": 15000,
   "photo_url": "imageUrl",
   "activated": false,
+  "tickets": [
+    {
+      "id": 1,
+      "type": "standard",
+      "description": "description",
+      "price": null,
+      "event_id": 1,
+      "user_id": 1,
+      "verified": false
+    },
+    {
+      "id": 2,
+      "type": "standard",
+      "description": "description",
+      "event_id": 1,
+      "user_id": 2,
+      "verified": false
+    }
+  ],
   "members": [
     {
       "id": 1,

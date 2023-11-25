@@ -47,17 +47,18 @@ class NewEventPage extends ConsumerWidget {
             userId: userId,
             modelEco: postEventMap["model_eco"],
             members: const [],
+            tickets: const [],
             activated: false,
             standardTicketPrice: postEventMap["standard_ticket_price"],
             maxStandardTicket: postEventMap["max_standard_ticket"],
             standardTicketDescription:
                 postEventMap["standard_ticket_description"],
-            vipTicketPrice: postEventMap["vip_ticket_price"],
-            maxVipTicket: postEventMap["max_vip_ticket"],
-            vipTicketDescription: postEventMap["vip_ticket_description"],
-            vvipTicketPrice: postEventMap["vvip_ticket_price"],
-            maxVvipTicket: postEventMap["max_vvip_ticket"],
-            vvipTicketDescription: postEventMap["vvip_ticket_description"]);
+            goldTicketPrice: postEventMap["vip_ticket_price"],
+            maxGoldTicket: postEventMap["max_vip_ticket"],
+            goldTicketDescription: postEventMap["vip_ticket_description"],
+            platinumTicketPrice: postEventMap["vvip_ticket_price"],
+            maxPlatinumTicket: postEventMap["max_vvip_ticket"],
+            platinumTicketDescription: postEventMap["vvip_ticket_description"]);
 
         // Usecase
         final state = await ref.read(postEventProvider.notifier).postAnEvent(

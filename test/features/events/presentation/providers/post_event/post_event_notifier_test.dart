@@ -8,6 +8,7 @@ import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dar
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_notifier.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -34,33 +35,50 @@ void main() {
   );
   const tMember1 = Member(id: 1, userId: 1, eventId: 1);
   const tMember2 = Member(id: 2, userId: 2, eventId: 1);
+  const tTicket1 = Ticket(
+      id: 1,
+      type: Type.standard,
+      description: "description",
+      eventId: 1,
+      userId: 1,
+      verified: false);
+  const tTicket2 = Ticket(
+      id: 2,
+      type: Type.standard,
+      description: "description",
+      eventId: 1,
+      userId: 2,
+      verified: false);
+  const tTickets = [tTicket1, tTicket2];
   const tMembers = [tMember1, tMember2];
   group('postAnEvent', () {
     final tEvent = EventModel(
-        name: "My test event",
-        eventId: 20,
-        description: "Short description for the test event !",
-        date: DateTime.now(),
-        address: const Address(
-            latitude: 10.5264,
-            longitude: 20.4585,
-            addressName: "addressName",
-            geocodeUrl: "geocodeUrl"),
-        category: Category.concert,
-        imageUrl: "flyers.jpg",
-        userId: 1,
-        modelEco: ModelEco.gratuit,
-        members: tMembers,
-        activated: false,
-        standardTicketPrice: 5000,
-        maxStandardTicket: 15,
-        standardTicketDescription: "Short ticket description for the test",
-        vipTicketPrice: 5000,
-        maxVipTicket: 15,
-        vipTicketDescription: "Short ticket description for the test",
-        vvipTicketPrice: 5000,
-        maxVvipTicket: 15,
-        vvipTicketDescription: "Short ticket description for the test");
+      name: 'Event 1',
+      eventId: 1,
+      description: 'short description',
+      date: DateTime.now(),
+      address: const Address(
+          latitude: 10.5264,
+          longitude: 20.4585,
+          addressName: "Lille",
+          geocodeUrl: "geocodeUrl"),
+      category: Category.concert,
+      imageUrl: 'imageUrl',
+      userId: 1,
+      modelEco: ModelEco.gratuit,
+      members: tMembers,
+      tickets: tTickets,
+      activated: false,
+      standardTicketPrice: 5000,
+      maxStandardTicket: 50,
+      standardTicketDescription: "Standard ticket simple description",
+      goldTicketPrice: 10000,
+      maxGoldTicket: 25,
+      goldTicketDescription: "vip ticket simple description",
+      platinumTicketPrice: 15000,
+      maxPlatinumTicket: 10,
+      platinumTicketDescription: "vvip ticket simple description",
+    );
 
     final tImage = File('flyers.jpg');
 

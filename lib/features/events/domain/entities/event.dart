@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:intl/intl.dart';
 
 var formated = DateFormat.yMMMd('fr');
@@ -15,6 +16,7 @@ enum Category {
   loisir,
   sport,
   culture,
+  unknown,
 }
 
 class Event extends Equatable {
@@ -28,16 +30,17 @@ class Event extends Equatable {
   final int eventId;
   final ModelEco modelEco;
   final List<Member> members;
+  final List<Ticket> tickets;
   final bool activated;
-  final int standardTicketPrice;
+  final int? standardTicketPrice;
   final int maxStandardTicket;
   final String standardTicketDescription;
-  final int vipTicketPrice;
-  final int maxVipTicket;
-  final String vipTicketDescription;
-  final int vvipTicketPrice;
-  final int maxVvipTicket;
-  final String vvipTicketDescription;
+  final int? goldTicketPrice;
+  final int? maxGoldTicket;
+  final String? goldTicketDescription;
+  final int? platinumTicketPrice;
+  final int? maxPlatinumTicket;
+  final String? platinumTicketDescription;
 
   const Event(
       {required this.name,
@@ -50,16 +53,17 @@ class Event extends Equatable {
       required this.userId,
       required this.modelEco,
       required this.members,
+      required this.tickets,
       required this.activated,
-      required this.standardTicketPrice,
+      this.standardTicketPrice,
       required this.maxStandardTicket,
       required this.standardTicketDescription,
-      required this.vipTicketPrice,
-      required this.maxVipTicket,
-      required this.vipTicketDescription,
-      required this.vvipTicketPrice,
-      required this.maxVvipTicket,
-      required this.vvipTicketDescription});
+      this.goldTicketPrice,
+      this.maxGoldTicket,
+      this.goldTicketDescription,
+      this.platinumTicketPrice,
+      this.maxPlatinumTicket,
+      this.platinumTicketDescription});
 
   String get formatedDate {
     return formated.format(date);
@@ -79,11 +83,11 @@ class Event extends Equatable {
         standardTicketPrice,
         maxStandardTicket,
         standardTicketDescription,
-        vipTicketPrice,
-        maxVipTicket,
-        vipTicketDescription,
-        vvipTicketPrice,
-        maxVvipTicket,
-        vvipTicketDescription,
+        goldTicketPrice,
+        maxGoldTicket,
+        goldTicketDescription,
+        platinumTicketPrice,
+        maxPlatinumTicket,
+        platinumTicketDescription,
       ];
 }

@@ -4,6 +4,7 @@ import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,6 +13,21 @@ import '../../../../fixtures/fixture_reader.dart';
 void main() async {
   await dotenv.load(fileName: ".env");
   final String? apiKey = dotenv.env['API_KEY'];
+  const tTicket1 = Ticket(
+      id: 1,
+      type: Type.standard,
+      description: "description",
+      eventId: 1,
+      userId: 1,
+      verified: false);
+  const tTicket2 = Ticket(
+      id: 2,
+      type: Type.standard,
+      description: "description",
+      eventId: 1,
+      userId: 2,
+      verified: false);
+  const tTickets = [tTicket1, tTicket2];
   const Member tMember1 = Member(id: 1, userId: 1, eventId: 1);
   const Member tMember2 = Member(id: 1, userId: 1, eventId: 1);
   const List<Member> tMembers = [tMember1, tMember2];
@@ -32,16 +48,17 @@ void main() async {
     userId: 20,
     modelEco: ModelEco.payant,
     members: tMembers,
+    tickets: tTickets,
     activated: false,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",
-    vipTicketPrice: 10000,
-    maxVipTicket: 25,
-    vipTicketDescription: "vip ticket simple description",
-    vvipTicketPrice: 15000,
-    maxVvipTicket: 10,
-    vvipTicketDescription: "vvip ticket simple description",
+    goldTicketPrice: 10000,
+    maxGoldTicket: 25,
+    goldTicketDescription: "gold ticket simple description",
+    platinumTicketPrice: 15000,
+    maxPlatinumTicket: 10,
+    platinumTicketDescription: "platinum ticket simple description",
   );
   test(
     "should be a subsclass of Event",
@@ -91,15 +108,35 @@ void main() async {
             {"id": 1, "event_id": 1, "user_id": 1},
             {"id": 1, "event_id": 1, "user_id": 1}
           ],
+          'tickets': [
+            {
+              'id': 1,
+              'type': 'standard',
+              'description': 'description',
+              'price': null,
+              'verified': false,
+              'user_id': 1,
+              'event_id': 1
+            },
+            {
+              'id': 2,
+              'type': 'standard',
+              'description': 'description',
+              'price': null,
+              'verified': false,
+              'user_id': 2,
+              'event_id': 1
+            }
+          ],
           "standard_ticket_price": 5000,
           "max_standard_ticket": 50,
           "standard_ticket_description": "Standard ticket simple description",
-          "vip_ticket_price": 10000,
-          "max_vip_ticket": 25,
-          "vip_ticket_description": "vip ticket simple description",
-          "vvip_ticket_price": 15000,
-          "max_vvip_ticket": 10,
-          "vvip_ticket_description": "vvip ticket simple description",
+          "gold_ticket_price": 10000,
+          "max_gold_ticket": 25,
+          "gold_ticket_description": "gold ticket simple description",
+          "platinum_ticket_price": 15000,
+          "max_platinum_ticket": 10,
+          "platinum_ticket_description": "platinum ticket simple description",
         };
 
         //assert

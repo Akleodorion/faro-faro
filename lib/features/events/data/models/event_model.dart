@@ -1,5 +1,6 @@
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../domain/entities/event.dart';
@@ -19,13 +20,14 @@ class EventModel extends Event {
       required super.standardTicketPrice,
       required super.maxStandardTicket,
       required super.standardTicketDescription,
-      required super.vipTicketPrice,
-      required super.maxVipTicket,
-      required super.vipTicketDescription,
-      required super.vvipTicketPrice,
-      required super.maxVvipTicket,
-      required super.vvipTicketDescription,
-      required super.activated});
+      required super.goldTicketPrice,
+      required super.maxGoldTicket,
+      required super.goldTicketDescription,
+      required super.platinumTicketDescription,
+      required super.platinumTicketPrice,
+      required super.maxPlatinumTicket,
+      required super.activated,
+      required super.tickets});
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
     late Category category;
@@ -42,6 +44,12 @@ class EventModel extends Event {
       "concert": Category.concert,
     };
 
+    final Map<String, Type> typeMap = {
+      "standard": Type.standard,
+      "gold": Type.gold,
+      "platinum": Type.platinum,
+    };
+
     category = categoryMap[json["category"]] ?? Category.concert;
 
     final List<Member> members = (json["members"] as List<dynamic>?)
@@ -50,6 +58,20 @@ class EventModel extends Event {
                   userId: element["user_id"] ?? 0,
                   eventId: element["event_id"] ?? 0,
                 ))
+            .toList() ??
+        [];
+
+    final List<Ticket> tickets = (json["tickets"] as List<dynamic>?)
+            ?.map(
+              (element) => Ticket(
+                  id: element["id"],
+                  type: typeMap[element["type"]] ?? Type.unknown,
+                  description: element["description"],
+                  price: element["price"],
+                  eventId: element["event_id"],
+                  userId: element["user_id"],
+                  verified: element["verified"]),
+            )
             .toList() ??
         [];
 
@@ -68,27 +90,41 @@ class EventModel extends Event {
         userId: json["user_id"],
         modelEco: json["free"] == true ? ModelEco.gratuit : ModelEco.payant,
         members: members,
+        tickets: tickets, //!
         eventId: json["id"],
         activated: json["activated"],
         maxStandardTicket: json["max_standard_ticket"],
         standardTicketPrice: json["standard_ticket_price"],
         standardTicketDescription: json["standard_ticket_description"],
-        maxVipTicket: json["max_vip_ticket"],
-        vipTicketPrice: json["vip_ticket_price"],
-        vipTicketDescription: json["vip_ticket_description"],
-        maxVvipTicket: json["max_vvip_ticket"],
-        vvipTicketPrice: json["vvip_ticket_price"],
-        vvipTicketDescription: json["vvip_ticket_description"]);
+        maxGoldTicket: json["max_gold_ticket"],
+        goldTicketPrice: json["gold_ticket_price"],
+        goldTicketDescription: json["gold_ticket_description"],
+        maxPlatinumTicket: json["max_platinum_ticket"],
+        platinumTicketPrice: json["platinum_ticket_price"],
+        platinumTicketDescription: json["platinum_ticket_description"]);
   }
 
   Map<String, dynamic> toJson() {
-    List<Map<String, dynamic>> membersListe = [];
+    final List<Map<String, dynamic>> membersList = [];
+    final List<Map<String, dynamic>> ticketsList = [];
 
     for (var member in members) {
-      membersListe.add({
+      membersList.add({
         "id": member.id,
         "user_id": member.userId,
         "event_id": member.eventId
+      });
+    }
+
+    for (final ticket in tickets) {
+      ticketsList.add({
+        "id": ticket.id,
+        "type": ticket.type.name,
+        "description": ticket.description,
+        "price": ticket.price,
+        "verified": ticket.verified,
+        "user_id": ticket.userId,
+        "event_id": ticket.eventId,
       });
     }
 
@@ -104,16 +140,17 @@ class EventModel extends Event {
       'user_id': userId,
       'free': modelEco == ModelEco.gratuit ? true : false,
       'id': eventId,
-      "members": membersListe,
+      "members": membersList,
+      "tickets": ticketsList,
       'max_standard_ticket': maxStandardTicket,
       'standard_ticket_price': standardTicketPrice,
       'standard_ticket_description': standardTicketDescription,
-      'max_vip_ticket': maxVipTicket,
-      'vip_ticket_price': vipTicketPrice,
-      'vip_ticket_description': vipTicketDescription,
-      'max_vvip_ticket': maxVvipTicket,
-      'vvip_ticket_price': vvipTicketPrice,
-      'vvip_ticket_description': vvipTicketDescription,
+      'max_gold_ticket': maxGoldTicket,
+      'gold_ticket_price': goldTicketPrice,
+      'gold_ticket_description': goldTicketDescription,
+      'max_platinum_ticket': maxPlatinumTicket,
+      'platinum_ticket_price': platinumTicketPrice,
+      'platinum_ticket_description': platinumTicketDescription,
     };
   }
 
@@ -133,17 +170,18 @@ class EventModel extends Event {
         imageUrl: '',
         userId: userId,
         modelEco: postEventMap["modelEco"],
-        members: postEventMap["members"],
+        members: const [],
+        tickets: const [],
         activated: false,
         standardTicketPrice: postEventMap["standardTicketPrice"],
         maxStandardTicket: postEventMap["maxStandardTicket"],
         standardTicketDescription: postEventMap["standardTicketDescription"],
-        vipTicketPrice: postEventMap["vipTicketPrice"],
-        maxVipTicket: postEventMap["maxVipTicket"],
-        vipTicketDescription: postEventMap["vipTicketDescription"],
-        vvipTicketPrice: postEventMap["vvipTicketPrice"],
-        maxVvipTicket: postEventMap["maxVvipTicket"],
-        vvipTicketDescription: postEventMap["vvipTicketDescription"]);
+        goldTicketPrice: postEventMap["vipTicketPrice"],
+        maxGoldTicket: postEventMap["maxVipTicket"],
+        goldTicketDescription: postEventMap["vipTicketDescription"],
+        platinumTicketPrice: postEventMap["vvipTicketPrice"],
+        maxPlatinumTicket: postEventMap["maxVvipTicket"],
+        platinumTicketDescription: postEventMap["vvipTicketDescription"]);
 
     return myEventModel;
   }

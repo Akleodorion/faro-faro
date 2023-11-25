@@ -5,6 +5,7 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,6 +21,21 @@ void main() {
     usecase = FetchAllEvents(repository: mockEventRepository);
   });
 
+  const tTicket1 = Ticket(
+      id: 1,
+      type: Type.standard,
+      description: "description",
+      eventId: 1,
+      userId: 1,
+      verified: false);
+  const tTicket2 = Ticket(
+      id: 2,
+      type: Type.standard,
+      description: "description",
+      eventId: 1,
+      userId: 2,
+      verified: false);
+  const tTickets = [tTicket1, tTicket2];
   const tMember1 = Member(id: 1, userId: 1, eventId: 1);
   const tMember2 = Member(id: 2, userId: 2, eventId: 1);
   const tMembers = [tMember1, tMember2];
@@ -38,43 +54,45 @@ void main() {
     userId: 1,
     modelEco: ModelEco.gratuit,
     members: tMembers,
+    tickets: const [],
     activated: false,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",
-    vipTicketPrice: 10000,
-    maxVipTicket: 25,
-    vipTicketDescription: "vip ticket simple description",
-    vvipTicketPrice: 15000,
-    maxVvipTicket: 10,
-    vvipTicketDescription: "vvip ticket simple description",
+    goldTicketPrice: 10000,
+    maxGoldTicket: 25,
+    goldTicketDescription: "vip ticket simple description",
+    platinumTicketPrice: 15000,
+    maxPlatinumTicket: 10,
+    platinumTicketDescription: "vvip ticket simple description",
   );
 
   final tEvent2 = Event(
-    name: 'Event 2',
-    eventId: 2,
+    name: 'Event 1',
+    eventId: 1,
     description: 'short description',
     date: DateTime.now(),
     address: const Address(
-        latitude: 42.41454,
-        longitude: -127.5345,
-        addressName: "Arras",
+        latitude: 10.5264,
+        longitude: 20.4585,
+        addressName: "Lille",
         geocodeUrl: "geocodeUrl"),
-    category: Category.culture,
+    category: Category.concert,
     imageUrl: 'imageUrl',
     userId: 1,
-    modelEco: ModelEco.payant,
+    modelEco: ModelEco.gratuit,
     members: tMembers,
+    tickets: tTickets,
     activated: false,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",
-    vipTicketPrice: 10000,
-    maxVipTicket: 25,
-    vipTicketDescription: "vip ticket simple description",
-    vvipTicketPrice: 15000,
-    maxVvipTicket: 10,
-    vvipTicketDescription: "vvip ticket simple description",
+    goldTicketPrice: 10000,
+    maxGoldTicket: 25,
+    goldTicketDescription: "vip ticket simple description",
+    platinumTicketPrice: 15000,
+    maxPlatinumTicket: 10,
+    platinumTicketDescription: "vvip ticket simple description",
   );
 
   final tEvents = [tEvent1, tEvent2];

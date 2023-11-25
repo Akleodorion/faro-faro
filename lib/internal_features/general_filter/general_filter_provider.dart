@@ -47,8 +47,12 @@ final generalFiltersEventProvider = Provider((ref) {
         eventDate.isAfter(generalFilters[GeneralFilter.date]);
     final isEventPayant = event.modelEco == ModelEco.payant;
     final isEventGratuit = event.modelEco == ModelEco.gratuit;
-    final isMinPriceSatisfied =
-        event.standardTicketPrice >= generalFilters[GeneralFilter.minPrice];
+    bool isMinPriceSatisfied = true;
+
+    if (event.standardTicketPrice != null) {
+      isMinPriceSatisfied =
+          event.standardTicketPrice! >= generalFilters[GeneralFilter.minPrice];
+    }
 
     if (isEventAfterDate &&
         ((generalFilters[GeneralFilter.paid] &&
@@ -68,12 +72,14 @@ final maxPaidEventPrice = Provider((ref) {
   late int price;
   final events = ref.watch(indexEventProvider);
   if (events != []) {
-    price = events[0].standardTicketPrice;
+    price = events.first.standardTicketPrice ?? 0;
   }
 
   for (var event in events) {
-    if (event.standardTicketPrice > price) {
-      price = event.standardTicketPrice;
+    if (event.standardTicketPrice == null) {
+      continue;
+    } else if (event.standardTicketPrice! > price) {
+      price = event.standardTicketPrice!;
     }
   }
   return price.toDouble();
