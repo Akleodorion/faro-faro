@@ -8,7 +8,7 @@ class FetchUserTicketsUsecase {
   const FetchUserTicketsUsecase({required this.repository});
   final TicketRepository repository;
 
-  Future<Either<Failure, List<Ticket>>?> execute({required int userId}) async {
+  Future<Either<Failure, List<Ticket>>> execute({required int userId}) async {
     return await repository.fetchUserTickets(userId: userId);
   }
 }

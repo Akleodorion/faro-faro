@@ -44,7 +44,7 @@ class TicketRepositoryImpl implements TicketRepository {
   }
 
   @override
-  Future<Either<Failure, Ticket>?>? updateTicket(
+  Future<Either<Failure, Ticket>> updateTicket(
       {required int userId, required int ticketId}) async {
     if (await networkInfo.isConnected) {
       try {
