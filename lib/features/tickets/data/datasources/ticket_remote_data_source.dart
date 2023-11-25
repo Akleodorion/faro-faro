@@ -32,11 +32,15 @@ abstract class TicketRemoteDataSource {
 }
 
 class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
+  TicketRemoteDataSourceImpl({required this.client});
+
+  final http.Client client;
+
   @override
   Future<TicketModel> createTicket({required TicketModel ticket}) async {
     final uri = Uri.parse(TICKETS_URL);
 
-    final response = await http.post(uri,
+    final response = await client.post(uri,
         headers: {"Content-Type": 'application/json'},
         body: json.encode(ticket.toJson()));
 
@@ -61,7 +65,7 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
     };
     final uri = Uri.parse(TICKETS_URL).replace(queryParameters: params);
     // faire la requête
-    final response = await http.get(uri);
+    final response = await client.get(uri);
     // retour model si tout boon
     if (response.statusCode >= 200 && response.statusCode < 300) {
       final List<Map<String, dynamic>> myDataMap = json.decode(response.body);
@@ -84,7 +88,7 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
       {required int ticketId, required int userId}) async {
     final uri = Uri.parse('$TICKETS_URL/$ticketId');
     // faire la requête
-    final response = await http.patch(uri, body: {"user_id": userId});
+    final response = await client.patch(uri, body: {"user_id": userId});
     // retour model si tout boon
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return TicketModel.fromJson(json.decode(response.body));
