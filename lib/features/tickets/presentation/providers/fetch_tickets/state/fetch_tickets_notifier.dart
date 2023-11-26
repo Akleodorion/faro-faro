@@ -4,13 +4,12 @@ import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tic
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FetchTicketsNotifier extends StateNotifier<FetchTicketsState> {
-  FetchTicketsNotifier({required this.usecase}) : super(Initial());
+  FetchTicketsNotifier({required this.usecase}) : super(Loading());
 
   final FetchUserTicketsUsecase usecase;
-  FetchTicketsState get initial => Initial();
+  FetchTicketsState get initial => Loading();
 
   Future<FetchTicketsState> fetchUserTickets({required int userId}) async {
-    state = Loading();
     final result = await usecase.execute(userId: userId);
     result.fold(
         (failure) => failure is ServerFailure

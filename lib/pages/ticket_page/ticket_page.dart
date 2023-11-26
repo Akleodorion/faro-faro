@@ -1,4 +1,5 @@
 import 'package:faro_clean_tdd/pages/ticket_page/widgets/my_event_list.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/widgets/my_ticket_list.dart';
 import 'package:flutter/material.dart';
 
 class TicketPage extends StatefulWidget {
@@ -69,9 +70,7 @@ class _TicketPageState extends State<TicketPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: isMyTicket
-                ? const Text("Vous n'avez pas encore de ticket !")
-                : const MyEventList(),
+            child: isMyTicket ? const MyTicketList() : const MyEventList(),
           )
         ],
       ),

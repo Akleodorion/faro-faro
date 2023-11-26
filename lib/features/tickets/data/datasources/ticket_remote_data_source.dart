@@ -6,7 +6,7 @@ import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:http/http.dart' as http;
 
-const TICKETS_URL = "http://localhost:3001/members";
+const TICKETS_URL = "http://localhost:3001/tickets";
 
 abstract class TicketRemoteDataSource {
   /// Crée un ticket pour un évènement donnée.
@@ -60,15 +60,15 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   @override
   Future<List<TicketModel>> fetchUserTickets({required int userId}) async {
     final List<TicketModel> myList = [];
-    final Map<String, int> params = {
-      "user_id": userId,
+    final Map<String, String> params = {
+      "user_id": userId.toString(),
     };
     final uri = Uri.parse(TICKETS_URL).replace(queryParameters: params);
     // faire la requête
     final response = await client.get(uri);
     // retour model si tout boon
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      final List<Map<String, dynamic>> myDataMap = json.decode(response.body);
+      final List<dynamic> myDataMap = json.decode(response.body);
 
       for (var map in myDataMap) {
         myList.add(TicketModel.fromJson(map));

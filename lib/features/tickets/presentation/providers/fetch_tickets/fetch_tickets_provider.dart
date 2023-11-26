@@ -12,7 +12,7 @@ final fetchTicketsProvider =
   return FetchTicketsNotifier(usecase: usecase);
 });
 
-final fetchUserTickets = Provider<List<Ticket>>((ref) {
+final userTicketsProvider = Provider<List<Ticket>>((ref) {
   final state = ref.watch(fetchTicketsProvider);
   return state is Loaded ? state.tickets : [];
 });
