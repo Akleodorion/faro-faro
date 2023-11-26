@@ -47,14 +47,18 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
-  Future<Either<Failure, Event>?> activateAnEvent(
-      {required Event event, required int userId}) {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<Failure, Event>?> updateAnEvent(
-      {required EventModel event, required File image}) {
-    throw UnimplementedError();
+      {required EventModel event, required File image}) async {
+    try {
+      if (await networkInfo.isConnected) {
+        final myEvent =
+            await remoteDatasource.updateAnEvent(event: event, image: image);
+        return Right(myEvent!);
+      } else {
+        return const Left(ServerFailure(errorMessage: 'No internet connexion'));
+      }
+    } on ServerException catch (error) {
+      return Left(ServerFailure(errorMessage: error.errorMessage));
+    }
   }
 }
