@@ -75,7 +75,7 @@ class EventShowPage extends ConsumerWidget {
                           SizedBox(
                             width: (mediaWidth * 0.6 - 20),
                             child: Text(
-                                "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address}",
+                                "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address.addressName}",
                                 style: Theme.of(context).textTheme.bodyMedium),
                           ),
                           SizedBox(
@@ -141,7 +141,11 @@ class EventShowPage extends ConsumerWidget {
                       ),
                       if (event.modelEco != ModelEco.gratuit)
                         const SizedBox(
-                          height: 10,
+                          height: 5,
+                        ),
+                      if (event.modelEco != ModelEco.gratuit)
+                        const Divider(
+                          thickness: 0.1,
                         ),
                       if (event.modelEco != ModelEco.gratuit)
                         Column(
@@ -156,22 +160,27 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket VIP : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF")
+                                    "Ticket Gold : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF")
                               ],
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  "Description : ${event.goldTicketDescription!}",
+                            Row(children: [
+                              SizedBox(
+                                width: mediaWidth - 40,
+                                child: Text(
+                                  "Description : ${event.goldTicketDescription}",
                                   textAlign: TextAlign.start,
                                 ),
-                              ],
-                            )
+                              ),
+                            ])
                           ],
                         ),
                       if (event.modelEco != ModelEco.gratuit)
                         const SizedBox(
-                          height: 10,
+                          height: 5,
+                        ),
+                      if (event.modelEco != ModelEco.gratuit)
+                        const Divider(
+                          thickness: 0.1,
                         ),
                       if (event.modelEco != ModelEco.gratuit)
                         Column(
@@ -186,14 +195,17 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket VVIP : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF")
+                                    "Ticket Platinum : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF")
                               ],
                             ),
                             Row(
                               children: [
-                                Text(
-                                  "Description : ${event.platinumTicketDescription}",
-                                  textAlign: TextAlign.start,
+                                SizedBox(
+                                  width: mediaWidth - 40,
+                                  child: Text(
+                                    "Description : ${event.platinumTicketDescription}",
+                                    textAlign: TextAlign.start,
+                                  ),
                                 ),
                               ],
                             )

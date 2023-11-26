@@ -19,17 +19,17 @@ final fetchEventProvider =
 });
 
 final allEventProvider = Provider<List<Event>>((ref) {
-  final eventState = ref.read(fetchEventProvider);
+  final eventState = ref.watch(fetchEventProvider);
   return eventState is Loaded ? eventState.allEvents : [];
 });
 
 final indexEventProvider = Provider<List<Event>>((ref) {
-  final eventState = ref.read(fetchEventProvider);
+  final eventState = ref.watch(fetchEventProvider);
   return eventState is Loaded ? eventState.indexEvent : [];
 });
 
 final randomEventsProvider = Provider<List<Event>>((ref) {
-  final List<Event> randomEvents = ref.read(allEventProvider);
+  final List<Event> randomEvents = ref.watch(allEventProvider);
   randomEvents.shuffle();
 
   if (randomEvents.length >= 20) {
@@ -42,7 +42,7 @@ final randomEventsProvider = Provider<List<Event>>((ref) {
 });
 
 final upcomingEventProvider = Provider<List<Event>>((ref) {
-  final events = ref.read(allEventProvider);
+  final events = ref.watch(allEventProvider);
   final List<Event> upcomingEvents = events;
   upcomingEvents.sort((event1, event2) => event1.date.compareTo(event2.date));
 
@@ -56,8 +56,8 @@ final upcomingEventProvider = Provider<List<Event>>((ref) {
 });
 
 final myEventProvider = Provider<List<Event>>((ref) {
-  final userId = ref.read(userInfoProvider)["user_id"];
-  final events = ref.read(allEventProvider);
+  final userId = ref.watch(userInfoProvider)["user_id"];
+  final events = ref.watch(allEventProvider);
 
   final myEvents = events.where((event) => event.userId == userId).toList();
   return myEvents;

@@ -5,5 +5,5 @@ const List<Category> CATEGORIES = [
   Category.concert,
   Category.culture,
   Category.loisir,
-  Category.sport
+  Category.sport,
 ];
