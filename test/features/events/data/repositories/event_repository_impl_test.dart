@@ -259,4 +259,106 @@ void main() {
       );
     });
   });
+
+  group('updateAnEvent', () {
+    const tTicket1 = Ticket(
+        id: 1,
+        type: Type.standard,
+        description: "description",
+        eventId: 1,
+        userId: 1,
+        verified: false);
+    const tTicket2 = Ticket(
+        id: 2,
+        type: Type.standard,
+        description: "description",
+        eventId: 1,
+        userId: 2,
+        verified: false);
+    const tTickets = [tTicket1, tTicket2];
+    const tMember1 = Member(id: 1, userId: 1, eventId: 1);
+    const tMember2 = Member(id: 2, userId: 2, eventId: 1);
+    const tMembers = [tMember1, tMember2];
+    final tEvent = EventModel(
+        name: "My test event",
+        eventId: 20,
+        description: "Short description for the test event !",
+        date: DateTime.now(),
+        address: const Address(
+            latitude: 10.5264,
+            longitude: 20.4585,
+            addressName: "addressName",
+            geocodeUrl: "geocodeUrl"),
+        category: Category.concert,
+        imageUrl: "flyers.jpg",
+        userId: 1,
+        modelEco: ModelEco.gratuit,
+        members: tMembers,
+        tickets: tTickets,
+        activated: false,
+        standardTicketPrice: 5000,
+        maxStandardTicket: 15,
+        standardTicketDescription: "Short ticket description for the test",
+        goldTicketPrice: 5000,
+        maxGoldTicket: 15,
+        goldTicketDescription: "Short ticket description for the test",
+        platinumTicketPrice: 5000,
+        maxPlatinumTicket: 15,
+        platinumTicketDescription: "Short ticket description for the test");
+
+    final tImage = File('flyers.jpg');
+    group('if there is an internet connexion', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected)
+            .thenAnswer((realInvocation) async => true);
+      });
+      test(
+        "should return a  valid EventModel if the request is successfull ",
+        () async {
+          //arrange
+          when(mockEventRemoteDatasource.updateAnEvent(
+                  event: anyNamed(('event')), image: tImage))
+              .thenAnswer((realInvocation) async => tEvent);
+          //act
+          final result = await eventRepositoryImpl.updateAnEvent(
+              event: tEvent, image: tImage);
+          //assert
+          expect(result, Right(tEvent));
+        },
+      );
+
+      test(
+        "should return a ServerFailure if the request is unsuccessfull ",
+        () async {
+          //arrange
+          when(mockEventRemoteDatasource.updateAnEvent(
+                  event: anyNamed(('event')), image: tImage))
+              .thenThrow(ServerException(errorMessage: 'oops'));
+          //act
+          final result = await eventRepositoryImpl.updateAnEvent(
+              event: tEvent, image: tImage);
+          //assert
+          expect(result, const Left(ServerFailure(errorMessage: 'oops')));
+        },
+      );
+    });
+
+    group('if there is no internet connexion', () {
+      test(
+        "should return a ServerFailure with the correct message",
+        () async {
+          //arrange
+          when(mockNetworkInfo.isConnected)
+              .thenAnswer((realInvocation) async => false);
+          //act
+          final result = await eventRepositoryImpl.updateAnEvent(
+              event: tEvent, image: tImage);
+          //assert
+          verify(mockNetworkInfo.isConnected).called(1);
+          expect(result,
+              const Left(ServerFailure(errorMessage: 'No internet connexion')));
+        },
+      );
+    });
+  });
 }
