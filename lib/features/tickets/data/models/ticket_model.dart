@@ -24,6 +24,7 @@ class TicketModel extends Ticket {
         description: json["description"],
         eventId: json["event_id"],
         userId: json["user_id"],
+        price: json["price"],
         verified: json["verified"]);
   }
 

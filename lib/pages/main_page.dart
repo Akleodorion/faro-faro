@@ -1,3 +1,5 @@
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page.dart';
 
@@ -24,7 +26,9 @@ class _MainPageState extends ConsumerState<MainPage> {
   void initState() {
     super.initState();
     ref.read(fetchEventProvider.notifier).fetchAllEvents();
+    int userId = ref.read(userInfoProvider)["user_id"];
     _currentIndex = 0;
+    ref.read(fetchTicketsProvider.notifier).fetchUserTickets(userId: userId);
   }
 
   void setEvent(bool value) {

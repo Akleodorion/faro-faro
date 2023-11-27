@@ -56,7 +56,7 @@ class _MapInputState extends ConsumerState<MapInput> {
                 if (state is Loaded) {
                   ref
                       .read(postEventProvider.notifier)
-                      .updateKey('address', state.address.addressName);
+                      .updateKey('address', state.address);
                   ref
                       .read(postEventProvider.notifier)
                       .updateKey('latitude', state.address.latitude);
