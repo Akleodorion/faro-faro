@@ -38,7 +38,7 @@ class NewEventPage extends ConsumerWidget {
         // Création du model
         final myEventModel = EventModel(
             name: postEventMap["name"],
-            eventId: postEventMap["event_id"],
+            eventId: postEventMap["event_id"] ?? 13485245,
             description: postEventMap["description"],
             date: postEventMap["date"],
             address: postEventMap["address"],
