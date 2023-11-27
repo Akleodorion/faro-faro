@@ -25,10 +25,15 @@ void main() {
     "getCurrentLocationAddress",
     () {
       const tAddressModel = AddressModel(
-          latitude: 52.45254,
-          longitude: 44.54456,
-          addressName: 'addressName',
-          geocodeUrl: 'geocodeUrlString');
+          latitude: 4.7,
+          longitude: -3.9,
+          geocodeUrl: 'https://maps.googleapis.com',
+          country: "Côte d'Ivoire",
+          countryCode: "CI",
+          locality: "Abidjan",
+          plusCode: "9359+HXR",
+          road: "Route d'Abatta",
+          sublocality: "Cocody");
       test(
         "should return a ServerFailure if the request is unsuccesfull",
         () async {
@@ -74,10 +79,15 @@ void main() {
       const tLatitude = 52.45254;
       const tLongitude = 44.45456;
       const tAddressModel = AddressModel(
-          latitude: 52.45254,
-          longitude: 44.54456,
-          addressName: 'addressName',
-          geocodeUrl: 'geocodeUrlString');
+          latitude: tLatitude,
+          longitude: tLongitude,
+          geocodeUrl: 'https://maps.googleapis.com',
+          country: "Côte d'Ivoire",
+          countryCode: "CI",
+          locality: "Abidjan",
+          plusCode: "9359+HXR",
+          road: "Route d'Abatta",
+          sublocality: "Cocody");
       test(
         "should return a ServerFailure if the request is unsuccesfull",
         () async {

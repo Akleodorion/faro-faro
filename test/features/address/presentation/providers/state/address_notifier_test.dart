@@ -35,10 +35,15 @@ void main() {
 
   group('getCurrentLocationAddress', () {
     const tAddress = Address(
-        latitude: 52.45456,
-        longitude: 44.54245,
-        addressName: 'addressName',
-        geocodeUrl: 'geocodeUrlString');
+        latitude: 4.7,
+        longitude: -3.9,
+        geocodeUrl: '',
+        country: "Côte d'Ivoire",
+        countryCode: "CI",
+        locality: "Abidjan",
+        plusCode: "9359+HXR",
+        road: "Route d'Abatta",
+        sublocality: "Cocody");
     test(
       "should call the usecase",
       () async {
@@ -87,8 +92,13 @@ void main() {
     const tAddress = Address(
         latitude: tLatitude,
         longitude: tLongitude,
-        addressName: 'addressName',
-        geocodeUrl: 'geocodeUrlString');
+        geocodeUrl: '',
+        country: "Côte d'Ivoire",
+        countryCode: "CI",
+        locality: "Abidjan",
+        plusCode: "9359+HXR",
+        road: "Route d'Abatta",
+        sublocality: "Cocody");
     test(
       "should call the usecase",
       () async {

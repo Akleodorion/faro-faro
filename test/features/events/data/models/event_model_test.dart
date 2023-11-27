@@ -32,11 +32,16 @@ void main() async {
   const Member tMember2 = Member(id: 1, userId: 1, eventId: 1);
   const List<Member> tMembers = [tMember1, tMember2];
   final Address address = Address(
-      latitude: 42.41454,
-      longitude: -127.5345,
-      addressName: "Lille",
+      latitude: 4.7,
+      longitude: -3.9,
       geocodeUrl:
-          "https://maps.googleapis.com/maps/api/staticmap?center=42.41454,-127.5345&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C42.41454,-127.5345&key=$apiKey");
+          'https://maps.googleapis.com/maps/api/staticmap?center=37.4224428,-122.0842467&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C37.4224428,-122.0842467&key=$apiKey',
+      country: "Côte d'Ivoire",
+      countryCode: "CI",
+      locality: "Abidjan",
+      plusCode: "9359+HXR",
+      road: "Route d'Abatta",
+      sublocality: "Cocody");
   final tEventModel = EventModel(
     name: 'Event 1',
     eventId: 25,

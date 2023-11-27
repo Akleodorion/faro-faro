@@ -32,11 +32,6 @@ class EventModel extends Event {
   factory EventModel.fromJson(Map<String, dynamic> json) {
     late Category category;
 
-    String getGeocoderUrl(
-        {required double latitude, required double longitude}) {
-      return "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$latitude,$longitude&key=${dotenv.env['API_KEY']}";
-    }
-
     final Map<String, Category> categoryMap = {
       "loisir": Category.loisir,
       "culture": Category.culture,
@@ -80,11 +75,17 @@ class EventModel extends Event {
         description: json["description"],
         date: DateTime.tryParse(json["date"])!,
         address: Address(
-            latitude: json["latitude"],
-            longitude: json["longitude"],
-            addressName: json["location"],
-            geocodeUrl: getGeocoderUrl(
-                latitude: json["latitude"], longitude: json["longitude"])),
+          latitude: json["latitude"],
+          longitude: json["longitude"],
+          geocodeUrl: getGeocoderUrl(
+              latitude: json["latitude"], longitude: json["longitude"]),
+          country: json["country"],
+          countryCode: json["countryCode"],
+          locality: json["locality"],
+          sublocality: json["sublocality"],
+          road: json["road"],
+          plusCode: json["plus_code"],
+        ),
         category: category,
         imageUrl: json["photo_url"],
         userId: json["user_id"],
@@ -132,9 +133,14 @@ class EventModel extends Event {
       'name': name,
       'description': description,
       'date': date.toIso8601String(),
-      'location': address.addressName,
       'latitude': address.latitude,
       'longitude': address.longitude,
+      'country': address.country,
+      'country_code': address.countryCode,
+      'locality': address.locality,
+      'sublocality': address.sublocality,
+      'road': address.road,
+      'plus_code': address.plusCode,
       'category': category.name,
       'photo_url': imageUrl,
       'user_id': userId,
@@ -162,10 +168,18 @@ class EventModel extends Event {
         description: postEventMap["description"],
         date: postEventMap["date"],
         address: Address(
-            latitude: postEventMap["latitude"],
-            longitude: postEventMap["longitude"],
-            addressName: postEventMap["address"],
-            geocodeUrl: postEventMap["geocodeUrl"]),
+          latitude: postEventMap["latitude"],
+          longitude: postEventMap["longitude"],
+          geocodeUrl: getGeocoderUrl(
+              latitude: postEventMap["latitude"],
+              longitude: postEventMap["longitude"]),
+          country: postEventMap["country"],
+          countryCode: postEventMap["countryCode"],
+          locality: postEventMap["locality"],
+          sublocality: postEventMap["sublocality"],
+          road: postEventMap["road"],
+          plusCode: postEventMap["plus_code"],
+        ),
         category: postEventMap["category"],
         imageUrl: '',
         userId: userId,
@@ -185,4 +199,8 @@ class EventModel extends Event {
 
     return myEventModel;
   }
+}
+
+String getGeocoderUrl({required double latitude, required double longitude}) {
+  return "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$latitude,$longitude&key=${dotenv.env['API_KEY']}";
 }
