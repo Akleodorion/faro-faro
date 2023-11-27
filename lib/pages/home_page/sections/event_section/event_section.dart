@@ -92,7 +92,7 @@ class EventSection extends ConsumerWidget {
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Text(
-                                "${event.formatedDate} - ${event.address.addressName}",
+                                "${event.formatedDate} - ${event.address.getFormattedAddress()}",
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               const SizedBox(

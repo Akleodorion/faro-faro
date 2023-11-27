@@ -21,10 +21,15 @@ void main() {
 
   group('getCurrentLocationAddress', () {
     const tAddress = Address(
-        latitude: 12.52,
-        longitude: 52.45,
-        addressName: 'Sesame Street',
-        geocodeUrl: 'geocodeUrlString');
+        latitude: 4.7,
+        longitude: -3.9,
+        geocodeUrl: "geocodeUrl",
+        country: "Côte d'Ivoire",
+        countryCode: "CI",
+        locality: "Abidjan",
+        plusCode: "9359+HXR",
+        road: "Route d'Abatta",
+        sublocality: "Cocody");
 
     test(
       "should return a valid Address model",

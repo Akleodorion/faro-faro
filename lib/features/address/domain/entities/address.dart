@@ -7,7 +7,7 @@ class Address extends Equatable {
     required this.geocodeUrl,
     required this.country,
     required this.countryCode,
-    required this.town,
+    this.locality,
     this.sublocality,
     this.road,
     this.plusCode,
@@ -15,7 +15,7 @@ class Address extends Equatable {
 
   final String country;
   final String countryCode;
-  final String town;
+  final String? locality;
   final String? sublocality;
   final String? road;
   final String? plusCode;
@@ -30,7 +30,7 @@ class Address extends Equatable {
         geocodeUrl,
         country,
         countryCode,
-        town,
+        locality,
         sublocality,
         road,
         plusCode
@@ -40,7 +40,7 @@ class Address extends Equatable {
     return [
       road,
       sublocality,
-      town,
+      locality,
       sublocality,
       country,
     ].where((part) => part != null).join(', ');

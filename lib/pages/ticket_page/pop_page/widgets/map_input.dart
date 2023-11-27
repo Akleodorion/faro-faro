@@ -83,9 +83,8 @@ class _MapInputState extends ConsumerState<MapInput> {
                         pickedLocation.latitude, pickedLocation.longitude);
 
                 if (state is Loaded) {
-                  ref
-                      .read(postEventProvider.notifier)
-                      .updateKey('address', state.address.addressName);
+                  ref.read(postEventProvider.notifier).updateKey(
+                      'address', state.address.getFormattedAddress());
                   ref
                       .read(postEventProvider.notifier)
                       .updateKey('latitude', state.address.latitude);
