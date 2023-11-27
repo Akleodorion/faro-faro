@@ -17,7 +17,20 @@ class EventSection extends ConsumerWidget {
     final randomEvents = ref.read(randomEventsProvider);
     final allEvents = ref.read(allEventProvider);
 
-    if (allEvents.length < 10) {
+    if (allEvents.isEmpty) {
+      content = const Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("We are sorry, no event currently available "),
+            SizedBox(
+              height: 10,
+            ),
+            Text("Try to add one !"),
+          ],
+        ),
+      );
+    } else if (allEvents.length < 10) {
       content = Padding(
         padding: const EdgeInsets.only(top: 16.0),
         child: Column(
