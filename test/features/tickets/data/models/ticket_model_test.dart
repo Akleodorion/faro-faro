@@ -13,6 +13,7 @@ void main() {
     description:
         "Libero placeat fugiat. Neque dolorum voluptates. Autem architecto illo.",
     eventId: 36,
+    price: 5000,
     userId: 2,
     verified: false,
   );

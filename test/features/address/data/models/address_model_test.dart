@@ -17,13 +17,13 @@ void main() async {
       latitude: 4.7,
       longitude: -3.9,
       geocodeUrl:
-          'https://maps.googleapis.com/maps/api/staticmap?center=37.4224428,-122.0842467&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C37.4224428,-122.0842467&key=$apiKey',
+          'https://maps.googleapis.com/maps/api/staticmap?center=4.7,-3.9&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C4.7,-3.9&key=$apiKey',
       country: "Côte d'Ivoire",
       countryCode: "CI",
       locality: "Abidjan",
-      plusCode: "9359+HXR",
+      plusCode: null,
       road: "Route d'Abatta",
-      sublocality: "Cocody");
+      sublocality: null);
   test(
     "should be a subclass of Address",
     () async {
@@ -55,9 +55,16 @@ void main() async {
         //act
         final result = tAddressModel.toJson();
         final tExpectedMap = {
-          'latitude': 37.4224428,
-          'longitude': -122.0842467,
-          'addressName': "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA"
+          "country": "Côte d'Ivoire",
+          "country_code": "CI",
+          "locality": "Abidjan",
+          "geocode_url":
+              'https://maps.googleapis.com/maps/api/staticmap?center=4.7,-3.9&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C4.7,-3.9&key=$apiKey',
+          "plus_code": null,
+          "road": "Route d'Abatta",
+          "sublocality": null,
+          'latitude': 4.7,
+          'longitude': -3.9,
         };
         //assert
         expect(result, equals(tExpectedMap));

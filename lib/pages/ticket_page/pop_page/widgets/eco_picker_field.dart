@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EcoPickerField extends ConsumerStatefulWidget {
-  const EcoPickerField({super.key});
-
+  const EcoPickerField({super.key, required this.setValue});
+  final void Function(ModelEco) setValue;
   @override
   ConsumerState<EcoPickerField> createState() => _EcoPickerFieldState();
 }
@@ -18,9 +18,7 @@ class _EcoPickerFieldState extends ConsumerState<EcoPickerField> {
     const double minHeight = 70.0;
     final double mediaWidth = MediaQuery.of(context).size.width;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      pickedValue = ref.read(postEventMapProvider)["modelEco"];
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
 
     return Container(
       decoration:
@@ -51,10 +49,13 @@ class _EcoPickerFieldState extends ConsumerState<EcoPickerField> {
             )
           ],
           onChanged: (value) {
-            ref.read(postEventProvider.notifier).updateKey('modelEco', value);
+            setState(() {
+              pickedValue = value!;
+            });
+            ref.read(postEventProvider.notifier).updateModelEco(value!);
           },
           onSaved: (value) {
-            ref.read(postEventProvider.notifier).updateKey('modelEco', value);
+            widget.setValue(value!);
           },
         ),
       ),

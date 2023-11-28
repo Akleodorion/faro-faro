@@ -10,14 +10,14 @@
           ]
         },
         {
-          "long_name": "Amphitheatre Parkway",
+          "long_name": "Route d'Abatta",
           "short_name": "Amphitheatre Pkwy",
           "types": [
             "route"
           ]
         },
         {
-          "long_name": "Mountain View",
+          "long_name": "Abidjan",
           "short_name": "Mountain View",
           "types": [
             "locality",
@@ -41,8 +41,8 @@
           ]
         },
         {
-          "long_name": "United States",
-          "short_name": "US",
+          "long_name": "Côte d'Ivoire",
+          "short_name": "CI",
           "types": [
             "country",
             "political"
@@ -59,8 +59,8 @@
       "formatted_address": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
       "geometry": {
         "location": {
-          "lat": 37.4224428,
-          "lng": -122.0842467
+          "lat": 4.7,
+          "lng": -3.9
         },
         "location_type": "ROOFTOP",
         "viewport": {

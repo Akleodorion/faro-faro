@@ -1,13 +1,16 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DescriptionTextFormField extends ConsumerStatefulWidget {
   const DescriptionTextFormField(
-      {super.key, required this.isTicket, required this.mapKey});
+      {super.key,
+      required this.isTicket,
+      required this.mapKey,
+      required this.setValue});
 
   final bool isTicket;
   final String mapKey;
+  final void Function(String? value) setValue;
 
   @override
   ConsumerState<DescriptionTextFormField> createState() =>
@@ -32,9 +35,6 @@ class _DescriptionTextFormFieldState
     _descriptionFocusNode.addListener(() {
       if (!_descriptionFocusNode.hasFocus) {
         // Le focus a été perdu
-        ref
-            .read(postEventProvider.notifier)
-            .updateKey(widget.mapKey, textEditingController.text);
       }
     });
   }
@@ -54,8 +54,6 @@ class _DescriptionTextFormFieldState
       maxHeight = 150;
     }
     final double mediaWidth = MediaQuery.of(context).size.width;
-
-    textEditingController.text = ref.read(postEventMapProvider)[widget.mapKey];
 
     return Container(
       width: (mediaWidth - 40),
@@ -96,16 +94,9 @@ class _DescriptionTextFormFieldState
             }
             return null;
           },
-          onEditingComplete: () {
-            ref
-                .read(postEventProvider.notifier)
-                .updateKey(widget.mapKey, textEditingController.text);
-            _descriptionFocusNode.unfocus();
-          },
           onSaved: (value) {
-            ref
-                .read(postEventProvider.notifier)
-                .updateKey(widget.mapKey, value);
+            textEditingController.text = value!;
+            widget.setValue(value);
           },
         ),
       ),

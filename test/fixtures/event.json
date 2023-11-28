@@ -3,7 +3,14 @@
   "name": "Event 1",
   "description": "short description",
   "date": "2023-09-06T10:46:37.232Z",
-  "location": "Lille",
+  "start_time": "18:00",
+  "end_time": "01:00",
+  "country": "France",
+  "country_code": "FR",
+  "locality": "Lille",
+  "sublocality": "Moulin",
+  "road": "Rue Henri Noguerres",
+  "plus_code": "59000",
   "latitude": 42.41454,
   "longitude": -127.5345,
   "category": "concert",
@@ -22,6 +29,7 @@
   "platinum_ticket_price": 15000,
   "photo_url": "imageUrl",
   "activated": false,
+  "closed": false,
   "tickets": [
     {
       "id": 1,

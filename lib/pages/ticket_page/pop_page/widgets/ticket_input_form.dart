@@ -1,4 +1,3 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/description_text_form_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/number_input_field.dart';
@@ -6,9 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TicketInputForm extends ConsumerStatefulWidget {
-  const TicketInputForm({super.key, required this.ticketType});
+  const TicketInputForm(
+      {super.key,
+      required this.ticketType,
+      required this.setTicketDescription,
+      required this.setTicketNumber,
+      required this.setTicketPrice});
 
   final String ticketType;
+
+  final void Function(String? value) setTicketDescription;
+  final void Function(int? value) setTicketNumber;
+  final void Function(int? value) setTicketPrice;
 
   @override
   ConsumerState<TicketInputForm> createState() => _TicketInputFormState();
@@ -21,7 +29,7 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
     final String quantityMapKey;
     final String priceMapKey;
 
-    bool isFree = true;
+    bool isFree = ref.watch(postEventModelEcoStatusProvider);
 
     if (widget.ticketType == "Standard") {
       descriptionMapKey = 'standardTicketDescription';
@@ -36,10 +44,6 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
       quantityMapKey = 'maxVvipTicket';
       priceMapKey = 'vvipTicketPrice';
     }
-
-    ref.read(postEventMapProvider)["modelEco"] == ModelEco.gratuit
-        ? isFree = true
-        : isFree = false;
 
     return Column(
       children: [
@@ -58,11 +62,7 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
               trailingText: "Nombre de ticket :",
               isQuantity: true,
               mapKey: quantityMapKey,
-              onSave: (value) {
-                setState(() {
-                  // maxStandardTicket = int.tryParse(value);
-                });
-              },
+              setValue: widget.setTicketNumber,
             ),
             const SizedBox(
               width: 15,
@@ -72,11 +72,7 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
                 trailingText: "Prix d'un ticket :",
                 isQuantity: false,
                 mapKey: priceMapKey,
-                onSave: (value) {
-                  setState(() {
-                    // standardTicketPrice = int.tryParse(value);
-                  });
-                },
+                setValue: widget.setTicketPrice,
               ),
           ],
         ),
@@ -86,6 +82,7 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
         DescriptionTextFormField(
           isTicket: true,
           mapKey: descriptionMapKey,
+          setValue: widget.setTicketDescription,
         ),
         const SizedBox(
           height: 20,

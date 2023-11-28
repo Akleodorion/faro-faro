@@ -7,6 +7,7 @@ import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_even
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/state/fetch_event_state.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -49,6 +50,8 @@ void main() {
     eventId: 1,
     description: 'short description',
     date: DateTime.now(),
+    startTime: const TimeOfDay(hour: 18, minute: 00),
+    endTime: const TimeOfDay(hour: 18, minute: 00),
     address: const Address(
         latitude: 4.7,
         longitude: -3.9,
@@ -66,6 +69,7 @@ void main() {
     members: tMembers,
     tickets: tTickets,
     activated: false,
+    closed: false,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",
@@ -82,6 +86,8 @@ void main() {
     eventId: 2,
     description: 'short description',
     date: DateTime.now(),
+    startTime: const TimeOfDay(hour: 18, minute: 00),
+    endTime: const TimeOfDay(hour: 18, minute: 00),
     address: const Address(
         latitude: 4.7,
         longitude: -3.9,
@@ -99,6 +105,7 @@ void main() {
     members: tMembers,
     tickets: const [],
     activated: false,
+    closed: false,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",

@@ -1,11 +1,10 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TitleTextFormField extends ConsumerStatefulWidget {
-  const TitleTextFormField({
-    super.key,
-  });
+  const TitleTextFormField({super.key, required this.setValue});
+
+  final void Function(String value) setValue;
 
   @override
   ConsumerState<TitleTextFormField> createState() => _TitleTextFormFieldState();
@@ -16,19 +15,6 @@ class _TitleTextFormFieldState extends ConsumerState<TitleTextFormField> {
 
   TextEditingController titleController = TextEditingController();
   final FocusNode _titleFocusNode = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    _titleFocusNode.addListener(() {
-      if (!_titleFocusNode.hasFocus) {
-        // Le focus a été perdu
-        ref
-            .read(postEventProvider.notifier)
-            .updateKey('name', titleController.text);
-      }
-    });
-  }
 
   @override
   void dispose() {
@@ -43,7 +29,6 @@ class _TitleTextFormFieldState extends ConsumerState<TitleTextFormField> {
   @override
   Widget build(BuildContext context) {
     final double mediaWidth = MediaQuery.of(context).size.width;
-    titleController.text = ref.read(postEventMapProvider)["name"];
 
     return Container(
       width: (mediaWidth - 40),
@@ -81,16 +66,9 @@ class _TitleTextFormFieldState extends ConsumerState<TitleTextFormField> {
             }
             return null;
           },
-
-          onEditingComplete: () {
-            final enteredTitle = titleController.text;
-            ref
-                .read(postEventProvider.notifier)
-                .updateKey('name', enteredTitle);
-            _titleFocusNode.unfocus();
-          },
           onSaved: (value) {
-            ref.read(postEventProvider.notifier).updateKey('name', value);
+            titleController.text = value!;
+            widget.setValue(value);
           },
         ),
       ),

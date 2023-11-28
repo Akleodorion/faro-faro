@@ -9,6 +9,7 @@ import 'package:faro_clean_tdd/features/events/presentation/providers/post_event
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,7 +31,7 @@ void main() {
     "initialState should be Loading",
     () async {
       //assert
-      expect(postEventNotifier.initialState, Initial(infoMap: const {}));
+      expect(postEventNotifier.initialState, Initial(isFree: false));
     },
   );
   const tMember1 = Member(id: 1, userId: 1, eventId: 1);
@@ -57,6 +58,8 @@ void main() {
       eventId: 1,
       description: 'short description',
       date: DateTime.now(),
+      startTime: const TimeOfDay(hour: 18, minute: 00),
+      endTime: const TimeOfDay(hour: 18, minute: 00),
       address: const Address(
           latitude: 4.7,
           longitude: -3.9,
@@ -74,6 +77,7 @@ void main() {
       members: tMembers,
       tickets: tTickets,
       activated: false,
+      closed: false,
       standardTicketPrice: 5000,
       maxStandardTicket: 50,
       standardTicketDescription: "Standard ticket simple description",
@@ -111,7 +115,7 @@ void main() {
         //act
         final expectedState = [
           Loading(),
-          Error(infoMap: const {}, message: "an error has occured")
+          Error(message: "an error has occured")
         ];
         expectLater(postEventNotifier.stream, emitsInOrder(expectedState));
         //assert

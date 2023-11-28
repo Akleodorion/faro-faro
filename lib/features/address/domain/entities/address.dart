@@ -36,13 +36,19 @@ class Address extends Equatable {
         plusCode
       ];
 
-  String getFormattedAddress() {
+  String getFullFormattedAddress() {
     return [
       road,
       sublocality,
       locality,
       sublocality,
       country,
-    ].where((part) => part != null).join(', ');
+    ].where((part) => part != null && part != "null").join(', ');
+  }
+
+  String getShortFormattedAddress() {
+    return [locality]
+        .where((part) => part != null && part != "null")
+        .join(', ');
   }
 }
