@@ -1,17 +1,17 @@
 import 'package:faro_clean_tdd/core/util/date_format_validator.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class DatePickerField extends ConsumerStatefulWidget {
-  const DatePickerField({super.key});
+class DatePickerField extends StatefulWidget {
+  const DatePickerField({super.key, required this.setValue});
+
+  final void Function(DateTime) setValue;
 
   @override
-  ConsumerState<DatePickerField> createState() => _DatePickerFieldState();
+  State<DatePickerField> createState() => _DatePickerFieldState();
 }
 
-class _DatePickerFieldState extends ConsumerState<DatePickerField> {
+class _DatePickerFieldState extends State<DatePickerField> {
   final TextEditingController _dateController = TextEditingController();
   bool hasError = false;
   double minHeight = 70.0;
@@ -27,10 +27,7 @@ class _DatePickerFieldState extends ConsumerState<DatePickerField> {
   Widget build(BuildContext context) {
     final double mediaWidth = MediaQuery.of(context).size.width;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _dateController.text = DateFormat('dd/MM/yyyy')
-          .format(ref.watch(postEventMapProvider)["date"]);
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
 
     // ignore: no_leading_underscores_for_local_identifiers
     Future<DateTime?> _selectDate(BuildContext context) async {
@@ -67,23 +64,17 @@ class _DatePickerFieldState extends ConsumerState<DatePickerField> {
             return hasError ? 'Date invalide' : null;
           },
           controller: _dateController,
-          onEditingComplete: () {
-            ref.read(postEventProvider.notifier).updateKey(
-                'date', DateFormat('dd/MM/yyyy').parse(_dateController.text));
-          },
           onTap: () async {
             final DateTime? selectedDate = await _selectDate(context);
-
             if (selectedDate != null) {
-              ref
-                  .read(postEventProvider.notifier)
-                  .updateKey('date', selectedDate);
+              setState(() {
+                _dateController.text =
+                    DateFormat('dd/MM/yyyy').format(selectedDate);
+              });
             }
           },
           onSaved: (value) {
-            ref
-                .read(postEventProvider.notifier)
-                .updateKey('date', DateFormat('dd/MM/yyyy').parse(value!));
+            widget.setValue(DateFormat('dd/MM/yyyy').parse(value!));
           },
         ),
       ),

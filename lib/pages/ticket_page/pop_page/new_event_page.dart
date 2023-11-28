@@ -1,5 +1,8 @@
+import 'package:faro_clean_tdd/features/address/presentation/providers/address_provider.dart';
+import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
+import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
 
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
@@ -26,6 +29,20 @@ class NewEventPage extends ConsumerWidget {
     final formKey = GlobalKey<FormState>();
     final state = ref.read(postEventProvider);
     Widget content;
+    late String enteredName;
+    late DateTime enteredDateTime;
+    late Category pickedCategory;
+    late ModelEco pickedModelEco;
+    late String? enteredDescription;
+    late int standardTicketNumber;
+    late String? standardTicketDescritpion;
+    int? standardTicketPrice;
+    String? goldTicketDescription;
+    int? goldTicketNumber;
+    int? goldTicketPrice;
+    String? platinumTicketDescription;
+    int? platinumTicketNumber;
+    int? platinumTicketPrice;
 
     void createNewEvent() async {
       if (formKey.currentState!.validate()) {
@@ -33,38 +50,40 @@ class NewEventPage extends ConsumerWidget {
 
         // récupération des infos utilisateurs & de l'event en cours de création
         final userId = ref.read(userInfoProvider)["user_id"];
-        final postEventMap = ref.read(postEventMapProvider);
+        final pickedAddress = ref.read(pickedAddressProvider);
+        final pickedImage = ref.read(pickedImagedProvider);
 
         // Création du model
         final myEventModel = EventModel(
-            name: postEventMap["name"],
-            eventId: postEventMap["event_id"] ?? 13485245,
-            description: postEventMap["description"],
-            date: postEventMap["date"],
-            address: postEventMap["address"],
-            category: postEventMap["category"],
-            imageUrl: postEventMap["image_url"],
+            name: enteredName,
+            eventId: 13485245,
+            description: enteredDescription ?? '',
+            date: enteredDateTime,
+            startTime: const TimeOfDay(hour: 00, minute: 00),
+            endTime: const TimeOfDay(hour: 02, minute: 00),
+            address: pickedAddress!,
+            category: pickedCategory,
+            imageUrl: "",
             userId: userId,
-            modelEco: postEventMap["model_eco"],
+            modelEco: pickedModelEco,
             members: const [],
             tickets: const [],
             activated: false,
-            standardTicketPrice: postEventMap["standard_ticket_price"],
-            maxStandardTicket: postEventMap["max_standard_ticket"],
-            standardTicketDescription:
-                postEventMap["standard_ticket_description"],
-            goldTicketPrice: postEventMap["vip_ticket_price"],
-            maxGoldTicket: postEventMap["max_vip_ticket"],
-            goldTicketDescription: postEventMap["vip_ticket_description"],
-            platinumTicketPrice: postEventMap["vvip_ticket_price"],
-            maxPlatinumTicket: postEventMap["max_vvip_ticket"],
-            platinumTicketDescription: postEventMap["vvip_ticket_description"]);
+            closed: false,
+            standardTicketPrice: standardTicketPrice,
+            maxStandardTicket: standardTicketNumber,
+            standardTicketDescription: standardTicketDescritpion ?? '',
+            goldTicketPrice: goldTicketPrice,
+            maxGoldTicket: goldTicketNumber,
+            goldTicketDescription: goldTicketDescription,
+            platinumTicketPrice: platinumTicketPrice,
+            maxPlatinumTicket: platinumTicketNumber,
+            platinumTicketDescription: platinumTicketDescription);
 
         // Usecase
-        final state = await ref.read(postEventProvider.notifier).postAnEvent(
-              event: myEventModel,
-              image: postEventMap["imageFile"],
-            );
+        final state = await ref
+            .read(postEventProvider.notifier)
+            .postAnEvent(event: myEventModel, image: pickedImage!.image);
 
         // Si une erreur alors snackbar
         if (state is Error) {
@@ -79,7 +98,6 @@ class NewEventPage extends ConsumerWidget {
               ),
             ));
           });
-          ref.read(postEventProvider.notifier).reset(state.infoMap);
         }
 
         // Si tout bon alors pop
@@ -107,26 +125,36 @@ class NewEventPage extends ConsumerWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  const TitleTextFormField(),
+                  TitleTextFormField(setValue: (value) {
+                    enteredName = value;
+                  }),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      DatePickerField(),
-                      CategoryPickerField(),
-                      EcoPickerField()
+                      DatePickerField(setValue: (value) {
+                        enteredDateTime = value;
+                      }),
+                      CategoryPickerField(setValue: (value) {
+                        pickedCategory = value;
+                      }),
+                      EcoPickerField(setValue: (value) {
+                        pickedModelEco = value;
+                      })
                     ],
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const DescriptionTextFormField(
-                    key: ValueKey('hi'),
-                    isTicket: false,
-                    mapKey: "description",
-                  ),
+                  DescriptionTextFormField(
+                      key: const ValueKey('hi'),
+                      isTicket: false,
+                      mapKey: "description",
+                      setValue: (value) {
+                        enteredDescription = value;
+                      }),
                   const SizedBox(
                     height: 20,
                   ),
@@ -138,7 +166,25 @@ class NewEventPage extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const TicketColumn(),
+                  TicketColumn(setStandardTicketDescription: (value) {
+                    standardTicketDescritpion = value;
+                  }, setStandardTicketNumber: (value) {
+                    standardTicketNumber = value!;
+                  }, setStandardTicketPrice: (value) {
+                    standardTicketPrice = value;
+                  }, setGoldTicketDescription: (value) {
+                    goldTicketDescription = value;
+                  }, setGoldTicketNumber: (value) {
+                    goldTicketNumber = value;
+                  }, setGoldTicketPrice: (value) {
+                    goldTicketPrice = value;
+                  }, setPlatinumTicketDescription: (value) {
+                    platinumTicketDescription = value;
+                  }, setPlatinumTicketNumber: (value) {
+                    platinumTicketNumber = value;
+                  }, setPlatinumTicketPrice: (value) {
+                    platinumTicketPrice = value;
+                  }),
                   const SizedBox(
                     height: 20,
                   ),

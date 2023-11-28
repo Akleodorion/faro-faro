@@ -3,31 +3,56 @@ import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/ticket_input_f
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../features/events/domain/entities/event.dart';
-
 class TicketColumn extends ConsumerWidget {
-  const TicketColumn({super.key});
+  const TicketColumn(
+      {super.key,
+      required this.setStandardTicketDescription,
+      required this.setStandardTicketNumber,
+      required this.setStandardTicketPrice,
+      required this.setGoldTicketDescription,
+      required this.setGoldTicketNumber,
+      required this.setGoldTicketPrice,
+      required this.setPlatinumTicketDescription,
+      required this.setPlatinumTicketNumber,
+      required this.setPlatinumTicketPrice});
+
+  final void Function(String? value) setStandardTicketDescription;
+  final void Function(int? value) setStandardTicketNumber;
+  final void Function(int? value) setStandardTicketPrice;
+
+  final void Function(String? value) setGoldTicketDescription;
+  final void Function(int? value) setGoldTicketNumber;
+  final void Function(int? value) setGoldTicketPrice;
+
+  final void Function(String? value) setPlatinumTicketDescription;
+  final void Function(int? value) setPlatinumTicketNumber;
+  final void Function(int? value) setPlatinumTicketPrice;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool isFree = false;
-
-    ref.watch(postEventMapProvider)["modelEco"] == ModelEco.gratuit
-        ? isFree = true
-        : isFree = false;
+    bool isFree = ref.watch(postEventModelEcoStatusProvider);
 
     return Column(
       children: [
-        const TicketInputForm(
+        TicketInputForm(
           ticketType: "Standard",
+          setTicketDescription: setStandardTicketDescription,
+          setTicketNumber: setStandardTicketNumber,
+          setTicketPrice: setStandardTicketPrice,
         ),
         if (!isFree)
-          const TicketInputForm(
+          TicketInputForm(
             ticketType: "Vip",
+            setTicketDescription: setGoldTicketDescription,
+            setTicketNumber: setGoldTicketNumber,
+            setTicketPrice: setGoldTicketPrice,
           ),
         if (!isFree)
-          const TicketInputForm(
+          TicketInputForm(
             ticketType: "Vvip",
+            setTicketDescription: setPlatinumTicketDescription,
+            setTicketNumber: setPlatinumTicketNumber,
+            setTicketPrice: setPlatinumTicketPrice,
           ),
       ],
     );

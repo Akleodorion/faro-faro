@@ -7,16 +7,9 @@ abstract class PostEventState extends Equatable {
 }
 
 class Initial extends PostEventState {
-  Initial({required this.infoMap});
-  final Map<String, dynamic> infoMap;
+  Initial({required this.isFree});
 
-  Initial copyWith(
-      {Map<String, dynamic>? infoMap /*, autres propriétés ici...*/}) {
-    return Initial(
-      infoMap: infoMap ?? this.infoMap,
-      // Copiez d'autres propriétés ici...
-    );
-  }
+  final bool isFree;
 }
 
 class Loading extends PostEventState {}
@@ -33,12 +26,10 @@ class Loaded extends PostEventState {
 class Error extends PostEventState {
   Error({
     required this.message,
-    required this.infoMap,
   });
 
   // List of events
 
   // Message
   final String message;
-  final Map<String, dynamic> infoMap;
 }

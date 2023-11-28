@@ -26,7 +26,7 @@ void main() {
     () async {
       //act
       //assert
-      expect(sut.initial, Initial());
+      expect(sut.initial, Loading());
     },
   );
 
@@ -42,13 +42,13 @@ void main() {
     );
     const tTickets = [tTicket];
     test(
-      "should emit in order [Loading,Loaded] if the call is a success",
+      "should emit in order [Loaded] if the call is a success",
       () async {
         //arrange
         when(mockFetchUserTicketsUsecase.execute(userId: anyNamed('userId')))
             .thenAnswer((realInvocation) async => const Right(tTickets));
         //act
-        final expectedResult = [Loading(), Loaded(tickets: tTickets)];
+        final expectedResult = [Loaded(tickets: tTickets)];
         expectLater(sut.stream, emitsInOrder(expectedResult));
         //assert
         sut.fetchUserTickets(userId: tUserId);
@@ -56,14 +56,14 @@ void main() {
     );
 
     test(
-      "should emit in order [Loading,Loaded] if the call is a success",
+      "should emit in order [Error] if the call is a success",
       () async {
         //arrange
         when(mockFetchUserTicketsUsecase.execute(userId: anyNamed('userId')))
             .thenAnswer((realInvocation) async =>
                 const Left(ServerFailure(errorMessage: 'oops')));
         //act
-        final expectedResult = [Loading(), Error(message: 'oops')];
+        final expectedResult = [Error(message: 'oops')];
         expectLater(sut.stream, emitsInOrder(expectedResult));
         //assert
         sut.fetchUserTickets(userId: tUserId);

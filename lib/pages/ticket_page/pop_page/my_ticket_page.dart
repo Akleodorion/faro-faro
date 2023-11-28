@@ -26,7 +26,7 @@ class MyTicketPage extends StatelessWidget {
             ],
           ),
         ),
-        child: Center(
+        child: const Center(
           child: Text("hi"),
         ),
       ),

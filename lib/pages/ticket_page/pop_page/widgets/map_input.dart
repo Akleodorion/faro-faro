@@ -1,5 +1,4 @@
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -50,20 +49,9 @@ class _MapInputState extends ConsumerState<MapInput> {
           children: [
             ElevatedButton.icon(
               onPressed: () async {
-                final state = await ref
+                await ref
                     .read(addressProvider.notifier)
                     .getCurrentLocationAddress();
-                if (state is Loaded) {
-                  ref
-                      .read(postEventProvider.notifier)
-                      .updateKey('address', state.address);
-                  ref
-                      .read(postEventProvider.notifier)
-                      .updateKey('latitude', state.address.latitude);
-                  ref
-                      .read(postEventProvider.notifier)
-                      .updateKey('longitude', state.address.longitude);
-                }
               },
               icon: const Icon(Icons.pin_drop),
               label: const Text("Current position"),
@@ -77,21 +65,10 @@ class _MapInputState extends ConsumerState<MapInput> {
                 if (pickedLocation == null) {
                   return;
                 }
-                final state = await ref
+                await ref
                     .read(addressProvider.notifier)
                     .getSelectedLociationAddress(
                         pickedLocation.latitude, pickedLocation.longitude);
-
-                if (state is Loaded) {
-                  ref.read(postEventProvider.notifier).updateKey(
-                      'address', state.address.getFormattedAddress());
-                  ref
-                      .read(postEventProvider.notifier)
-                      .updateKey('latitude', state.address.latitude);
-                  ref
-                      .read(postEventProvider.notifier)
-                      .updateKey('longitude', state.address.longitude);
-                }
               },
               icon: const Icon(Icons.map),
               label: const Text("Select on map"),

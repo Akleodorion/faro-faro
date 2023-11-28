@@ -13,10 +13,11 @@ final postEventProvider =
   );
 });
 
-final postEventMapProvider = Provider<Map<String, dynamic>>((ref) {
+final postEventModelEcoStatusProvider = Provider<bool>((ref) {
   final state = ref.watch(postEventProvider);
+
   if (state is Initial) {
-    return state.infoMap;
+    return state.isFree;
   }
-  return {};
+  return false;
 });

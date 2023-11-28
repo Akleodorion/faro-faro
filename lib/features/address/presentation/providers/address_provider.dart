@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_notifier.dart';
@@ -14,4 +15,12 @@ final addressProvider =
   return AddressNotifier(
       getCurrentLocationAddressUsecase: getCurrentLocationAddress,
       getSelectedLocationAddressUsecase: getSelectedLocationAddress);
+});
+
+final pickedAddressProvider = Provider<Address?>((ref) {
+  final state = ref.read(addressProvider);
+  if (state is Loaded) {
+    return state.address;
+  }
+  return null;
 });

@@ -8,90 +8,25 @@ import 'package:faro_clean_tdd/features/events/presentation/providers/post_event
 import '../../../../data/models/event_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: non_constant_identifier_names
-final INIT = {
-  'address': '',
-  'category': Category.concert,
-  'date': DateTime.now(),
-  'description': '',
-  'imageFile': File(''),
-  'latitude': 0.0,
-  'longitude': 0.0,
-  'maxStandardTicket': 0,
-  'maxVipTicket': 0,
-  'maxVvipTicket': 0,
-  'modelEco': ModelEco.gratuit,
-  'name': '',
-  'standardTicketDescription': '',
-  'standardTicketPrice': 0,
-  'vipTicketDescription': '',
-  'vipTicketPrice': 0,
-  'vvipTicketDescription': '',
-  'vvipTicketPrice': 0,
-};
-
 class PostEventNotifier extends StateNotifier<PostEventState> {
   final PostAnEvent postAnEventUsecase;
 
-  PostEventState get initialState => Initial(infoMap: {
-        'address': '',
-        'category': Category.concert,
-        'date': DateTime.now(),
-        'description': '',
-        'imageFile': File(''),
-        'latitude': 0.0,
-        'longitude': 0.0,
-        'maxStandardTicket': 0,
-        'maxVipTicket': 0,
-        'maxVvipTicket': 0,
-        'modelEco': ModelEco.gratuit,
-        'name': '',
-        'standardTicketDescription': '',
-        'standardTicketPrice': 0,
-        'vipTicketDescription': '',
-        'vipTicketPrice': 0,
-        'vvipTicketDescription': '',
-        'vvipTicketPrice': 0,
-      });
+  PostEventState get initialState => Initial(isFree: false);
 
   // initialisation
   PostEventNotifier({
     required this.postAnEventUsecase,
-  }) : super(Initial(infoMap: {
-          'address': '',
-          'category': Category.concert,
-          'date': DateTime.now(),
-          'description': '',
-          'imageFile': File(''),
-          'latitude': 0.0,
-          'longitude': 0.0,
-          'maxStandardTicket': 0,
-          'maxVipTicket': 0,
-          'maxVvipTicket': 0,
-          'modelEco': ModelEco.gratuit,
-          'name': '',
-          'standardTicketDescription': '',
-          'standardTicketPrice': 0,
-          'vipTicketDescription': '',
-          'vipTicketPrice': 0,
-          'vvipTicketDescription': '',
-          'vvipTicketPrice': 0,
-        }));
+  }) : super(Initial(isFree: false));
 
   // Usecases
   Future<PostEventState?> postAnEvent(
       {required EventModel event, required File image}) async {
-    Map<String, dynamic> map = {};
-    final postEventState = state;
-    if (postEventState is Initial) {
-      map = Map.from(postEventState.infoMap);
-    }
     state = Loading();
     final response =
         await postAnEventUsecase.execute(event: event, image: image);
     response!.fold((failure) {
       if (failure is ServerFailure) {
-        state = Error(message: failure.errorMessage, infoMap: map);
+        state = Error(message: failure.errorMessage);
       }
     }, (event) {
       state = Loaded(event: event);
@@ -99,18 +34,13 @@ class PostEventNotifier extends StateNotifier<PostEventState> {
     return state;
   }
 
-  // Méthodes
-
-  void updateKey(String key, dynamic value) {
+  void updateModelEco(ModelEco modelEco) {
     if (state is Initial) {
-      final currentState = state as Initial;
-      final updatedMap = Map<String, dynamic>.from(currentState.infoMap);
-      updatedMap[key] = value;
-      state = currentState.copyWith(infoMap: updatedMap);
+      state = Initial(isFree: modelEco == ModelEco.gratuit ? true : false);
     }
   }
 
   void reset(Map<String, dynamic>? map) {
-    state = Initial(infoMap: map ?? INIT);
+    state = Initial(isFree: false);
   }
 }

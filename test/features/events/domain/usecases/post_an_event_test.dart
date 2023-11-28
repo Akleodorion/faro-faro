@@ -9,6 +9,7 @@ import 'package:faro_clean_tdd/features/events/domain/repositories/event_reposit
 import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -49,6 +50,8 @@ void main() {
       eventId: 20,
       description: "Short description for the test event !",
       date: DateTime.now(),
+      startTime: const TimeOfDay(hour: 18, minute: 00),
+      endTime: const TimeOfDay(hour: 18, minute: 00),
       address: const Address(
           latitude: 4.7,
           longitude: -3.9,
@@ -66,6 +69,7 @@ void main() {
       members: tMembers,
       tickets: tTickets,
       activated: false,
+      closed: false,
       standardTicketPrice: 5000,
       maxStandardTicket: 15,
       standardTicketDescription: "Short ticket description for the test",

@@ -3,11 +3,9 @@ import 'package:faro_clean_tdd/internal_features/category_filter/data_source.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../features/events/presentation/providers/post_event/post_event_provider.dart';
-
 class CategoryPickerField extends ConsumerStatefulWidget {
-  const CategoryPickerField({super.key});
-
+  const CategoryPickerField({super.key, required this.setValue});
+  final void Function(Category) setValue;
   @override
   ConsumerState<CategoryPickerField> createState() =>
       _CategoryPickerFieldState();
@@ -20,7 +18,6 @@ class _CategoryPickerFieldState extends ConsumerState<CategoryPickerField> {
   @override
   Widget build(BuildContext context) {
     final double mediaWidth = MediaQuery.of(context).size.width;
-    pickedValue = ref.read(postEventMapProvider)["category"];
 
     return Container(
       decoration:
@@ -45,11 +42,9 @@ class _CategoryPickerFieldState extends ConsumerState<CategoryPickerField> {
                 ),
               )
           ],
-          onChanged: (value) {
-            ref.read(postEventProvider.notifier).updateKey('category', value);
-          },
+          onChanged: (value) {},
           onSaved: (value) {
-            ref.read(postEventProvider.notifier).updateKey('category', value);
+            widget.setValue(value!);
           },
         ),
       ),

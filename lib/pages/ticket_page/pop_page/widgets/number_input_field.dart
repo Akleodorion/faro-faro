@@ -1,4 +1,3 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,13 +6,13 @@ class NumberInputField extends ConsumerStatefulWidget {
       {super.key,
       required this.trailingText,
       required this.isQuantity,
-      required this.onSave,
-      required this.mapKey});
+      required this.mapKey,
+      required this.setValue});
 
   final String trailingText;
   final bool isQuantity;
   final String mapKey;
-  final void Function(String value) onSave;
+  final void Function(int value) setValue;
 
   @override
   ConsumerState<NumberInputField> createState() => _NumberInputFieldState();
@@ -28,13 +27,7 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
   @override
   void initState() {
     super.initState();
-    inputFocusNode.addListener(() {
-      if (!inputFocusNode.hasFocus) {
-        // Le focus a été perdu
-        ref.read(postEventProvider.notifier).updateKey(
-            widget.mapKey, int.tryParse(textEditingController.text) ?? 0);
-      }
-    });
+    textEditingController.text = '0';
   }
 
   @override
@@ -47,13 +40,6 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
   @override
   Widget build(BuildContext context) {
     final double maxWidth = MediaQuery.of(context).size.width;
-    int quantity;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      textEditingController.text =
-          ref.watch(postEventMapProvider)[widget.mapKey].toString();
-    });
-    quantity = ref.watch(postEventMapProvider)[widget.mapKey];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,18 +65,20 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
                 child: IconButton(
                   onPressed: () {
                     final int calculus =
-                        quantity - (widget.isQuantity == true ? 1 : 1000);
+                        int.tryParse(textEditingController.text)! -
+                            (widget.isQuantity == true ? 1 : 1000);
                     if (calculus < 0) {
-                      ref
-                          .read(postEventProvider.notifier)
-                          .updateKey(widget.mapKey, 0);
+                      setState(() {
+                        textEditingController.text = '0';
+                      });
                     } else {
-                      quantity =
-                          quantity - (widget.isQuantity == true ? 1 : 1000);
+                      final quantity =
+                          int.tryParse(textEditingController.text)! -
+                              (widget.isQuantity == true ? 1 : 1000);
 
-                      ref
-                          .read(postEventProvider.notifier)
-                          .updateKey(widget.mapKey, quantity);
+                      setState(() {
+                        textEditingController.text = quantity.toString();
+                      });
                     }
                   },
                   icon: const Icon(Icons.remove),
@@ -107,20 +95,6 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
                   style: const TextStyle(fontSize: 20),
                   decoration: const InputDecoration(),
                   textAlign: TextAlign.center,
-                  onEditingComplete: () {
-                    final int? intValue =
-                        int.tryParse(textEditingController.text);
-                    if (intValue != null && intValue >= 0) {
-                      ref
-                          .read(postEventProvider.notifier)
-                          .updateKey(widget.mapKey, intValue);
-                    } else if (intValue == null) {
-                      ref
-                          .read(postEventProvider.notifier)
-                          .updateKey(widget.mapKey, 0);
-                    }
-                    inputFocusNode.unfocus();
-                  },
                   validator: (value) {
                     setState(() {
                       hasError = false;
@@ -138,27 +112,26 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
                     }
                   },
                   onSaved: (value) {
-                    ref
-                        .read(postEventProvider.notifier)
-                        .updateKey(widget.mapKey, int.tryParse(value!));
+                    widget.setValue(int.tryParse(value!)!);
                   },
                 ),
               ),
               IconButton(
                 onPressed: () {
                   final int calculus =
-                      quantity + (widget.isQuantity == true ? 1 : 1000);
+                      int.tryParse(textEditingController.text)! +
+                          (widget.isQuantity == true ? 1 : 1000);
                   if (calculus < 0) {
-                    ref
-                        .read(postEventProvider.notifier)
-                        .updateKey(widget.mapKey, 0);
+                    setState(() {
+                      textEditingController.text = '0';
+                    });
                   } else {
-                    quantity =
-                        quantity + (widget.isQuantity == true ? 1 : 1000);
+                    final quantity = int.tryParse(textEditingController.text)! +
+                        (widget.isQuantity == true ? 1 : 1000);
 
-                    ref
-                        .read(postEventProvider.notifier)
-                        .updateKey(widget.mapKey, quantity);
+                    setState(() {
+                      textEditingController.text = quantity.toString();
+                    });
                   }
                 },
                 icon: const Icon(Icons.add),

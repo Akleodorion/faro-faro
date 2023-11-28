@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 var formated = DateFormat.yMMMd('fr');
@@ -23,6 +24,8 @@ class Event extends Equatable {
   final String name;
   final String description;
   final DateTime date;
+  final TimeOfDay startTime;
+  final TimeOfDay endTime;
   final Address address;
   final Category category;
   final String imageUrl;
@@ -32,6 +35,7 @@ class Event extends Equatable {
   final List<Member> members;
   final List<Ticket> tickets;
   final bool activated;
+  final bool closed;
   final int? standardTicketPrice;
   final int maxStandardTicket;
   final String standardTicketDescription;
@@ -47,6 +51,8 @@ class Event extends Equatable {
       required this.eventId,
       required this.description,
       required this.date,
+      required this.startTime,
+      required this.endTime,
       required this.address,
       required this.category,
       required this.imageUrl,
@@ -55,6 +61,7 @@ class Event extends Equatable {
       required this.members,
       required this.tickets,
       required this.activated,
+      required this.closed,
       this.standardTicketPrice,
       required this.maxStandardTicket,
       required this.standardTicketDescription,
@@ -74,6 +81,8 @@ class Event extends Equatable {
         name,
         description,
         date,
+        startTime,
+        endTime,
         address,
         category,
         imageUrl,

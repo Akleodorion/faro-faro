@@ -5,6 +5,7 @@ import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -32,21 +33,23 @@ void main() async {
   const Member tMember2 = Member(id: 1, userId: 1, eventId: 1);
   const List<Member> tMembers = [tMember1, tMember2];
   final Address address = Address(
-      latitude: 4.7,
-      longitude: -3.9,
+      latitude: 42.41454,
+      longitude: -127.5345,
       geocodeUrl:
-          'https://maps.googleapis.com/maps/api/staticmap?center=37.4224428,-122.0842467&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C37.4224428,-122.0842467&key=$apiKey',
-      country: "Côte d'Ivoire",
-      countryCode: "CI",
-      locality: "Abidjan",
-      plusCode: "9359+HXR",
-      road: "Route d'Abatta",
-      sublocality: "Cocody");
+          'https://maps.googleapis.com/maps/api/staticmap?center=42.41454,-127.5345&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C42.41454,-127.5345&key=$apiKey',
+      country: "France",
+      countryCode: "FR",
+      locality: "Lille",
+      plusCode: "59000",
+      road: "Rue Henri Noguerres",
+      sublocality: "Moulin");
   final tEventModel = EventModel(
     name: 'Event 1',
     eventId: 25,
     description: 'short description',
     date: DateTime.tryParse("2023-09-06T10:46:37.232Z")!,
+    startTime: const TimeOfDay(hour: 18, minute: 00),
+    endTime: const TimeOfDay(hour: 01, minute: 00),
     address: address,
     category: Category.concert,
     imageUrl: 'imageUrl',
@@ -55,6 +58,7 @@ void main() async {
     members: tMembers,
     tickets: tTickets,
     activated: false,
+    closed: false,
     standardTicketPrice: 5000,
     maxStandardTicket: 50,
     standardTicketDescription: "Standard ticket simple description",
@@ -101,13 +105,22 @@ void main() async {
           'name': 'Event 1',
           'description': 'short description',
           'date': "2023-09-06T10:46:37.232Z",
-          'location': 'Lille',
+          'start_time': '18:00',
+          'end_time': '01:00',
+          'country': 'France',
+          'country_code': 'FR',
+          'locality': 'Lille',
+          'sublocality': 'Moulin',
+          'road': 'Rue Henri Noguerres',
+          'plus_code': '59000',
           'latitude': 42.41454,
           'longitude': -127.5345,
           'category': 'concert',
           'photo_url': 'imageUrl',
           'user_id': 20,
           'free': false,
+          'activated': false,
+          'closed': false,
           "id": 25,
           "members": [
             {"id": 1, "event_id": 1, "user_id": 1},

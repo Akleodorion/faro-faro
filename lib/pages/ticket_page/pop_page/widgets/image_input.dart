@@ -1,4 +1,3 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_state.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,7 @@ class ImageInput extends ConsumerStatefulWidget {
 class _ImageInputState extends ConsumerState<ImageInput> {
   @override
   Widget build(BuildContext context) {
-    final pickedImageState = ref.watch(pickedImageProvider);
+    final pickedImageState = ref.watch(imageProvider);
     late Widget content;
 
     if (pickedImageState is Initial) {
@@ -26,15 +25,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
         icon: const Icon(Icons.camera),
         label: const Text('Add a picture'),
         onPressed: () async {
-          final result = await ref
-              .read(pickedImageProvider.notifier)
-              .pickImageFromGalery();
-
-          if (result is Loaded) {
-            ref
-                .read(postEventProvider.notifier)
-                .updateKey('imageFile', result.pickedImage.image);
-          }
+          await ref.read(imageProvider.notifier).pickImageFromGalery();
         },
       );
     }
@@ -62,14 +53,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       alignment: Alignment.center,
       child: InkWell(
           onTap: () async {
-            final result = await ref
-                .read(pickedImageProvider.notifier)
-                .pickImageFromGalery();
-            if (result is Loaded) {
-              ref
-                  .read(postEventProvider.notifier)
-                  .updateKey('imageFile', result.pickedImage.image);
-            }
+            await ref.read(imageProvider.notifier).pickImageFromGalery();
           },
           child: content),
     );

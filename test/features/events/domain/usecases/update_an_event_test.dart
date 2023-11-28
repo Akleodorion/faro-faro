@@ -7,6 +7,7 @@ import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/update_an_event.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -32,6 +33,8 @@ void main() {
           eventId: 1,
           description: "description",
           date: DateTime.now(),
+          startTime: const TimeOfDay(hour: 18, minute: 00),
+          endTime: const TimeOfDay(hour: 18, minute: 00),
           address: const Address(
               latitude: 4.7,
               longitude: -3.9,
@@ -49,6 +52,7 @@ void main() {
           members: const [],
           tickets: const [],
           activated: false,
+          closed: false,
           maxStandardTicket: 20,
           standardTicketDescription: "standardTicketDescription");
       test(

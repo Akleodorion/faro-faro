@@ -1,6 +1,8 @@
+import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../domain/entities/event.dart';
@@ -11,6 +13,8 @@ class EventModel extends Event {
       required super.eventId,
       required super.description,
       required super.date,
+      required super.startTime,
+      required super.endTime,
       required super.address,
       required super.category,
       required super.imageUrl,
@@ -27,6 +31,7 @@ class EventModel extends Event {
       super.platinumTicketPrice,
       super.maxPlatinumTicket,
       required super.activated,
+      required super.closed,
       required super.tickets});
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
@@ -74,13 +79,19 @@ class EventModel extends Event {
         name: json["name"],
         description: json["description"],
         date: DateTime.tryParse(json["date"])!,
+        startTime: TryParseTimeOfDayImpl()
+                .tryParseTimeOfDay(stringToParse: json["start_time"]) ??
+            const TimeOfDay(hour: 00, minute: 00),
+        endTime: TryParseTimeOfDayImpl()
+                .tryParseTimeOfDay(stringToParse: json["end_time"]) ??
+            const TimeOfDay(hour: 00, minute: 00),
         address: Address(
           latitude: json["latitude"],
           longitude: json["longitude"],
           geocodeUrl: getGeocoderUrl(
               latitude: json["latitude"], longitude: json["longitude"]),
           country: json["country"],
-          countryCode: json["countryCode"],
+          countryCode: json["country_code"],
           locality: json["locality"],
           sublocality: json["sublocality"],
           road: json["road"],
@@ -94,6 +105,7 @@ class EventModel extends Event {
         tickets: tickets, //!
         eventId: json["id"],
         activated: json["activated"],
+        closed: json["closed"],
         maxStandardTicket: json["max_standard_ticket"],
         standardTicketPrice: json["standard_ticket_price"],
         standardTicketDescription: json["standard_ticket_description"],
@@ -133,6 +145,8 @@ class EventModel extends Event {
       'name': name,
       'description': description,
       'date': date.toIso8601String(),
+      'start_time': TryParseTimeOfDayImpl().getString(timeToParse: startTime),
+      'end_time': TryParseTimeOfDayImpl().getString(timeToParse: endTime),
       'latitude': address.latitude,
       'longitude': address.longitude,
       'country': address.country,
@@ -147,6 +161,8 @@ class EventModel extends Event {
       'free': modelEco == ModelEco.gratuit ? true : false,
       'id': eventId,
       "members": membersList,
+      "activated": activated,
+      "closed": closed,
       "tickets": ticketsList,
       'max_standard_ticket': maxStandardTicket,
       'standard_ticket_price': standardTicketPrice,
@@ -167,6 +183,12 @@ class EventModel extends Event {
         eventId: 0,
         description: postEventMap["description"],
         date: postEventMap["date"],
+        startTime: TryParseTimeOfDayImpl()
+                .tryParseTimeOfDay(stringToParse: postEventMap["start_time"]) ??
+            const TimeOfDay(hour: 00, minute: 00),
+        endTime: TryParseTimeOfDayImpl()
+                .tryParseTimeOfDay(stringToParse: postEventMap["end_time"]) ??
+            const TimeOfDay(hour: 00, minute: 00),
         address: Address(
           latitude: postEventMap["latitude"],
           longitude: postEventMap["longitude"],
@@ -187,6 +209,7 @@ class EventModel extends Event {
         members: const [],
         tickets: const [],
         activated: false,
+        closed: false,
         standardTicketPrice: postEventMap["standardTicketPrice"],
         maxStandardTicket: postEventMap["maxStandardTicket"],
         standardTicketDescription: postEventMap["standardTicketDescription"],

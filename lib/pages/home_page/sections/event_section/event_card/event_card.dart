@@ -44,7 +44,7 @@ class EventCard extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
-              "${event.formatedDate} - ${event.address.getFormattedAddress()}",
+              "${event.formatedDate} - ${event.address.getShortFormattedAddress()}",
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(
