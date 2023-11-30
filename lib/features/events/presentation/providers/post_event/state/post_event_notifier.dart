@@ -16,7 +16,7 @@ class PostEventNotifier extends StateNotifier<PostEventState> {
   // initialisation
   PostEventNotifier({
     required this.postAnEventUsecase,
-  }) : super(Initial(isFree: false));
+  }) : super(Initial(isFree: true));
 
   // Usecases
   Future<PostEventState?> postAnEvent(
