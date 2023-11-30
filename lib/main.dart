@@ -5,14 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/user_authentification/presentation/pages/auth_screen_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'pages/main_page.dart';
 import 'injection_container.dart' as di;
 
 final theme = ThemeData(
   useMaterial3: true,
+<<<<<<< HEAD
   datePickerTheme: const DatePickerThemeData(
     backgroundColor: Color.fromRGBO(42, 43, 42, 1),
   ),
+=======
+  datePickerTheme:
+      const DatePickerThemeData(backgroundColor: Color.fromRGBO(42, 43, 42, 1)),
+  timePickerTheme:
+      const TimePickerThemeData(backgroundColor: Color.fromRGBO(42, 43, 42, 1)),
+>>>>>>> a84895507cdc6ff3fbf2476ea3a5ccb4f78e0279
 
   //! Buttons
   textButtonTheme: TextButtonThemeData(
@@ -98,6 +106,10 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
         title: 'Faro App',
         theme: theme,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        supportedLocales: const [
+          Locale('fr', 'FR'), // français
+        ],
         home: userAuth is Loaded ? const MainPage() : const AuthScreen());
   }
 }
