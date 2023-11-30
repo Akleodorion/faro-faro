@@ -15,6 +15,7 @@ import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/eco_picker_fie
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/image_input.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/map_input.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/ticket_column.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/time_picker_field.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/title_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,6 +37,8 @@ class NewEventPage extends ConsumerWidget {
     late String? enteredDescription;
     late int standardTicketNumber;
     late String? standardTicketDescritpion;
+    late TimeOfDay pickedStartTime;
+    late TimeOfDay pickedEndTime;
     int? standardTicketPrice;
     String? goldTicketDescription;
     int? goldTicketNumber;
@@ -59,8 +62,8 @@ class NewEventPage extends ConsumerWidget {
             eventId: 13485245,
             description: enteredDescription ?? '',
             date: enteredDateTime,
-            startTime: const TimeOfDay(hour: 00, minute: 00),
-            endTime: const TimeOfDay(hour: 02, minute: 00),
+            startTime: pickedStartTime,
+            endTime: pickedEndTime,
             address: pickedAddress!,
             category: pickedCategory,
             imageUrl: "",
@@ -70,14 +73,17 @@ class NewEventPage extends ConsumerWidget {
             tickets: const [],
             activated: false,
             closed: false,
-            standardTicketPrice: standardTicketPrice,
+            standardTicketPrice:
+                standardTicketPrice == 0 ? null : standardTicketPrice,
             maxStandardTicket: standardTicketNumber,
             standardTicketDescription: standardTicketDescritpion ?? '',
-            goldTicketPrice: goldTicketPrice,
-            maxGoldTicket: goldTicketNumber,
+            goldTicketPrice: goldTicketPrice == 0 ? null : goldTicketPrice,
+            maxGoldTicket: goldTicketNumber == 0 ? null : goldTicketNumber,
             goldTicketDescription: goldTicketDescription,
-            platinumTicketPrice: platinumTicketPrice,
-            maxPlatinumTicket: platinumTicketNumber,
+            platinumTicketPrice:
+                platinumTicketPrice == 0 ? null : platinumTicketPrice,
+            maxPlatinumTicket:
+                platinumTicketNumber == 0 ? null : platinumTicketNumber,
             platinumTicketDescription: platinumTicketDescription);
 
         // Usecase
@@ -132,17 +138,44 @@ class NewEventPage extends ConsumerWidget {
                     height: 20,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CategoryPickerField(setValue: (value) {
+                        pickedCategory = value;
+                      }),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      EcoPickerField(setValue: (value) {
+                        pickedModelEco = value;
+                      })
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text("Date et heure de l'évenèment",
+                      style: TextStyle(
+                          fontSize: 16, decoration: TextDecoration.underline)),
+                  const SizedBox(height: 15),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       DatePickerField(setValue: (value) {
                         enteredDateTime = value;
                       }),
-                      CategoryPickerField(setValue: (value) {
-                        pickedCategory = value;
-                      }),
-                      EcoPickerField(setValue: (value) {
-                        pickedModelEco = value;
-                      })
+                      TimePickerField(
+                        setValue: (value) {
+                          pickedStartTime = value;
+                        },
+                        startOrEndTime: "start_time",
+                      ),
+                      TimePickerField(
+                        setValue: (value) {
+                          pickedEndTime = value;
+                        },
+                        startOrEndTime: "end_time",
+                      ),
                     ],
                   ),
                   const SizedBox(
