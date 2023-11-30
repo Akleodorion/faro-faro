@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   build_runner: ^2.4.6
+  contacts_service: ^0.6.3
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   email_validator: ^2.1.17
@@ -52,6 +53,7 @@ dependencies:
   intl_phone_number_input: ^0.7.3+1
   location: ^5.0.3
   mockito: ^5.4.2
+  permission_handler: ^11.1.0
   shared_preferences: ^2.2.0
 
 dev_dependencies:
