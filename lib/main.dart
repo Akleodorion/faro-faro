@@ -10,8 +10,9 @@ import 'injection_container.dart' as di;
 
 final theme = ThemeData(
   useMaterial3: true,
-  datePickerTheme:
-      const DatePickerThemeData(backgroundColor: Color.fromRGBO(42, 43, 42, 1)),
+  datePickerTheme: const DatePickerThemeData(
+    backgroundColor: Color.fromRGBO(42, 43, 42, 1),
+  ),
 
   //! Buttons
   textButtonTheme: TextButtonThemeData(
