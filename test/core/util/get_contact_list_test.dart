@@ -1,4 +1,5 @@
 import 'package:contacts_service/contacts_service.dart';
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
 import 'package:faro_clean_tdd/core/util/permission_requester.dart';
@@ -31,18 +32,19 @@ void main() {
         "when the permission has not been granted",
         () {
           test(
-            "should return null if the permission have not been granted",
+            "should throw a serverexception",
             () async {
               //arrange
               when(mockPermissionRequester.requestContactPermission())
                   .thenAnswer(
                       (realInvocation) async => PermissionStatus.denied);
               //act
-              final result = await sut.getContacts();
               //assert
-              expect(result, null);
-              verify(mockPermissionRequester.requestContactPermission())
-                  .called(1);
+
+              expect(
+                () => sut.getContacts(),
+                throwsA(isA<ServerException>()),
+              );
             },
           );
         },

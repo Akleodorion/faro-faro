@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 const INDEX_GET_URL = "http://localhost:3001/users";
 
 abstract class ContactRemoteDataSource {
-  Future<List<Contact>?> fetchContacts();
+  Future<List<Contact>> fetchContacts({required List<String> numbersList});
 }
 
 class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
@@ -19,19 +19,12 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   ContactRemoteDataSourceImpl(
       {required this.getContactList, required this.client});
   @override
-  Future<List<Contact>?> fetchContacts() async {
-    // récupère la liste des contacts du téléphone.
-    final Map<String, List<String>> params = {"phone_numbers": []};
-    final contactList = await getContactList.getContacts();
-
-    if (contactList == null) {
-      throw ServerException(
-          errorMessage:
-              "nous n'avons pas reçu l'autorisation d'accéder à vos contacts.");
-    }
-    params["phone_numbers"] = contactList;
-
+  Future<List<Contact>> fetchContacts(
+      {required List<String> numbersList}) async {
+    final Map<String, List<String>> params = {"phone_numbers": numbersList};
     final uri = Uri.parse(INDEX_GET_URL).replace(queryParameters: params);
+
+    //Fait la requête
     final response = await client.get(uri);
     if (response.statusCode >= 200 && response.statusCode < 300) {
       late List<Contact> contacts = [];

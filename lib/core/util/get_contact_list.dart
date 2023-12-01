@@ -1,9 +1,10 @@
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/permission_requester.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 abstract class GetContactList {
-  Future<List<String>?> getContacts();
+  Future<List<String>> getContacts();
 }
 
 class GetContactListImpl implements GetContactList {
@@ -13,11 +14,11 @@ class GetContactListImpl implements GetContactList {
   final PermissionRequester permissionRequester;
   final ContactService contactService;
   @override
-  Future<List<String>?> getContacts() async {
+  Future<List<String>> getContacts() async {
     List<String> contactList = [];
     final requestStatus = await permissionRequester.requestContactPermission();
     if (requestStatus == PermissionStatus.denied) {
-      return null;
+      throw ServerException(errorMessage: 'La permission est requise');
     }
 
     final listOfContacts = await contactService.callContactService();
