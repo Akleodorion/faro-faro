@@ -96,7 +96,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userAuth = ref.watch(userAuthProvider);
-
     return MaterialApp(
         title: 'Faro App',
         theme: theme,
