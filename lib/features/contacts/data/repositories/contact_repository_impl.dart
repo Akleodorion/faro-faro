@@ -20,8 +20,7 @@ class ContactRepositoryImpl implements ContactRepository {
   final GetContactList contactList;
 
   @override
-  Future<Either<Failure, List<Contact>>?> fectchConctacts(
-      {required List<String> contacts}) async {
+  Future<Either<Failure, List<Contact>>> fectchConctacts() async {
     if (await networkInfo.isConnected) {
       try {
         final numbersList = await contactList.getContacts();

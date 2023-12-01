@@ -48,7 +48,7 @@ void main() {
           test(
             " should return return  a ServerFailure",
             () async {
-              final result = await sut.fectchConctacts(contacts: tNumbersList);
+              final result = await sut.fectchConctacts();
               //assert
               expect(result,
                   const Left(ServerFailure(errorMessage: noInternetConnexion)));
@@ -73,8 +73,7 @@ void main() {
                   when(mockGetContactList.getContacts()).thenThrow(
                       ServerException(errorMessage: 'permission requise'));
                   //act
-                  final result =
-                      await sut.fectchConctacts(contacts: tNumbersList);
+                  final result = await sut.fectchConctacts();
                   //assert
                   expect(
                       result,
@@ -99,8 +98,7 @@ void main() {
                           numbersList: anyNamed('numbersList')))
                       .thenAnswer((realInvocation) async => tContacts);
                   //act
-                  final result =
-                      await sut.fectchConctacts(contacts: tNumbersList);
+                  final result = await sut.fectchConctacts();
                   //assert
                   expect(result, const Right(tContacts));
                   verify(mockContactRemoteDataSource.fetchContacts(
@@ -117,8 +115,7 @@ void main() {
                           numbersList: anyNamed('numbersList')))
                       .thenThrow(ServerException(errorMessage: 'oops'));
                   //act
-                  final result =
-                      await sut.fectchConctacts(contacts: tNumbersList);
+                  final result = await sut.fectchConctacts();
                   //assert
                   expect(
                       result, const Left(ServerFailure(errorMessage: 'oops')));
