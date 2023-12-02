@@ -1,10 +1,18 @@
+import 'package:faro_clean_tdd/core/util/contact_service.dart';
+import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
 import 'package:faro_clean_tdd/core/util/get_location.dart';
+import 'package:faro_clean_tdd/core/util/permission_requester.dart';
 import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/address/data/repositories/address_repository_impl.dart';
 import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
 import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_notifier.dart';
+import 'package:faro_clean_tdd/features/contacts/data/datasources/contact_remote_data_source.dart';
+import 'package:faro_clean_tdd/features/contacts/data/repositories/contact_repository_impl.dart';
+import 'package:faro_clean_tdd/features/contacts/domain/repositories/contact_repository.dart';
+import 'package:faro_clean_tdd/features/contacts/domain/usecases/fetch_contact_usecase.dart';
+import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_notifier.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_notifier.dart';
 import 'package:faro_clean_tdd/features/members/data/datasources/member_remote_data_source.dart';
@@ -174,10 +182,29 @@ Future<void> init() async {
   sl.registerLazySingleton<PickedImageLocalDataSource>(
       () => PickedImageLocalDataSourceImpl(imagePicker: sl()));
 
+  // Features - FetchContactList
+  sl.registerLazySingleton(() => ContactNotifier(usecase: sl()));
+
+  // Usecases
+  sl.registerLazySingleton(() => FetchContactUsecase(repository: sl()));
+
+  // Repository
+  sl.registerLazySingleton<ContactRepository>(() => ContactRepositoryImpl(
+      networkInfo: sl(), remoteDataSource: sl(), contactList: sl()));
+
+  // Datasource
+  sl.registerLazySingleton<ContactRemoteDataSource>(
+      () => ContactRemoteDataSourceImpl(client: sl()));
+
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<GetContactList>(() =>
+      GetContactListImpl(contactService: sl(), permissionRequester: sl()));
   sl.registerLazySingleton(() => GetLocationImpl(location: sl()));
   sl.registerLazySingleton<DateTimeComparator>(() => DateTimeComparatorImpl());
+  sl.registerLazySingleton<ContactService>(() => ContactServiceImpl());
+  sl.registerLazySingleton<PermissionRequester>(
+      () => PermissionRequesterImpl());
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();

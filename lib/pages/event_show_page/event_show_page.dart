@@ -1,7 +1,6 @@
 import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
 import 'package:faro_clean_tdd/core/util/number_formatter.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/widgets/image_container.dart';
@@ -19,19 +18,12 @@ class EventShowPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //variables
-    bool isMine = false;
     final double mediaHeight = MediaQuery.of(context).size.height;
     final double mediaWidth = MediaQuery.of(context).size.width;
+    bool isMine;
 
-    //state
-    final userState = ref.read(userAuthProvider);
-
-    // Condition
-
-    if (userState is Loaded) {
-      userState.user.id == event.userId ? isMine = true : null;
-    }
+    final userInfo = ref.read(userInfoProvider);
+    userInfo["user_id"] == event.userId ? isMine = true : isMine = false;
 
     // Widget
     return Scaffold(
@@ -49,7 +41,7 @@ class EventShowPage extends ConsumerWidget {
         ),
         child: Column(
           children: [
-            ImageContainer(imageUrl: event.imageUrl),
+            ImageContainer(event: event),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,

@@ -14,14 +14,12 @@ abstract class ContactRemoteDataSource {
 }
 
 class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
-  final GetContactList getContactList;
   final http.Client client;
-  ContactRemoteDataSourceImpl(
-      {required this.getContactList, required this.client});
+  ContactRemoteDataSourceImpl({required this.client});
   @override
   Future<List<Contact>> fetchContacts(
       {required List<String> numbersList}) async {
-    final Map<String, List<String>> params = {"phone_numbers": numbersList};
+    final Map<String, List<String>> params = {"phone_numbers[]": numbersList};
     final uri = Uri.parse(INDEX_GET_URL).replace(queryParameters: params);
 
     //Fait la requête

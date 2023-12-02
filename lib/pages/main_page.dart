@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
@@ -29,6 +30,7 @@ class _MainPageState extends ConsumerState<MainPage> {
     int userId = ref.read(userInfoProvider)["user_id"];
     _currentIndex = 0;
     ref.read(fetchTicketsProvider.notifier).fetchUserTickets(userId: userId);
+    ref.read(contactStateProvider.notifier).fetchContact();
   }
 
   void setEvent(bool value) {

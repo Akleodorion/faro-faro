@@ -12,7 +12,7 @@ final fetchMembersProvider =
   return FetchMemberNotifier(usecase: usecase);
 });
 
-final membersProvider = Provider<List<Member>?>((ref) {
+final membersProvider = Provider<List<Member>>((ref) {
   List<Member> members = [];
   final state = ref.watch(fetchMembersProvider);
   if (state is Loaded) {

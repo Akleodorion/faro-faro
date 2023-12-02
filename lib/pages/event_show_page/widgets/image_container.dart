@@ -1,9 +1,11 @@
+import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/pages/event_show_page/pop_page/member_page/member_page.dart';
 import 'package:flutter/material.dart';
 
 class ImageContainer extends StatelessWidget {
-  const ImageContainer({super.key, required this.imageUrl});
+  const ImageContainer({super.key, required this.event});
 
-  final String imageUrl;
+  final Event event;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class ImageContainer extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: NetworkImage(imageUrl),
+              image: NetworkImage(event.imageUrl),
             ),
           ),
         ),
@@ -60,13 +62,55 @@ class ImageContainer extends StatelessWidget {
             decoration: BoxDecoration(
                 color:
                     Theme.of(context).colorScheme.background.withOpacity(0.9)),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.edit,
-                size: 24,
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
+            child: PopupMenuButton(
+              color: Theme.of(context).colorScheme.background,
+              icon: const Icon(Icons.dehaze),
+              itemBuilder: (BuildContext context) {
+                return <PopupMenuItem>[
+                  PopupMenuItem(
+                    child: TextButton.icon(
+                      label: const Text("Modifier l'évènement"),
+                      onPressed: () {},
+                      icon: const Icon(Icons.edit),
+                    ),
+                  ),
+                  PopupMenuItem(
+                    child: TextButton.icon(
+                      label: const Text("Fermer l'évènement"),
+                      onPressed: () {},
+                      icon: const Icon(Icons.close),
+                    ),
+                  ),
+                  PopupMenuItem(
+                    child: TextButton.icon(
+                      label: const Text("Activer l'évènement"),
+                      onPressed: () {},
+                      icon: const Icon(Icons.done_outline),
+                    ),
+                  ),
+                  PopupMenuItem(
+                    child: TextButton.icon(
+                      label: const Text("Gérer les membres"),
+                      onPressed: () {
+                        //Ferme le pop menu item
+                        Navigator.of(context).pop();
+
+                        // Redirige vers la page de gestion des membres
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return MemberPage(
+                                event: event,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.add_circle_outline),
+                    ),
+                  )
+                ];
+              },
             ),
           ),
         )
