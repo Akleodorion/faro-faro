@@ -8,8 +8,7 @@ class FetchContactUsecase {
 
   FetchContactUsecase({required this.repository});
 
-  Future<Either<Failure, List<Contact>>?>? execute(
-      {required List<String> contacts}) async {
-    return await repository.fectchConctacts(contacts: contacts);
+  Future<Either<Failure, List<Contact>>> execute() async {
+    return await repository.fectchConctacts();
   }
 }
