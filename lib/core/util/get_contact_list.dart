@@ -25,10 +25,13 @@ class GetContactListImpl implements GetContactList {
     for (final contact in listOfContacts) {
       if (contact.phones != null) {
         for (final phone in contact.phones!) {
-          phone.value != null ? contactList.add(phone.value!) : null;
+          phone.value != null
+              ? contactList.add(phone.value!.replaceAll(' ', ''))
+              : null;
         }
       }
     }
+
     return contactList;
   }
 }
