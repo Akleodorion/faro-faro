@@ -132,7 +132,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
   @override
   Future<EventModel> activateAnEvent({required int eventId}) async {
-    final uri = Uri.parse('$POST_EVENT_URL/$eventId');
+    final uri = Uri.parse('$POST_EVENT_URL/$eventId/update_activation');
     final params = {
       "activated": true,
     };
