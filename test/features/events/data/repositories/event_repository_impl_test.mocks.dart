@@ -3,14 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 import 'dart:io' as _i5;
 
 import 'package:faro_clean_tdd/core/network/network_info.dart' as _i6;
 import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_data_source.dart'
-    as _i2;
+    as _i3;
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart'
-    as _i4;
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -26,27 +26,37 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeEventModel_0 extends _i1.SmartFake implements _i2.EventModel {
+  _FakeEventModel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [EventRemoteDatasource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockEventRemoteDatasource extends _i1.Mock
-    implements _i2.EventRemoteDatasource {
+    implements _i3.EventRemoteDatasource {
   MockEventRemoteDatasource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<List<_i4.EventModel>> fetchAllEvents() => (super.noSuchMethod(
+  _i4.Future<List<_i2.EventModel>> fetchAllEvents() => (super.noSuchMethod(
         Invocation.method(
           #fetchAllEvents,
           [],
         ),
-        returnValue: _i3.Future<List<_i4.EventModel>>.value(<_i4.EventModel>[]),
-      ) as _i3.Future<List<_i4.EventModel>>);
+        returnValue: _i4.Future<List<_i2.EventModel>>.value(<_i2.EventModel>[]),
+      ) as _i4.Future<List<_i2.EventModel>>);
 
   @override
-  _i3.Future<_i4.EventModel?> postAnEvent({
-    required _i4.EventModel? event,
+  _i4.Future<_i2.EventModel?> postAnEvent({
+    required _i2.EventModel? event,
     required _i5.File? image,
   }) =>
       (super.noSuchMethod(
@@ -58,12 +68,12 @@ class MockEventRemoteDatasource extends _i1.Mock
             #image: image,
           },
         ),
-        returnValue: _i3.Future<_i4.EventModel?>.value(),
-      ) as _i3.Future<_i4.EventModel?>);
+        returnValue: _i4.Future<_i2.EventModel?>.value(),
+      ) as _i4.Future<_i2.EventModel?>);
 
   @override
-  _i3.Future<_i4.EventModel?> updateAnEvent({
-    required _i4.EventModel? event,
+  _i4.Future<_i2.EventModel?> updateAnEvent({
+    required _i2.EventModel? event,
     required _i5.File? image,
   }) =>
       (super.noSuchMethod(
@@ -75,8 +85,44 @@ class MockEventRemoteDatasource extends _i1.Mock
             #image: image,
           },
         ),
-        returnValue: _i3.Future<_i4.EventModel?>.value(),
-      ) as _i3.Future<_i4.EventModel?>);
+        returnValue: _i4.Future<_i2.EventModel?>.value(),
+      ) as _i4.Future<_i2.EventModel?>);
+
+  @override
+  _i4.Future<_i2.EventModel> activateAnEvent({required int? eventId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #activateAnEvent,
+          [],
+          {#eventId: eventId},
+        ),
+        returnValue: _i4.Future<_i2.EventModel>.value(_FakeEventModel_0(
+          this,
+          Invocation.method(
+            #activateAnEvent,
+            [],
+            {#eventId: eventId},
+          ),
+        )),
+      ) as _i4.Future<_i2.EventModel>);
+
+  @override
+  _i4.Future<_i2.EventModel> closeAnEvent({required int? eventId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #closeAnEvent,
+          [],
+          {#eventId: eventId},
+        ),
+        returnValue: _i4.Future<_i2.EventModel>.value(_FakeEventModel_0(
+          this,
+          Invocation.method(
+            #closeAnEvent,
+            [],
+            {#eventId: eventId},
+          ),
+        )),
+      ) as _i4.Future<_i2.EventModel>);
 }
 
 /// A class which mocks [NetworkInfo].
@@ -88,8 +134,8 @@ class MockNetworkInfo extends _i1.Mock implements _i6.NetworkInfo {
   }
 
   @override
-  _i3.Future<bool> get isConnected => (super.noSuchMethod(
+  _i4.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 }

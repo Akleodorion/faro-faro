@@ -9,6 +9,7 @@ import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_dat
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/data/repositories/event_repository_impl.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/members/data/repositories/member_repository_impl.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter/material.dart';
@@ -394,4 +395,216 @@ void main() {
       );
     });
   });
+
+  group(
+    "activate an Event",
+    () {
+      const tEventId = 1;
+      final tEvent = EventModel(
+          name: "My test event",
+          eventId: tEventId,
+          description: "Short description for the test event !",
+          date: DateTime.now(),
+          startTime: const TimeOfDay(hour: 18, minute: 00),
+          endTime: const TimeOfDay(hour: 18, minute: 00),
+          address: const Address(
+              latitude: 4.7,
+              longitude: -3.9,
+              geocodeUrl: "geocodeUrl",
+              country: "Côte d'Ivoire",
+              countryCode: "CI",
+              locality: "Abidjan",
+              plusCode: "9359+HXR",
+              road: "Route d'Abatta",
+              sublocality: "Cocody"),
+          category: Category.concert,
+          imageUrl: "flyers.jpg",
+          userId: 1,
+          modelEco: ModelEco.gratuit,
+          members: const [],
+          tickets: const [],
+          activated: false,
+          closed: false,
+          standardTicketPrice: 5000,
+          maxStandardTicket: 15,
+          standardTicketDescription: "Short ticket description for the test",
+          goldTicketPrice: 5000,
+          maxGoldTicket: 15,
+          goldTicketDescription: "Short ticket description for the test",
+          platinumTicketPrice: 5000,
+          maxPlatinumTicket: 15,
+          platinumTicketDescription: "Short ticket description for the test");
+      group(
+        "if there is no internet connexion",
+        () {
+          test(
+            "should return a ServerFailure with the right message",
+            () async {
+              //arrange
+              when(mockNetworkInfo.isConnected)
+                  .thenAnswer((realInvocation) async => false);
+              //act
+              final result =
+                  await eventRepositoryImpl.activateAnEvent(eventId: tEventId);
+              //assert
+
+              expect(result,
+                  const Left(ServerFailure(errorMessage: noInternetConnexion)));
+              verify(mockNetworkInfo.isConnected).called(1);
+            },
+          );
+        },
+      );
+
+      group(
+        "if there is an internet connexion",
+        () {
+          setUp(() => when(mockNetworkInfo.isConnected)
+              .thenAnswer((realInvocation) async => true));
+          test(
+            "should return the event model when the call is a success",
+            () async {
+              //arrange
+              when(mockEventRemoteDatasource.activateAnEvent(
+                      eventId: anyNamed('eventId')))
+                  .thenAnswer((realInvocation) async => tEvent);
+              //act
+              final result =
+                  await eventRepositoryImpl.activateAnEvent(eventId: tEventId);
+              //assert
+
+              expect(result, Right(tEvent));
+              verify(mockEventRemoteDatasource.activateAnEvent(
+                      eventId: tEventId))
+                  .called(1);
+            },
+          );
+
+          test(
+            "should return a ServerFailure when the call is not success",
+            () async {
+              //arrange
+              when(mockEventRemoteDatasource.activateAnEvent(
+                      eventId: anyNamed('eventId')))
+                  .thenThrow(ServerException(errorMessage: 'oops'));
+              //act
+              final result =
+                  await eventRepositoryImpl.activateAnEvent(eventId: tEventId);
+              //assert
+
+              expect(result, const Left(ServerFailure(errorMessage: 'oops')));
+              verify(mockEventRemoteDatasource.activateAnEvent(
+                      eventId: tEventId))
+                  .called(1);
+            },
+          );
+        },
+      );
+    },
+  );
+
+  group(
+    "close an Event",
+    () {
+      const tEventId = 1;
+      final tEvent = EventModel(
+          name: "My test event",
+          eventId: tEventId,
+          description: "Short description for the test event !",
+          date: DateTime.now(),
+          startTime: const TimeOfDay(hour: 18, minute: 00),
+          endTime: const TimeOfDay(hour: 18, minute: 00),
+          address: const Address(
+              latitude: 4.7,
+              longitude: -3.9,
+              geocodeUrl: "geocodeUrl",
+              country: "Côte d'Ivoire",
+              countryCode: "CI",
+              locality: "Abidjan",
+              plusCode: "9359+HXR",
+              road: "Route d'Abatta",
+              sublocality: "Cocody"),
+          category: Category.concert,
+          imageUrl: "flyers.jpg",
+          userId: 1,
+          modelEco: ModelEco.gratuit,
+          members: const [],
+          tickets: const [],
+          activated: false,
+          closed: false,
+          standardTicketPrice: 5000,
+          maxStandardTicket: 15,
+          standardTicketDescription: "Short ticket description for the test",
+          goldTicketPrice: 5000,
+          maxGoldTicket: 15,
+          goldTicketDescription: "Short ticket description for the test",
+          platinumTicketPrice: 5000,
+          maxPlatinumTicket: 15,
+          platinumTicketDescription: "Short ticket description for the test");
+      group(
+        "if there is no internet connexion",
+        () {
+          test(
+            "should return a ServerFailure with the right message",
+            () async {
+              //arrange
+              when(mockNetworkInfo.isConnected)
+                  .thenAnswer((realInvocation) async => false);
+              //act
+              final result =
+                  await eventRepositoryImpl.closeAnEvent(eventId: tEventId);
+              //assert
+
+              expect(result,
+                  const Left(ServerFailure(errorMessage: noInternetConnexion)));
+              verify(mockNetworkInfo.isConnected).called(1);
+            },
+          );
+        },
+      );
+
+      group(
+        "if there is an internet connexion",
+        () {
+          setUp(() => when(mockNetworkInfo.isConnected)
+              .thenAnswer((realInvocation) async => true));
+          test(
+            "should return the event model when the call is a success",
+            () async {
+              //arrange
+              when(mockEventRemoteDatasource.closeAnEvent(
+                      eventId: anyNamed('eventId')))
+                  .thenAnswer((realInvocation) async => tEvent);
+              //act
+              final result =
+                  await eventRepositoryImpl.closeAnEvent(eventId: tEventId);
+              //assert
+
+              expect(result, Right(tEvent));
+              verify(mockEventRemoteDatasource.closeAnEvent(eventId: tEventId))
+                  .called(1);
+            },
+          );
+
+          test(
+            "should return a ServerFailure when the call is not success",
+            () async {
+              //arrange
+              when(mockEventRemoteDatasource.closeAnEvent(
+                      eventId: anyNamed('eventId')))
+                  .thenThrow(ServerException(errorMessage: 'oops'));
+              //act
+              final result =
+                  await eventRepositoryImpl.closeAnEvent(eventId: tEventId);
+              //assert
+
+              expect(result, const Left(ServerFailure(errorMessage: 'oops')));
+              verify(mockEventRemoteDatasource.closeAnEvent(eventId: tEventId))
+                  .called(1);
+            },
+          );
+        },
+      );
+    },
+  );
 }

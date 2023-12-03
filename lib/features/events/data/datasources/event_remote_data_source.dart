@@ -29,9 +29,9 @@ abstract class EventRemoteDatasource {
   ///
   /// Jette une [ServerException] en cas d'erreur
   ///
-  Future<EventModel?> activateAnEvent({required int eventId});
+  Future<EventModel> activateAnEvent({required int eventId});
 
-  Future<EventModel?> closeAnEvent({required int eventId});
+  Future<EventModel> closeAnEvent({required int eventId});
 }
 
 const FETCH_URL = 'http://localhost:3001/events';
@@ -131,7 +131,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   }
 
   @override
-  Future<EventModel?> activateAnEvent({required int eventId}) async {
+  Future<EventModel> activateAnEvent({required int eventId}) async {
     final uri = Uri.parse('$POST_EVENT_URL/$eventId');
     final params = {
       "activated": true,
@@ -156,7 +156,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   }
 
   @override
-  Future<EventModel?> closeAnEvent({required int eventId}) async {
+  Future<EventModel> closeAnEvent({required int eventId}) async {
     final uri = Uri.parse('$POST_EVENT_URL/$eventId');
     final params = {
       "closed": true,
