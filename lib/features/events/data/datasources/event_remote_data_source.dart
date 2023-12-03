@@ -24,6 +24,14 @@ abstract class EventRemoteDatasource {
   ///
   Future<EventModel?> updateAnEvent(
       {required EventModel event, required File image});
+
+  /// Fait une requête à http://localhost:3001/event/:id/
+  ///
+  /// Jette une [ServerException] en cas d'erreur
+  ///
+  Future<EventModel> activateAnEvent({required int eventId});
+
+  Future<EventModel> closeAnEvent({required int eventId});
 }
 
 const FETCH_URL = 'http://localhost:3001/events';
@@ -121,4 +129,56 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
       throw ServerException(errorMessage: response.body);
     }
   }
+
+  @override
+  Future<EventModel> activateAnEvent({required int eventId}) async {
+    final uri = Uri.parse('$POST_EVENT_URL/$eventId/update_activation');
+    final params = {
+      "activated": true,
+    };
+
+    try {
+      final response = await client.patch(uri,
+          headers: {"Content-Type": 'application/json'},
+          body: json.encode(params));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return EventModel.fromJson(json.decode(response.body));
+      } else if (response.statusCode >= 400 && response.statusCode < 500) {
+        final errorList = json.decode(response.body)["errors"];
+        throw ServerException(errorMessage: errorList[0]);
+      } else {
+        throw ServerException(errorMessage: response.body);
+      }
+    } catch (e) {
+      throw ServerException(errorMessage: e.toString());
+    }
+  }
+
+  @override
+  Future<EventModel> closeAnEvent({required int eventId}) async {
+    final uri = Uri.parse('$POST_EVENT_URL/$eventId');
+    final params = {
+      "closed": true,
+    };
+
+    try {
+      final response = await client.patch(uri,
+          headers: {"Content-Type": 'application/json'},
+          body: json.encode(params));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return EventModel.fromJson(json.decode(response.body));
+      } else if (response.statusCode >= 400 && response.statusCode < 500) {
+        final errorList = json.decode(response.body)["errors"];
+        throw ServerException(errorMessage: errorList[0]);
+      } else {
+        throw ServerException(errorMessage: response.body);
+      }
+    } catch (e) {
+      throw ServerException(errorMessage: e.toString());
+    }
+  }
+
+  //
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
+import 'package:faro_clean_tdd/features/members/data/repositories/member_repository_impl.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
 import '../datasources/event_remote_data_source.dart';
@@ -23,7 +24,7 @@ class EventRepositoryImpl implements EventRepository {
         final events = await remoteDatasource.fetchAllEvents();
         return Right(events);
       } else {
-        return const Left(ServerFailure(errorMessage: "No internet connexion"));
+        return const Left(ServerFailure(errorMessage: noInternetConnexion));
       }
     } on ServerException catch (error) {
       return Left(ServerFailure(errorMessage: error.errorMessage));
@@ -56,6 +57,35 @@ class EventRepositoryImpl implements EventRepository {
         return Right(myEvent!);
       } else {
         return const Left(ServerFailure(errorMessage: 'No internet connexion'));
+      }
+    } on ServerException catch (error) {
+      return Left(ServerFailure(errorMessage: error.errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Event>?> activateAnEvent(
+      {required int eventId}) async {
+    try {
+      if (await networkInfo.isConnected) {
+        final event = await remoteDatasource.activateAnEvent(eventId: eventId);
+        return Right(event);
+      } else {
+        return const Left(ServerFailure(errorMessage: noInternetConnexion));
+      }
+    } on ServerException catch (error) {
+      return Left(ServerFailure(errorMessage: error.errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Event>?> closeAnEvent({required int eventId}) async {
+    try {
+      if (await networkInfo.isConnected) {
+        final event = await remoteDatasource.closeAnEvent(eventId: eventId);
+        return Right(event);
+      } else {
+        return const Left(ServerFailure(errorMessage: noInternetConnexion));
       }
     } on ServerException catch (error) {
       return Left(ServerFailure(errorMessage: error.errorMessage));

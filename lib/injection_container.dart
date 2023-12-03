@@ -13,7 +13,11 @@ import 'package:faro_clean_tdd/features/contacts/data/repositories/contact_repos
 import 'package:faro_clean_tdd/features/contacts/domain/repositories/contact_repository.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/usecases/fetch_contact_usecase.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_notifier.dart';
+import 'package:faro_clean_tdd/features/events/domain/usecases/activate_an_event.dart';
+import 'package:faro_clean_tdd/features/events/domain/usecases/close_an_event.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/activate_event/state/activate_event_notifier.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/close_event/state/close_event_notifier.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_notifier.dart';
 import 'package:faro_clean_tdd/features/members/data/datasources/member_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/members/data/repositories/member_repository_impl.dart';
@@ -93,7 +97,7 @@ Future<void> init() async {
   sl.registerLazySingleton<UserRemoteDataSource>(
       () => UserRemoteDataSourceImpl(client: sl()));
 
-  // Features - Fetch Event - Post Event
+  //! Features - Fetch Event - Post Event - Close Event - Activate Event
   sl.registerFactory(() => FetchEventNotifier(
         fetchAllEventsUsecase: sl(),
       ));
@@ -102,9 +106,18 @@ Future<void> init() async {
         postAnEventUsecase: sl(),
       ));
 
+  sl.registerFactory(() => ActivateEventNotifier(
+        activateAnEventUsecase: sl(),
+      ));
+  sl.registerFactory(() => CloseEventNotifier(
+        closeAnEventUsecase: sl(),
+      ));
+
   // Usecases
   sl.registerLazySingleton(() => FetchAllEvents(repository: sl()));
   sl.registerLazySingleton(() => PostAnEvent(repository: sl()));
+  sl.registerLazySingleton(() => CloseAnEvent(repository: sl()));
+  sl.registerLazySingleton(() => ActivateAnEvent(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<EventRepository>(
@@ -114,7 +127,7 @@ Future<void> init() async {
   sl.registerLazySingleton<EventRemoteDatasource>(
       () => EventRemoteDatasourceImpl(client: sl()));
 
-  // Features - Fetch Tickets - Create Ticket - Update Ticket
+  //! Features - Fetch Tickets - Create Ticket - Update Ticket
   sl.registerFactory(() => FetchTicketsNotifier(usecase: sl()));
   sl.registerFactory(() => CreateTicketNotifier(usecase: sl()));
   sl.registerFactory(() => UpdateTicketNotifier(usecase: sl()));
@@ -132,7 +145,7 @@ Future<void> init() async {
   sl.registerLazySingleton<TicketRemoteDataSource>(
       () => TicketRemoteDataSourceImpl(client: sl()));
 
-  // Features - Create Member - Delete Member - Fetch Member
+  //! Features - Create Member - Delete Member - Fetch Member
   sl.registerFactory(() => FetchMemberNotifier(usecase: sl()));
   sl.registerFactory(() => CreateMemberNotifier(usecase: sl()));
   sl.registerFactory(() => DeleteMemberNotifier(usecase: sl()));
@@ -150,7 +163,7 @@ Future<void> init() async {
   sl.registerLazySingleton<MemberRemoteDataSource>(
       () => MemberRemoteDataSourceImpl(client: sl()));
 
-  // Features - Get Address
+  //! Features - Get Address
   sl.registerFactory(() => AddressNotifier(
       getCurrentLocationAddressUsecase: sl(),
       getSelectedLocationAddressUsecase: sl()));
@@ -167,7 +180,7 @@ Future<void> init() async {
   sl.registerLazySingleton<AddressRemoteDataSource>(
       () => AddressRemoteDataSourceImpl(client: sl(), location: sl()));
 
-  // Features - Pick Image
+  //! Features - Pick Image
   sl.registerFactory(
       () => PickedImageNotifier(pickImageFromGaleryUsecase: sl()));
 
@@ -182,7 +195,7 @@ Future<void> init() async {
   sl.registerLazySingleton<PickedImageLocalDataSource>(
       () => PickedImageLocalDataSourceImpl(imagePicker: sl()));
 
-  // Features - FetchContactList
+  //! Features - FetchContactList
   sl.registerLazySingleton(() => ContactNotifier(usecase: sl()));
 
   // Usecases

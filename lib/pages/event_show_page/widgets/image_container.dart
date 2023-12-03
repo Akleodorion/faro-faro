@@ -1,4 +1,6 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/activate_event/activate_event_provider.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/close_event/close_event_provider.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/pop_page/member_page/member_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -95,7 +97,15 @@ class ImageContainer extends StatelessWidget {
                                       builder: (BuildContext context,
                                           WidgetRef ref, Widget? child) {
                                         return IconButton(
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            await ref
+                                                .read(activateEventStateProvider
+                                                    .notifier)
+                                                .activateAnEvent(
+                                                    eventId: event.eventId);
+                                            // ignore: use_build_context_synchronously
+                                            Navigator.of(context).pop();
+                                          },
                                           icon: const Icon(
                                             Icons.done,
                                             color: Colors.green,
@@ -135,7 +145,15 @@ class ImageContainer extends StatelessWidget {
                                       builder: (BuildContext context,
                                           WidgetRef ref, Widget? child) {
                                         return IconButton(
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            await ref
+                                                .read(closeEventStateProvider
+                                                    .notifier)
+                                                .closeAnEvent(
+                                                    eventId: event.eventId);
+                                            // ignore: use_build_context_synchronously
+                                            Navigator.of(context).pop();
+                                          },
                                           icon: const Icon(
                                             Icons.done,
                                             color: Colors.green,
