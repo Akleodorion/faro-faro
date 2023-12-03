@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
 import 'package:faro_clean_tdd/features/contacts/data/models/contact_model.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:http/http.dart' as http;

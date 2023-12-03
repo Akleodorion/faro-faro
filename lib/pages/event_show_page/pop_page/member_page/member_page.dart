@@ -200,12 +200,50 @@ class MemberPage extends ConsumerWidget {
                                     IconButton(
                                         // Delete member
                                         onPressed: () {
-                                          ref
-                                              .read(
-                                                  deleteMemberProvider.notifier)
-                                              .deleteMember(
-                                                  memberId: member.id);
-                                          Navigator.of(context).pop();
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  titleTextStyle:
+                                                      const TextStyle(
+                                                          fontSize: 24),
+                                                  contentTextStyle:
+                                                      const TextStyle(
+                                                          fontSize: 16),
+                                                  title: const Text(
+                                                      "Ajouter le contact"),
+                                                  content: Text(
+                                                      "Voulez-vous supprimé ${member.userId} à la liste des membres de l'évènement"),
+                                                  actions: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        ref
+                                                            .read(
+                                                                deleteMemberProvider
+                                                                    .notifier)
+                                                            .deleteMember(
+                                                                memberId:
+                                                                    member.id);
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.done,
+                                                        color: Colors.green,
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.close,
+                                                          color: Colors.red),
+                                                    )
+                                                  ],
+                                                );
+                                              });
                                         },
                                         icon: const Icon(
                                           Icons.delete,

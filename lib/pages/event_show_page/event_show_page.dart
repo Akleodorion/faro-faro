@@ -41,7 +41,10 @@ class EventShowPage extends ConsumerWidget {
         ),
         child: Column(
           children: [
-            ImageContainer(event: event),
+            ImageContainer(
+              event: event,
+              isMine: isMine,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
