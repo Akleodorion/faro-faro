@@ -1,12 +1,14 @@
+import 'package:faro_clean_tdd/core/util/validate_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DescriptionTextFormField extends ConsumerStatefulWidget {
-  const DescriptionTextFormField(
-      {super.key,
-      required this.isTicket,
-      required this.mapKey,
-      required this.setValue});
+  const DescriptionTextFormField({
+    super.key,
+    required this.isTicket,
+    required this.mapKey,
+    required this.setValue,
+  });
 
   final bool isTicket;
   final String mapKey;
@@ -20,29 +22,17 @@ class DescriptionTextFormField extends ConsumerStatefulWidget {
 class _DescriptionTextFormFieldState
     extends ConsumerState<DescriptionTextFormField> {
   TextEditingController textEditingController = TextEditingController();
-  final FocusNode _descriptionFocusNode = FocusNode();
 
   @override
   void dispose() {
     textEditingController.dispose();
-    _descriptionFocusNode.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _descriptionFocusNode.addListener(() {
-      if (!_descriptionFocusNode.hasFocus) {
-        // Le focus a été perdu
-      }
-    });
   }
 
   bool hasError = false;
   double minHeight = 180;
   double maxHeight = 200;
-  int maxCharsValue = 601;
+  int maxCharsValue = 600;
   int minCharsValue = 50;
 
   @override
@@ -75,24 +65,11 @@ class _DescriptionTextFormFieldState
           ),
           keyboardType: TextInputType.name,
           controller: textEditingController,
-          focusNode: _descriptionFocusNode,
           validator: (value) {
-            setState(() {
-              hasError = false;
-            });
-
-            if (value!.trim().length <= minCharsValue) {
-              setState(() {
-                hasError = true;
-              });
-              return 'La description doit avoir un minimum de $minCharsValue caractères';
-            }
-
-            if (value.trim().length >= maxCharsValue) {
-              hasError = true;
-              return 'La description doit avoir un maximum de $maxCharsValue caractères';
-            }
-            return null;
+            setState(() => hasError = false);
+            final result = ValidateInputImpl().eventDescriptionValidator(value);
+            result ?? setState(() => hasError = true);
+            return result;
           },
           onSaved: (value) {
             textEditingController.text = value!;
