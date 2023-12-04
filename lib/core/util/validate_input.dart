@@ -1,5 +1,7 @@
 // Cette classe va nous permettre de gérer l'ensemble des validations que nous devons faire au travers de l'application.
 import 'package:email_validator/email_validator.dart';
+import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
+import 'package:intl/intl.dart';
 
 abstract class ValidateInput {
   String? passwordValidator(String? password);
@@ -8,6 +10,8 @@ abstract class ValidateInput {
   String? eventDescriptionValidator(String? eventDescription);
   String? positiveNumberInputValidator(String? numberInput);
   String? eventTitleValidator(String? titleInput);
+  String? isValidDateFormat(String? inputDate);
+  String? isValidTimeFormat(String? inputDate);
 }
 
 class ValidateInputImpl implements ValidateInput {
@@ -95,6 +99,28 @@ class ValidateInputImpl implements ValidateInput {
       return "Le titre doit avoir un maximum de $eventTitleMaxLength caractères";
     }
 
+    return null;
+  }
+
+  @override
+  String? isValidDateFormat(String? inputDate) {
+    if (inputDate == null) {
+      return "Can't be blank";
+    }
+    try {
+      DateFormat('dd/MM/yyyy', 'fr').parseStrict(inputDate);
+      return null;
+    } catch (e) {
+      return 'invalid date';
+    }
+  }
+
+  @override
+  String? isValidTimeFormat(String? inputDate) {
+    if (TryParseTimeOfDayImpl().tryParseTimeOfDay(stringToParse: inputDate) ==
+        null) {
+      return 'invalid time';
+    }
     return null;
   }
 }

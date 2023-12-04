@@ -1,4 +1,5 @@
 import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
+import 'package:faro_clean_tdd/core/util/validate_input.dart';
 import 'package:flutter/material.dart';
 
 class TimePickerField extends StatefulWidget {
@@ -56,18 +57,10 @@ class _TimePickerFieldState extends State<TimePickerField> {
             ),
           ),
           validator: (value) {
-            if (value != null) {
-              final parsingResult = TryParseTimeOfDayImpl()
-                  .tryParseTimeOfDay(stringToParse: value);
-
-              if (parsingResult == null) {
-                setState(() {
-                  hasError = true;
-                });
-              }
-            }
-
-            return hasError ? 'Heure invalide' : null;
+            setState(() => hasError = false);
+            final result = ValidateInputImpl().isValidTimeFormat(value);
+            result != null ? setState(() => hasError = true) : null;
+            return result;
           },
           controller: _timeController,
           onTap: () async {
