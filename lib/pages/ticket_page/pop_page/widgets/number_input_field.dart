@@ -64,22 +64,7 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
               SizedBox(
                 child: IconButton(
                   onPressed: () {
-                    final int calculus =
-                        int.tryParse(textEditingController.text)! -
-                            (widget.isQuantity == true ? 1 : 1000);
-                    if (calculus < 0) {
-                      setState(() {
-                        textEditingController.text = '0';
-                      });
-                    } else {
-                      final quantity =
-                          int.tryParse(textEditingController.text)! -
-                              (widget.isQuantity == true ? 1 : 1000);
-
-                      setState(() {
-                        textEditingController.text = quantity.toString();
-                      });
-                    }
+                    incrOrDecrNumber(false);
                   },
                   icon: const Icon(Icons.remove),
                 ),
@@ -118,21 +103,7 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
               ),
               IconButton(
                 onPressed: () {
-                  final int calculus =
-                      int.tryParse(textEditingController.text)! +
-                          (widget.isQuantity == true ? 1 : 1000);
-                  if (calculus < 0) {
-                    setState(() {
-                      textEditingController.text = '0';
-                    });
-                  } else {
-                    final quantity = int.tryParse(textEditingController.text)! +
-                        (widget.isQuantity == true ? 1 : 1000);
-
-                    setState(() {
-                      textEditingController.text = quantity.toString();
-                    });
-                  }
+                  incrOrDecrNumber(true);
                 },
                 icon: const Icon(Icons.add),
               ),
@@ -141,5 +112,20 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
         ),
       ],
     );
+  }
+
+  void incrOrDecrNumber(bool isIncrement) {
+    final int operation = isIncrement ? 1 : -1;
+    final int calculus = int.tryParse(textEditingController.text)! +
+        (widget.isQuantity == true ? operation : 1000 * operation);
+
+    if (calculus < 0) {
+      setState(() => textEditingController.text = '0');
+    } else {
+      final quantity = int.tryParse(textEditingController.text)! +
+          (widget.isQuantity == true ? operation : 1000 * operation);
+
+      setState(() => textEditingController.text = quantity.toString());
+    }
   }
 }
