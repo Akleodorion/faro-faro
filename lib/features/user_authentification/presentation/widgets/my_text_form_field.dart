@@ -1,10 +1,8 @@
-import '../../../../core/util/password_validator.dart';
+import 'package:faro_clean_tdd/core/util/validate_input.dart';
 import '../../../../core/util/phone_number_validator.dart';
 import '../../../../core/util/text_field_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-
-import '../../../../core/util/email_validator.dart';
 
 class MyTextFormField extends StatefulWidget {
   final String intialValue;
@@ -41,14 +39,14 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
     if (widget.type == TextFieldType.password) {
       isPassword = true;
       validation = (value) {
-        return PasswordValidatorImpl().passwordValidator(value);
+        return ValidateInputImpl().passwordValidator(value);
       };
     }
 
     if (widget.type == TextFieldType.email) {
       inputType = TextInputType.emailAddress;
       validation = (value) {
-        return EmailValidationImpl().isEmailValid(value);
+        return ValidateInputImpl().isEmailValid(value);
       };
     }
 
