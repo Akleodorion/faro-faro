@@ -1,4 +1,3 @@
-import 'package:faro_clean_tdd/core/util/validate_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -97,11 +96,20 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
                   decoration: const InputDecoration(),
                   textAlign: TextAlign.center,
                   validator: (value) {
-                    setState(() => hasError = false);
-                    final result =
-                        ValidateInputImpl().positiveNumberInputValidator(value);
-                    result ?? setState(() => hasError = true);
-                    return result;
+                    setState(() {
+                      hasError = false;
+                    });
+                    // transformation du nombre en nombre positif
+                    final int? intValue = int.tryParse(value!);
+                    if (intValue == null || intValue < 0) {
+                      setState(() {
+                        hasError = true;
+                      });
+
+                      return 'Nombre invalide';
+                    } else {
+                      return null;
+                    }
                   },
                   onSaved: (value) {
                     widget.setValue(int.tryParse(value!)!);

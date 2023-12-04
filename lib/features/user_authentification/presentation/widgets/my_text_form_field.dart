@@ -1,8 +1,10 @@
-import 'package:faro_clean_tdd/core/util/validate_input.dart';
+import '../../../../core/util/password_validator.dart';
 import '../../../../core/util/phone_number_validator.dart';
 import '../../../../core/util/text_field_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
+import '../../../../core/util/email_validator.dart';
 
 class MyTextFormField extends StatefulWidget {
   final String intialValue;
@@ -32,21 +34,21 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
     TextInputType inputType = TextInputType.text;
     bool isPassword = false;
 
-    String? Function(String? value) validation = (value) {
+    String? Function(String value) validation = (value) {
       return null;
     };
 
     if (widget.type == TextFieldType.password) {
       isPassword = true;
       validation = (value) {
-        return ValidateInputImpl().passwordValidator(value);
+        return PasswordValidatorImpl().passwordValidator(value);
       };
     }
 
     if (widget.type == TextFieldType.email) {
       inputType = TextInputType.emailAddress;
       validation = (value) {
-        return ValidateInputImpl().isEmailValid(value);
+        return EmailValidationImpl().isEmailValid(value);
       };
     }
 
@@ -56,7 +58,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
 
     if (widget.type == TextFieldType.number) {
       validation = (value) {
-        return ValidateInputImpl().phoneNumberValidator(value);
+        return PhoneNumberValidatorImpl().phoneNumberValidator(value);
       };
       content = InternationalPhoneNumberInput(
         maxLength: 10,
@@ -78,10 +80,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
           ),
         ),
         validator: (value) {
-          if (value == null) {
-            return "Field can't be null";
-          }
-          final result = validation(value);
+          final result = validation(value!);
           if (result != null) {
             setState(() {
               hasError = true;
@@ -112,10 +111,16 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         obscureText: isPassword,
         keyboardType: inputType,
         validator: (value) {
-          setState(() => hasError = false);
-          final result = validation(value);
-          result ?? setState(() => hasError = true);
-          return result;
+          final result = validation(value!);
+
+          if (result != null) {
+            setState(() {
+              hasError = true;
+            });
+            return result;
+          } else {
+            return result;
+          }
         },
         onSaved: (value) {
           widget.onSaved(value!);

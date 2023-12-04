@@ -1,4 +1,3 @@
-import 'package:faro_clean_tdd/core/util/validate_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -51,10 +50,21 @@ class _TitleTextFormFieldState extends ConsumerState<TitleTextFormField> {
 
           // validation
           validator: (value) {
-            setState(() => hasError = false);
-            final result = ValidateInputImpl().eventTitleValidator(value);
-            result ?? setState(() => hasError = true);
-            return result;
+            setState(() {
+              hasError = false;
+            });
+
+            if (value!.trim().length <= 10) {
+              setState(() {
+                hasError = true;
+              });
+              return 'Le titre doit avoir un minimum de 10 caractères';
+            }
+            if (value.trim().length >= 50) {
+              hasError = true;
+              return 'Le titre doit avoir un maximum de 50 caractères';
+            }
+            return null;
           },
           onSaved: (value) {
             titleController.text = value!;
