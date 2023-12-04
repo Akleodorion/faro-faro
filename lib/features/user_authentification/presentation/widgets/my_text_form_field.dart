@@ -32,7 +32,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
     TextInputType inputType = TextInputType.text;
     bool isPassword = false;
 
-    String? Function(String value) validation = (value) {
+    String? Function(String? value) validation = (value) {
       return null;
     };
 
@@ -56,7 +56,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
 
     if (widget.type == TextFieldType.number) {
       validation = (value) {
-        return PhoneNumberValidatorImpl().phoneNumberValidator(value);
+        return ValidateInputImpl().phoneNumberValidator(value);
       };
       content = InternationalPhoneNumberInput(
         maxLength: 10,
@@ -78,7 +78,10 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
           ),
         ),
         validator: (value) {
-          final result = validation(value!);
+          if (value == null) {
+            return "Field can't be null";
+          }
+          final result = validation(value);
           if (result != null) {
             setState(() {
               hasError = true;
@@ -109,16 +112,10 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         obscureText: isPassword,
         keyboardType: inputType,
         validator: (value) {
-          final result = validation(value!);
-
-          if (result != null) {
-            setState(() {
-              hasError = true;
-            });
-            return result;
-          } else {
-            return result;
-          }
+          setState(() => hasError = false);
+          final result = validation(value);
+          result ?? setState(() => hasError = true);
+          return result;
         },
         onSaved: (value) {
           widget.onSaved(value!);
