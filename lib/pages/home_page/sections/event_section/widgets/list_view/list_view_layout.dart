@@ -1,12 +1,14 @@
 import '../../../../../../features/events/domain/entities/event.dart';
 import '../../event_card/event_card.dart';
-import 'components/list_view_redirect.dart';
 import 'components/list_view_title.dart';
 import 'package:flutter/material.dart';
 
 class ListViewLayout extends StatelessWidget {
-  const ListViewLayout(
-      {super.key, required this.events, required this.listViewTitle});
+  const ListViewLayout({
+    super.key,
+    required this.events,
+    required this.listViewTitle,
+  });
 
   final List<Event> events;
   final String listViewTitle;
@@ -19,16 +21,18 @@ class ListViewLayout extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              const SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ListViewTitle(listViewTitle: listViewTitle),
-                  const ListViewRedirect()
                 ],
               ),
               const SizedBox(
-                height: 10,
+                height: 15,
               ),
               Expanded(
                 child: ListView.builder(

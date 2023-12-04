@@ -1,4 +1,3 @@
-import 'widgets/search_button.dart';
 import 'widgets/user_info_display.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,6 @@ class UserAndSearchSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UserInfoDisplay(),
-          SearchButton(),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/pages/event_show_page/event_show_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../features/events/domain/entities/event.dart';
@@ -78,7 +79,12 @@ class EventCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return EventShowPage(event: event);
+                    }));
+                  },
                   child: const Text("Voir plus"),
                 )
               ],
