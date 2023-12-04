@@ -81,9 +81,8 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
                   decoration: const InputDecoration(),
                   textAlign: TextAlign.center,
                   validator: (value) {
-                    setState(() {
-                      hasError = false;
-                    });
+                    setState(() => hasError = false);
+
                     // transformation du nombre en nombre positif
                     final int? intValue = int.tryParse(value!);
                     if (intValue == null || intValue < 0) {
