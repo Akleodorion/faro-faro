@@ -138,7 +138,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
     };
 
     try {
-      final response = await client.patch(uri,
+      final response = await client.put(uri,
           headers: {"Content-Type": 'application/json'},
           body: json.encode(params));
 
@@ -157,13 +157,13 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
   @override
   Future<EventModel> closeAnEvent({required int eventId}) async {
-    final uri = Uri.parse('$POST_EVENT_URL/$eventId');
+    final uri = Uri.parse('$POST_EVENT_URL/$eventId/update_close');
     final params = {
       "closed": true,
     };
 
     try {
-      final response = await client.patch(uri,
+      final response = await client.put(uri,
           headers: {"Content-Type": 'application/json'},
           body: json.encode(params));
 

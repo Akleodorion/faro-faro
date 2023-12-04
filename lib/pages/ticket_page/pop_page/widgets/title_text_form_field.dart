@@ -53,7 +53,7 @@ class _TitleTextFormFieldState extends ConsumerState<TitleTextFormField> {
           validator: (value) {
             setState(() => hasError = false);
             final result = ValidateInputImpl().eventTitleValidator(value);
-            result ?? setState(() => hasError = true);
+            result != null ? setState(() => hasError = true) : null;
             return result;
           },
           onSaved: (value) {
