@@ -199,25 +199,35 @@ class NewEventPage extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  TicketColumn(setStandardTicketDescription: (value) {
-                    standardTicketDescritpion = value;
-                  }, setStandardTicketNumber: (value) {
-                    standardTicketNumber = value!;
-                  }, setStandardTicketPrice: (value) {
-                    standardTicketPrice = value;
-                  }, setGoldTicketDescription: (value) {
-                    goldTicketDescription = value;
-                  }, setGoldTicketNumber: (value) {
-                    goldTicketNumber = value;
-                  }, setGoldTicketPrice: (value) {
-                    goldTicketPrice = value;
-                  }, setPlatinumTicketDescription: (value) {
-                    platinumTicketDescription = value;
-                  }, setPlatinumTicketNumber: (value) {
-                    platinumTicketNumber = value;
-                  }, setPlatinumTicketPrice: (value) {
-                    platinumTicketPrice = value;
-                  }),
+                  TicketColumn(
+                    setStandardTicketDescription: (value) {
+                      standardTicketDescritpion = value;
+                    },
+                    setStandardTicketNumber: (value) {
+                      standardTicketNumber = value!;
+                    },
+                    setStandardTicketPrice: (value) {
+                      standardTicketPrice = value;
+                    },
+                    setGoldTicketDescription: (value) {
+                      goldTicketDescription = value;
+                    },
+                    setGoldTicketNumber: (value) {
+                      goldTicketNumber = value;
+                    },
+                    setGoldTicketPrice: (value) {
+                      goldTicketPrice = value;
+                    },
+                    setPlatinumTicketDescription: (value) {
+                      platinumTicketDescription = value;
+                    },
+                    setPlatinumTicketNumber: (value) {
+                      platinumTicketNumber = value;
+                    },
+                    setPlatinumTicketPrice: (value) {
+                      platinumTicketPrice = value;
+                    },
+                  ),
                   const SizedBox(
                     height: 20,
                   ),

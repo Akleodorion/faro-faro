@@ -7,7 +7,6 @@ import 'package:faro_clean_tdd/pages/event_show_page/widgets/image_container.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 
 import 'pop_page/map_page.dart';
 
@@ -56,9 +55,24 @@ class EventShowPage extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        event.name,
-                        style: Theme.of(context).textTheme.titleLarge,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          SizedBox(
+                            width: (mediaWidth * 0.5 - 40),
+                            child: Text(
+                              event.name,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ),
+                          SizedBox(
+                            width: (mediaWidth * 0.5 - 40),
+                            child: Text(event.eventTimeFrame,
+                                textAlign: TextAlign.end,
+                                style: Theme.of(context).textTheme.bodyMedium),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 5,
@@ -68,16 +82,9 @@ class EventShowPage extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: (mediaWidth * 0.6 - 20),
+                            width: (mediaWidth * 1 - 40),
                             child: Text(
                                 "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address.getFullFormattedAddress()}",
-                                style: Theme.of(context).textTheme.bodyMedium),
-                          ),
-                          SizedBox(
-                            width: (mediaWidth * 0.4 - 20),
-                            child: Text(
-                                DateFormat('dd/MM/yyyy').format(event.date),
-                                textAlign: TextAlign.end,
                                 style: Theme.of(context).textTheme.bodyMedium),
                           ),
                         ],
@@ -117,8 +124,8 @@ class EventShowPage extends ConsumerWidget {
                                 width: 8,
                               ),
                               Text(event.modelEco == ModelEco.gratuit
-                                  ? "Ticket Standard : Gratuit"
-                                  : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice!)} XOF")
+                                  ? "Ticket Standard : Gratuit - ${event.standardTicketLeft}"
+                                  : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice!)} XOF - ${event.standardTicketLeft}")
                             ],
                           ),
                           Row(
@@ -155,7 +162,7 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket Gold : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF")
+                                    "Ticket Gold : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF - ${event.goldTicketLeft}")
                               ],
                             ),
                             Row(children: [
@@ -190,7 +197,7 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket Platinum : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF")
+                                    "Ticket Platinum : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF - ${event.platinumTicketLeft}")
                               ],
                             ),
                             Row(

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
@@ -74,6 +75,57 @@ class Event extends Equatable {
 
   String get formatedDate {
     return formated.format(date);
+  }
+
+  String get standardTicketLeft {
+    final myList = tickets.where((element) => element.type == Type.standard);
+    final ticketCount = maxStandardTicket - myList.length;
+
+    if (ticketCount == 0) {
+      return "Il n'y a plus de ticket standard disponible";
+    } else if (ticketCount == 1) {
+      return "$ticketCount ticket standard restant";
+    } else {
+      return '$ticketCount tickets standards restant';
+    }
+  }
+
+  String get goldTicketLeft {
+    final myList = tickets.where((element) => element.type == Type.gold);
+
+    if (maxGoldTicket == null) {
+      return "Il n'y a pas de ticket de ce type en vente.";
+    } else {
+      final ticketCount = maxGoldTicket! - myList.length;
+      if (ticketCount == 0) {
+        return "Il n'y a plus de ticket gold disponible";
+      } else if (ticketCount == 1) {
+        return "$ticketCount ticket gold restant";
+      } else {
+        return '$ticketCount tickets golds restant';
+      }
+    }
+  }
+
+  String get platinumTicketLeft {
+    final myList = tickets.where((element) => element.type == Type.platinum);
+
+    if (maxPlatinumTicket == null) {
+      return "Il n'y a pas de ticket de ce type en vente.";
+    } else {
+      final ticketCount = maxPlatinumTicket! - myList.length;
+      if (ticketCount == 0) {
+        return "Il n'y a plus de ticket platinum disponible";
+      } else if (ticketCount == 1) {
+        return "$ticketCount ticket platinum restant";
+      } else {
+        return '$ticketCount tickets platinums restant';
+      }
+    }
+  }
+
+  String get eventTimeFrame {
+    return "${DateFormat('dd/MM/yyyy').format(date)}: ${TryParseTimeOfDayImpl().getString(timeToParse: startTime)}  - ${TryParseTimeOfDayImpl().getString(timeToParse: endTime)}";
   }
 
   @override
