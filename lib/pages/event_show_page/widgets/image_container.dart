@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/activate_event/activate_event_provider.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/close_event/close_event_provider.dart';
-import 'package:faro_clean_tdd/pages/event_show_page/pop_page/member_page/member_page.dart';
+import 'package:faro_clean_tdd/pages/event_show_page/pop_page/event_management_page.dart/event_management_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -188,7 +188,7 @@ class ImageContainer extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return MemberPage(
+                                return EventManagementPage(
                                   event: event,
                                 );
                               },
