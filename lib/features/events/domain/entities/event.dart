@@ -77,6 +77,12 @@ class Event extends Equatable {
     return formated.format(date);
   }
 
+  int get standardTicketNumber {
+    final myList =
+        tickets.where((element) => element.type == Type.standard).toList();
+    return myList.length;
+  }
+
   String get standardTicketLeft {
     final myList = tickets.where((element) => element.type == Type.standard);
     final ticketCount = maxStandardTicket - myList.length;
@@ -88,6 +94,12 @@ class Event extends Equatable {
     } else {
       return '$ticketCount tickets standards restant';
     }
+  }
+
+  int get goldTicketNumber {
+    final myList =
+        tickets.where((element) => element.type == Type.gold).toList();
+    return myList.length;
   }
 
   String get goldTicketLeft {
@@ -107,6 +119,12 @@ class Event extends Equatable {
     }
   }
 
+  int get platinumTicketNumber {
+    final myList =
+        tickets.where((element) => element.type == Type.gold).toList();
+    return myList.length;
+  }
+
   String get platinumTicketLeft {
     final myList = tickets.where((element) => element.type == Type.platinum);
 
@@ -122,6 +140,14 @@ class Event extends Equatable {
         return '$ticketCount tickets platinums restant';
       }
     }
+  }
+
+  int get amountSold {
+    int sum = 0;
+    for (final ticket in tickets) {
+      ticket.price != null ? sum += ticket.price! : sum += 0;
+    }
+    return sum;
   }
 
   String get eventTimeFrame {
