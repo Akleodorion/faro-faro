@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
 abstract class TryParseTimeOfDay {
-  TimeOfDay? tryParseTimeOfDay({required String stringToParse});
+  TimeOfDay? tryParseTimeOfDay({required String? stringToParse});
   String? getString({required TimeOfDay timeToParse});
 }
 
 class TryParseTimeOfDayImpl implements TryParseTimeOfDay {
   @override
-  TimeOfDay? tryParseTimeOfDay({required String stringToParse}) {
+  TimeOfDay? tryParseTimeOfDay({required String? stringToParse}) {
+    if (stringToParse == null) {
+      return null;
+    }
     try {
       List<String> parts = stringToParse.split(':');
       if (parts.length == 2) {

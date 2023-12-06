@@ -114,7 +114,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         validator: (value) {
           setState(() => hasError = false);
           final result = validation(value);
-          result ?? setState(() => hasError = true);
+          result != null ? setState(() => hasError = true) : null;
           return result;
         },
         onSaved: (value) {

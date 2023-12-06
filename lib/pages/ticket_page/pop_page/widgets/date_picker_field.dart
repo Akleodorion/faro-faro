@@ -1,4 +1,4 @@
-import 'package:faro_clean_tdd/core/util/date_format_validator.dart';
+import 'package:faro_clean_tdd/core/util/validate_input.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -57,11 +57,10 @@ class _DatePickerFieldState extends State<DatePickerField> {
             ),
           ),
           validator: (value) {
-            setState(() {
-              hasError = !DateFormatValidatorImpl()
-                  .isValidDateFormat(value!, 'dd/MM/yyyy');
-            });
-            return hasError ? 'Date invalide' : null;
+            setState(() => hasError = false);
+            final result = ValidateInputImpl().isValidDateFormat(value);
+            result != null ? setState(() => hasError = true) : null;
+            return result;
           },
           controller: _dateController,
           onTap: () async {

@@ -73,7 +73,7 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
               Container(
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background),
-                width: hasError ? maxWidth * 0.30 : maxWidth * 0.15,
+                width: hasError ? maxWidth * 0.20 : maxWidth * 0.15,
                 child: TextFormField(
                   controller: textEditingController,
                   focusNode: inputFocusNode,
@@ -85,7 +85,7 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
                     setState(() => hasError = false);
                     final result =
                         ValidateInputImpl().positiveNumberInputValidator(value);
-                    result ?? setState(() => hasError = true);
+                    result != null ? setState(() => hasError = true) : null;
                     return result;
                   },
                   onSaved: (value) {

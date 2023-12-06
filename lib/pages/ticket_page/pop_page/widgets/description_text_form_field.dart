@@ -68,7 +68,7 @@ class _DescriptionTextFormFieldState
           validator: (value) {
             setState(() => hasError = false);
             final result = ValidateInputImpl().eventDescriptionValidator(value);
-            result ?? setState(() => hasError = true);
+            result != null ? setState(() => hasError = true) : null;
             return result;
           },
           onSaved: (value) {
