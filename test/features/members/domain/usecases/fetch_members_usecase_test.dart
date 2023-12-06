@@ -23,8 +23,11 @@ void main() {
     "execute",
     () {
       const tUserId = 1;
-      const tMember1 = Member(id: 1, userId: tUserId, eventId: 1);
-      const tMember2 = Member(id: 2, userId: tUserId, eventId: 2);
+      const tUsername = "test";
+      const tMember1 =
+          Member(id: 1, userId: tUserId, eventId: 1, username: tUsername);
+      const tMember2 =
+          Member(id: 2, userId: tUserId, eventId: 2, username: tUsername);
 
       const tMembers = [tMember1, tMember2];
       test(

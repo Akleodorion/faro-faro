@@ -31,7 +31,9 @@ void main() {
   );
   const tUserId = 1;
   const tEventId = 1;
-  const tMember = Member(id: 1, userId: tUserId, eventId: tEventId);
+  const tUsername = "test";
+  const tMember =
+      Member(id: 1, userId: tUserId, eventId: tEventId, username: tUsername);
 
   group(
     "createMember",

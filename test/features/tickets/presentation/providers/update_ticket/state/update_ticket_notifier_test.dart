@@ -35,11 +35,12 @@ void main() {
       const tUserId = 1;
       const tTicketId = 1;
       const tTicket = TicketModel(
-          id: tTicketId,
+          id: 1,
           type: Type.standard,
           description: "short description",
           eventId: 1,
-          userId: tUserId,
+          userId: 1,
+          qrCodeUrl: "qrCodeUrl",
           verified: false);
       test(
         "should emit [Loading, Loaded] if the call is successfull",

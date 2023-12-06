@@ -33,6 +33,7 @@ void main() {
     () {
       const tEventId = 1;
       const tUserId = 1;
+      const tUsername = "test";
 
       group(
         "when there is no internet connexion",
@@ -59,8 +60,8 @@ void main() {
           setUp(() => when(mockNetworkInfo.isConnected)
               .thenAnswer((realInvocation) async => true));
 
-          const tMemberModel =
-              MemberModel(id: 1, userId: tEventId, eventId: tUserId);
+          const tMemberModel = MemberModel(
+              id: 1, userId: tEventId, eventId: tUserId, username: tUsername);
           test(
             "should return a Right Member model when the call is successfull",
             () async {
@@ -164,6 +165,7 @@ void main() {
     "fetchMembers",
     () {
       const tUserId = 1;
+      const tUsername = "test";
 
       group(
         "when there is no internet connexion.",
@@ -190,10 +192,12 @@ void main() {
           setUp(() =>
               when(mockNetworkInfo.isConnected).thenAnswer((_) async => true));
 
-          const tMember1 = MemberModel(id: 1, userId: 1, eventId: 2);
-          const tMember2 = MemberModel(id: 2, userId: 2, eventId: 2);
-          const List<MemberModel> tMembers = [tMember1, tMember2];
+          const tMember1 =
+              MemberModel(id: 1, userId: 1, eventId: 2, username: tUsername);
+          const tMember2 =
+              MemberModel(id: 2, userId: 2, eventId: 2, username: tUsername);
 
+          const List<MemberModel> tMembers = [tMember1, tMember2];
           test(
             "should return a valid List of Members if the call is successfull",
             () async {

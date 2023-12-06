@@ -29,7 +29,8 @@ void main() {
           description: "short description",
           eventId: 1,
           userId: 1,
-          verified: true);
+          qrCodeUrl: "qrCodeUrl",
+          verified: false);
       test(
         "should return a valid Ticket if the call is a success",
         () async {

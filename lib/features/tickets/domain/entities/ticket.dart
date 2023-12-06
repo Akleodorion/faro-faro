@@ -9,6 +9,7 @@ class Ticket extends Equatable {
   final int? price;
   final int userId;
   final int eventId;
+  final String qrCodeUrl;
   final bool verified;
 
   const Ticket({
@@ -18,6 +19,7 @@ class Ticket extends Equatable {
     this.price, // can be null if event is free
     required this.eventId,
     required this.userId,
+    required this.qrCodeUrl,
     required this.verified,
   });
 

@@ -14,6 +14,7 @@ class MyTicketPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double mediaHeight = MediaQuery.of(context).size.height;
     final double mediaWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -100,9 +101,18 @@ class MyTicketPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 40),
-                      const Align(
-                        child: FlutterLogo(
-                          size: 120,
+                      Align(
+                        child: Container(
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                ticket.qrCodeUrl,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],

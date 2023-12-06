@@ -27,15 +27,17 @@ void main() {
           id: 1,
           type: Type.standard,
           description: "short description",
-          userId: tUserId,
-          eventId: 2,
-          verified: true);
+          eventId: 1,
+          userId: 1,
+          qrCodeUrl: "qrCodeUrl",
+          verified: false);
       const tTicket2 = Ticket(
           id: 2,
           type: Type.standard,
           description: "short description",
           eventId: 1,
-          userId: tUserId,
+          userId: 1,
+          qrCodeUrl: "qrCodeUrl",
           verified: false);
       const tTickets = [
         tTicket1,

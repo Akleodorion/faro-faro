@@ -28,6 +28,7 @@ void main() {
       description: "description",
       eventId: 1,
       userId: 1,
+      qrCodeUrl: "qrCodeUrl",
       verified: false);
   const tTicket2 = Ticket(
       id: 2,
@@ -35,10 +36,11 @@ void main() {
       description: "description",
       eventId: 1,
       userId: 2,
+      qrCodeUrl: "qrCodeUrl",
       verified: false);
   const tTickets = [tTicket1, tTicket2];
-  const tMember1 = Member(id: 1, userId: 1, eventId: 1);
-  const tMember2 = Member(id: 2, userId: 2, eventId: 1);
+  const tMember1 = Member(id: 1, userId: 1, eventId: 1, username: "test");
+  const tMember2 = Member(id: 2, userId: 2, eventId: 1, username: "test2");
   const tMembers = [tMember1, tMember2];
   final tEvent1 = Event(
     name: 'Event 1',
