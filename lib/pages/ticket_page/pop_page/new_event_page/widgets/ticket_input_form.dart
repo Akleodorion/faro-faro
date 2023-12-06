@@ -1,6 +1,6 @@
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/description_text_form_field.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/number_input_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/description_text_form_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/number_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

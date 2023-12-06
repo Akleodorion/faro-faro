@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../features/address/presentation/providers/address_provider.dart';
-import '../map_page.dart';
+import '../../../../../features/address/presentation/providers/address_provider.dart';
+import '../../map_page.dart';
 
 class MapInput extends ConsumerStatefulWidget {
   const MapInput({super.key});

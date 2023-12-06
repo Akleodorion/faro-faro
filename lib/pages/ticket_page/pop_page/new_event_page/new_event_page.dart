@@ -7,20 +7,20 @@ import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/main.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/category_picker_field.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/date_picker_field.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/description_text_form_field.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/eco_picker_field.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/image_input.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/map_input.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/ticket_column.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/time_picker_field.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/widgets/title_text_form_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/category_picker_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/date_picker_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/description_text_form_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/eco_picker_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/image_input.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/map_input.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/ticket_column.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/time_picker_field.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/widgets/title_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../features/events/data/models/event_model.dart';
+import '../../../../features/events/data/models/event_model.dart';
 
 class NewEventPage extends ConsumerWidget {
   const NewEventPage({super.key});
