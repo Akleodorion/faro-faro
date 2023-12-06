@@ -12,9 +12,10 @@ void main() {
     type: Type.standard,
     description:
         "Libero placeat fugiat. Neque dolorum voluptates. Autem architecto illo.",
-    eventId: 36,
     price: 5000,
+    eventId: 36,
     userId: 2,
+    qrCodeUrl: "qrCodeUrl",
     verified: false,
   );
   group(
@@ -49,6 +50,7 @@ void main() {
                 "Libero placeat fugiat. Neque dolorum voluptates. Autem architecto illo.",
             "event_id": 36,
             "user_id": 2,
+            "qr_code_url": "qrCodeUrl",
             "verified": false,
           };
           // act

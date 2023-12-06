@@ -33,13 +33,13 @@ void main() {
   group("fetchUserTickets", () {
     const tUserId = 1;
     const tTicket = TicketModel(
-      id: 1,
-      type: Type.standard,
-      description: "short description",
-      eventId: 1,
-      userId: tUserId,
-      verified: true,
-    );
+        id: 1,
+        type: Type.standard,
+        description: "short description",
+        eventId: 1,
+        userId: 1,
+        qrCodeUrl: "qrCodeUrl",
+        verified: false);
     const tTickets = [tTicket];
     test(
       "should emit in order [Loaded] if the call is a success",

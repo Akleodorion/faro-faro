@@ -31,12 +31,14 @@ void main() {
     "createTicket",
     () {
       const tTicketModel = TicketModel(
-          id: 1,
-          type: Type.standard,
-          description: "short description",
-          eventId: 1,
-          userId: 1,
-          verified: false);
+        id: 1,
+        type: Type.standard,
+        description: "short description",
+        eventId: 1,
+        userId: 1,
+        qrCodeUrl: "qrCodeUrl",
+        verified: false,
+      );
 
       group(
         "if there is no internet connexion",
@@ -136,16 +138,18 @@ void main() {
             type: Type.standard,
             description: "short description",
             eventId: 1,
-            userId: tUserId,
+            userId: 1,
+            qrCodeUrl: "qrCodeUrl",
             verified: false,
           );
           const tTicketModel2 = TicketModel(
-            id: 2,
+            id: 1,
             type: Type.standard,
             description: "short description",
-            eventId: 2,
-            userId: tUserId,
-            verified: true,
+            eventId: 1,
+            userId: 1,
+            qrCodeUrl: "qrCodeUrl",
+            verified: false,
           );
           const List<TicketModel> tTickets = [tTicketModel1, tTicketModel2];
 
@@ -186,12 +190,14 @@ void main() {
       const tUserId = 1;
       const tTicketId = 1;
       const tTicketModel = TicketModel(
-          id: 1,
-          type: Type.standard,
-          description: "short description",
-          eventId: 1,
-          userId: tUserId,
-          verified: true);
+        id: 1,
+        type: Type.standard,
+        description: "short description",
+        eventId: 1,
+        userId: 1,
+        qrCodeUrl: "qrCodeUrl",
+        verified: false,
+      );
       group(
         "when there is no internet connexion.",
         () {

@@ -7,7 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
-  const tMemberModel = MemberModel(id: 1, userId: 1, eventId: 1);
+  const tMemberModel =
+      MemberModel(id: 1, userId: 1, eventId: 1, username: "test");
 
   test(
     "should be a subclass of Member",
@@ -41,7 +42,12 @@ void main() {
         "should return a valid jsonFile",
         () async {
           //arrange
-          const expectedMap = {"id": 1, "user_id": 1, "event_id": 1};
+          const expectedMap = {
+            "id": 1,
+            "user_id": 1,
+            "event_id": 1,
+            "username": "test"
+          };
           //act
           final result = tMemberModel.toJson();
           //assert

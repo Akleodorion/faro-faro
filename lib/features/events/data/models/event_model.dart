@@ -56,6 +56,7 @@ class EventModel extends Event {
             ?.map((element) => Member(
                   id: element["id"] ?? 0,
                   userId: element["user_id"] ?? 0,
+                  username: element["username"] ?? '',
                   eventId: element["event_id"] ?? 0,
                 ))
             .toList() ??
@@ -70,6 +71,7 @@ class EventModel extends Event {
                   price: element["price"],
                   eventId: element["event_id"],
                   userId: element["user_id"],
+                  qrCodeUrl: element["qr_code_url"],
                   verified: element["verified"]),
             )
             .toList() ??
@@ -125,7 +127,8 @@ class EventModel extends Event {
       membersList.add({
         "id": member.id,
         "user_id": member.userId,
-        "event_id": member.eventId
+        "event_id": member.eventId,
+        "username": member.username,
       });
     }
 
@@ -137,6 +140,7 @@ class EventModel extends Event {
         "price": ticket.price,
         "verified": ticket.verified,
         "user_id": ticket.userId,
+        "qr_code_url": ticket.qrCodeUrl,
         "event_id": ticket.eventId,
       });
     }

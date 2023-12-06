@@ -20,6 +20,7 @@ void main() async {
       description: "description",
       eventId: 1,
       userId: 1,
+      qrCodeUrl: "qrCodeUrl",
       verified: false);
   const tTicket2 = Ticket(
       id: 2,
@@ -27,10 +28,11 @@ void main() async {
       description: "description",
       eventId: 1,
       userId: 2,
+      qrCodeUrl: "qrCodeUrl",
       verified: false);
   const tTickets = [tTicket1, tTicket2];
-  const Member tMember1 = Member(id: 1, userId: 1, eventId: 1);
-  const Member tMember2 = Member(id: 1, userId: 1, eventId: 1);
+  const tMember1 = Member(id: 1, userId: 1, eventId: 1, username: "test");
+  const tMember2 = Member(id: 1, userId: 1, eventId: 1, username: "test2");
   const List<Member> tMembers = [tMember1, tMember2];
   final Address address = Address(
       latitude: 42.41454,
@@ -123,8 +125,8 @@ void main() async {
           'closed': false,
           "id": 25,
           "members": [
-            {"id": 1, "event_id": 1, "user_id": 1},
-            {"id": 1, "event_id": 1, "user_id": 1}
+            {"id": 1, "event_id": 1, "user_id": 1, "username": "test"},
+            {"id": 1, "event_id": 1, "user_id": 1, "username": "test2"}
           ],
           'tickets': [
             {
@@ -134,6 +136,7 @@ void main() async {
               'price': null,
               'verified': false,
               'user_id': 1,
+              "qr_code_url": "qrCodeUrl",
               'event_id': 1
             },
             {
@@ -143,6 +146,7 @@ void main() async {
               'price': null,
               'verified': false,
               'user_id': 2,
+              "qr_code_url": "qrCodeUrl",
               'event_id': 1
             }
           ],

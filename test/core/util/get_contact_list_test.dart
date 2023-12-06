@@ -91,11 +91,8 @@ void main() {
               //act
               final result = await sut.getContacts();
               //assert
-              expect(result, [
-                "+225 10 20 30 40 50",
-                "+225 52 52 52 52 52",
-                "+225 50 60 70 80 90"
-              ]);
+              expect(result,
+                  ["+2251020304050", "+2255252525252", "+2255060708090"]);
             },
           );
         },

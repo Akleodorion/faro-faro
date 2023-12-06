@@ -36,8 +36,12 @@ void main() {
       const tUserId = 1;
       const tEventId1 = 1;
       const tEventId2 = 2;
-      const tMember1 = Member(id: 1, userId: tUserId, eventId: tEventId1);
-      const tMember2 = Member(id: 2, userId: tUserId, eventId: tEventId2);
+      const tUsername1 = "test1";
+      const tUsername2 = "test2";
+      const tMember1 = Member(
+          id: 1, userId: tUserId, eventId: tEventId1, username: tUsername1);
+      const tMember2 = Member(
+          id: 2, userId: tUserId, eventId: tEventId2, username: tUsername2);
       const tMembers = [tMember1, tMember2];
       test(
         "should emit in order [Loading, Loaded] if the call is successfull",

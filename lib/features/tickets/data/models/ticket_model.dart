@@ -8,6 +8,7 @@ class TicketModel extends Ticket {
     super.price,
     required super.eventId,
     required super.userId,
+    required super.qrCodeUrl,
     required super.verified,
   });
 
@@ -25,6 +26,7 @@ class TicketModel extends Ticket {
         eventId: json["event_id"],
         userId: json["user_id"],
         price: json["price"],
+        qrCodeUrl: json["qr_code_url"],
         verified: json["verified"]);
   }
 
@@ -35,6 +37,7 @@ class TicketModel extends Ticket {
       "description": description,
       "event_id": eventId,
       "user_id": userId,
+      "qr_code_url": qrCodeUrl,
       "verified": verified,
     };
   }

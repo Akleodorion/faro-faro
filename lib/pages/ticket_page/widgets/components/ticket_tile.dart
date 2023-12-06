@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/my_ticket_page.dart';
+import 'package:faro_clean_tdd/pages/ticket_page/pop_page/my_ticket_page/my_ticket_page.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/widgets/components/ticket_tile_general_info_container.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/widgets/components/ticket_tile_image_container.dart';
 import 'package:flutter/material.dart';

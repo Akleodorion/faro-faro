@@ -38,6 +38,7 @@ void main() {
           description: "short description",
           eventId: 1,
           userId: 1,
+          qrCodeUrl: "qrCodeUrl",
           verified: false);
       test(
         "should emit [Loading, Loaded] if the call is successfull",
