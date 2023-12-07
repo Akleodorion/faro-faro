@@ -16,7 +16,6 @@ class TicketTile extends ConsumerWidget {
     final List<Event> events = ref.read(allEventProvider);
     final Event event =
         events.firstWhere((element) => element.eventId == ticket.eventId);
-    final double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: InkWell(
@@ -34,12 +33,11 @@ class TicketTile extends ConsumerWidget {
             borderRadius: BorderRadius.circular(5),
             boxShadow: kElevationToShadow[3],
           ),
-          height: screenHeight * 0.15,
           width: MediaQuery.of(context).size.width,
           child: Padding(
-            padding: const EdgeInsets.all(0),
+            padding: const EdgeInsets.all(8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
                 TicketTileImageContainer(event: event),

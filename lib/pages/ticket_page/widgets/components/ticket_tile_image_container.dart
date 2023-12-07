@@ -10,8 +10,8 @@ class TicketTileImageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: (MediaQuery.of(context).size.width - 40) * 0.33,
-      width: (MediaQuery.of(context).size.width - 40) * 0.33,
+      height: 75,
+      width: (MediaQuery.of(context).size.width - 40) * 0.2,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(event.imageUrl),
