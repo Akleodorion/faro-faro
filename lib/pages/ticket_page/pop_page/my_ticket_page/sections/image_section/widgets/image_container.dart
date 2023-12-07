@@ -1,15 +1,14 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:flutter/material.dart';
 
 class ImageContainer extends StatelessWidget {
   const ImageContainer({
     super.key,
     required this.mediaHeight,
-    required this.event,
+    required this.eventImageUrl,
   });
 
   final double mediaHeight;
-  final Event event;
+  final String eventImageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class ImageContainer extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fill,
-          image: NetworkImage(event.imageUrl),
+          image: NetworkImage(eventImageUrl),
         ),
       ),
     );

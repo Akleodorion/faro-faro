@@ -5,7 +5,11 @@ import 'package:faro_clean_tdd/pages/ticket_page/pop_page/my_ticket_page/section
 import 'package:flutter/material.dart';
 
 class MyTicketPage extends StatelessWidget {
-  const MyTicketPage({super.key, required this.ticket, required this.event});
+  const MyTicketPage({
+    super.key,
+    required this.ticket,
+    required this.event,
+  });
 
   final Ticket ticket;
   final Event event;
@@ -30,7 +34,11 @@ class MyTicketPage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            ImageSection(mediaHeight: mediaHeight, event: event),
+            ImageSection(
+              mediaHeight: mediaHeight,
+              eventImageUrl: event.imageUrl,
+              ticket: ticket,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
@@ -80,8 +88,9 @@ class MyTicketPage extends StatelessWidget {
                           SizedBox(
                             width: (mediaWidth * 1 - 40),
                             child: Text(
-                                "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address.getFullFormattedAddress()}",
-                                style: Theme.of(context).textTheme.bodyMedium),
+                              "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address.getFullFormattedAddress()}",
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
                           ),
                         ],
                       ),

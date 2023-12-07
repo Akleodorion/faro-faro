@@ -13,6 +13,5 @@ abstract class TicketRepository {
       {required int userId, required int ticketId});
 
   // Fetch all tickets from current user.
-  Future<Either<Failure, List<Ticket>>> fetchUserTickets(
-      {required int userId});
+  Future<Either<Failure, List<Ticket>>> fetchUserTickets({required int userId});
 }

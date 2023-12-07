@@ -1,6 +1,6 @@
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/add_member/components/modal_bottom_shhet_layout.dart';
+import 'package:faro_clean_tdd/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/add_member/components/modal_bottom_sheet_layout.dart';
 import 'package:flutter/material.dart';
 
 class AddMember extends StatelessWidget {

@@ -1,33 +1,40 @@
 import 'package:faro_clean_tdd/core/util/usecase_alert_dialog.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/create_member_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ContactCard extends ConsumerWidget {
-  const ContactCard({
-    super.key,
-    required this.contact,
-    required this.event,
-  });
+class ContactCard extends StatelessWidget {
+  const ContactCard(
+      {super.key,
+      required this.contact,
+      required this.isForAddMember,
+      required this.onTap});
 
   final Contact contact;
-  final Event event;
+  final bool isForAddMember;
+  final void Function() onTap;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final String content;
+    final String title;
+
+    if (isForAddMember) {
+      title = "Ajouter le contact";
+      content =
+          "Voulez-vous ajouter ${contact.username} à la liste des membres de l'évènement ?";
+    } else {
+      title = "Envoyez le ticket";
+      content =
+          "Voulez-vous envoyez le ticket à ${contact.username} ?.\n\nVous ne pourrez plus annuler l'opération.";
+    }
     return InkWell(
       onTap: () {
         usecaseAlertDialog(
           context: context,
-          title: "Ajouter le contact",
-          content:
-              "Voulez-vous ajouter ${contact.username} à la liste des membres de l'évènement",
+          title: title,
+          content: content,
           usecase: () {
-            ref
-                .read(createMemberProvider.notifier)
-                .createMember(eventId: event.eventId, userId: contact.userId);
+            onTap();
             Navigator.of(context).pop();
           },
         );
