@@ -15,8 +15,7 @@ class TicketTileGeneralInfoContainer extends ConsumerWidget {
         events.firstWhere((element) => element.eventId == ticket.eventId);
 
     return SizedBox(
-      height: (MediaQuery.of(context).size.width - 40) * 0.33,
-      width: (MediaQuery.of(context).size.width - 40) * 0.40,
+      width: (MediaQuery.of(context).size.width - 40) * 0.7,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -28,21 +27,26 @@ class TicketTileGeneralInfoContainer extends ConsumerWidget {
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.secondary),
           ),
-          Text("Type: ${ticket.type.name}",
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.secondary)),
-          Text(event.address.getShortFormattedAddress(),
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.normal,
-                  color: Theme.of(context).colorScheme.secondary)),
-          Text(event.formatedDate,
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.normal,
-                  color: Theme.of(context).colorScheme.secondary)),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            "Ticket: ${ticket.type.name}",
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.secondary),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            ticket.description,
+            style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.normal,
+                color: Theme.of(context).colorScheme.secondary),
+          ),
         ],
       ),
     );

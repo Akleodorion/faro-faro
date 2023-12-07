@@ -24,6 +24,7 @@ class SendTicket extends ConsumerWidget {
         child: IconButton(
           onPressed: () {
             showModalBottomSheet(
+                backgroundColor: Theme.of(context).colorScheme.background,
                 context: context,
                 builder: (BuildContext context) {
                   return ModalBottomSheetLayout(
