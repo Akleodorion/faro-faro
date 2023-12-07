@@ -4,6 +4,7 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/widgets/image_container.dart';
+import 'package:faro_clean_tdd/pages/ticket_payment_page/ticket_payment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -254,7 +255,18 @@ class EventShowPage extends ConsumerWidget {
             ),
             if (!isMine)
               UsecaseElevatedButton(
-                  usecaseTitle: "Achète ton ticket", onUsecaseCall: () {})
+                  usecaseTitle: "Achète ton ticket",
+                  onUsecaseCall: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return TicketPaymentPage(
+                            event: event,
+                          );
+                        },
+                      ),
+                    );
+                  })
           ],
         ),
       ),
