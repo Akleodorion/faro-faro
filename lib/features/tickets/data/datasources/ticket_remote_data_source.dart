@@ -87,11 +87,14 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   Future<TicketModel> updateTicket(
       {required int ticketId, required int userId}) async {
     final uri = Uri.parse('$TICKETS_URL/$ticketId');
+    final Map<String, dynamic> params = {"user_id": userId};
     // faire la requête
-    final response = await client.patch(uri, body: {"user_id": userId});
+    final response = await client.patch(uri,
+        headers: {"Content-Type": 'application/json'},
+        body: json.encode(params));
     // retour model si tout boon
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return TicketModel.fromJson(json.decode(response.body));
+      return TicketModel.fromJson(json.decode(response.body)["ticket"]);
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
       throw ServerException(
           errorMessage: json.decode(response.body)["error"][0]);
