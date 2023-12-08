@@ -101,7 +101,7 @@ class MyApp extends ConsumerWidget {
         theme: theme,
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         supportedLocales: const [
-          Locale('fr', 'FR'), // français
+          Locale('fr', 'FR'),
         ],
         home: userAuth is Loaded ? const MainPage() : const AuthScreen());
   }

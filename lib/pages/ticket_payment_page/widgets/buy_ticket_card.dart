@@ -1,28 +1,43 @@
+import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:flutter/material.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 
 class BuyTicketCard extends StatelessWidget {
-  const BuyTicketCard(
-      {super.key,
-      this.ticketPrice,
-      required this.ticketNumber,
-      required this.ticketLeft,
-      required this.ticketType,
-      required this.incrOrDecr});
-  final int? ticketPrice;
-  final int ticketNumber;
-  final String ticketType;
-  final String ticketLeft;
+  const BuyTicketCard({
+    super.key,
+    required this.incrOrDecr,
+    required this.event,
+    required this.ticketType,
+    required this.ticketQuantity,
+  });
+
   final void Function(bool value) incrOrDecr;
+  final Event event;
+  final Type ticketType;
+  final int ticketQuantity;
 
   @override
   Widget build(BuildContext context) {
+    late String ticketLeft;
+    late int? ticketPrice;
+
+    if (ticketType == Type.standard) {
+      ticketLeft = event.standardTicketLeft;
+      ticketPrice = event.standardTicketPrice;
+    } else if (ticketType == Type.gold) {
+      ticketLeft = event.goldTicketLeft;
+      ticketPrice = event.goldTicketPrice;
+    } else {
+      ticketLeft = event.platinumTicketLeft;
+      ticketPrice = event.platinumTicketPrice;
+    }
     return Align(
       alignment: Alignment.centerLeft,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Ticket $ticketType:",
+            "Ticket ${ticketType.name}:",
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w500,
@@ -33,7 +48,7 @@ class BuyTicketCard extends StatelessWidget {
             height: 5,
           ),
           Text(
-            ticketLeft.toString(),
+            ticketLeft,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(
@@ -76,7 +91,7 @@ class BuyTicketCard extends StatelessWidget {
                           width: 60,
                           child: Center(
                             child: Text(
-                              ticketNumber.toString(),
+                              ticketQuantity.toString(),
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),

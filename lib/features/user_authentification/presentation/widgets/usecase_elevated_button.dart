@@ -16,7 +16,16 @@ class UsecaseElevatedButton extends StatelessWidget {
         elevation: 5,
       ),
       onPressed: onUsecaseCall,
-      child: Text(usecaseTitle),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Text(
+          usecaseTitle,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -50,7 +50,7 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
       return createMember;
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
       throw ServerException(
-          errorMessage: json.decode(response.body)["error"][0]);
+          errorMessage: json.decode(response.body)["errors"][0]);
     } else {
       throw ServerException(
           errorMessage: "An error as occured please try again later");
