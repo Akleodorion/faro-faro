@@ -10,14 +10,24 @@ class MyTicketList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final myTickets = ref.read(userTicketsProvider);
 
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.7,
-      child: ListView.builder(
-        itemCount: myTickets.length,
-        itemBuilder: (BuildContext context, int index) {
-          return TicketTile(ticket: myTickets[index]);
-        },
-      ),
-    );
+    Widget content;
+
+    if (myTickets.isEmpty) {
+      content = const Center(
+          child: Text(
+              "Vous n'avez pas de ticket !\nN'hésitez pas à en achetez un"));
+    } else {
+      content = SizedBox(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: ListView.builder(
+          itemCount: myTickets.length,
+          itemBuilder: (BuildContext context, int index) {
+            return TicketTile(ticket: myTickets[index]);
+          },
+        ),
+      );
+    }
+
+    return content;
   }
 }

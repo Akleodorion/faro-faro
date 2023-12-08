@@ -96,6 +96,13 @@ class Event extends Equatable {
     }
   }
 
+  int get standardTicketCountLeft {
+    final myList = tickets.where((element) => element.type == Type.standard);
+    final ticketCount = maxStandardTicket - myList.length;
+
+    return ticketCount;
+  }
+
   int get goldTicketNumber {
     final myList =
         tickets.where((element) => element.type == Type.gold).toList();
@@ -119,6 +126,16 @@ class Event extends Equatable {
     }
   }
 
+  int? get goldTicketCountLeft {
+    final myList = tickets.where((element) => element.type == Type.gold);
+    if (maxGoldTicket != null) {
+      final ticketCount = maxGoldTicket! - myList.length;
+      return ticketCount;
+    }
+
+    return null;
+  }
+
   int get platinumTicketNumber {
     final myList =
         tickets.where((element) => element.type == Type.gold).toList();
@@ -140,6 +157,16 @@ class Event extends Equatable {
         return '$ticketCount tickets platinums restant';
       }
     }
+  }
+
+  int? get platinumTicketCountLeft {
+    final myList = tickets.where((element) => element.type == Type.platinum);
+    if (maxPlatinumTicket != null) {
+      final ticketCount = maxPlatinumTicket! - myList.length;
+      return ticketCount;
+    }
+
+    return null;
   }
 
   int get amountSold {

@@ -11,15 +11,21 @@ class MyEventList extends ConsumerWidget {
     final myEvents = ref.read(myEventProvider);
     Widget content;
 
-    content = SizedBox(
-      height: MediaQuery.of(context).size.height * 0.7,
-      child: ListView.builder(
-        itemCount: myEvents.length,
-        itemBuilder: (BuildContext context, int index) {
-          return EventTile(event: myEvents[index]);
-        },
-      ),
-    );
+    if (myEvents.isEmpty) {
+      content = const Center(
+          child: Text(
+              "Vous n'avez pas crée d'évènement!\nN'hésitez pas à le faire!"));
+    } else {
+      content = SizedBox(
+        height: MediaQuery.of(context).size.height * 0.7,
+        child: ListView.builder(
+          itemCount: myEvents.length,
+          itemBuilder: (BuildContext context, int index) {
+            return EventTile(event: myEvents[index]);
+          },
+        ),
+      );
+    }
 
     return content;
   }

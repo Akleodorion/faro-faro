@@ -29,12 +29,7 @@ class UserNotifier extends StateNotifier<UserState> {
         .call(Params(email: email, password: password, pref: pref));
     response.fold((failure) {
       if (failure is ServerFailure) {
-        // On affiche le message d'erreur
         state = Error(message: failure.errorMessage);
-        // showError(failure.errorMessage);
-
-        // On ré-initialise l'état
-        // reset();
       }
     }, (user) {
       state = Loaded(user: user!);
