@@ -1,4 +1,6 @@
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 
 import '../../../../domain/usecases/fetch_all_events.dart';
 import 'fetch_event_state.dart';
@@ -14,8 +16,6 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
     required this.fetchAllEventsUsecase,
   }) : super(Loading());
 
-  // Usecases
-
   Future<FetchEventState?> fetchAllEvents() async {
     final response = await fetchAllEventsUsecase.execute();
     response.fold((failure) {
@@ -30,8 +30,6 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
     });
     return state;
   }
-
-  // Méthodes
 
   FetchEventState searchEvent(
       String researchInput, FetchEventState eventState) {
@@ -49,5 +47,45 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
           message: "Les évènements ont étés récupérés avec succès!");
     }
     return state;
+  }
+
+  void addMemberToEvent({
+    required Member member,
+    required Event event,
+    required FetchEventState fetchEventState,
+  }) {
+    if (fetchEventState is Loaded) {
+      final udpatedAllEvents = fetchEventState.allEvents.map((e) {
+        if (e == event) {
+          return e.copyWith(members: [...e.members, member]);
+        }
+        return e;
+      }).toList();
+
+      state = Loaded(
+          indexEvent: fetchEventState.indexEvent,
+          allEvents: udpatedAllEvents,
+          message: fetchEventState.message);
+    }
+  }
+
+  void removeMemberToEvent({
+    required Member member,
+    required Event event,
+    required FetchEventState fetchEventState,
+  }) {
+    if (fetchEventState is Loaded) {
+      final udpatedAllEvents = fetchEventState.allEvents.map((e) {
+        if (e == event) {
+          return e.copyWith(
+              members: e.members.where((m) => m != member).toList());
+        }
+        return e;
+      }).toList();
+      state = Loaded(
+          indexEvent: fetchEventState.indexEvent,
+          allEvents: udpatedAllEvents,
+          message: fetchEventState.message);
+    }
   }
 }
