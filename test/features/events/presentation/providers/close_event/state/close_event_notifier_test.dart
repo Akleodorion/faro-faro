@@ -36,6 +36,7 @@ void main() {
   group(
     "CloseAnEvent",
     () {
+      const tSuccessMessage = "Réussi";
       final tEvent = EventModel(
         name: 'Event 1',
         eventId: 1,
@@ -78,7 +79,10 @@ void main() {
           when(mockCloseAnEvent.execute(eventId: anyNamed('eventId')))
               .thenAnswer((realInvocation) async => Right(tEvent));
           //act
-          final expectedResult = [Loading(), Loaded(event: tEvent)];
+          final expectedResult = [
+            Loading(),
+            Loaded(event: tEvent, message: tSuccessMessage)
+          ];
           expectLater(sut.stream, emitsInOrder(expectedResult));
           //assert
           await sut.closeAnEvent(eventId: 1);

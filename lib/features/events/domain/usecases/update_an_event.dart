@@ -11,7 +11,7 @@ class UpdateAnEventUsecase {
   final EventRepository repository;
   UpdateAnEventUsecase({required this.repository});
 
-  Future<Either<Failure, Event>?> execute({
+  Future<Either<Failure, Event>> execute({
     required EventModel event,
     required File image,
   }) async {

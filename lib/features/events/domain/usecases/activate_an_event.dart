@@ -7,7 +7,7 @@ class ActivateAnEvent {
   ActivateAnEvent({required this.repository});
   final EventRepository repository;
 
-  Future<Either<Failure, Event>?> execute({required int eventId}) async {
+  Future<Either<Failure, Event>> execute({required int eventId}) async {
     return await repository.activateAnEvent(eventId: eventId);
   }
 }

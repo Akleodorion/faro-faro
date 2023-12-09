@@ -25,7 +25,7 @@ void main() {
       fetchAllEventsUsecase: mockFetchAllEvents,
     );
   });
-
+  const tSuccessMessage = "Réussi";
   const tMember1 = Member(id: 1, userId: 1, eventId: 1, username: "test");
   const tMember2 = Member(id: 2, userId: 2, eventId: 1, username: "test2");
   const tTicket1 = Ticket(
@@ -143,9 +143,9 @@ void main() {
           //assert
           final expectedState = [
             Loaded(
-              indexEvent: tEvents,
-              allEvents: tEvents,
-            )
+                indexEvent: tEvents,
+                allEvents: tEvents,
+                message: tSuccessMessage)
           ];
           expectLater(fetchEventNotifier.stream, emitsInOrder(expectedState));
           //act
@@ -188,7 +188,11 @@ void main() {
         tEvent1,
         tEvent2,
       ];
-      final teventState = Loaded(indexEvent: tEvents10, allEvents: tEvents10);
+      final teventState = Loaded(
+        indexEvent: tEvents10,
+        allEvents: tEvents10,
+        message: tSuccessMessage,
+      );
       test(
         "should return a eventState with the index Event filtered",
         () async {
@@ -197,13 +201,17 @@ void main() {
               fetchEventNotifier.searchEvent('Event 1 ', teventState);
           //assert
 
-          final tExpected = Loaded(indexEvent: [
-            tEvent1,
-            tEvent1,
-            tEvent1,
-            tEvent1,
-            tEvent1,
-          ], allEvents: tEvents10);
+          final tExpected = Loaded(
+            indexEvent: [
+              tEvent1,
+              tEvent1,
+              tEvent1,
+              tEvent1,
+              tEvent1,
+            ],
+            allEvents: tEvents10,
+            message: tSuccessMessage,
+          );
           expect(result, tExpected);
         },
       );

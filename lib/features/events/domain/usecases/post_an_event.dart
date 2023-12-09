@@ -12,7 +12,7 @@ class PostAnEvent {
 
   final EventRepository repository;
 
-  Future<Either<Failure, Event>?> execute(
+  Future<Either<Failure, Event>> execute(
       {required EventModel event, required File image}) async {
     return repository.postAnEvent(event: event, image: image);
   }

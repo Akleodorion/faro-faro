@@ -3,16 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
-import 'package:dartz/dartz.dart' as _i5;
+import 'package:dartz/dartz.dart' as _i3;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart'
     as _i7;
 import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart'
     as _i2;
 import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart'
-    as _i3;
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -39,10 +39,20 @@ class _FakeEventRepository_0 extends _i1.SmartFake
         );
 }
 
+class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
+  _FakeEither_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [FetchAllEvents].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFetchAllEvents extends _i1.Mock implements _i3.FetchAllEvents {
+class MockFetchAllEvents extends _i1.Mock implements _i4.FetchAllEvents {
   MockFetchAllEvents() {
     _i1.throwOnMissingStub(this);
   }
@@ -57,13 +67,19 @@ class MockFetchAllEvents extends _i1.Mock implements _i3.FetchAllEvents {
       ) as _i2.EventRepository);
 
   @override
-  _i4.Future<_i5.Either<_i6.Failure, List<_i7.Event>>?> execute() =>
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>> execute() =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
         ),
-        returnValue:
-            _i4.Future<_i5.Either<_i6.Failure, List<_i7.Event>>?>.value(),
-      ) as _i4.Future<_i5.Either<_i6.Failure, List<_i7.Event>>?>);
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>>.value(
+            _FakeEither_1<_i6.Failure, List<_i7.Event>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Event>>>);
 }

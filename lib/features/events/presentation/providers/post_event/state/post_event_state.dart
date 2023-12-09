@@ -17,10 +17,11 @@ class Loading extends PostEventState {}
 class Loaded extends PostEventState {
   Loaded({
     required this.event,
+    required this.message,
   });
 
-  // List of events
   final Event event;
+  final String message;
 }
 
 class Error extends PostEventState {
@@ -28,8 +29,5 @@ class Error extends PostEventState {
     required this.message,
   });
 
-  // List of events
-
-  // Message
   final String message;
 }

@@ -55,7 +55,7 @@ class MockEventRemoteDatasource extends _i1.Mock
       ) as _i4.Future<List<_i2.EventModel>>);
 
   @override
-  _i4.Future<_i2.EventModel?> postAnEvent({
+  _i4.Future<_i2.EventModel> postAnEvent({
     required _i2.EventModel? event,
     required _i5.File? image,
   }) =>
@@ -68,11 +68,21 @@ class MockEventRemoteDatasource extends _i1.Mock
             #image: image,
           },
         ),
-        returnValue: _i4.Future<_i2.EventModel?>.value(),
-      ) as _i4.Future<_i2.EventModel?>);
+        returnValue: _i4.Future<_i2.EventModel>.value(_FakeEventModel_0(
+          this,
+          Invocation.method(
+            #postAnEvent,
+            [],
+            {
+              #event: event,
+              #image: image,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.EventModel>);
 
   @override
-  _i4.Future<_i2.EventModel?> updateAnEvent({
+  _i4.Future<_i2.EventModel> updateAnEvent({
     required _i2.EventModel? event,
     required _i5.File? image,
   }) =>
@@ -85,8 +95,18 @@ class MockEventRemoteDatasource extends _i1.Mock
             #image: image,
           },
         ),
-        returnValue: _i4.Future<_i2.EventModel?>.value(),
-      ) as _i4.Future<_i2.EventModel?>);
+        returnValue: _i4.Future<_i2.EventModel>.value(_FakeEventModel_0(
+          this,
+          Invocation.method(
+            #updateAnEvent,
+            [],
+            {
+              #event: event,
+              #image: image,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.EventModel>);
 
   @override
   _i4.Future<_i2.EventModel> activateAnEvent({required int? eventId}) =>

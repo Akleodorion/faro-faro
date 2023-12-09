@@ -16,15 +16,16 @@ class ActivateEventNotifier extends StateNotifier<ActivateEventState> {
 
   // Usecases
 
-  Future<ActivateEventState?> activateAnEvent({required int eventId}) async {
+  Future<ActivateEventState> activateAnEvent({required int eventId}) async {
     state = Loading();
     final response = await activateAnEventUsecase.execute(eventId: eventId);
-    response!.fold((failure) {
+    response.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);
       }
     }, (event) {
-      state = Loaded(event: event);
+      state = Loaded(
+          event: event, message: "L'évènement a été activé avec succès!");
     });
     return state;
   }

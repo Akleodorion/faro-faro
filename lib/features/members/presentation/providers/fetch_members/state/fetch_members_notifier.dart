@@ -12,12 +12,14 @@ class FetchMemberNotifier extends StateNotifier<FetchMembersState> {
   Future<FetchMembersState?> fetchMember({required int userId}) async {
     state = Loading();
     final result = await usecase.execute(userId: userId);
-    result!.fold((failure) {
+    result.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);
       }
     }, (members) {
-      state = Loaded(members: members);
+      state = Loaded(
+          members: members,
+          message: "Les membres ont étés récupérés avec succès!");
     });
     return state;
   }

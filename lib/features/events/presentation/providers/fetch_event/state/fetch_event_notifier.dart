@@ -18,15 +18,15 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
 
   Future<FetchEventState?> fetchAllEvents() async {
     final response = await fetchAllEventsUsecase.execute();
-    response!.fold((failure) {
+    response.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(indexEvent: const [], message: failure.errorMessage);
       }
     }, (events) {
       state = Loaded(
-        indexEvent: events,
-        allEvents: events,
-      );
+          indexEvent: events,
+          allEvents: events,
+          message: "Les évènements ont étés récupérés avec succès!");
     });
     return state;
   }
@@ -43,8 +43,10 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
                       .toUpperCase()
                       .contains(researchInput.toUpperCase())))
           .toList();
-      state =
-          Loaded(indexEvent: filteredEvent, allEvents: eventState.allEvents);
+      state = Loaded(
+          indexEvent: filteredEvent,
+          allEvents: eventState.allEvents,
+          message: "Les évènements ont étés récupérés avec succès!");
     }
     return state;
   }
