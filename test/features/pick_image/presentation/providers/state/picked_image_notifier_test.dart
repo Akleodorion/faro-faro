@@ -31,6 +31,7 @@ void main() {
   );
 
   group('PickImageFromGallery', () {
+    const tSuccessMessage = "Réussi";
     final tPickedImage = PickedImage(image: File('flyers.jpg'));
     test(
       "should call the Usecase ",
@@ -53,7 +54,10 @@ void main() {
             .thenAnswer((_) async => Right(tPickedImage));
 
         //assert later
-        final expectedState = [Loading(), Loaded(pickedImage: tPickedImage)];
+        final expectedState = [
+          Loading(),
+          Loaded(pickedImage: tPickedImage, message: tSuccessMessage)
+        ];
         expectLater(pickedImageNotifier.stream, emitsInOrder(expectedState));
         //act
 

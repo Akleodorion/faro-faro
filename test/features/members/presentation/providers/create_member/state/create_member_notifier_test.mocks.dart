@@ -3,16 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
-import 'package:dartz/dartz.dart' as _i5;
+import 'package:dartz/dartz.dart' as _i3;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart'
     as _i7;
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart'
     as _i2;
 import 'package:faro_clean_tdd/features/members/domain/usecases/create_member_usecase.dart'
-    as _i3;
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -39,11 +39,21 @@ class _FakeMemberRepository_0 extends _i1.SmartFake
         );
 }
 
+class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
+  _FakeEither_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [CreateMemberUsecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCreateMemberUsecase extends _i1.Mock
-    implements _i3.CreateMemberUsecase {
+    implements _i4.CreateMemberUsecase {
   MockCreateMemberUsecase() {
     _i1.throwOnMissingStub(this);
   }
@@ -58,7 +68,7 @@ class MockCreateMemberUsecase extends _i1.Mock
       ) as _i2.MemberRepository);
 
   @override
-  _i4.Future<_i5.Either<_i6.Failure, _i7.Member>?> execute({
+  _i5.Future<_i3.Either<_i6.Failure, _i7.Member>> execute({
     required int? eventId,
     required int? userId,
   }) =>
@@ -71,6 +81,17 @@ class MockCreateMemberUsecase extends _i1.Mock
             #userId: userId,
           },
         ),
-        returnValue: _i4.Future<_i5.Either<_i6.Failure, _i7.Member>?>.value(),
-      ) as _i4.Future<_i5.Either<_i6.Failure, _i7.Member>?>);
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.Member>>.value(
+            _FakeEither_1<_i6.Failure, _i7.Member>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+            {
+              #eventId: eventId,
+              #userId: userId,
+            },
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.Member>>);
 }

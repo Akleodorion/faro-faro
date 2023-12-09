@@ -8,7 +8,7 @@ class FetchAllEvents {
   final EventRepository repository;
   FetchAllEvents({required this.repository});
 
-  Future<Either<Failure, List<Event>>?> execute() async {
+  Future<Either<Failure, List<Event>>> execute() async {
     return repository.fetchAllEvents();
   }
 }

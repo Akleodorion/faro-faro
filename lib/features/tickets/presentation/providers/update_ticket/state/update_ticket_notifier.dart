@@ -18,7 +18,8 @@ class UpdateTicketNotifier extends StateNotifier<UpdateTicketState> {
         (failure) => failure is ServerFailure
             ? state = Error(message: failure.errorMessage)
             : null,
-        (ticket) => state = Loaded(ticket: ticket));
+        (ticket) => state = Loaded(
+            ticket: ticket, message: "Le ticket a été transféré avec succès!"));
     return state;
   }
 }

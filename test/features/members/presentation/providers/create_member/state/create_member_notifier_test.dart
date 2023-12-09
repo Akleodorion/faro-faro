@@ -29,6 +29,7 @@ void main() {
       expect(result, Initial());
     },
   );
+  const tSuccessMessage = "Réussi";
   const tUserId = 1;
   const tEventId = 1;
   const tUsername = "test";
@@ -46,7 +47,10 @@ void main() {
                   eventId: anyNamed('eventId'), userId: anyNamed('userId')))
               .thenAnswer((_) async => const Right(tMember));
           //assert later
-          final expectedState = [Loading(), Loaded(member: tMember)];
+          final expectedState = [
+            Loading(),
+            Loaded(member: tMember, message: tSuccessMessage)
+          ];
           expectLater(sut.stream, emitsInOrder(expectedState));
           //act
           await sut.createMember(eventId: tEventId, userId: tUserId);

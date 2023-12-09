@@ -11,9 +11,10 @@ class Initial extends CreateMemberState {}
 class Loading extends CreateMemberState {}
 
 class Loaded extends CreateMemberState {
-  Loaded({required this.member});
+  Loaded({required this.member, required this.message});
 
   final Member member;
+  final String message;
 }
 
 class Error extends CreateMemberState {

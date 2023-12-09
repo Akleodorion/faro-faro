@@ -12,21 +12,23 @@ class PickedImageNotifier extends StateNotifier<PickedImageState> {
 
   PickedImageState get initialState => Initial();
 
-  Future<PickedImageState?> pickImageFromGalery() async {
+  Future<PickedImageState> pickImageFromGalery() async {
     state = Loading();
-
     final response = await pickImageFromGaleryUsecase.call();
 
-    response!.fold((failure) {
+    response.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);
       }
     }, (pickedImage) {
-      if (pickedImage == null) {
+      final isImagedPicked = pickedImage == null;
+      if (!isImagedPicked) {
+        state = Loaded(
+            pickedImage: pickedImage,
+            message: "L'image a été ajoutée avec succès!");
+      } else {
         state = Initial();
-        return state;
       }
-      state = Loaded(pickedImage: pickedImage);
     });
     return state;
   }

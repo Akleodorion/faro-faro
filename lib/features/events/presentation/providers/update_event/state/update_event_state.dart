@@ -10,11 +10,9 @@ class Initial extends UpdateEventState {
   Initial({required this.infoMap});
   final Map<String, dynamic> infoMap;
 
-  Initial copyWith(
-      {Map<String, dynamic>? infoMap /*, autres propriétés ici...*/}) {
+  Initial copyWith({Map<String, dynamic>? infoMap}) {
     return Initial(
       infoMap: infoMap ?? this.infoMap,
-      // Copiez d'autres propriétés ici...
     );
   }
 }
@@ -24,10 +22,11 @@ class Loading extends UpdateEventState {}
 class Loaded extends UpdateEventState {
   Loaded({
     required this.event,
+    required this.message,
   });
 
-  // List of events
   final Event event;
+  final String message;
 }
 
 class Error extends UpdateEventState {
@@ -36,9 +35,6 @@ class Error extends UpdateEventState {
     required this.infoMap,
   });
 
-  // List of events
-
-  // Message
   final String message;
   final Map<String, dynamic> infoMap;
 }

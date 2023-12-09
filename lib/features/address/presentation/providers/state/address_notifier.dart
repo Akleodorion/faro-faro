@@ -15,31 +15,33 @@ class AddressNotifier extends StateNotifier<AddressState> {
 
   AddressState get initialState => Initial();
 
-  Future<AddressState?> getCurrentLocationAddress() async {
+  Future<AddressState> getCurrentLocationAddress() async {
     state = Loading();
     final response = await getCurrentLocationAddressUsecase.call();
 
-    response!.fold((failure) {
+    response.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);
       }
     }, (address) {
-      state = Loaded(address: address!);
+      state =
+          Loaded(address: address, message: "Addresse modifiée avec succès");
     });
     return state;
   }
 
-  Future<AddressState?> getSelectedLociationAddress(
+  Future<AddressState> getSelectedLociationAddress(
       double latitude, double longitude) async {
     state = Loading();
     final response =
         await getSelectedLocationAddressUsecase.call(latitude, longitude);
-    response!.fold((failure) {
+    response.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);
       }
     }, (address) {
-      state = Loaded(address: address!);
+      state =
+          Loaded(address: address, message: "Addresse modifiée avec succès");
     });
     return state;
   }

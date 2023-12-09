@@ -32,7 +32,7 @@ class UserNotifier extends StateNotifier<UserState> {
         state = Error(message: failure.errorMessage);
       }
     }, (user) {
-      state = Loaded(user: user!);
+      state = Loaded(user: user!, message: "Connecté avec succès!");
     });
     return state;
   }
@@ -58,7 +58,8 @@ class UserNotifier extends StateNotifier<UserState> {
         state = Error(message: failure.errorMessage);
       }
     }, (user) {
-      state = Loaded(user: user!);
+      state =
+          Loaded(user: user!, message: "Votre compte a été créer avec succès!");
     });
 
     return state;
@@ -75,7 +76,7 @@ class UserNotifier extends StateNotifier<UserState> {
     if (response == null) {
       return await getUserInfo();
     }
-    state = Loaded(user: response);
+    state = Loaded(user: response, message: "Connecté avec succès!");
     return state;
   }
 

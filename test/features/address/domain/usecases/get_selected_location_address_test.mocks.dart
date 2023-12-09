@@ -3,14 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:dartz/dartz.dart' as _i4;
+import 'package:dartz/dartz.dart' as _i2;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart'
-    as _i2;
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -26,27 +26,43 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
+  _FakeEither_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [AddressRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAddressRepository extends _i1.Mock implements _i2.AddressRepository {
+class MockAddressRepository extends _i1.Mock implements _i3.AddressRepository {
   MockAddressRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i4.Either<_i5.Failure, _i6.Address?>?>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Address>>
       getCurrentLocationAddress() => (super.noSuchMethod(
             Invocation.method(
               #getCurrentLocationAddress,
               [],
             ),
-            returnValue:
-                _i3.Future<_i4.Either<_i5.Failure, _i6.Address?>?>.value(),
-          ) as _i3.Future<_i4.Either<_i5.Failure, _i6.Address?>?>);
+            returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Address>>.value(
+                _FakeEither_0<_i5.Failure, _i6.Address>(
+              this,
+              Invocation.method(
+                #getCurrentLocationAddress,
+                [],
+              ),
+            )),
+          ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Address>>);
 
   @override
-  _i3.Future<_i4.Either<_i5.Failure, _i6.Address?>?> getSelectedLocationAddress(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Address>> getSelectedLocationAddress(
     double? latitude,
     double? longitude,
   ) =>
@@ -58,6 +74,16 @@ class MockAddressRepository extends _i1.Mock implements _i2.AddressRepository {
             longitude,
           ],
         ),
-        returnValue: _i3.Future<_i4.Either<_i5.Failure, _i6.Address?>?>.value(),
-      ) as _i3.Future<_i4.Either<_i5.Failure, _i6.Address?>?>);
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Address>>.value(
+            _FakeEither_0<_i5.Failure, _i6.Address>(
+          this,
+          Invocation.method(
+            #getSelectedLocationAddress,
+            [
+              latitude,
+              longitude,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Address>>);
 }

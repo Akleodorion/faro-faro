@@ -35,6 +35,7 @@ void main() {
       expect(updateEventNotifier.initialState, Initial(infoMap: const {}));
     },
   );
+  const tSuccessMessage = "Réussi";
   const tMember1 = Member(id: 1, userId: 1, eventId: 1, username: "test");
   const tMember2 = Member(id: 2, userId: 2, eventId: 1, username: "test2");
   const tTicket1 = Ticket(
@@ -101,7 +102,10 @@ void main() {
         when(mockUpdateAnEventUsecase.execute(event: tEvent, image: tImage))
             .thenAnswer((_) async => Right(tEvent));
         //assert
-        final expectedState = [Loading(), Loaded(event: tEvent)];
+        final expectedState = [
+          Loading(),
+          Loaded(event: tEvent, message: tSuccessMessage)
+        ];
         expectLater(updateEventNotifier.stream, emitsInOrder(expectedState));
         // act
         await updateEventNotifier.updateAnEvent(event: tEvent, image: tImage);

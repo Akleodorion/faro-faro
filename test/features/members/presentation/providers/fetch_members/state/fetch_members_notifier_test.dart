@@ -33,6 +33,7 @@ void main() {
   group(
     "fetchMember",
     () {
+      const tSuccessMessage = "Réussi";
       const tUserId = 1;
       const tEventId1 = 1;
       const tEventId2 = 2;
@@ -50,7 +51,10 @@ void main() {
           when(mockFetchMembersUsecase.execute(userId: tUserId))
               .thenAnswer((_) async => const Right(tMembers));
           //assert later
-          final expectedState = [Loading(), Loaded(members: tMembers)];
+          final expectedState = [
+            Loading(),
+            Loaded(members: tMembers, message: tSuccessMessage)
+          ];
           expectLater(sut.stream, emitsInOrder(expectedState));
           //assert
           await sut.fetchMember(userId: tUserId);

@@ -38,6 +38,7 @@ void main() {
       const Contact tContact2 =
           Contact(userId: 2, phoneNumber: "+2251025452674", username: "user 2");
       const tContacts = [tContact1, tContact2];
+      const tSuccessMessage = "Contacts récupérés avec succès";
       test(
         "should call emit [Loaded] if the call is successfull",
         () async {
@@ -45,7 +46,9 @@ void main() {
           when(mockFetchContactUsecase.execute())
               .thenAnswer((realInvocation) async => const Right(tContacts));
           //assert later
-          final expected = [Loaded(contacts: tContacts)];
+          final expected = [
+            Loaded(contacts: tContacts, message: tSuccessMessage)
+          ];
           expectLater(sut.stream, emitsInOrder(expected));
           // act
           await sut.fetchContact();

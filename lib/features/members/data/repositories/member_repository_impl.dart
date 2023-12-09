@@ -20,7 +20,7 @@ class MemberRepositoryImpl implements MemberRepository {
   final MemberRemoteDataSource remoteDataSource;
 
   @override
-  Future<Either<Failure, Member>?> createMember(
+  Future<Either<Failure, Member>> createMember(
       {required int eventId, required int userId}) async {
     if (await networkInfo.isConnected) {
       try {
@@ -49,7 +49,7 @@ class MemberRepositoryImpl implements MemberRepository {
   }
 
   @override
-  Future<Either<Failure, List<Member>>?> fetchMembers(
+  Future<Either<Failure, List<Member>>> fetchMembers(
       {required int userId}) async {
     if (await networkInfo.isConnected) {
       try {

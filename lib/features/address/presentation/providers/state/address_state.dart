@@ -12,8 +12,9 @@ class Loading extends AddressState {}
 
 class Loaded extends AddressState {
   final Address address;
+  final String message;
 
-  Loaded({required this.address});
+  Loaded({required this.address, required this.message});
 }
 
 class Error extends AddressState {

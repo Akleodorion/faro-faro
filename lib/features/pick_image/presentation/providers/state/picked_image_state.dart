@@ -12,8 +12,9 @@ class Loading extends PickedImageState {}
 
 class Loaded extends PickedImageState {
   final PickedImage pickedImage;
+  final String message;
 
-  Loaded({required this.pickedImage});
+  Loaded({required this.pickedImage, required this.message});
 }
 
 class Error extends PickedImageState {

@@ -34,6 +34,7 @@ void main() {
     () {
       const tUserId = 1;
       const tTicketId = 1;
+      const tSuccessMessage = "Réussi";
       const tTicket = TicketModel(
           id: 1,
           type: Type.standard,
@@ -51,7 +52,13 @@ void main() {
               .thenAnswer((realInvocation) async => const Right(tTicket));
 
           //assert later
-          final expectedResult = [Loading(), Loaded(ticket: tTicket)];
+          final expectedResult = [
+            Loading(),
+            Loaded(
+              ticket: tTicket,
+              message: tSuccessMessage,
+            )
+          ];
           expectLater(sut.stream, emitsInOrder(expectedResult));
 
           //act

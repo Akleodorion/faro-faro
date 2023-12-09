@@ -11,10 +11,11 @@ class Initial extends CloseEventState {}
 class Loading extends CloseEventState {}
 
 class Loaded extends CloseEventState {
-  Loaded({required this.event});
+  Loaded({required this.event, required this.message});
 
   // List of events
   final Event event;
+  final String message;
 }
 
 class Error extends CloseEventState {

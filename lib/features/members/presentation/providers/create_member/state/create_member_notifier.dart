@@ -13,12 +13,13 @@ class CreateMemberNotifier extends StateNotifier<CreateMemberState> {
       {required int eventId, required int userId}) async {
     state = Loading();
     final result = await usecase.execute(eventId: eventId, userId: userId);
-    result!.fold((error) {
+    result.fold((error) {
       if (error is ServerFailure) {
         state = Error(message: error.errorMessage);
       }
     }, (member) {
-      state = Loaded(member: member);
+      state = Loaded(
+          member: member, message: "Le membre a été ajouté avec succès!");
     });
     return state;
   }

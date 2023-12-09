@@ -13,7 +13,7 @@ abstract class EventRemoteDatasource {
   Future<List<EventModel>> fetchAllEvents();
 
   // fait une requête à http://localhost:3001/event/create
-  Future<EventModel?> postAnEvent({
+  Future<EventModel> postAnEvent({
     required EventModel event,
     required File image,
   });
@@ -22,7 +22,7 @@ abstract class EventRemoteDatasource {
   ///
   /// Jette une [ServerException] en cas d'erreur
   ///
-  Future<EventModel?> updateAnEvent(
+  Future<EventModel> updateAnEvent(
       {required EventModel event, required File image});
 
   /// Fait une requête à http://localhost:3001/event/:id/
@@ -63,7 +63,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   }
 
   @override
-  Future<EventModel?> postAnEvent(
+  Future<EventModel> postAnEvent(
       {required EventModel event, required File image}) async {
     // initialisation des variables
     final Map<String, dynamic> myEvent = event.toJson();
@@ -97,7 +97,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   }
 
   @override
-  Future<EventModel?> updateAnEvent(
+  Future<EventModel> updateAnEvent(
       {required EventModel event, required File image}) async {
     // initialisation des variables
     final Map<String, dynamic> myEvent = event.toJson();

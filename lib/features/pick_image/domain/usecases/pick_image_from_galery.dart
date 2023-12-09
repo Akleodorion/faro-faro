@@ -8,7 +8,7 @@ class PickImageFromGalery {
 
   final PickedImageRepository repository;
 
-  Future<Either<Failure, PickedImage?>?> call() async {
+  Future<Either<Failure, PickedImage?>> call() async {
     return await repository.pickImageFromGalery();
   }
 }

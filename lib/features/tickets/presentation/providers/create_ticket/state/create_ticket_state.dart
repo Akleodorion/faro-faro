@@ -12,8 +12,12 @@ class Loading extends CreateTicketState {}
 
 class Loaded extends CreateTicketState {
   final Ticket ticket;
+  final String message;
 
-  Loaded({required this.ticket});
+  Loaded({
+    required this.ticket,
+    required this.message,
+  });
 }
 
 class Error extends CreateTicketState {

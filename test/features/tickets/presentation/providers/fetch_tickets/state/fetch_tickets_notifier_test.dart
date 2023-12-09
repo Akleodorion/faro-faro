@@ -32,6 +32,7 @@ void main() {
 
   group("fetchUserTickets", () {
     const tUserId = 1;
+    const tSuccessMessage = "Réussi";
     const tTicket = TicketModel(
         id: 1,
         type: Type.standard,
@@ -48,7 +49,9 @@ void main() {
         when(mockFetchUserTicketsUsecase.execute(userId: anyNamed('userId')))
             .thenAnswer((realInvocation) async => const Right(tTickets));
         //act
-        final expectedResult = [Loaded(tickets: tTickets)];
+        final expectedResult = [
+          Loaded(tickets: tTickets, message: tSuccessMessage)
+        ];
         expectLater(sut.stream, emitsInOrder(expectedResult));
         //assert
         sut.fetchUserTickets(userId: tUserId);

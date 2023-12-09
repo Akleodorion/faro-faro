@@ -11,8 +11,9 @@ class Initial extends FetchMembersState {}
 class Loading extends FetchMembersState {}
 
 class Loaded extends FetchMembersState {
-  Loaded({required this.members});
+  Loaded({required this.members, required this.message});
   final List<Member> members;
+  final String message;
 }
 
 class Error extends FetchMembersState {

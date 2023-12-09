@@ -89,12 +89,13 @@ class UpdateEventNotifier extends StateNotifier<UpdateEventState> {
     state = Loading();
     final response =
         await updateAnEventUsecase.execute(event: event, image: image);
-    response!.fold((failure) {
+    response.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage, infoMap: map);
       }
     }, (event) {
-      state = Loaded(event: event);
+      state = Loaded(
+          event: event, message: "L'évènement a été modifié avec succès!");
     });
     return state;
   }

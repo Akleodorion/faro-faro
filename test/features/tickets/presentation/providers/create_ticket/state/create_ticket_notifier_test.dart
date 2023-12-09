@@ -40,6 +40,7 @@ void main() {
           userId: 1,
           qrCodeUrl: "qrCodeUrl",
           verified: false);
+      const tSuccessMessage = "Réussi";
       test(
         "should emit [Loading, Loaded] if the call is successfull",
         () async {
@@ -48,7 +49,10 @@ void main() {
               .thenAnswer((_) async => const Right(tTicket));
 
           //assert later
-          final expectedResult = [Loading(), Loaded(ticket: tTicket)];
+          final expectedResult = [
+            Loading(),
+            Loaded(ticket: tTicket, message: tSuccessMessage)
+          ];
           expectLater(sut.stream, emitsInOrder(expectedResult));
 
           //act

@@ -44,6 +44,7 @@ void main() {
         plusCode: "9359+HXR",
         road: "Route d'Abatta",
         sublocality: "Cocody");
+    const tSuccessMessage = "Addresse modifiée avec succès";
     test(
       "should call the usecase",
       () async {
@@ -64,7 +65,10 @@ void main() {
         when(mockGetCurrentLocationAddress.call())
             .thenAnswer((_) async => const Right(tAddress));
         //act
-        final expectedState = [Loading(), Loaded(address: tAddress)];
+        final expectedState = [
+          Loading(),
+          Loaded(address: tAddress, message: tSuccessMessage)
+        ];
         expectLater(addressNotifier.stream, emitsInOrder(expectedState));
         //assert
         addressNotifier.getCurrentLocationAddress();
@@ -87,6 +91,7 @@ void main() {
   });
 
   group('getSelectedLociationAddress', () {
+    const tSuccessMessage = "Addresse modifiée avec succès";
     const tLatitude = 52.45456;
     const tLongitude = 44.54245;
     const tAddress = Address(
@@ -121,7 +126,10 @@ void main() {
         when(mockGetSelectedLocationAddress.call(any, any))
             .thenAnswer((_) async => const Right(tAddress));
         //act
-        final expectedState = [Loading(), Loaded(address: tAddress)];
+        final expectedState = [
+          Loading(),
+          Loaded(address: tAddress, message: tSuccessMessage)
+        ];
         expectLater(addressNotifier.stream, emitsInOrder(expectedState));
         //assert
         addressNotifier.getSelectedLociationAddress(tLatitude, tLongitude);

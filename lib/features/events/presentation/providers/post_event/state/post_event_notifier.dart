@@ -24,12 +24,13 @@ class PostEventNotifier extends StateNotifier<PostEventState> {
     state = Loading();
     final response =
         await postAnEventUsecase.execute(event: event, image: image);
-    response!.fold((failure) {
+    response.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);
       }
     }, (event) {
-      state = Loaded(event: event);
+      state =
+          Loaded(event: event, message: "L'évènement a été crée avec succès!");
     });
     return state;
   }

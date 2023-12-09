@@ -5,5 +5,5 @@ import '../../../../core/errors/failures.dart';
 
 abstract class PickedImageRepository {
   // sélectionne une image depuis la Gallerie
-  Future<Either<Failure, PickedImage?>?> pickImageFromGalery();
+  Future<Either<Failure, PickedImage?>> pickImageFromGalery();
 }

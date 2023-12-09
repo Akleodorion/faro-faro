@@ -19,12 +19,13 @@ class CloseEventNotifier extends StateNotifier<CloseEventState> {
   Future<CloseEventState?> closeAnEvent({required int eventId}) async {
     state = Loading();
     final response = await closeAnEventUsecase.execute(eventId: eventId);
-    response!.fold((failure) {
+    response.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);
       }
     }, (event) {
-      state = Loaded(event: event);
+      state = Loaded(
+          event: event, message: "L'évènement a été fermée avec succès!");
     });
     return state;
   }

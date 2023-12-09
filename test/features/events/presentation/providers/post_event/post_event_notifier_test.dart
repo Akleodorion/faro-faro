@@ -34,6 +34,7 @@ void main() {
       expect(postEventNotifier.initialState, Initial(isFree: false));
     },
   );
+  const tSuccessMessage = "Réussi";
   const tMember1 = Member(id: 1, userId: 1, eventId: 1, username: "test");
   const tMember2 = Member(id: 2, userId: 2, eventId: 1, username: "test2");
   const tTicket1 = Ticket(
@@ -100,7 +101,10 @@ void main() {
         when(mockPostAnEvent.execute(event: tEvent, image: tImage))
             .thenAnswer((_) async => Right(tEvent));
         //assert
-        final expectedState = [Loading(), Loaded(event: tEvent)];
+        final expectedState = [
+          Loading(),
+          Loaded(event: tEvent, message: tSuccessMessage)
+        ];
         expectLater(postEventNotifier.stream, emitsInOrder(expectedState));
         // act
         await postEventNotifier.postAnEvent(event: tEvent, image: tImage);

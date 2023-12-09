@@ -12,8 +12,12 @@ class Loading extends UpdateTicketState {}
 
 class Loaded extends UpdateTicketState {
   final Ticket ticket;
+  final String message;
 
-  Loaded({required this.ticket});
+  Loaded({
+    required this.ticket,
+    required this.message,
+  });
 }
 
 class Error extends UpdateTicketState {

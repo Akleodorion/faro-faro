@@ -12,11 +12,13 @@ class Loaded extends FetchEventState {
   Loaded({
     required this.indexEvent,
     required this.allEvents,
+    required this.message,
   });
 
   // List of events
   final List<Event> indexEvent;
   final List<Event> allEvents;
+  final String message;
 }
 
 class Error extends FetchEventState {

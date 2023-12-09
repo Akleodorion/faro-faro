@@ -18,7 +18,7 @@ class EventRepositoryImpl implements EventRepository {
       {required this.remoteDatasource, required this.networkInfo});
 
   @override
-  Future<Either<Failure, List<Event>>?> fetchAllEvents() async {
+  Future<Either<Failure, List<Event>>> fetchAllEvents() async {
     try {
       if (await networkInfo.isConnected) {
         final events = await remoteDatasource.fetchAllEvents();
@@ -32,13 +32,13 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
-  Future<Either<Failure, Event>?> postAnEvent(
+  Future<Either<Failure, Event>> postAnEvent(
       {required EventModel event, required File image}) async {
     try {
       if (await networkInfo.isConnected) {
         final myEvent =
             await remoteDatasource.postAnEvent(event: event, image: image);
-        return Right(myEvent!);
+        return Right(myEvent);
       } else {
         return const Left(ServerFailure(errorMessage: 'No internet connexion'));
       }
@@ -48,13 +48,13 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
-  Future<Either<Failure, Event>?> updateAnEvent(
+  Future<Either<Failure, Event>> updateAnEvent(
       {required EventModel event, required File image}) async {
     try {
       if (await networkInfo.isConnected) {
         final myEvent =
             await remoteDatasource.updateAnEvent(event: event, image: image);
-        return Right(myEvent!);
+        return Right(myEvent);
       } else {
         return const Left(ServerFailure(errorMessage: 'No internet connexion'));
       }
@@ -64,8 +64,7 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
-  Future<Either<Failure, Event>?> activateAnEvent(
-      {required int eventId}) async {
+  Future<Either<Failure, Event>> activateAnEvent({required int eventId}) async {
     try {
       if (await networkInfo.isConnected) {
         final event = await remoteDatasource.activateAnEvent(eventId: eventId);
@@ -79,7 +78,7 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
-  Future<Either<Failure, Event>?> closeAnEvent({required int eventId}) async {
+  Future<Either<Failure, Event>> closeAnEvent({required int eventId}) async {
     try {
       if (await networkInfo.isConnected) {
         final event = await remoteDatasource.closeAnEvent(eventId: eventId);

@@ -9,7 +9,7 @@ class GetCurrentLocationAddress {
 
   final AddressRepository repository;
 
-  Future<Either<Failure, Address?>?> call() async {
+  Future<Either<Failure, Address>> call() async {
     return await repository.getCurrentLocationAddress();
   }
 }

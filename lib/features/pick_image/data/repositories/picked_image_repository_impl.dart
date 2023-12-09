@@ -10,7 +10,7 @@ class PickedImageRepositoryImpl implements PickedImageRepository {
 
   PickedImageRepositoryImpl({required this.repository});
   @override
-  Future<Either<Failure, PickedImageModel?>?> pickImageFromGalery() async {
+  Future<Either<Failure, PickedImageModel?>> pickImageFromGalery() async {
     try {
       final response = await repository.pickImageFromGallery();
       return Right(response);

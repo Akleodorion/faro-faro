@@ -9,7 +9,7 @@ class GetSelectedLocationAddress {
 
   final AddressRepository repository;
 
-  Future<Either<Failure, Address?>?> call(
+  Future<Either<Failure, Address>> call(
       double latitude, double longitude) async {
     return repository.getSelectedLocationAddress(latitude, longitude);
   }

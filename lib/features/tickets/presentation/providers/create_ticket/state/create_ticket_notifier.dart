@@ -17,7 +17,8 @@ class CreateTicketNotifier extends StateNotifier<CreateTicketState> {
         (failure) => failure is ServerFailure
             ? state = Error(message: failure.errorMessage)
             : null,
-        (ticket) => state = Loaded(ticket: ticket));
+        (ticket) => state = Loaded(
+            ticket: ticket, message: "Le ticket a été crée avec succès!"));
     return state;
   }
 }

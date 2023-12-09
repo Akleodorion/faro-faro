@@ -9,9 +9,10 @@ class ContactState extends Equatable {
 class Loading extends ContactState {}
 
 class Loaded extends ContactState {
-  Loaded({required this.contacts});
+  Loaded({required this.contacts, required this.message});
 
   final List<Contact> contacts;
+  final String message;
 }
 
 class Error extends ContactState {
