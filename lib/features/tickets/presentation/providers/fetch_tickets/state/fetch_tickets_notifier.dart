@@ -1,4 +1,5 @@
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/usecases/fetch_user_tickets_usecase.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,5 +20,23 @@ class FetchTicketsNotifier extends StateNotifier<FetchTicketsState> {
             tickets: tickets,
             message: "Les tickets ont étés récupérés avec succès!"));
     return state;
+  }
+
+  void addTicket(
+      {required Ticket ticket, required FetchTicketsState fetchTicketsState}) {
+    if (fetchTicketsState is Loaded) {
+      final updateTicketsList = List<Ticket>.from(fetchTicketsState.tickets)
+        ..add(ticket);
+      state = fetchTicketsState.copyWith(tickets: updateTicketsList);
+    }
+  }
+
+  void removeTicket(
+      {required Ticket ticket, required FetchTicketsState fetchTicketsState}) {
+    if (fetchTicketsState is Loaded) {
+      final updateTicketsList = List<Ticket>.from(fetchTicketsState.tickets)
+        ..removeWhere((element) => element.id == ticket.id);
+      state = fetchTicketsState.copyWith(tickets: updateTicketsList);
+    }
   }
 }

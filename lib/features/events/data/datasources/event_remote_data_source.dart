@@ -119,7 +119,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
     // fait la requête au serveur
     var response = await http.Response.fromStream(await request.send());
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return EventModel.fromJson(json.decode(response.body)["event"]);
     } else if (response.statusCode == 422) {
       final errorList = json.decode(response.body)["errors"];
