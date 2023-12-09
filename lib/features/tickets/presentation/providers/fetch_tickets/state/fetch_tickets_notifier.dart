@@ -15,7 +15,9 @@ class FetchTicketsNotifier extends StateNotifier<FetchTicketsState> {
         (failure) => failure is ServerFailure
             ? state = Error(message: failure.errorMessage)
             : null,
-        (tickets) => state = Loaded(tickets: tickets));
+        (tickets) => state = Loaded(
+            tickets: tickets,
+            message: "Les tickets ont étés récupérés avec succès!"));
     return state;
   }
 }

@@ -42,6 +42,7 @@ void main() {
       expect(userNotifier.initialState, Loading());
     },
   );
+  const tSuccessMessage = "Réussi";
 
   group(
     "logUserIn",
@@ -79,7 +80,10 @@ void main() {
           when(mockLogUserIn.call(any))
               .thenAnswer((_) async => const Right(tUser));
           //act
-          final expectedState = [Loading(), Loaded(user: tUser)];
+          final expectedState = [
+            Loading(),
+            Loaded(user: tUser, message: tSuccessMessage)
+          ];
 
           expectLater(userNotifier.stream, emitsInOrder(expectedState));
 
@@ -149,7 +153,10 @@ void main() {
               .thenAnswer((_) async => const Right(tUser));
 
           //assert later
-          final expectedState = [Loading(), Loaded(user: tUser)];
+          final expectedState = [
+            Loading(),
+            Loaded(user: tUser, message: tSuccessMessage)
+          ];
           expectLater(userNotifier.stream, emitsInOrder(expectedState));
           //act
 

@@ -16,8 +16,12 @@ class Loading extends UserState {}
 
 class Loaded extends UserState {
   final User user;
+  final String message;
 
-  Loaded({required this.user});
+  Loaded({
+    required this.user,
+    required this.message,
+  });
 }
 
 class Error extends UserState {

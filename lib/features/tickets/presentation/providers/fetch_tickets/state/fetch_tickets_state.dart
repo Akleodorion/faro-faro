@@ -12,8 +12,9 @@ class Loading extends FetchTicketsState {}
 
 class Loaded extends FetchTicketsState {
   final List<Ticket> tickets;
+  final String message;
 
-  Loaded({required this.tickets});
+  Loaded({required this.tickets, required this.message});
 }
 
 class Error extends FetchTicketsState {
