@@ -16,7 +16,8 @@ class ContactNotifier extends StateNotifier<ContactState> {
         state = Error(message: failure.errorMessage);
       }
     }, (contacts) {
-      state = Loaded(contacts: contacts);
+      state =
+          Loaded(contacts: contacts, message: "Contacts récupérés avec succès");
     });
     return state;
   }
