@@ -11,7 +11,7 @@ class AddressRepositoryImpl implements AddressRepository {
   final AddressRemoteDataSource remoteDataSource;
 
   @override
-  Future<Either<Failure, Address?>?> getCurrentLocationAddress() async {
+  Future<Either<Failure, Address>> getCurrentLocationAddress() async {
     try {
       final response =
           await remoteDataSource.fetchAddressDataFromCurrentLocation();
@@ -23,7 +23,7 @@ class AddressRepositoryImpl implements AddressRepository {
   }
 
   @override
-  Future<Either<Failure, Address?>?> getSelectedLocationAddress(
+  Future<Either<Failure, Address>> getSelectedLocationAddress(
       double latitude, double longitude) async {
     try {
       final response =

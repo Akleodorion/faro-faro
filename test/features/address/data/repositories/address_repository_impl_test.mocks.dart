@@ -3,12 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart'
-    as _i2;
+    as _i3;
 import 'package:faro_clean_tdd/features/address/data/models/address_model.dart'
-    as _i4;
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -24,17 +24,27 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeAddressModel_0 extends _i1.SmartFake implements _i2.AddressModel {
+  _FakeAddressModel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [AddressRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAddressRemoteDataSource extends _i1.Mock
-    implements _i2.AddressRemoteDataSource {
+    implements _i3.AddressRemoteDataSource {
   MockAddressRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i4.AddressModel?> fetchAddressDataFromMap(
+  _i4.Future<_i2.AddressModel> fetchAddressDataFromMap(
     double? latitude,
     double? longitude,
   ) =>
@@ -46,16 +56,31 @@ class MockAddressRemoteDataSource extends _i1.Mock
             longitude,
           ],
         ),
-        returnValue: _i3.Future<_i4.AddressModel?>.value(),
-      ) as _i3.Future<_i4.AddressModel?>);
+        returnValue: _i4.Future<_i2.AddressModel>.value(_FakeAddressModel_0(
+          this,
+          Invocation.method(
+            #fetchAddressDataFromMap,
+            [
+              latitude,
+              longitude,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.AddressModel>);
 
   @override
-  _i3.Future<_i4.AddressModel?> fetchAddressDataFromCurrentLocation() =>
+  _i4.Future<_i2.AddressModel> fetchAddressDataFromCurrentLocation() =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchAddressDataFromCurrentLocation,
           [],
         ),
-        returnValue: _i3.Future<_i4.AddressModel?>.value(),
-      ) as _i3.Future<_i4.AddressModel?>);
+        returnValue: _i4.Future<_i2.AddressModel>.value(_FakeAddressModel_0(
+          this,
+          Invocation.method(
+            #fetchAddressDataFromCurrentLocation,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.AddressModel>);
 }

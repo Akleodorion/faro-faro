@@ -15,7 +15,7 @@ abstract class AddressRemoteDataSource {
   /// La localisation utilisée est celle choisie sur la carte interactive
   ///
   /// Jette une [ServerException] en cas d'erreur
-  Future<AddressModel?> fetchAddressDataFromMap(
+  Future<AddressModel> fetchAddressDataFromMap(
       double latitude, double longitude);
 
   /// Fait une requête http à l'API Geocoding de Google.
@@ -23,7 +23,7 @@ abstract class AddressRemoteDataSource {
   /// La localisation utilisée est celle de la position GPS du téléphone
   ///
   /// Jette une [ServerException] en cas d'erreur
-  Future<AddressModel?> fetchAddressDataFromCurrentLocation();
+  Future<AddressModel> fetchAddressDataFromCurrentLocation();
 }
 
 class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
@@ -32,7 +32,7 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
   final GetLocationImpl location;
   final http.Client client;
   @override
-  Future<AddressModel?> fetchAddressDataFromCurrentLocation() async {
+  Future<AddressModel> fetchAddressDataFromCurrentLocation() async {
     // récupérer la position du téléphone
     final setLocation = await location.getLocation();
 
@@ -55,7 +55,7 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
   }
 
   @override
-  Future<AddressModel?> fetchAddressDataFromMap(
+  Future<AddressModel> fetchAddressDataFromMap(
       double latitude, double longitude) async {
     // faire la requête http
     final uri = Uri.parse(
