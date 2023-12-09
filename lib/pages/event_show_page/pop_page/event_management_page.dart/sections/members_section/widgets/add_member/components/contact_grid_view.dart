@@ -45,7 +45,6 @@ class ContactGridView extends StatelessWidget {
   void showMessage(BuildContext context, String message) {
     if (context.mounted) {
       showResultMessageSnackbar(context: context, message: message);
-      Navigator.of(context).pop();
     }
   }
 
@@ -56,6 +55,8 @@ class ContactGridView extends StatelessWidget {
     switch (state) {
       case ut.Loaded():
         showMessage(context, state.message);
+        Navigator.of(context).pop();
+
         break;
       case ut.Error():
         showMessage(context, state.message);

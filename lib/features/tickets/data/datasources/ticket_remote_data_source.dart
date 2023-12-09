@@ -44,11 +44,13 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
         headers: {"Content-Type": 'application/json'},
         body: json.encode(ticket.toJson()));
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+    if (response.statusCode == 201) {
       final TicketModel createMember =
-          TicketModel.fromJson(json.decode(response.body));
+          TicketModel.fromJson(json.decode(response.body)["ticket"]);
       return createMember;
-    } else if (response.statusCode >= 400 && response.statusCode < 500) {
+    } else if (response.statusCode == 404 || response.statusCode == 400) {
+      throw ServerException(errorMessage: json.decode(response.body)["error"]);
+    } else if (response.statusCode == 422) {
       throw ServerException(
           errorMessage: json.decode(response.body)["errors"][0]);
     } else {
@@ -64,19 +66,15 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
       "user_id": userId.toString(),
     };
     final uri = Uri.parse(TICKETS_URL).replace(queryParameters: params);
-    // faire la requête
     final response = await client.get(uri);
-    // retour model si tout boon
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+
+    if (response.statusCode == 200) {
       final List<dynamic> myDataMap = json.decode(response.body);
 
       for (var map in myDataMap) {
         myList.add(TicketModel.fromJson(map));
       }
       return myList;
-    } else if (response.statusCode >= 400 && response.statusCode < 500) {
-      throw ServerException(
-          errorMessage: json.decode(response.body)["error"][0]);
     } else {
       throw ServerException(
           errorMessage: "An error as occured please try again later");
@@ -92,12 +90,13 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
     final response = await client.patch(uri,
         headers: {"Content-Type": 'application/json'},
         body: json.encode(params));
-    // retour model si tout boon
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+
+    if (response.statusCode == 201) {
       return TicketModel.fromJson(json.decode(response.body)["ticket"]);
-    } else if (response.statusCode >= 400 && response.statusCode < 500) {
-      throw ServerException(
-          errorMessage: json.decode(response.body)["error"][0]);
+    } else if (response.statusCode == 404) {
+      throw ServerException(errorMessage: json.decode(response.body)["error"]);
+    } else if (response.statusCode == 422) {
+      throw ServerException(errorMessage: json.decode(response.body)["errors"]);
     } else {
       throw ServerException(
           errorMessage: "An error as occured please try again later");
