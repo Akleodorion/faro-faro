@@ -11,10 +11,14 @@ class Initial extends FetchTicketsState {}
 class Loading extends FetchTicketsState {}
 
 class Loaded extends FetchTicketsState {
+  Loaded({required this.tickets, required this.message});
   final List<Ticket> tickets;
   final String message;
 
-  Loaded({required this.tickets, required this.message});
+  Loaded copyWith({List<Ticket>? tickets, String? message}) {
+    return Loaded(
+        tickets: tickets ?? this.tickets, message: message ?? this.message);
+  }
 }
 
 class Error extends FetchTicketsState {

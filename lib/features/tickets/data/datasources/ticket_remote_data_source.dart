@@ -91,7 +91,7 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
         headers: {"Content-Type": 'application/json'},
         body: json.encode(params));
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return TicketModel.fromJson(json.decode(response.body)["ticket"]);
     } else if (response.statusCode == 404) {
       throw ServerException(errorMessage: json.decode(response.body)["error"]);
