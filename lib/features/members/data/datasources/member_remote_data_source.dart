@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'dart:convert';
+
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:http/http.dart' as http;
@@ -66,14 +67,14 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   @override
   Future<Failure?> deleteMember({required int memberId}) async {
     final uri = Uri.parse("$MEMBERS_URL/$memberId");
-
-    final response = await client.delete(uri);
+    final response = await http.delete(
+      uri,
+    );
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return null;
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
-      throw ServerException(
-          errorMessage: json.decode(response.body)["error"][0]);
+      throw ServerException(errorMessage: json.decode(response.body)["error"]);
     } else {
       throw ServerException(
           errorMessage: "An error as occured please try again later");

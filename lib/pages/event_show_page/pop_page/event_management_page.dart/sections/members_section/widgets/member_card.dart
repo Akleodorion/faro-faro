@@ -1,7 +1,10 @@
+import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/delete_member/delete_member_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../../../../features/members/presentation/providers/delete_member/state/delete_member_state.dart';
 
 class MemberCard extends ConsumerWidget {
   const MemberCard({
@@ -43,11 +46,31 @@ class MemberCard extends ConsumerWidget {
                                   "Voulez-vous supprimé ${member.userId} à la liste des membres de l'évènement"),
                               actions: [
                                 IconButton(
-                                  onPressed: () {
-                                    ref
+                                  onPressed: () async {
+                                    final stateResult = await ref
                                         .read(deleteMemberProvider.notifier)
                                         .deleteMember(memberId: member.id);
-                                    Navigator.of(context).pop();
+
+                                    switch (stateResult) {
+                                      case Initial():
+                                        if (context.mounted) {
+                                          showResultMessageSnackbar(
+                                              context: context,
+                                              message:
+                                                  "Le membre a été supprimé avec susscès");
+                                        }
+                                        break;
+                                      case Error():
+                                        if (context.mounted) {
+                                          showResultMessageSnackbar(
+                                              context: context,
+                                              message: stateResult.message);
+                                        }
+                                        break;
+                                    }
+                                    if (context.mounted) {
+                                      Navigator.of(context).pop();
+                                    }
                                   },
                                   icon: const Icon(
                                     Icons.done,

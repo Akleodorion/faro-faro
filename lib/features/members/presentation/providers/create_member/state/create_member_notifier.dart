@@ -9,7 +9,7 @@ class CreateMemberNotifier extends StateNotifier<CreateMemberState> {
 
   CreateMemberState get initialState => Initial();
 
-  Future<CreateMemberState?> createMember(
+  Future<CreateMemberState> createMember(
       {required int eventId, required int userId}) async {
     state = Loading();
     final result = await usecase.execute(eventId: eventId, userId: userId);
