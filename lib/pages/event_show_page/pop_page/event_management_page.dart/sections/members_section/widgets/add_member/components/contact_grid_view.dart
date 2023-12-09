@@ -4,6 +4,8 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/create_member_provider.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/state/create_member_state.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/state/update_ticket_state.dart'
+    as ut;
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/update_ticket_provider.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/add_member/components/contact_card.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,45 @@ class ContactGridView extends StatelessWidget {
   final List<Contact> contactList;
   final Event? event;
   final Ticket? ticket;
+
+  void showResultCreateMember(
+    BuildContext context,
+    CreateMemberState state,
+  ) {
+    switch (state) {
+      case Loaded():
+        showMessage(context, state.message);
+        break;
+      case Error():
+        if (context.mounted) {
+          showMessage(context, state.message);
+
+          Navigator.of(context).pop();
+        }
+        break;
+    }
+  }
+
+  void showMessage(BuildContext context, String message) {
+    if (context.mounted) {
+      showResultMessageSnackbar(context: context, message: message);
+      Navigator.of(context).pop();
+    }
+  }
+
+  void showResultUpdateTicket(
+    BuildContext context,
+    ut.UpdateTicketState state,
+  ) {
+    switch (state) {
+      case ut.Loaded():
+        showMessage(context, state.message);
+        break;
+      case ut.Error():
+        showMessage(context, state.message);
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,28 +92,17 @@ class ContactGridView extends StatelessWidget {
                           .read(createMemberProvider.notifier)
                           .createMember(
                               eventId: event!.eventId, userId: contact.userId);
-                      switch (stateResult) {
-                        case Loaded():
-                          if (context.mounted) {
-                            showResultMessageSnackbar(
-                                context: context,
-                                message: "Le membre a été ajouté avec succès");
-                            Navigator.of(context).pop();
-                          }
-                          break;
-                        case Error():
-                          if (context.mounted) {
-                            showResultMessageSnackbar(
-                                context: context, message: stateResult.message);
-
-                            Navigator.of(context).pop();
-                          }
-                          break;
+                      if (context.mounted) {
+                        showResultCreateMember(context, stateResult);
                       }
-                      return;
                     } else {
-                      ref.read(updateTicketProvider.notifier).updateTicket(
-                          ticketId: ticket!.id, userId: contact.userId);
+                      final stateResult = await ref
+                          .read(updateTicketProvider.notifier)
+                          .updateTicket(
+                              ticketId: ticket!.id, userId: contact.userId);
+                      if (context.mounted) {
+                        showResultUpdateTicket(context, stateResult);
+                      }
                     }
                   },
                 );
