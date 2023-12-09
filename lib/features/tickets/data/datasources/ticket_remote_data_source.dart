@@ -46,7 +46,7 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       final TicketModel createMember =
-          TicketModel.fromJson(json.decode(response.body));
+          TicketModel.fromJson(json.decode(response.body)["ticket"]);
       return createMember;
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
       throw ServerException(

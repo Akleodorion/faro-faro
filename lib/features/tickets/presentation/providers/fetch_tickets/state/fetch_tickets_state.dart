@@ -15,6 +15,15 @@ class Loaded extends FetchTicketsState {
   final String message;
 
   Loaded({required this.tickets, required this.message});
+  Loaded copyWith({
+    List<Ticket>? tickets,
+    String? message,
+  }) {
+    return Loaded(
+      tickets: tickets ?? this.tickets,
+      message: message ?? this.message,
+    );
+  }
 }
 
 class Error extends FetchTicketsState {

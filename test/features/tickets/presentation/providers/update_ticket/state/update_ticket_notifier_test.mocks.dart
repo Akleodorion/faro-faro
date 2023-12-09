@@ -2,18 +2,28 @@
 // in faro_clean_tdd/test/features/tickets/presentation/providers/update_ticket/state/update_ticket_notifier_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+// ignore_for_file: no_leading_underscores_for_library_prefixes, invalid_use_of_internal_member
+import 'dart:async' as _i9;
 
 import 'package:dartz/dartz.dart' as _i3;
-import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
+import 'package:faro_clean_tdd/core/errors/failures.dart' as _i10;
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart'
-    as _i7;
+    as _i11;
 import 'package:faro_clean_tdd/features/tickets/domain/repositories/ticket_repository.dart'
     as _i2;
-import 'package:faro_clean_tdd/features/tickets/domain/usecases/update_ticket_usecase.dart'
+import 'package:faro_clean_tdd/features/tickets/domain/usecases/fetch_user_tickets_usecase.dart'
     as _i4;
+import 'package:faro_clean_tdd/features/tickets/domain/usecases/update_ticket_usecase.dart'
+    as _i8;
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_notifier.dart'
+    as _i12;
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_state.dart'
+    as _i5;
+import 'package:flutter_riverpod/flutter_riverpod.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i14;
+import 'package:riverpod/src/internals.dart' as _i6;
+import 'package:state_notifier/state_notifier.dart' as _i13;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -49,11 +59,66 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
+class _FakeFetchUserTicketsUsecase_2 extends _i1.SmartFake
+    implements _i4.FetchUserTicketsUsecase {
+  _FakeFetchUserTicketsUsecase_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFetchTicketsState_3 extends _i1.SmartFake
+    implements _i5.FetchTicketsState {
+  _FakeFetchTicketsState_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeProviderScheduler_4 extends _i1.SmartFake
+    implements _i6.ProviderScheduler {
+  _FakeProviderScheduler_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeProviderSubscription_5<State1> extends _i1.SmartFake
+    implements _i7.ProviderSubscription<State1> {
+  _FakeProviderSubscription_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeProviderElementBase_6<State1> extends _i1.SmartFake
+    implements _i7.ProviderElementBase<State1> {
+  _FakeProviderElementBase_6(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [UpdateTicketUsecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUpdateTicketUsecase extends _i1.Mock
-    implements _i4.UpdateTicketUsecase {
+    implements _i8.UpdateTicketUsecase {
   MockUpdateTicketUsecase() {
     _i1.throwOnMissingStub(this);
   }
@@ -68,7 +133,7 @@ class MockUpdateTicketUsecase extends _i1.Mock
       ) as _i2.TicketRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.Ticket>> execute({
+  _i9.Future<_i3.Either<_i10.Failure, _i11.Ticket>> execute({
     required int? ticketId,
     required int? userId,
   }) =>
@@ -81,8 +146,8 @@ class MockUpdateTicketUsecase extends _i1.Mock
             #userId: userId,
           },
         ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.Ticket>>.value(
-            _FakeEither_1<_i6.Failure, _i7.Ticket>(
+        returnValue: _i9.Future<_i3.Either<_i10.Failure, _i11.Ticket>>.value(
+            _FakeEither_1<_i10.Failure, _i11.Ticket>(
           this,
           Invocation.method(
             #execute,
@@ -93,5 +158,424 @@ class MockUpdateTicketUsecase extends _i1.Mock
             },
           ),
         )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.Ticket>>);
+      ) as _i9.Future<_i3.Either<_i10.Failure, _i11.Ticket>>);
+}
+
+/// A class which mocks [FetchTicketsNotifier].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFetchTicketsNotifier extends _i1.Mock
+    implements _i12.FetchTicketsNotifier {
+  MockFetchTicketsNotifier() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.FetchUserTicketsUsecase get usecase => (super.noSuchMethod(
+        Invocation.getter(#usecase),
+        returnValue: _FakeFetchUserTicketsUsecase_2(
+          this,
+          Invocation.getter(#usecase),
+        ),
+      ) as _i4.FetchUserTicketsUsecase);
+
+  @override
+  _i5.FetchTicketsState get initial => (super.noSuchMethod(
+        Invocation.getter(#initial),
+        returnValue: _FakeFetchTicketsState_3(
+          this,
+          Invocation.getter(#initial),
+        ),
+      ) as _i5.FetchTicketsState);
+
+  @override
+  _i5.FetchTicketsState get currentState => (super.noSuchMethod(
+        Invocation.getter(#currentState),
+        returnValue: _FakeFetchTicketsState_3(
+          this,
+          Invocation.getter(#currentState),
+        ),
+      ) as _i5.FetchTicketsState);
+
+  @override
+  set onError(_i7.ErrorListener? _onError) => super.noSuchMethod(
+        Invocation.setter(
+          #onError,
+          _onError,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get mounted => (super.noSuchMethod(
+        Invocation.getter(#mounted),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i9.Stream<_i5.FetchTicketsState> get stream => (super.noSuchMethod(
+        Invocation.getter(#stream),
+        returnValue: _i9.Stream<_i5.FetchTicketsState>.empty(),
+      ) as _i9.Stream<_i5.FetchTicketsState>);
+
+  @override
+  _i5.FetchTicketsState get state => (super.noSuchMethod(
+        Invocation.getter(#state),
+        returnValue: _FakeFetchTicketsState_3(
+          this,
+          Invocation.getter(#state),
+        ),
+      ) as _i5.FetchTicketsState);
+
+  @override
+  set state(_i5.FetchTicketsState? value) => super.noSuchMethod(
+        Invocation.setter(
+          #state,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.FetchTicketsState get debugState => (super.noSuchMethod(
+        Invocation.getter(#debugState),
+        returnValue: _FakeFetchTicketsState_3(
+          this,
+          Invocation.getter(#debugState),
+        ),
+      ) as _i5.FetchTicketsState);
+
+  @override
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i9.Future<_i5.FetchTicketsState> fetchUserTickets({required int? userId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchUserTickets,
+          [],
+          {#userId: userId},
+        ),
+        returnValue:
+            _i9.Future<_i5.FetchTicketsState>.value(_FakeFetchTicketsState_3(
+          this,
+          Invocation.method(
+            #fetchUserTickets,
+            [],
+            {#userId: userId},
+          ),
+        )),
+      ) as _i9.Future<_i5.FetchTicketsState>);
+
+  @override
+  void addTicket({
+    required _i11.Ticket? ticket,
+    required _i5.FetchTicketsState? providedState,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #addTicket,
+          [],
+          {
+            #ticket: ticket,
+            #providedState: providedState,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeTicket({
+    required _i11.Ticket? ticket,
+    required _i5.FetchTicketsState? providedState,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #removeTicket,
+          [],
+          {
+            #ticket: ticket,
+            #providedState: providedState,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool updateShouldNotify(
+    _i5.FetchTicketsState? old,
+    _i5.FetchTicketsState? current,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateShouldNotify,
+          [
+            old,
+            current,
+          ],
+        ),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i7.RemoveListener addListener(
+    _i13.Listener<_i5.FetchTicketsState>? listener, {
+    bool? fireImmediately = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+          {#fireImmediately: fireImmediately},
+        ),
+        returnValue: () {},
+      ) as _i7.RemoveListener);
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [ProviderContainer].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProviderContainer extends _i1.Mock implements _i7.ProviderContainer {
+  MockProviderContainer() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  set vsyncOverride(void Function(void Function())? _vsyncOverride) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #vsyncOverride,
+          _vsyncOverride,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i6.ProviderScheduler get scheduler => (super.noSuchMethod(
+        Invocation.getter(#scheduler),
+        returnValue: _FakeProviderScheduler_4(
+          this,
+          Invocation.getter(#scheduler),
+        ),
+      ) as _i6.ProviderScheduler);
+
+  @override
+  int get depth => (super.noSuchMethod(
+        Invocation.getter(#depth),
+        returnValue: 0,
+      ) as int);
+
+  @override
+  List<_i7.ProviderObserver> get observers => (super.noSuchMethod(
+        Invocation.getter(#observers),
+        returnValue: <_i7.ProviderObserver>[],
+      ) as List<_i7.ProviderObserver>);
+
+  @override
+  set debugCanModifyProviders(void Function()? _debugCanModifyProviders) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #debugCanModifyProviders,
+          _debugCanModifyProviders,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void Function(void Function()) get vsync => (super.noSuchMethod(
+        Invocation.getter(#vsync),
+        returnValue: (void Function() task) {},
+      ) as void Function(void Function()));
+
+  @override
+  List<_i7.ProviderContainer> get debugChildren => (super.noSuchMethod(
+        Invocation.getter(#debugChildren),
+        returnValue: <_i7.ProviderContainer>[],
+      ) as List<_i7.ProviderContainer>);
+
+  @override
+  bool hasStateReaderFor(_i7.ProviderListenable<Object?>? provider) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #hasStateReaderFor,
+          [provider],
+        ),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i9.Future<void> pump() => (super.noSuchMethod(
+        Invocation.method(
+          #pump,
+          [],
+        ),
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
+
+  @override
+  Result read<Result>(_i7.ProviderListenable<Result>? provider) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #read,
+          [provider],
+        ),
+        returnValue: _i14.dummyValue<Result>(
+          this,
+          Invocation.method(
+            #read,
+            [provider],
+          ),
+        ),
+      ) as Result);
+
+  @override
+  bool exists(_i7.ProviderBase<Object?>? provider) => (super.noSuchMethod(
+        Invocation.method(
+          #exists,
+          [provider],
+        ),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  void debugReassemble() => super.noSuchMethod(
+        Invocation.method(
+          #debugReassemble,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.ProviderSubscription<State> listen<State>(
+    _i7.ProviderListenable<State>? provider,
+    void Function(
+      State?,
+      State,
+    )? listener, {
+    bool? fireImmediately = false,
+    void Function(
+      Object,
+      StackTrace,
+    )? onError,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #listen,
+          [
+            provider,
+            listener,
+          ],
+          {
+            #fireImmediately: fireImmediately,
+            #onError: onError,
+          },
+        ),
+        returnValue: _FakeProviderSubscription_5<State>(
+          this,
+          Invocation.method(
+            #listen,
+            [
+              provider,
+              listener,
+            ],
+            {
+              #fireImmediately: fireImmediately,
+              #onError: onError,
+            },
+          ),
+        ),
+      ) as _i7.ProviderSubscription<State>);
+
+  @override
+  void invalidate(_i7.ProviderOrFamily? provider) => super.noSuchMethod(
+        Invocation.method(
+          #invalidate,
+          [provider],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  State refresh<State>(_i7.Refreshable<State>? provider) => (super.noSuchMethod(
+        Invocation.method(
+          #refresh,
+          [provider],
+        ),
+        returnValue: _i14.dummyValue<State>(
+          this,
+          Invocation.method(
+            #refresh,
+            [provider],
+          ),
+        ),
+      ) as State);
+
+  @override
+  void updateOverrides(List<_i7.Override>? overrides) => super.noSuchMethod(
+        Invocation.method(
+          #updateOverrides,
+          [overrides],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i7.ProviderElementBase<State> readProviderElement<State>(
+          _i7.ProviderBase<State>? provider) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #readProviderElement,
+          [provider],
+        ),
+        returnValue: _FakeProviderElementBase_6<State>(
+          this,
+          Invocation.method(
+            #readProviderElement,
+            [provider],
+          ),
+        ),
+      ) as _i7.ProviderElementBase<State>);
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Iterable<_i7.ProviderElementBase<Object?>> getAllProviderElements() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllProviderElements,
+          [],
+        ),
+        returnValue: <_i7.ProviderElementBase<Object?>>[],
+      ) as Iterable<_i7.ProviderElementBase<Object?>>);
+
+  @override
+  Iterable<_i7.ProviderElementBase<Object?>> getAllProviderElementsInOrder() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllProviderElementsInOrder,
+          [],
+        ),
+        returnValue: <_i7.ProviderElementBase<Object?>>[],
+      ) as Iterable<_i7.ProviderElementBase<Object?>>);
 }

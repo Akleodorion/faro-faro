@@ -8,5 +8,7 @@ final updateTicketProvider =
     StateNotifierProvider<UpdateTicketNotifier, UpdateTicketState>((ref) {
   final UpdateTicketUsecase usecase = sl();
 
-  return UpdateTicketNotifier(usecase: usecase);
+  return UpdateTicketNotifier(
+    usecase: usecase,
+  );
 });

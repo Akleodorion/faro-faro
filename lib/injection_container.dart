@@ -41,7 +41,6 @@ import 'package:faro_clean_tdd/features/tickets/domain/usecases/fetch_user_ticke
 import 'package:faro_clean_tdd/features/tickets/domain/usecases/update_ticket_usecase.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ticket/state/create_ticket_notifier.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_notifier.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/state/update_ticket_notifier.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
@@ -130,7 +129,6 @@ Future<void> init() async {
   //! Features - Fetch Tickets - Create Ticket - Update Ticket
   sl.registerFactory(() => FetchTicketsNotifier(usecase: sl()));
   sl.registerFactory(() => CreateTicketNotifier(usecase: sl()));
-  sl.registerFactory(() => UpdateTicketNotifier(usecase: sl()));
 
   // Usecases
   sl.registerLazySingleton(() => FetchUserTicketsUsecase(repository: sl()));
@@ -222,6 +220,7 @@ Future<void> init() async {
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
+
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => Location());
   sl.registerLazySingleton(() => InternetConnectionChecker());

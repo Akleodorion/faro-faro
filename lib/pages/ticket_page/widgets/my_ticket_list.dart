@@ -8,8 +8,7 @@ class MyTicketList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final myTickets = ref.read(userTicketsProvider);
-
+    final myTickets = ref.watch(userTicketsProvider);
     Widget content;
 
     if (myTickets.isEmpty) {

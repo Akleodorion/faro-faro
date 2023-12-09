@@ -3,6 +3,7 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ticket/create_ticket_provider.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ticket/state/create_ticket_state.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/pages/ticket_payment_page/ticket_payment_page.dart';
@@ -179,6 +180,11 @@ class _TicketsCheckoutLayoutState extends State<TicketsCheckoutLayout> {
                     switch (result) {
                       case Loaded():
                         if (context.mounted) {
+                          final fetchTicketProviderState =
+                              ref.read(fetchTicketsProvider);
+                          ref.read(fetchTicketsProvider.notifier).addTicket(
+                              ticket: result.ticket,
+                              providedState: fetchTicketProviderState);
                           showResultMessageSnackbar(
                             context: context,
                             message: "Ticket crée avec succès",
