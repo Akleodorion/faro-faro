@@ -51,7 +51,7 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
         body: json.encode(params));
 
     // S'il y a une réponse favorable renvoie le member en question.
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+    if (response.statusCode == 201) {
       final MemberModel createMember =
           MemberModel.fromJson(json.decode(response.body));
       return createMember;

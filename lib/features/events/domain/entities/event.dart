@@ -73,6 +73,35 @@ class Event extends Equatable {
       this.maxPlatinumTicket,
       this.platinumTicketDescription});
 
+  Event copyWith({List<Member>? members}) {
+    return Event(
+      name: name,
+      eventId: eventId,
+      description: description,
+      date: date,
+      startTime: startTime,
+      endTime: endTime,
+      address: address,
+      category: category,
+      imageUrl: imageUrl,
+      userId: userId,
+      modelEco: modelEco,
+      members: members ?? this.members,
+      tickets: tickets,
+      activated: activated,
+      closed: closed,
+      maxStandardTicket: maxStandardTicket,
+      standardTicketDescription: standardTicketDescription,
+      goldTicketDescription: goldTicketDescription,
+      goldTicketPrice: goldTicketPrice,
+      maxGoldTicket: maxGoldTicket,
+      standardTicketPrice: standardTicketPrice,
+      platinumTicketPrice: platinumTicketPrice,
+      platinumTicketDescription: platinumTicketDescription,
+      maxPlatinumTicket: maxPlatinumTicket,
+    );
+  }
+
   String get formatedDate {
     return formated.format(date);
   }

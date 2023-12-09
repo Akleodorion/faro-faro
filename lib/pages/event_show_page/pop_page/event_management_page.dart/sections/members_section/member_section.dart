@@ -40,6 +40,7 @@ class MembersSection extends StatelessWidget {
         MembersListView(
           mediaHeight: mediaHeight,
           memberList: memberList,
+          event: event,
         )
       ],
     );

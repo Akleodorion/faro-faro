@@ -93,7 +93,7 @@ class ImageContainer extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder: (BuildContext context) {
                                       return EventManagementPage(
-                                        event: event,
+                                        eventId: event.eventId,
                                       );
                                     },
                                   ),

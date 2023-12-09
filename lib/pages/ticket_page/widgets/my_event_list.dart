@@ -8,7 +8,7 @@ class MyEventList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final myEvents = ref.watch(myEventProvider);
+    final myEvents = ref.read(myEventProvider);
     Widget content;
 
     if (myEvents.isEmpty) {

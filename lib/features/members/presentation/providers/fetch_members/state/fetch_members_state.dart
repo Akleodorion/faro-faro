@@ -14,6 +14,11 @@ class Loaded extends FetchMembersState {
   Loaded({required this.members, required this.message});
   final List<Member> members;
   final String message;
+
+  Loaded copyWith({List<Member>? members, String? message}) {
+    return Loaded(
+        members: members ?? this.members, message: message ?? this.message);
+  }
 }
 
 class Error extends FetchMembersState {
