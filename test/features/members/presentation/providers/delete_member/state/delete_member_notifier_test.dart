@@ -1,4 +1,5 @@
 import 'package:faro_clean_tdd/core/errors/failures.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/usecases/delete_member_usecase.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/delete_member/state/delete_member_notifier.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/delete_member/state/delete_member_state.dart';
@@ -31,19 +32,24 @@ void main() {
   group(
     "deleteMember",
     () {
-      const tMemberId = 1;
+      const tMember = MemberModel(
+        id: 1,
+        userId: 1,
+        eventId: 1,
+        username: "test",
+      );
       test(
         "should emit in order [Loading, Initial] if the call is successfull ",
         () async {
           //arrange
-          when(mockDeleteMemberUsecase.execute(memberId: anyNamed('memberId')))
+          when(mockDeleteMemberUsecase.execute(member: anyNamed('member')))
               .thenAnswer((_) async => null);
           // assert late
           final expectedState = [Loading(), Initial()];
           expectLater(sut.stream, emitsInOrder(expectedState));
 
           //act
-          await sut.deleteMember(memberId: tMemberId);
+          await sut.deleteMember(member: tMember);
         },
       );
 
@@ -51,14 +57,14 @@ void main() {
         "should emit in order [Loading, Error] if the call is unsuccessfull",
         () async {
           //arrange
-          when(mockDeleteMemberUsecase.execute(memberId: anyNamed('memberId')))
+          when(mockDeleteMemberUsecase.execute(member: anyNamed('member')))
               .thenAnswer(
                   (_) async => const ServerFailure(errorMessage: 'oops'));
           // assert late
           final expectedState = [Loading(), Error(message: 'oops')];
           expectLater(sut.stream, emitsInOrder(expectedState));
           //assert
-          await sut.deleteMember(memberId: tMemberId);
+          await sut.deleteMember(member: tMember);
         },
       );
     },

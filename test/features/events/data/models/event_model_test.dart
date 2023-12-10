@@ -47,7 +47,7 @@ void main() async {
       sublocality: "Moulin");
   final tEventModel = EventModel(
     name: 'Event 1',
-    eventId: 25,
+    id: 25,
     description: 'short description',
     date: DateTime.tryParse("2023-09-06T10:46:37.232Z")!,
     startTime: const TimeOfDay(hour: 18, minute: 00),

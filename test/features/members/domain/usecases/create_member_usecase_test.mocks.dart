@@ -7,6 +7,8 @@ import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart'
+    as _i7;
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart'
@@ -45,18 +47,13 @@ class MockMemberRepository extends _i1.Mock implements _i3.MemberRepository {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Member>> createMember({
-    required int? eventId,
-    required int? userId,
-  }) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Member>> createMember(
+          {required _i7.MemberModel? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #createMember,
           [],
-          {
-            #eventId: eventId,
-            #userId: userId,
-          },
+          {#member: member},
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Member>>.value(
             _FakeEither_0<_i5.Failure, _i6.Member>(
@@ -64,21 +61,18 @@ class MockMemberRepository extends _i1.Mock implements _i3.MemberRepository {
           Invocation.method(
             #createMember,
             [],
-            {
-              #eventId: eventId,
-              #userId: userId,
-            },
+            {#member: member},
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Member>>);
 
   @override
-  _i4.Future<_i5.Failure?> deleteMember({required int? memberId}) =>
+  _i4.Future<_i5.Failure?> deleteMember({required _i6.Member? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteMember,
           [],
-          {#memberId: memberId},
+          {#member: member},
         ),
         returnValue: _i4.Future<_i5.Failure?>.value(),
       ) as _i4.Future<_i5.Failure?>);

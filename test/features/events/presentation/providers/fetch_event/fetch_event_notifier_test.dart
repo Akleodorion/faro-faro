@@ -49,7 +49,7 @@ void main() {
 
   final tEvent1 = Event(
     name: 'Event 1',
-    eventId: 1,
+    id: 1,
     description: 'short description',
     date: DateTime.now(),
     startTime: const TimeOfDay(hour: 18, minute: 00),
@@ -85,7 +85,7 @@ void main() {
 
   final tEvent2 = Event(
     name: 'Event 2',
-    eventId: 2,
+    id: 2,
     description: 'short description',
     date: DateTime.now(),
     startTime: const TimeOfDay(hour: 18, minute: 00),

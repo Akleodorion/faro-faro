@@ -30,7 +30,7 @@ void main() {
       final tFile = File("flyers.jpg");
       final tEvent = EventModel(
           name: "name",
-          eventId: 1,
+          id: 1,
           description: "description",
           date: DateTime.now(),
           startTime: const TimeOfDay(hour: 18, minute: 00),

@@ -7,6 +7,8 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart'
+    as _i8;
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart'
     as _i7;
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart'
@@ -68,18 +70,13 @@ class MockCreateMemberUsecase extends _i1.Mock
       ) as _i2.MemberRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.Member>> execute({
-    required int? eventId,
-    required int? userId,
-  }) =>
+  _i5.Future<_i3.Either<_i6.Failure, _i7.Member>> execute(
+          {required _i8.MemberModel? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
-          {
-            #eventId: eventId,
-            #userId: userId,
-          },
+          {#member: member},
         ),
         returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.Member>>.value(
             _FakeEither_1<_i6.Failure, _i7.Member>(
@@ -87,10 +84,7 @@ class MockCreateMemberUsecase extends _i1.Mock
           Invocation.method(
             #execute,
             [],
-            {
-              #eventId: eventId,
-              #userId: userId,
-            },
+            {#member: member},
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, _i7.Member>>);

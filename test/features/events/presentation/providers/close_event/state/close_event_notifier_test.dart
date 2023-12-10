@@ -39,7 +39,7 @@ void main() {
       const tSuccessMessage = "Réussi";
       final tEvent = EventModel(
         name: 'Event 1',
-        eventId: 1,
+        id: 1,
         description: 'short description',
         date: DateTime.now(),
         startTime: const TimeOfDay(hour: 18, minute: 00),
