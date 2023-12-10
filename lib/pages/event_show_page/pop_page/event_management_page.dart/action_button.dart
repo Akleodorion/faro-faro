@@ -27,30 +27,36 @@ class ActionButton extends ConsumerWidget {
             final stateResult = await ref
                 .read(closeEventStateProvider.notifier)
                 .closeAnEvent(eventId: event.eventId);
-            switch (stateResult) {
-              case Loaded():
-                if (context.mounted) {
-                  showResultMessageSnackbar(
-                    context: context,
-                    message: "Evènement cloturé avec succès",
-                  );
-                  Navigator.of(context).pop();
-                }
-                break;
-              case Error():
-                if (context.mounted) {
-                  showResultMessageSnackbar(
-                    context: context,
-                    message: stateResult.message,
-                  );
-                  Navigator.of(context).pop();
-                }
-              default:
+
+            if (context.mounted) {
+              action(context, stateResult);
             }
           },
         );
       },
       icon: const Icon(Icons.close_rounded),
     );
+  }
+
+  //Méthodes locales
+
+  void action(BuildContext context, CloseEventState closeEventState) async {
+    final bool isSuccess = closeEventState is Loaded && context.mounted;
+    final bool isFailure = closeEventState is Error && context.mounted;
+
+    if (isSuccess) {
+      showResultMessageSnackbar(
+        context: context,
+        message: closeEventState.message,
+      );
+    }
+
+    if (isFailure) {
+      showResultMessageSnackbar(
+        context: context,
+        message: closeEventState.message,
+      );
+    }
+    Navigator.of(context).pop();
   }
 }

@@ -16,7 +16,7 @@ class CloseEventNotifier extends StateNotifier<CloseEventState> {
 
   // Usecases
 
-  Future<CloseEventState?> closeAnEvent({required int eventId}) async {
+  Future<CloseEventState> closeAnEvent({required int eventId}) async {
     state = Loading();
     final response = await closeAnEventUsecase.execute(eventId: eventId);
     response.fold((failure) {
