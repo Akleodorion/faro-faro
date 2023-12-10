@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
+import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/errors/failures.dart';
@@ -21,7 +22,7 @@ abstract class MemberRemoteDataSource {
   /// Fait une requête http à l'addresse http://localhost:3001/members/id
   ///
   /// En cas d'erreur jette un [ServerException]
-  Future<Failure?> deleteMember({required int memberId});
+  Future<Failure?> deleteMember({required Member member});
 
   /// Fait une requête http à l'addresse http://localhost:3001/members
   ///
@@ -66,8 +67,8 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   }
 
   @override
-  Future<Failure?> deleteMember({required int memberId}) async {
-    final uri = Uri.parse("$MEMBERS_URL/$memberId");
+  Future<Failure?> deleteMember({required Member member}) async {
+    final uri = Uri.parse("$MEMBERS_URL/${member.id}");
     final response = await http.delete(uri);
 
     final isSuccess = response.statusCode >= 200 && response.statusCode < 300;
@@ -91,23 +92,20 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
       "user_id": userId,
     };
     final uri = Uri.parse(MEMBERS_URL).replace(queryParameters: params);
-
     final response = await client.get(uri);
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+    final bool isRequestSuccess =
+        response.statusCode >= 200 && response.statusCode < 300;
+
+    if (isRequestSuccess) {
       late List<MemberModel> members = [];
       final List<dynamic> array = json.decode(response.body);
-
       for (var element in array) {
         members.add(MemberModel.fromJson(element["member"]));
       }
       return members;
-    } else if (response.statusCode >= 400 && response.statusCode < 500) {
-      throw ServerException(
-          errorMessage: json.decode(response.body)["error"][0]);
-    } else {
-      throw ServerException(
-          errorMessage: "An error as occured please try again later");
     }
+    throw ServerException(
+        errorMessage: "An error as occured please try again later");
   }
 }
