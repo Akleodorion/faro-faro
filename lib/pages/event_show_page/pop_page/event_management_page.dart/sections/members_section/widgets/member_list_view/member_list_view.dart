@@ -17,7 +17,7 @@ class MembersListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: mediaHeight * 0.1,
+      height: 75,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: memberList.length,
