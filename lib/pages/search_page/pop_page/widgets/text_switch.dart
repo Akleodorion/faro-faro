@@ -20,18 +20,16 @@ class _TextSwitchState extends ConsumerState<TextSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.generalFilter == GeneralFilter.free) {
+    final bool isFilterFree = widget.generalFilter == GeneralFilter.free;
+    final bool isFilterPaid = widget.generalFilter == GeneralFilter.paid;
+    final bool paidCondition =
+        widget.generalFilter == GeneralFilter.paid && switchValue == true;
+
+    if (isFilterFree) {
       switchValue = ref.watch(generalFiltersProvider)[GeneralFilter.free];
     }
-
-    if (widget.generalFilter == GeneralFilter.paid) {
+    if (isFilterPaid) {
       switchValue = ref.watch(generalFiltersProvider)[GeneralFilter.paid];
-    }
-
-    if (widget.generalFilter == GeneralFilter.paid && switchValue == true) {
-      paidCondition = true;
-    } else {
-      paidCondition = false;
     }
 
     return Column(

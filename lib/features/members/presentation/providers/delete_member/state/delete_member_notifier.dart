@@ -10,11 +10,11 @@ class DeleteMemberNotifier extends StateNotifier<DeleteMemberState> {
 
   DeleteMemberState get initialState => Initial();
 
-  Future<DeleteMemberState?> deleteMember({required Member member}) async {
+  Future<DeleteMemberState> deleteMember({required Member member}) async {
     state = Loading();
     final result = await usecase.execute(member: member);
     if (result == null) {
-      state = Initial();
+      state = Initial(message: "Membre supprimé avec succès!");
     } else if (result is ServerFailure) {
       state = Error(message: result.errorMessage);
     }

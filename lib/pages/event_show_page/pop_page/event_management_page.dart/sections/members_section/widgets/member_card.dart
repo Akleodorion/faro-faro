@@ -1,6 +1,5 @@
 import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/delete_member/delete_member_provider.dart';
 import 'package:flutter/material.dart';
@@ -55,35 +54,10 @@ class MemberCard extends ConsumerWidget {
                                   final stateResult = await ref
                                       .read(deleteMemberProvider.notifier)
                                       .deleteMember(member: member);
-
-                                  switch (stateResult) {
-                                    case Initial():
-                                      if (context.mounted) {
-                                        final fetchEventState =
-                                            ref.read(fetchEventProvider);
-                                        ref
-                                            .read(fetchEventProvider.notifier)
-                                            .removeMemberToEvent(
-                                                event: event,
-                                                member: member,
-                                                fetchEventState:
-                                                    fetchEventState);
-                                        showResultMessageSnackbar(
-                                            context: context,
-                                            message:
-                                                "Le membre a été supprimé avec susscès");
-                                      }
-                                      break;
-                                    case Error():
-                                      if (context.mounted) {
-                                        showResultMessageSnackbar(
-                                            context: context,
-                                            message: stateResult.message);
-                                      }
-                                      break;
-                                  }
                                   if (context.mounted) {
-                                    Navigator.of(context).pop();
+                                    deleteMember(
+                                        context: context,
+                                        deleteMemberState: stateResult);
                                   }
                                 },
                                 icon: const Icon(
@@ -111,5 +85,27 @@ class MemberCard extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  void deleteMember({
+    required BuildContext context,
+    required DeleteMemberState deleteMemberState,
+  }) {
+    final bool isSuccess = deleteMemberState is Initial && context.mounted;
+    final bool isError = deleteMemberState is Error && context.mounted;
+
+    if (isSuccess) {
+      showResultMessageSnackbar(
+        context: context,
+        message: deleteMemberState.message!,
+      );
+    }
+
+    if (isError) {
+      showResultMessageSnackbar(
+        context: context,
+        message: deleteMemberState.message,
+      );
+    }
   }
 }

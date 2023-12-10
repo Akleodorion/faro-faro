@@ -39,20 +39,21 @@ class ContactGridView extends ConsumerWidget {
       BuildContext context,
       CreateMemberState state,
     ) {
-      switch (state) {
-        case Loaded():
-          final fetchEventState = ref.read(fetchEventProvider);
-          ref.read(fetchEventProvider.notifier).addMemberToEvent(
+      final bool isSucess = state is Loaded && context.mounted;
+      final bool isError = state is Error && context.mounted;
+
+      if (isSucess) {
+        final fetchEventState = ref.read(fetchEventProvider);
+        ref.read(fetchEventProvider.notifier).addMemberToEvent(
               member: state.member,
               fetchEventState: fetchEventState,
-              event: event!);
-          showMessage(context, state.message);
-          break;
-        case Error():
-          if (context.mounted) {
-            showMessage(context, state.message);
-          }
-          break;
+              event: event!,
+            );
+        showMessage(context, state.message);
+      }
+
+      if (isError) {
+        showMessage(context, state.message);
       }
     }
 
@@ -60,18 +61,19 @@ class ContactGridView extends ConsumerWidget {
       BuildContext context,
       ut.UpdateTicketState state,
     ) {
-      switch (state) {
-        case ut.Loaded():
-          final fetchTicketState = ref.read(fetchTicketsProvider);
-          ref.read(fetchTicketsProvider.notifier).removeTicket(
-              fetchTicketsState: fetchTicketState, ticket: state.ticket);
-          showMessage(context, state.message);
-          Navigator.of(context).pop();
+      final bool isSucess = state is ut.Loaded && context.mounted;
+      final bool isError = state is ut.Error && context.mounted;
 
-          break;
-        case ut.Error():
-          showMessage(context, state.message);
-          break;
+      if (isSucess) {
+        final fetchTicketState = ref.read(fetchTicketsProvider);
+        ref.read(fetchTicketsProvider.notifier).removeTicket(
+            fetchTicketsState: fetchTicketState, ticket: state.ticket);
+        showMessage(context, state.message);
+        Navigator.of(context).pop();
+      }
+
+      if (isError) {
+        showMessage(context, state.message);
       }
     }
 
@@ -114,7 +116,9 @@ class ContactGridView extends ConsumerWidget {
                       final stateResult = await ref
                           .read(updateTicketProvider.notifier)
                           .updateTicket(
-                              ticketId: ticket!.id!, userId: contact.userId);
+                            ticketId: ticket!.id!,
+                            userId: contact.userId,
+                          );
                       if (context.mounted) {
                         showResultUpdateTicket(context, stateResult);
                       }
