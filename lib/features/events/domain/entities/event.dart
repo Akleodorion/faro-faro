@@ -73,7 +73,7 @@ class Event extends Equatable {
       this.maxPlatinumTicket,
       this.platinumTicketDescription});
 
-  Event copyWith({List<Member>? members}) {
+  Event copyWith({List<Member>? members, bool? activated, bool? closed}) {
     return Event(
       name: name,
       eventId: eventId,
@@ -88,8 +88,8 @@ class Event extends Equatable {
       modelEco: modelEco,
       members: members ?? this.members,
       tickets: tickets,
-      activated: activated,
-      closed: closed,
+      activated: activated ?? this.activated,
+      closed: closed ?? this.closed,
       maxStandardTicket: maxStandardTicket,
       standardTicketDescription: standardTicketDescription,
       goldTicketDescription: goldTicketDescription,

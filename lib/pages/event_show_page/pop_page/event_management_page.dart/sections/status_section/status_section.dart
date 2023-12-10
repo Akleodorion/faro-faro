@@ -1,6 +1,9 @@
+import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
 import 'package:faro_clean_tdd/core/util/usecase_alert_dialog.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/activate_event/activate_event_provider.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/activate_event/state/activate_event_state.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -41,10 +44,36 @@ class StatusSection extends ConsumerWidget {
                 title: "Démmarez l'évènement!",
                 content:
                     "Voulez-vous démarrer l'évènement ?\n\nVous ne pourrez plus le désactiver par la suite.",
-                usecase: () {
-                  ref
+                usecase: () async {
+                  final activateEventState = await ref
                       .read(activateEventStateProvider.notifier)
                       .activateAnEvent(eventId: event.eventId);
+                  switch (activateEventState) {
+                    case Loaded():
+                      ref
+                          .read(fetchEventProvider.notifier)
+                          .setEventActivatedToTrue(
+                            event: event,
+                            fetchEventState: ref.read(fetchEventProvider),
+                          );
+                      if (context.mounted) {
+                        showResultMessageSnackbar(
+                          context: context,
+                          message: activateEventState.message,
+                        );
+                      }
+                      break;
+                    case Error():
+                      if (context.mounted) {
+                        showResultMessageSnackbar(
+                          context: context,
+                          message: activateEventState.message,
+                        );
+                      }
+
+                      break;
+                    default:
+                  }
                 },
               );
             },

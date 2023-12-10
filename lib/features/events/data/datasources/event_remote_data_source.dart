@@ -133,26 +133,27 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   @override
   Future<EventModel> activateAnEvent({required int eventId}) async {
     final uri = Uri.parse('$POST_EVENT_URL/$eventId/update_activation');
-    final params = {
-      "activated": true,
-    };
+    final params = {"activated": true};
 
-    try {
-      final response = await client.put(uri,
-          headers: {"Content-Type": 'application/json'},
-          body: json.encode(params));
+    final response = await client.put(uri,
+        headers: {"Content-Type": 'application/json'},
+        body: json.encode(params));
 
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        return EventModel.fromJson(json.decode(response.body));
-      } else if (response.statusCode >= 400 && response.statusCode < 500) {
-        final errorList = json.decode(response.body)["errors"];
-        throw ServerException(errorMessage: errorList[0]);
-      } else {
-        throw ServerException(errorMessage: response.body);
-      }
-    } catch (e) {
-      throw ServerException(errorMessage: e.toString());
+    final bool isSuccess =
+        response.statusCode >= 200 && response.statusCode < 300;
+
+    if (isSuccess) {
+      return EventModel.fromJson(json.decode(response.body)["event"]);
     }
+    if (response.statusCode == 404) {
+      throw ServerException(errorMessage: "Not found");
+    }
+    if (response.statusCode == 422) {
+      throw ServerException(errorMessage: json.decode(response.body)["errors"]);
+    }
+
+    throw ServerException(
+        errorMessage: "An error as occured. Please try again later");
   }
 
   @override
@@ -162,22 +163,25 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
       "closed": true,
     };
 
-    try {
-      final response = await client.put(uri,
-          headers: {"Content-Type": 'application/json'},
-          body: json.encode(params));
+    final response = await client.put(uri,
+        headers: {"Content-Type": 'application/json'},
+        body: json.encode(params));
 
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        return EventModel.fromJson(json.decode(response.body));
-      } else if (response.statusCode >= 400 && response.statusCode < 500) {
-        final errorList = json.decode(response.body)["errors"];
-        throw ServerException(errorMessage: errorList[0]);
-      } else {
-        throw ServerException(errorMessage: response.body);
-      }
-    } catch (e) {
-      throw ServerException(errorMessage: e.toString());
+    final bool isSuccess =
+        response.statusCode >= 200 && response.statusCode < 300;
+
+    if (isSuccess) {
+      return EventModel.fromJson(json.decode(response.body)["event"]);
     }
+    if (response.statusCode == 404) {
+      throw ServerException(errorMessage: "Not found");
+    }
+    if (response.statusCode == 422) {
+      throw ServerException(errorMessage: json.decode(response.body)["errors"]);
+    }
+
+    throw ServerException(
+        errorMessage: "An error as occured. Please try again later");
   }
 
   //
