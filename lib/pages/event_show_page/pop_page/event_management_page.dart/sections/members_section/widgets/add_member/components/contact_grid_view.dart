@@ -51,8 +51,6 @@ class ContactGridView extends ConsumerWidget {
         case Error():
           if (context.mounted) {
             showMessage(context, state.message);
-
-            Navigator.of(context).pop();
           }
           break;
       }
