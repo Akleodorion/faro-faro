@@ -167,11 +167,11 @@ class _TicketsCheckoutLayoutState extends State<TicketsCheckoutLayout> {
                         .read(createTicketProvider.notifier)
                         .createTicket(
                           ticket: TicketModel(
-                              id: 105000,
+                              id: null,
                               type: Type.standard,
                               description:
                                   widget.event.standardTicketDescription,
-                              eventId: widget.event.eventId,
+                              eventId: widget.event.id!,
                               userId: ref.read(userInfoProvider)["user_id"],
                               qrCodeUrl: '',
                               price: widget.event.standardTicketPrice,

@@ -15,7 +15,7 @@ class TicketTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Event> events = ref.read(allEventProvider);
     final Event event =
-        events.firstWhere((element) => element.eventId == ticket.eventId);
+        events.firstWhere((element) => element.id == ticket.eventId);
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: InkWell(

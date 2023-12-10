@@ -13,7 +13,7 @@ class TicketTileMoreInfoContainer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Event> events = ref.read(allEventProvider);
     final Event event =
-        events.firstWhere((element) => element.eventId == ticket.eventId);
+        events.firstWhere((element) => element.id == ticket.eventId);
     return SizedBox(
       height: (MediaQuery.of(context).size.width - 40) * 0.25,
       width: (MediaQuery.of(context).size.width - 40) * 0.25,

@@ -22,6 +22,8 @@ enum Category {
 }
 
 class Event extends Equatable {
+  final int? id;
+
   final String name;
   final String description;
   final DateTime date;
@@ -31,7 +33,6 @@ class Event extends Equatable {
   final Category category;
   final String imageUrl;
   final int userId;
-  final int eventId;
   final ModelEco modelEco;
   final List<Member> members;
   final List<Ticket> tickets;
@@ -49,7 +50,7 @@ class Event extends Equatable {
 
   const Event(
       {required this.name,
-      required this.eventId,
+      required this.id,
       required this.description,
       required this.date,
       required this.startTime,
@@ -76,7 +77,7 @@ class Event extends Equatable {
   Event copyWith({List<Member>? members, bool? activated, bool? closed}) {
     return Event(
       name: name,
-      eventId: eventId,
+      id: id,
       description: description,
       date: date,
       startTime: startTime,

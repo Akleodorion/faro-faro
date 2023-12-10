@@ -94,7 +94,7 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
     if (fetchEventState is Loaded) {
       final updatedEventList =
           List<Event>.from(fetchEventState.allEvents).map((e) {
-        if (e.eventId == event.eventId) {
+        if (e.id == event.id) {
           return e.copyWith(activated: true);
         }
         return e;
@@ -112,7 +112,7 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
     if (fetchEventState is Loaded) {
       final updatedEventList =
           List<Event>.from(fetchEventState.allEvents).map((e) {
-        if (e.eventId == event.eventId) {
+        if (e.id == event.id) {
           return e.copyWith(closed: true);
         }
         return e;
