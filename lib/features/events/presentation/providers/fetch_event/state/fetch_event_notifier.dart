@@ -88,4 +88,40 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
           message: fetchEventState.message);
     }
   }
+
+  void setEventActivatedToTrue(
+      {required Event event, required FetchEventState fetchEventState}) {
+    if (fetchEventState is Loaded) {
+      final updatedEventList =
+          List<Event>.from(fetchEventState.allEvents).map((e) {
+        if (e.eventId == event.eventId) {
+          return e.copyWith(activated: true);
+        }
+        return e;
+      }).toList();
+
+      state = Loaded(
+          indexEvent: fetchEventState.indexEvent,
+          allEvents: updatedEventList,
+          message: fetchEventState.message);
+    }
+  }
+
+  void setEventClosedToTrue(
+      {required Event event, required FetchEventState fetchEventState}) {
+    if (fetchEventState is Loaded) {
+      final updatedEventList =
+          List<Event>.from(fetchEventState.allEvents).map((e) {
+        if (e.eventId == event.eventId) {
+          return e.copyWith(closed: true);
+        }
+        return e;
+      }).toList();
+
+      state = Loaded(
+          indexEvent: fetchEventState.indexEvent,
+          allEvents: updatedEventList,
+          message: fetchEventState.message);
+    }
+  }
 }
