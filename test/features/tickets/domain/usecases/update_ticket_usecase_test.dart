@@ -40,7 +40,7 @@ void main() {
               .thenAnswer((realInvocation) async => const Right(tTicket));
           //act
           final result =
-              await sut.execute(ticketId: tTicket.id, userId: tUserId);
+              await sut.execute(ticketId: tTicket.id ?? 1, userId: tUserId);
           //assert
           expect(result, const Right(tTicket));
         },
@@ -56,7 +56,7 @@ void main() {
                   const Left(ServerFailure(errorMessage: 'oops')));
           //act
           final result =
-              await sut.execute(ticketId: tTicket.id, userId: tUserId);
+              await sut.execute(ticketId: tTicket.id ?? 1, userId: tUserId);
           //assert
           expect(result, const Left(ServerFailure(errorMessage: 'oops')));
         },

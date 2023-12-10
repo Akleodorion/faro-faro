@@ -27,7 +27,7 @@ void main() {
       const tEventId = 1;
       final tEvent1 = Event(
         name: 'Event 1',
-        eventId: tEventId,
+        id: tEventId,
         description: 'short description',
         date: DateTime.now(),
         startTime: const TimeOfDay(hour: 18, minute: 00),

@@ -11,6 +11,8 @@ import 'package:faro_clean_tdd/features/members/data/datasources/member_remote_d
     as _i5;
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart'
     as _i2;
+import 'package:faro_clean_tdd/features/members/domain/entities/member.dart'
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -61,39 +63,31 @@ class MockMemberRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.MemberModel> createMember({
-    required int? eventId,
-    required int? userId,
-  }) =>
+  _i4.Future<_i2.MemberModel> createMember(
+          {required _i2.MemberModel? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #createMember,
           [],
-          {
-            #eventId: eventId,
-            #userId: userId,
-          },
+          {#member: member},
         ),
         returnValue: _i4.Future<_i2.MemberModel>.value(_FakeMemberModel_0(
           this,
           Invocation.method(
             #createMember,
             [],
-            {
-              #eventId: eventId,
-              #userId: userId,
-            },
+            {#member: member},
           ),
         )),
       ) as _i4.Future<_i2.MemberModel>);
 
   @override
-  _i4.Future<_i6.Failure?> deleteMember({required int? memberId}) =>
+  _i4.Future<_i6.Failure?> deleteMember({required _i7.Member? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteMember,
           [],
-          {#memberId: memberId},
+          {#member: member},
         ),
         returnValue: _i4.Future<_i6.Failure?>.value(),
       ) as _i4.Future<_i6.Failure?>);

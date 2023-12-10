@@ -28,13 +28,16 @@ void main() {
         remoteDataSource: mockMemberRemoteDataSource);
   });
 
+  const tMember = MemberModel(
+    id: 1,
+    userId: 1,
+    eventId: 1,
+    username: "test",
+  );
+
   group(
     "createMember",
     () {
-      const tEventId = 1;
-      const tUserId = 1;
-      const tUsername = "test";
-
       group(
         "when there is no internet connexion",
         () {
@@ -44,8 +47,7 @@ void main() {
               //arrange
               when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
               //act
-              final result =
-                  await sut.createMember(eventId: tEventId, userId: tUserId);
+              final result = await sut.createMember(member: tMember);
               //assert
               expect(result,
                   const Left(ServerFailure(errorMessage: noInternetConnexion)));
@@ -60,23 +62,18 @@ void main() {
           setUp(() => when(mockNetworkInfo.isConnected)
               .thenAnswer((realInvocation) async => true));
 
-          const tMemberModel = MemberModel(
-              id: 1, userId: tEventId, eventId: tUserId, username: tUsername);
           test(
             "should return a Right Member model when the call is successfull",
             () async {
               //arrange
-              when(mockMemberRemoteDataSource.createMember(
-                      eventId: anyNamed("eventId"), userId: anyNamed("userId")))
-                  .thenAnswer((_) async => tMemberModel);
+              when(mockMemberRemoteDataSource.createMember(member: tMember))
+                  .thenAnswer((_) async => tMember);
               //act
-              final result =
-                  await sut.createMember(eventId: tEventId, userId: tUserId);
+              final result = await sut.createMember(member: tMember);
               //assert
-              verify(mockMemberRemoteDataSource.createMember(
-                      eventId: tEventId, userId: tUserId))
+              verify(mockMemberRemoteDataSource.createMember(member: tMember))
                   .called(1);
-              expect(result, const Right(tMemberModel));
+              expect(result, const Right(tMember));
             },
           );
 
@@ -84,15 +81,12 @@ void main() {
             "should return a ServerFailure on Exception",
             () async {
               //arrange
-              when(mockMemberRemoteDataSource.createMember(
-                      eventId: anyNamed("eventId"), userId: anyNamed("userId")))
+              when(mockMemberRemoteDataSource.createMember(member: tMember))
                   .thenThrow(ServerException(errorMessage: 'oops'));
               //act
-              final result =
-                  await sut.createMember(eventId: tEventId, userId: tUserId);
+              final result = await sut.createMember(member: tMember);
               //assert
-              verify(mockMemberRemoteDataSource.createMember(
-                      eventId: tEventId, userId: tUserId))
+              verify(mockMemberRemoteDataSource.createMember(member: tMember))
                   .called(1);
               expect(result, const Left(ServerFailure(errorMessage: 'oops')));
             },
@@ -105,7 +99,6 @@ void main() {
   group(
     "deleteMember",
     () {
-      const int tMemberId = 1;
       group(
         "when there is no internet connexion",
         () {
@@ -115,7 +108,7 @@ void main() {
               //arrange
               when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
               //act
-              final result = await sut.deleteMember(memberId: tMemberId);
+              final result = await sut.deleteMember(member: tMember);
               //assert
               verify(mockNetworkInfo.isConnected).called(1);
               expect(result,
@@ -132,12 +125,12 @@ void main() {
           "should return null if the call is successful",
           () async {
             //arrange
-            when(mockMemberRemoteDataSource.deleteMember(memberId: tMemberId))
+            when(mockMemberRemoteDataSource.deleteMember(member: tMember))
                 .thenAnswer((_) async => null);
             //act
-            final result = await sut.deleteMember(memberId: tMemberId);
+            final result = await sut.deleteMember(member: tMember);
             //assert
-            verify(mockMemberRemoteDataSource.deleteMember(memberId: tMemberId))
+            verify(mockMemberRemoteDataSource.deleteMember(member: tMember))
                 .called(1);
             expect(result, null);
           },
@@ -147,12 +140,12 @@ void main() {
           "should return a ServerFailure is the call throw an error",
           () async {
             //arrange
-            when(mockMemberRemoteDataSource.deleteMember(memberId: tMemberId))
+            when(mockMemberRemoteDataSource.deleteMember(member: tMember))
                 .thenThrow(ServerException(errorMessage: 'oops'));
             //act
-            final result = await sut.deleteMember(memberId: tMemberId);
+            final result = await sut.deleteMember(member: tMember);
             //assert
-            verify(mockMemberRemoteDataSource.deleteMember(memberId: tMemberId))
+            verify(mockMemberRemoteDataSource.deleteMember(member: tMember))
                 .called(1);
             expect(result, const ServerFailure(errorMessage: 'oops'));
           },

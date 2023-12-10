@@ -33,6 +33,125 @@ void main() {
         networkInfo: mockNetworkInfo);
   });
 
+  const tMember1 = Member(
+    id: 1,
+    userId: 1,
+    eventId: 1,
+    username: "test",
+  );
+
+  const tMember2 = Member(
+    id: 2,
+    userId: 2,
+    eventId: 1,
+    username: "test2",
+  );
+  const tTicket1 = Ticket(
+    id: 1,
+    type: Type.standard,
+    description: "description",
+    eventId: 1,
+    userId: 1,
+    qrCodeUrl: "qrCodeUrl",
+    verified: false,
+  );
+  const tTicket2 = Ticket(
+    id: 2,
+    type: Type.standard,
+    description: "description",
+    eventId: 1,
+    userId: 2,
+    qrCodeUrl: "qrCodeUrl",
+    verified: false,
+  );
+  const tTickets = [
+    tTicket1,
+    tTicket2,
+  ];
+  const tMembers = [
+    tMember1,
+    tMember2,
+  ];
+
+  final tEvent1 = EventModel(
+    name: 'Event 1',
+    id: 1,
+    description: 'short description',
+    date: DateTime.now(),
+    startTime: const TimeOfDay(hour: 18, minute: 00),
+    endTime: const TimeOfDay(hour: 18, minute: 00),
+    address: const Address(
+      latitude: 4.7,
+      longitude: -3.9,
+      geocodeUrl: "geocodeUrl",
+      country: "Côte d'Ivoire",
+      countryCode: "CI",
+      locality: "Abidjan",
+      plusCode: "9359+HXR",
+      road: "Route d'Abatta",
+      sublocality: "Cocody",
+    ),
+    category: Category.concert,
+    imageUrl: 'imageUrl',
+    userId: 1,
+    modelEco: ModelEco.gratuit,
+    members: tMembers,
+    tickets: const [],
+    activated: false,
+    closed: false,
+    standardTicketPrice: 5000,
+    maxStandardTicket: 50,
+    standardTicketDescription: "Standard ticket simple description",
+    goldTicketPrice: 10000,
+    maxGoldTicket: 25,
+    goldTicketDescription: "vip ticket simple description",
+    platinumTicketPrice: 15000,
+    maxPlatinumTicket: 10,
+    platinumTicketDescription: "vvip ticket simple description",
+  );
+
+  final tEvent2 = EventModel(
+    name: 'Event 2',
+    id: 2,
+    description: 'short description',
+    date: DateTime.now(),
+    startTime: const TimeOfDay(hour: 18, minute: 00),
+    endTime: const TimeOfDay(hour: 18, minute: 00),
+    address: const Address(
+      latitude: 4.7,
+      longitude: -3.9,
+      geocodeUrl: "geocodeUrl",
+      country: "Côte d'Ivoire",
+      countryCode: "CI",
+      locality: "Abidjan",
+      plusCode: "9359+HXR",
+      road: "Route d'Abatta",
+      sublocality: "Cocody",
+    ),
+    category: Category.culture,
+    imageUrl: 'imageUrl',
+    userId: 1,
+    modelEco: ModelEco.payant,
+    members: tMembers,
+    tickets: tTickets,
+    activated: false,
+    closed: false,
+    standardTicketPrice: 5000,
+    maxStandardTicket: 50,
+    standardTicketDescription: "Standard ticket simple description",
+    goldTicketPrice: 10000,
+    maxGoldTicket: 25,
+    goldTicketDescription: "vip ticket simple description",
+    platinumTicketPrice: 15000,
+    maxPlatinumTicket: 10,
+    platinumTicketDescription: "vvip ticket simple description",
+  );
+
+  final tEvents = [
+    tEvent1,
+    tEvent2,
+  ];
+
   group(
     "fetchAllEvents",
     () {
@@ -43,103 +162,6 @@ void main() {
             when(mockNetworkInfo.isConnected)
                 .thenAnswer((realInvocation) async => true);
           });
-
-          const tMember1 =
-              Member(id: 1, userId: 1, eventId: 1, username: "test");
-          const tMember2 =
-              Member(id: 2, userId: 2, eventId: 1, username: "test2");
-          const tTicket1 = Ticket(
-              id: 1,
-              type: Type.standard,
-              description: "description",
-              eventId: 1,
-              userId: 1,
-              qrCodeUrl: "qrCodeUrl",
-              verified: false);
-          const tTicket2 = Ticket(
-              id: 2,
-              type: Type.standard,
-              description: "description",
-              eventId: 1,
-              userId: 2,
-              qrCodeUrl: "qrCodeUrl",
-              verified: false);
-          const tTickets = [tTicket1, tTicket2];
-          const tMembers = [tMember1, tMember2];
-
-          final tEvent1 = EventModel(
-            name: 'Event 1',
-            eventId: 1,
-            description: 'short description',
-            date: DateTime.now(),
-            startTime: const TimeOfDay(hour: 18, minute: 00),
-            endTime: const TimeOfDay(hour: 18, minute: 00),
-            address: const Address(
-                latitude: 4.7,
-                longitude: -3.9,
-                geocodeUrl: "geocodeUrl",
-                country: "Côte d'Ivoire",
-                countryCode: "CI",
-                locality: "Abidjan",
-                plusCode: "9359+HXR",
-                road: "Route d'Abatta",
-                sublocality: "Cocody"),
-            category: Category.concert,
-            imageUrl: 'imageUrl',
-            userId: 1,
-            modelEco: ModelEco.gratuit,
-            members: tMembers,
-            tickets: const [],
-            activated: false,
-            closed: false,
-            standardTicketPrice: 5000,
-            maxStandardTicket: 50,
-            standardTicketDescription: "Standard ticket simple description",
-            goldTicketPrice: 10000,
-            maxGoldTicket: 25,
-            goldTicketDescription: "vip ticket simple description",
-            platinumTicketPrice: 15000,
-            maxPlatinumTicket: 10,
-            platinumTicketDescription: "vvip ticket simple description",
-          );
-
-          final tEvent2 = EventModel(
-            name: 'Event 2',
-            eventId: 2,
-            description: 'short description',
-            date: DateTime.now(),
-            startTime: const TimeOfDay(hour: 18, minute: 00),
-            endTime: const TimeOfDay(hour: 18, minute: 00),
-            address: const Address(
-                latitude: 4.7,
-                longitude: -3.9,
-                geocodeUrl: "geocodeUrl",
-                country: "Côte d'Ivoire",
-                countryCode: "CI",
-                locality: "Abidjan",
-                plusCode: "9359+HXR",
-                road: "Route d'Abatta",
-                sublocality: "Cocody"),
-            category: Category.culture,
-            imageUrl: 'imageUrl',
-            userId: 1,
-            modelEco: ModelEco.payant,
-            members: tMembers,
-            tickets: tTickets,
-            activated: false,
-            closed: false,
-            standardTicketPrice: 5000,
-            maxStandardTicket: 50,
-            standardTicketDescription: "Standard ticket simple description",
-            goldTicketPrice: 10000,
-            maxGoldTicket: 25,
-            goldTicketDescription: "vip ticket simple description",
-            platinumTicketPrice: 15000,
-            maxPlatinumTicket: 10,
-            platinumTicketDescription: "vvip ticket simple description",
-          );
-
-          final tEvents = [tEvent1, tEvent2];
 
           test(
             "should return the list of Events",
@@ -201,7 +223,7 @@ void main() {
     const tMembers = [tMember1, tMember2];
     final tEvent = EventModel(
         name: "My test event",
-        eventId: 20,
+        id: 20,
         description: "Short description for the test event !",
         date: DateTime.now(),
         startTime: const TimeOfDay(hour: 18, minute: 00),
@@ -313,7 +335,7 @@ void main() {
     const tMembers = [tMember1, tMember2];
     final tEvent = EventModel(
         name: "My test event",
-        eventId: 20,
+        id: 20,
         description: "Short description for the test event !",
         date: DateTime.now(),
         startTime: const TimeOfDay(hour: 18, minute: 00),
@@ -408,7 +430,7 @@ void main() {
       const tEventId = 1;
       final tEvent = EventModel(
           name: "My test event",
-          eventId: tEventId,
+          id: tEventId,
           description: "Short description for the test event !",
           date: DateTime.now(),
           startTime: const TimeOfDay(hour: 18, minute: 00),
@@ -512,41 +534,6 @@ void main() {
   group(
     "close an Event",
     () {
-      const tEventId = 1;
-      final tEvent = EventModel(
-          name: "My test event",
-          eventId: tEventId,
-          description: "Short description for the test event !",
-          date: DateTime.now(),
-          startTime: const TimeOfDay(hour: 18, minute: 00),
-          endTime: const TimeOfDay(hour: 18, minute: 00),
-          address: const Address(
-              latitude: 4.7,
-              longitude: -3.9,
-              geocodeUrl: "geocodeUrl",
-              country: "Côte d'Ivoire",
-              countryCode: "CI",
-              locality: "Abidjan",
-              plusCode: "9359+HXR",
-              road: "Route d'Abatta",
-              sublocality: "Cocody"),
-          category: Category.concert,
-          imageUrl: "flyers.jpg",
-          userId: 1,
-          modelEco: ModelEco.gratuit,
-          members: const [],
-          tickets: const [],
-          activated: false,
-          closed: false,
-          standardTicketPrice: 5000,
-          maxStandardTicket: 15,
-          standardTicketDescription: "Short ticket description for the test",
-          goldTicketPrice: 5000,
-          maxGoldTicket: 15,
-          goldTicketDescription: "Short ticket description for the test",
-          platinumTicketPrice: 5000,
-          maxPlatinumTicket: 15,
-          platinumTicketDescription: "Short ticket description for the test");
       group(
         "if there is no internet connexion",
         () {
@@ -558,7 +545,7 @@ void main() {
                   .thenAnswer((realInvocation) async => false);
               //act
               final result =
-                  await eventRepositoryImpl.closeAnEvent(eventId: tEventId);
+                  await eventRepositoryImpl.closeAnEvent(eventId: tEvent1.id!);
               //assert
 
               expect(result,
@@ -580,14 +567,15 @@ void main() {
               //arrange
               when(mockEventRemoteDatasource.closeAnEvent(
                       eventId: anyNamed('eventId')))
-                  .thenAnswer((realInvocation) async => tEvent);
+                  .thenAnswer((realInvocation) async => tEvent1);
               //act
               final result =
-                  await eventRepositoryImpl.closeAnEvent(eventId: tEventId);
+                  await eventRepositoryImpl.closeAnEvent(eventId: tEvent1.id!);
               //assert
 
-              expect(result, Right(tEvent));
-              verify(mockEventRemoteDatasource.closeAnEvent(eventId: tEventId))
+              expect(result, Right(tEvent1));
+              verify(mockEventRemoteDatasource.closeAnEvent(
+                      eventId: tEvent1.id!))
                   .called(1);
             },
           );
@@ -601,11 +589,12 @@ void main() {
                   .thenThrow(ServerException(errorMessage: 'oops'));
               //act
               final result =
-                  await eventRepositoryImpl.closeAnEvent(eventId: tEventId);
+                  await eventRepositoryImpl.closeAnEvent(eventId: tEvent1.id!);
               //assert
 
               expect(result, const Left(ServerFailure(errorMessage: 'oops')));
-              verify(mockEventRemoteDatasource.closeAnEvent(eventId: tEventId))
+              verify(mockEventRemoteDatasource.closeAnEvent(
+                      eventId: tEvent1.id!))
                   .called(1);
             },
           );

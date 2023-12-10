@@ -49,7 +49,7 @@ void main() {
     const tMembers = [tMember1, tMember2];
     final tEvent = EventModel(
       name: "My test event",
-      eventId: 20,
+      id: 20,
       description: "Short description for the test event !",
       date: DateTime.now(),
       startTime: const TimeOfDay(hour: 18, minute: 00),
