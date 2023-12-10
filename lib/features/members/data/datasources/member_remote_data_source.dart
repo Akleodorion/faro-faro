@@ -50,14 +50,15 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
         headers: {"Content-Type": 'application/json'},
         body: json.encode(params));
 
-    // S'il y a une réponse favorable renvoie le member en question.
     if (response.statusCode == 201) {
       final MemberModel createMember =
-          MemberModel.fromJson(json.decode(response.body));
+          MemberModel.fromJson(json.decode(response.body)["member"]);
       return createMember;
-    } else if (response.statusCode >= 400 && response.statusCode < 500) {
+    } else if (response.statusCode == 422) {
       throw ServerException(
-          errorMessage: json.decode(response.body)["errors"][0]);
+          errorMessage: json.decode(response.body)["errors"]["user_id"][0]);
+    } else if (response.statusCode == 404) {
+      throw ServerException(errorMessage: "Not found");
     } else {
       throw ServerException(
           errorMessage: "An error as occured please try again later");
@@ -95,7 +96,7 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
       final List<dynamic> array = json.decode(response.body);
 
       for (var element in array) {
-        members.add(MemberModel.fromJson(element));
+        members.add(MemberModel.fromJson(element["member"]));
       }
       return members;
     } else if (response.statusCode >= 400 && response.statusCode < 500) {
