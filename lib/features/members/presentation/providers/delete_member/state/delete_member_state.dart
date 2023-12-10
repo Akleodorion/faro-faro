@@ -5,7 +5,10 @@ class DeleteMemberState extends Equatable {
   List<Object?> get props => [];
 }
 
-class Initial extends DeleteMemberState {}
+class Initial extends DeleteMemberState {
+  Initial({this.message});
+  final String? message;
+}
 
 class Loading extends DeleteMemberState {}
 
