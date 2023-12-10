@@ -47,7 +47,7 @@ class StatusSection extends ConsumerWidget {
                 usecase: () async {
                   final activateEventState = await ref
                       .read(activateEventStateProvider.notifier)
-                      .activateAnEvent(eventId: event.eventId);
+                      .activateAnEvent(eventId: event.id!);
                   switch (activateEventState) {
                     case Loaded():
                       ref

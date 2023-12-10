@@ -17,7 +17,7 @@ class EventManagementPage extends ConsumerWidget {
     final contactList = ref.read(contactsListProvider);
     final event = ref
         .watch(allEventProvider)
-        .firstWhere((element) => element.eventId == eventId);
+        .firstWhere((element) => element.id == eventId);
 
     final mediaHeight = MediaQuery.of(context).size.height;
 

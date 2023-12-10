@@ -26,7 +26,7 @@ class ActionButton extends ConsumerWidget {
           usecase: () async {
             final stateResult = await ref
                 .read(closeEventStateProvider.notifier)
-                .closeAnEvent(eventId: event.eventId);
+                .closeAnEvent(eventId: event.id!);
 
             if (context.mounted) {
               action(context, stateResult);

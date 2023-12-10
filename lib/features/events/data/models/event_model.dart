@@ -10,7 +10,7 @@ import '../../domain/entities/event.dart';
 class EventModel extends Event {
   const EventModel(
       {required super.name,
-      required super.eventId,
+      required super.id,
       required super.description,
       required super.date,
       required super.startTime,
@@ -105,7 +105,7 @@ class EventModel extends Event {
         modelEco: json["free"] == true ? ModelEco.gratuit : ModelEco.payant,
         members: members,
         tickets: tickets, //!
-        eventId: json["id"],
+        id: json["id"],
         activated: json["activated"],
         closed: json["closed"],
         maxStandardTicket: json["max_standard_ticket"],
@@ -163,7 +163,7 @@ class EventModel extends Event {
       'photo_url': imageUrl,
       'user_id': userId,
       'free': modelEco == ModelEco.gratuit ? true : false,
-      'id': eventId,
+      'id': id,
       "members": membersList,
       "activated": activated,
       "closed": closed,
@@ -184,7 +184,7 @@ class EventModel extends Event {
       {required Map<String, dynamic> postEventMap, required int userId}) {
     final myEventModel = EventModel(
         name: postEventMap["name"],
-        eventId: 0,
+        id: null,
         description: postEventMap["description"],
         date: postEventMap["date"],
         startTime: TryParseTimeOfDayImpl()

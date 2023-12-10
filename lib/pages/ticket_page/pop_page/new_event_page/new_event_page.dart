@@ -59,7 +59,7 @@ class NewEventPage extends ConsumerWidget {
         // Création du model
         final myEventModel = EventModel(
             name: enteredName,
-            eventId: 13485245,
+            id: null,
             description: enteredDescription ?? '',
             date: enteredDateTime,
             startTime: pickedStartTime,

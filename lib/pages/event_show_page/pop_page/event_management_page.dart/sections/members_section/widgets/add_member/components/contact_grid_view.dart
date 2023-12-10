@@ -104,7 +104,7 @@ class ContactGridView extends ConsumerWidget {
                             member: MemberModel(
                                 id: null,
                                 userId: contact.userId,
-                                eventId: event!.eventId,
+                                eventId: event!.id!,
                                 username: contact.username),
                           );
                       if (context.mounted) {
@@ -114,7 +114,7 @@ class ContactGridView extends ConsumerWidget {
                       final stateResult = await ref
                           .read(updateTicketProvider.notifier)
                           .updateTicket(
-                              ticketId: ticket!.id, userId: contact.userId);
+                              ticketId: ticket!.id!, userId: contact.userId);
                       if (context.mounted) {
                         showResultUpdateTicket(context, stateResult);
                       }

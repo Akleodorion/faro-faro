@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 enum Type { standard, gold, platinum, unknown }
 
 class Ticket extends Equatable {
-  final int id;
+  final int? id;
   final Type type;
   final String description;
   final int? price;
