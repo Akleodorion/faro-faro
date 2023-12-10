@@ -9,7 +9,7 @@ class Member extends Equatable {
       required this.userId,
       required this.eventId});
 
-  final int id;
+  final int? id;
   final int userId;
   final String username;
   final int eventId;

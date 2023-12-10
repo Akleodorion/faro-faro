@@ -9,10 +9,10 @@ class MemberModel extends Member {
 
   factory MemberModel.fromJson(Map<String, dynamic> json) {
     return MemberModel(
-        id: json["member"]["id"],
-        userId: json["member"]["user_id"],
-        username: json["member"]["username"],
-        eventId: json["member"]["event_id"]);
+        id: json["id"],
+        userId: json["user_id"],
+        username: json["username"],
+        eventId: json["event_id"]);
   }
 
   Map<String, dynamic> toJson() {

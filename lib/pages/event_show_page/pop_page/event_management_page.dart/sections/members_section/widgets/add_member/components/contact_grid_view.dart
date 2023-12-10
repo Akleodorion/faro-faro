@@ -2,6 +2,7 @@ import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/create_member_provider.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/state/create_member_state.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
@@ -102,7 +103,12 @@ class ContactGridView extends ConsumerWidget {
                       final stateResult = await ref
                           .read(createMemberProvider.notifier)
                           .createMember(
-                              eventId: event!.eventId, userId: contact.userId);
+                            member: MemberModel(
+                                id: null,
+                                userId: contact.userId,
+                                eventId: event!.eventId,
+                                username: contact.username),
+                          );
                       if (context.mounted) {
                         showResultCreateMember(context, stateResult);
                       }

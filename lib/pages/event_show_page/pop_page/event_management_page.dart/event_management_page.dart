@@ -1,5 +1,4 @@
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/pop_page/event_management_page.dart/action_button.dart';
 import 'package:faro_clean_tdd/pages/event_show_page/pop_page/event_management_page.dart/my_spacer.dart';
