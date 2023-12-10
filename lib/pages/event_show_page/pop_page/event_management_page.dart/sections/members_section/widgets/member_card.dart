@@ -52,7 +52,7 @@ class MemberCard extends ConsumerWidget {
                                   onPressed: () async {
                                     final stateResult = await ref
                                         .read(deleteMemberProvider.notifier)
-                                        .deleteMember(memberId: member.id);
+                                        .deleteMember(memberId: member.id!);
 
                                     switch (stateResult) {
                                       case Initial():

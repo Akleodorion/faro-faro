@@ -54,10 +54,10 @@ class EventModel extends Event {
 
     final List<Member> members = (json["members"] as List<dynamic>?)
             ?.map((element) => Member(
-                  id: element["id"] ?? 0,
-                  userId: element["user_id"] ?? 0,
-                  username: element["username"] ?? '',
-                  eventId: element["event_id"] ?? 0,
+                  id: element["id"],
+                  userId: element["user_id"],
+                  username: element["username"],
+                  eventId: element["event_id"],
                 ))
             .toList() ??
         [];

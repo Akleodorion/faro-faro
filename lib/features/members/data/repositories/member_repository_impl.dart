@@ -21,12 +21,12 @@ class MemberRepositoryImpl implements MemberRepository {
 
   @override
   Future<Either<Failure, Member>> createMember(
-      {required int eventId, required int userId}) async {
+      {required MemberModel member}) async {
     if (await networkInfo.isConnected) {
       try {
-        final member = await remoteDataSource.createMember(
-            eventId: eventId, userId: userId);
-        return Right(member);
+        final resultMember =
+            await remoteDataSource.createMember(member: member);
+        return Right(resultMember);
       } on ServerException catch (failure) {
         return Left(
           ServerFailure(errorMessage: failure.errorMessage),

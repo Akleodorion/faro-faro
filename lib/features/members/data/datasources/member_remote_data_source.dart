@@ -15,7 +15,7 @@ abstract class MemberRemoteDataSource {
   /// Fait une requête http à l'addresse http://localhost:3001/members
   ///
   /// En cas d'erreur jette un [ServerException]
-  Future<MemberModel> createMember({required int eventId, required int userId});
+  Future<MemberModel> createMember({required MemberModel member});
 
   /// Supprimé le member d'un évènement donnée.
   /// Fait une requête http à l'addresse http://localhost:3001/members/id
@@ -36,13 +36,9 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   final http.Client client;
 
   @override
-  Future<MemberModel> createMember(
-      {required int eventId, required int userId}) async {
+  Future<MemberModel> createMember({required MemberModel member}) async {
     // initialisation des variables.
-    final params = {
-      "event_id": eventId,
-      "user_id": userId,
-    };
+    final params = member.toJson();
     final uri = Uri.parse(MEMBERS_URL);
 
     // Fait la requête au serveur.
@@ -54,32 +50,39 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
       final MemberModel createMember =
           MemberModel.fromJson(json.decode(response.body)["member"]);
       return createMember;
-    } else if (response.statusCode == 422) {
+    }
+
+    if (response.statusCode == 422) {
       throw ServerException(
           errorMessage: json.decode(response.body)["errors"]["user_id"][0]);
-    } else if (response.statusCode == 404) {
-      throw ServerException(errorMessage: "Not found");
-    } else {
-      throw ServerException(
-          errorMessage: "An error as occured please try again later");
     }
+
+    if (response.statusCode == 404) {
+      throw ServerException(errorMessage: "Not found");
+    }
+
+    throw ServerException(
+        errorMessage: "An error as occured please try again later");
   }
 
   @override
   Future<Failure?> deleteMember({required int memberId}) async {
     final uri = Uri.parse("$MEMBERS_URL/$memberId");
-    final response = await http.delete(
-      uri,
-    );
+    final response = await http.delete(uri);
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+    final isSuccess = response.statusCode >= 200 && response.statusCode < 300;
+
+    if (isSuccess) {
       return null;
-    } else if (response.statusCode >= 400 && response.statusCode < 500) {
-      throw ServerException(errorMessage: json.decode(response.body)["error"]);
-    } else {
-      throw ServerException(
-          errorMessage: "An error as occured please try again later");
     }
+    if (response.statusCode == 404) {
+      throw ServerException(errorMessage: "Not found");
+    }
+    if (response.statusCode >= 400 && response.statusCode < 500) {
+      throw ServerException(errorMessage: json.decode(response.body)["error"]);
+    }
+    throw ServerException(
+        errorMessage: "An error as occured please try again later");
   }
 
   @override
