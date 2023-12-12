@@ -42,6 +42,7 @@ import 'package:faro_clean_tdd/features/tickets/domain/usecases/update_ticket_us
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ticket/state/create_ticket_notifier.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_notifier.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/state/update_ticket_notifier.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
@@ -72,16 +73,19 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // Features - userAuth
   sl.registerFactory(() => UserNotifier(
-      logInWithTokenUsecase: sl(),
-      logUserInUsecase: sl(),
-      signUserInUsecase: sl(),
-      getUserInfoUsecase: sl()));
+        logInWithTokenUsecase: sl(),
+        logUserInUsecase: sl(),
+        signUserInUsecase: sl(),
+        getUserInfoUsecase: sl(),
+        logUserOutUsecase: sl(),
+      ));
 
   // usecases
   sl.registerLazySingleton(() => LogUserIn(repository: sl()));
   sl.registerLazySingleton(() => LogInWithToken(repository: sl()));
   sl.registerLazySingleton(() => SignUserIn(repository: sl()));
   sl.registerLazySingleton(() => GetUserInfo(repository: sl()));
+  sl.registerLazySingleton(() => LogUserOutUsecase(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<UserAuthentificationRepository>(() =>

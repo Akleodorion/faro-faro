@@ -12,10 +12,13 @@ abstract class UserRemoteDataSource {
   Future<UserModel?> userLogInWithToken(String token);
   Future<UserModel> userSignInRequest(
       {required Map<String, String> signInInfo});
+
+  Future<void> userLogOutRequest({required String jwt});
 }
 
 const LOG_IN_URL = 'http://localhost:3001/login';
 const SIGN_IN_URL = 'http://localhost:3001/signup';
+const LOG_OUT_URL = 'http://localhost:3001/logout';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   const UserRemoteDataSourceImpl({required this.client});
@@ -77,6 +80,24 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       return UserModel.fromJson(json.decode(response.body), true, jwtToken[1]);
     } else {
       return null;
+    }
+  }
+
+  @override
+  Future<void> userLogOutRequest({required String jwt}) async {
+    final uri = Uri.parse(LOG_OUT_URL);
+
+    final response = await http.delete(
+      uri,
+      headers: {
+        'Authorization': "Bearer $jwt",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return;
+    } else {
+      throw ServerException(errorMessage: 'an error has occured');
     }
   }
 }

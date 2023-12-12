@@ -119,6 +119,17 @@ class MockUserAuthentificationRepository extends _i1.Mock
       ) as _i4.Future<Map<String, dynamic>?>);
 
   @override
+  _i4.Future<_i5.Failure?> logUserOut({required String? jwt}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #logUserOut,
+          [],
+          {#jwt: jwt},
+        ),
+        returnValue: _i4.Future<_i5.Failure?>.value(),
+      ) as _i4.Future<_i5.Failure?>);
+
+  @override
   _i4.Future<_i6.User?> logInWithToken() => (super.noSuchMethod(
         Invocation.method(
           #logInWithToken,

@@ -103,4 +103,14 @@ class UserAuthentificationRepositoryImpl
       return null;
     }
   }
+
+  @override
+  Future<Failure?> logUserOut({required String jwt}) async {
+    try {
+      await remoteDataSource.userLogOutRequest(jwt: jwt);
+      return null;
+    } on ServerException catch (e) {
+      return ServerFailure(errorMessage: e.errorMessage);
+    }
+  }
 }

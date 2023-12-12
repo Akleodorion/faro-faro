@@ -106,6 +106,18 @@ class MockUserRemoteDataSource extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.UserModel>);
+
+  @override
+  _i4.Future<void> userLogOutRequest({required String? jwt}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #userLogOutRequest,
+          [],
+          {#jwt: jwt},
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [UserLocalDataSource].

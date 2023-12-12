@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
+
 import '../../../../../core/errors/failures.dart';
 import '../../../domain/usecases/get_user_info.dart';
 import '../../../domain/usecases/log_in_with_token.dart';
@@ -11,16 +13,17 @@ class UserNotifier extends StateNotifier<UserState> {
   final LogUserIn logUserInUsecase;
   final LogInWithToken logInWithTokenUsecase;
   final si.SignUserIn signUserInUsecase;
+  final LogUserOutUsecase logUserOutUsecase;
   final GetUserInfo getUserInfoUsecase;
-  // final _errorController = StreamController<String>();
-  // Stream<String> get errorStream => _errorController.stream;
+
   UserState get initialState => Loading();
 
   UserNotifier(
       {required this.logUserInUsecase,
       required this.signUserInUsecase,
       required this.logInWithTokenUsecase,
-      required this.getUserInfoUsecase})
+      required this.getUserInfoUsecase,
+      required this.logUserOutUsecase})
       : super(Loading());
 
   Future<UserState> logUserIn(String email, String password, bool pref) async {
@@ -62,6 +65,13 @@ class UserNotifier extends StateNotifier<UserState> {
           Loaded(user: user!, message: "Votre compte a été créer avec succès!");
     });
 
+    return state;
+  }
+
+  Future<UserState?> logUserOut({required String jwt}) async {
+    state = Loading();
+    await logUserOutUsecase.execute(jwt: jwt);
+    getUserInfo();
     return state;
   }
 
