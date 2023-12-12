@@ -17,6 +17,8 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/lo
     as _i10;
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart'
     as _i4;
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart'
+    as _i11;
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart'
     as _i8;
 import 'package:mockito/mockito.dart' as _i1;
@@ -177,4 +179,33 @@ class MockLogInWithToken extends _i1.Mock implements _i10.LogInWithToken {
         ),
         returnValue: _i5.Future<_i7.User?>.value(),
       ) as _i5.Future<_i7.User?>);
+}
+
+/// A class which mocks [LogUserOutUsecase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLogUserOutUsecase extends _i1.Mock implements _i11.LogUserOutUsecase {
+  MockLogUserOutUsecase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.UserAuthentificationRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeUserAuthentificationRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.UserAuthentificationRepository);
+
+  @override
+  _i5.Future<_i6.Failure?> execute({required String? jwt}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+          {#jwt: jwt},
+        ),
+        returnValue: _i5.Future<_i6.Failure?>.value(),
+      ) as _i5.Future<_i6.Failure?>);
 }

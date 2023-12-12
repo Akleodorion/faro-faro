@@ -91,7 +91,6 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       uri,
       headers: {
         'Authorization': "Bearer $jwt",
-        'Content-Type:': 'application/json',
       },
     );
 

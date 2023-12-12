@@ -367,4 +367,43 @@ void main() {
       },
     );
   });
+
+  group(
+    "logUserOut",
+    () {
+      const tJwt = 'Bearer kgjfdklgjklfdjklhgf';
+      test(
+        "should return null when the call to remote data is successfull",
+        () async {
+          //arrange
+          when(mockUserRemoteDataSource.userLogOutRequest(jwt: anyNamed('jwt')))
+              .thenAnswer((realInvocation) async {
+            return;
+          });
+          //act
+          final result =
+              await userAuthentificationRepositoryImpl.logUserOut(jwt: tJwt);
+          //assert
+          expect(result, null);
+          verify(mockUserRemoteDataSource.userLogOutRequest(jwt: tJwt))
+              .called(1);
+        },
+      );
+      test(
+        "should return a serverfailure when the call to remote data is successfull",
+        () async {
+          //arrange
+          when(mockUserRemoteDataSource.userLogOutRequest(jwt: anyNamed('jwt')))
+              .thenThrow(ServerException(errorMessage: 'oops'));
+          //act
+          final result =
+              await userAuthentificationRepositoryImpl.logUserOut(jwt: tJwt);
+          //assert
+          expect(result, const ServerFailure(errorMessage: 'oops'));
+          verify(mockUserRemoteDataSource.userLogOutRequest(jwt: tJwt))
+              .called(1);
+        },
+      );
+    },
+  );
 }

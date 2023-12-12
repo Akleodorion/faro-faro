@@ -4,6 +4,7 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/entities/us
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart'
     as si;
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_notifier.dart';
@@ -14,12 +15,15 @@ import 'package:mockito/mockito.dart';
 
 import './user_notifier_test.mocks.dart';
 
-@GenerateMocks([LogUserIn, si.SignUserIn, GetUserInfo, LogInWithToken])
+@GenerateMocks(
+    [LogUserIn, si.SignUserIn, GetUserInfo, LogInWithToken, LogUserOutUsecase])
 void main() {
   late MockLogUserIn mockLogUserIn;
   late MockSignUserIn mockSignUserIn;
   late MockGetUserInfo mockGetUserInfo;
   late MockLogInWithToken mockLogInWithToken;
+  late MockLogUserOutUsecase mockLogUserOutUsecase;
+
   late UserNotifier userNotifier;
 
   setUp(() {
@@ -27,11 +31,13 @@ void main() {
     mockSignUserIn = MockSignUserIn();
     mockLogInWithToken = MockLogInWithToken();
     mockGetUserInfo = MockGetUserInfo();
+    mockLogUserOutUsecase = MockLogUserOutUsecase();
     userNotifier = UserNotifier(
       logInWithTokenUsecase: mockLogInWithToken,
       logUserInUsecase: mockLogUserIn,
       signUserInUsecase: mockSignUserIn,
       getUserInfoUsecase: mockGetUserInfo,
+      logUserOutUsecase: mockLogUserOutUsecase,
     );
   });
 
@@ -204,6 +210,37 @@ void main() {
           await userNotifier.getUserInfo();
           //assert
           verify(mockGetUserInfo.call()).called(1);
+        },
+      );
+    },
+  );
+
+  group(
+    "logUserOut",
+    () {
+      final tDatetime = DateTime.now();
+      const tToken =
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZWYyMGYwZC02OGY5LTQ5OTAtYjk4MC';
+      final tUserInfo = {
+        "email": "chris@gmail.com",
+        "password": "123456",
+        "token": tToken,
+        "datetime": tDatetime,
+        "pref": true,
+      };
+
+      test(
+        "should emit [Loading, Initial]",
+        () async {
+          //arrange
+          when(mockLogUserOutUsecase.execute(jwt: tToken))
+              .thenAnswer((realInvocation) async => null);
+          when(mockGetUserInfo.call()).thenAnswer((_) async => tUserInfo);
+          //act
+          final expectedResult = [Loading(), Initial(userInfo: tUserInfo)];
+          expectLater(userNotifier.stream, emitsInOrder(expectedResult));
+          //assert
+          await userNotifier.logUserOut(jwt: tToken);
         },
       );
     },
