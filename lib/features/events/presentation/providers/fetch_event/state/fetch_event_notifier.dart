@@ -69,7 +69,7 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
     }
   }
 
-  void removeMemberToEvent({
+  void removeMemberfromEvent({
     required Member member,
     required Event event,
     required FetchEventState fetchEventState,

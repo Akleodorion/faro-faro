@@ -96,7 +96,7 @@ class UserNotifier extends StateNotifier<UserState> {
       "password": prevState["password"],
       "token": prevState["token"],
       "datetime": prevState["datetime"],
-      "pref": isActive
+      "pref": isActive,
     };
     state = Initial(userInfo: newState);
   }

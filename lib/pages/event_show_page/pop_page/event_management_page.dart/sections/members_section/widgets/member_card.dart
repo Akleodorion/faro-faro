@@ -1,5 +1,6 @@
 import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/delete_member/delete_member_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,31 @@ class MemberCard extends ConsumerWidget {
   final Event event;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void deleteMember(
+        {required BuildContext context,
+        required DeleteMemberState deleteMemberState,
+        required Member member}) {
+      final bool isSuccess = deleteMemberState is Initial && context.mounted;
+      final bool isError = deleteMemberState is Error && context.mounted;
+
+      if (isSuccess) {
+        final fetchEventState = ref.read(fetchEventProvider);
+        ref.read(fetchEventProvider.notifier).removeMemberfromEvent(
+            member: member, fetchEventState: fetchEventState, event: event);
+        showResultMessageSnackbar(
+          context: context,
+          message: deleteMemberState.message!,
+        );
+      }
+
+      if (isError) {
+        showResultMessageSnackbar(
+          context: context,
+          message: deleteMemberState.message,
+        );
+      }
+    }
+
     return Container(
       margin: const EdgeInsets.only(right: 10),
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
@@ -54,10 +80,16 @@ class MemberCard extends ConsumerWidget {
                                   final stateResult = await ref
                                       .read(deleteMemberProvider.notifier)
                                       .deleteMember(member: member);
+
                                   if (context.mounted) {
                                     deleteMember(
-                                        context: context,
-                                        deleteMemberState: stateResult);
+                                      context: context,
+                                      deleteMemberState: stateResult,
+                                      member: member,
+                                    );
+                                  }
+                                  if (context.mounted) {
+                                    Navigator.of(context).pop();
                                   }
                                 },
                                 icon: const Icon(
@@ -85,27 +117,5 @@ class MemberCard extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  void deleteMember({
-    required BuildContext context,
-    required DeleteMemberState deleteMemberState,
-  }) {
-    final bool isSuccess = deleteMemberState is Initial && context.mounted;
-    final bool isError = deleteMemberState is Error && context.mounted;
-
-    if (isSuccess) {
-      showResultMessageSnackbar(
-        context: context,
-        message: deleteMemberState.message!,
-      );
-    }
-
-    if (isError) {
-      showResultMessageSnackbar(
-        context: context,
-        message: deleteMemberState.message,
-      );
-    }
   }
 }
