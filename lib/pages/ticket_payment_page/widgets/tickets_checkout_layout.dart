@@ -50,9 +50,9 @@ class _TicketsCheckoutLayoutState extends ConsumerState<TicketsCheckoutLayout> {
     final bool isEnoughStandardTicket =
         standardTicketQuantity < widget.event.standardTicketCountLeft;
     final bool isEnoughGoldTicket =
-        goldTicketQuantity < widget.event.goldTicketCountLeft!;
+        goldTicketQuantity < (widget.event.goldTicketCountLeft ?? 0);
     final bool isEnoughPlatinumTicket =
-        platinumTicketQuantity < widget.event.platinumTicketCountLeft!;
+        platinumTicketQuantity < (widget.event.platinumTicketCountLeft ?? 0);
 
     if (!widget.isFree) {
       totalAmount = tickets.fold<int>(
@@ -181,66 +181,66 @@ class _TicketsCheckoutLayoutState extends ConsumerState<TicketsCheckoutLayout> {
         const SizedBox(
           height: 30,
         ),
-        if (!widget.isFree)
-          UsecaseElevatedButton(
-              usecaseTitle: "Achetez vos billets", onUsecaseCall: () {}),
-        if (widget.isFree)
-          Consumer(
-            builder: (BuildContext context, WidgetRef ref, child) {
-              return UsecaseElevatedButton(
-                usecaseTitle: "Reservez votre billet",
-                onUsecaseCall: () async {
-                  if (standardTicketQuantity == 1) {
+        Consumer(
+          builder: (BuildContext context, WidgetRef ref, child) {
+            return UsecaseElevatedButton(
+              usecaseTitle: widget.isFree
+                  ? "Reservez votre billet"
+                  : "Réservez vos billets",
+              onUsecaseCall: () async {
+                if (tickets.isNotEmpty) {
+                  for (final ticket in tickets) {
                     final result = await ref
                         .read(createTicketProvider.notifier)
-                        .createTicket(
-                          ticket: TicketModel(
-                              id: null,
-                              type: Type.standard,
-                              description:
-                                  widget.event.standardTicketDescription,
-                              eventId: widget.event.id!,
-                              userId: ref.read(userInfoProvider)["user_id"],
-                              qrCodeUrl: '',
-                              price: widget.event.standardTicketPrice,
-                              verified: false),
-                        );
-                    switch (result) {
-                      case Loaded():
-                        if (context.mounted) {
-                          final fetchTicketState =
-                              ref.read(fetchTicketsProvider);
-                          ref.read(fetchTicketsProvider.notifier).addTicket(
-                              ticket: result.ticket,
-                              fetchTicketsState: fetchTicketState);
-                          showResultMessageSnackbar(
-                            context: context,
-                            message: "Ticket crée avec succès",
-                          );
-                          Navigator.of(context).pop();
-                        }
-                      case Error():
-                        if (context.mounted) {
-                          showResultMessageSnackbar(
-                            context: context,
-                            message: result.message,
-                          );
-                        }
-                    }
-                  } else {
+                        .createTicket(ticket: ticket);
                     if (context.mounted) {
-                      showResultMessageSnackbar(
-                        context: context,
-                        message: "Vous n'avez pas sélectionner de billet",
-                      );
+                      annonceResult(
+                          context: context, createTicketState: result);
                     }
                   }
-                },
-              );
-            },
-          )
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                } else {
+                  if (context.mounted) {
+                    showResultMessageSnackbar(
+                      context: context,
+                      message: "Vous n'avez pas sélectionné de billet",
+                    );
+                  }
+                }
+              },
+            );
+          },
+        )
       ],
     );
+  }
+
+  void annonceResult(
+      {required CreateTicketState createTicketState,
+      required BuildContext context}) {
+    final isSuccess = createTicketState is Loaded && context.mounted;
+    final isError = createTicketState is Error && context.mounted;
+
+    if (isSuccess) {
+      final ftState = ref.read(fetchTicketsProvider);
+      ref.read(fetchTicketsProvider.notifier).addTicket(
+            ticket: createTicketState.ticket,
+            fetchTicketsState: ftState,
+          );
+      showResultMessageSnackbar(
+        context: context,
+        message: createTicketState.message,
+      );
+    }
+
+    if (isError) {
+      showResultMessageSnackbar(
+        context: context,
+        message: createTicketState.message,
+      );
+    }
   }
 
   void addTicket({

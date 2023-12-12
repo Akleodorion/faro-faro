@@ -22,8 +22,6 @@ class _TextSwitchState extends ConsumerState<TextSwitch> {
   Widget build(BuildContext context) {
     final bool isFilterFree = widget.generalFilter == GeneralFilter.free;
     final bool isFilterPaid = widget.generalFilter == GeneralFilter.paid;
-    final bool paidCondition =
-        widget.generalFilter == GeneralFilter.paid && switchValue == true;
 
     if (isFilterFree) {
       switchValue = ref.watch(generalFiltersProvider)[GeneralFilter.free];
@@ -31,6 +29,7 @@ class _TextSwitchState extends ConsumerState<TextSwitch> {
     if (isFilterPaid) {
       switchValue = ref.watch(generalFiltersProvider)[GeneralFilter.paid];
     }
+    final bool paidCondition = isFilterPaid && switchValue == true;
 
     return Column(
       children: [
