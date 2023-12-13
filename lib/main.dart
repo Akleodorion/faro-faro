@@ -21,9 +21,10 @@ final theme = ThemeData(
     style: TextButton.styleFrom(
       foregroundColor: const Color.fromRGBO(243, 255, 198, 1),
       textStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          decoration: TextDecoration.underline),
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        decoration: TextDecoration.underline,
+      ),
     ),
   ),
 
