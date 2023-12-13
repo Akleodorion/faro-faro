@@ -41,12 +41,12 @@ class _EcoPickerFieldState extends ConsumerState<EcoPickerField> {
                 ModelEco.gratuit.name,
               ),
             ),
-            DropdownMenuItem(
-              value: ModelEco.payant,
-              child: Text(
-                ModelEco.payant.name,
-              ),
-            )
+            // DropdownMenuItem(
+            //   value: ModelEco.payant,
+            //   child: Text(
+            //     ModelEco.payant.name,
+            //   ),
+            // )
           ],
           onChanged: (value) {
             setState(() {

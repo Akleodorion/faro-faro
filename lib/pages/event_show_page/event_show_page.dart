@@ -21,6 +21,7 @@ class EventShowPage extends ConsumerWidget {
     final double mediaHeight = MediaQuery.of(context).size.height;
     final double mediaWidth = MediaQuery.of(context).size.width;
     bool isMine;
+    final bool isFree = event.modelEco == ModelEco.gratuit;
 
     final userInfo = ref.read(userInfoProvider);
     userInfo["user_id"] == event.userId ? isMine = true : isMine = false;
@@ -255,7 +256,8 @@ class EventShowPage extends ConsumerWidget {
             ),
             if (!isMine)
               UsecaseElevatedButton(
-                  usecaseTitle: "Achète ton ticket",
+                  usecaseTitle:
+                      isFree ? "Réserve ton ticket" : "Achète ton ticket",
                   onUsecaseCall: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
