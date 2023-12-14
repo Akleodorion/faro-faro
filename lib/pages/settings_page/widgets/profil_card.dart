@@ -10,7 +10,7 @@ class ProfilCard extends ConsumerWidget {
     final Map<String, dynamic> userInfo = ref.read(userInfoProvider);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,7 +34,7 @@ class ProfilCard extends ConsumerWidget {
                 Text(
                   userInfo["email"],
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w500),
+                      fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
@@ -52,7 +52,7 @@ class ProfilCard extends ConsumerWidget {
                 ),
                 Text(userInfo["username"],
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w500)),
+                        fontSize: 14, fontWeight: FontWeight.w500)),
               ],
             ),
             const SizedBox(
@@ -69,7 +69,7 @@ class ProfilCard extends ConsumerWidget {
                 ),
                 Text(userInfo["phone_number"],
                     style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w500)),
+                        fontSize: 14, fontWeight: FontWeight.w500)),
               ],
             )
           ],

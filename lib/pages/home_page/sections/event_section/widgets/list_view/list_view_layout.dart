@@ -1,6 +1,5 @@
 import '../../../../../../features/events/domain/entities/event.dart';
-import '../../event_card/event_card.dart';
-import 'components/list_view_title.dart';
+import '../../../../../../features/events/presentation/widgets/event_card/event_card.dart';
 import 'package:flutter/material.dart';
 
 class ListViewLayout extends StatelessWidget {
@@ -28,7 +27,10 @@ class ListViewLayout extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ListViewTitle(listViewTitle: listViewTitle),
+                  Text(
+                    listViewTitle,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ],
               ),
               const SizedBox(

@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/pages/search_page/pop_page/general_filter_page.dart';
-import 'package:faro_clean_tdd/pages/search_page/sections/search_and_filter_section/widgets/event_list_search_bar/event_list_search_bar.dart';
+import 'package:faro_clean_tdd/features/events/presentation/widgets/event_list_search_bar/event_list_search_bar.dart';
 import 'package:flutter/material.dart';
 
 class SearchAndFilterSection extends StatelessWidget {

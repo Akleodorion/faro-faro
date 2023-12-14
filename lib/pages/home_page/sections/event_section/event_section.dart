@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/pages/event_show_page/event_show_page.dart';
+import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/event_show_page.dart';
 
 import '../../../../features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'widgets/list_view/list_view_container.dart';
@@ -15,7 +15,7 @@ class EventSection extends ConsumerWidget {
 
     final upcomingEvents = ref.read(upcomingEventProvider);
     final randomEvents = ref.read(randomEventsProvider);
-    final allEvents = ref.read(allEventProvider);
+    final allEvents = ref.watch(allEventProvider);
 
     if (allEvents.isEmpty) {
       content = const Center(
@@ -141,9 +141,10 @@ class EventSection extends ConsumerWidget {
       );
     }
 
-    return SizedBox(
-      height: (MediaQuery.of(context).size.height) * 0.76,
-      child: content,
+    return Expanded(
+      child: SizedBox(
+        child: content,
+      ),
     );
   }
 }

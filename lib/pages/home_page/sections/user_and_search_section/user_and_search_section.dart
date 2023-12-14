@@ -6,11 +6,9 @@ class UserAndSearchSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-
-    return SizedBox(
-      height: (screenHeight) * 0.05,
-      child: const Row(
+    return const Padding(
+      padding: EdgeInsets.only(top: 10),
+      child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -17,7 +17,7 @@ class HomePage extends ConsumerWidget {
       content = const Center(child: CircularProgressIndicator());
     } else {
       content = const Padding(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [

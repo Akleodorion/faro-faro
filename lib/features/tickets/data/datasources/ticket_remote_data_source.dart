@@ -6,7 +6,7 @@ import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:http/http.dart' as http;
 
-const TICKETS_URL = "http://localhost:3001/tickets";
+const TICKETS_URL = "http://192.168.1.27:3000/tickets";
 
 abstract class TicketRemoteDataSource {
   /// Crée un ticket pour un évènement donnée.

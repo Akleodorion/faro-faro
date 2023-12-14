@@ -94,113 +94,115 @@ class _AuthCardState extends ConsumerState<AuthCard> {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(25),
-        child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              boxShadow: kElevationToShadow[3],
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 45),
-                      child: Column(
+        child: SingleChildScrollView(
+          child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                boxShadow: kElevationToShadow[3],
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 45),
+                        child: Column(
+                          children: [
+                            MyTextFormField(
+                                key: ValueKey(Random()),
+                                label: 'email',
+                                intialValue: _enteredEmail ?? '',
+                                onSaved: (value) {
+                                  setState(() {
+                                    _enteredEmail = value;
+                                  });
+                                },
+                                type: TextFieldType.email),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            MyTextFormField(
+                                key: ValueKey(Random()),
+                                label: 'password',
+                                intialValue: _enteredPassword ?? '',
+                                onSaved: (value) {
+                                  setState(() {
+                                    _enteredPassword = value;
+                                  });
+                                },
+                                type: TextFieldType.password),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            if (!logingIn)
+                              MyTextFormField(
+                                  key: ValueKey(Random()),
+                                  label: "Nom d'utilisateur",
+                                  intialValue: _enteredUsername ?? '',
+                                  onSaved: (value) {
+                                    setState(() {
+                                      _enteredUsername = value;
+                                    });
+                                  },
+                                  type: TextFieldType.text),
+                            if (!logingIn)
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            if (!logingIn)
+                              MyTextFormField(
+                                  key: ValueKey(Random()),
+                                  label: 'numéro de téléphone',
+                                  intialValue: _enteredPhoneNumber ?? '',
+                                  onSaved: (value) {
+                                    setState(() {
+                                      _enteredPhoneNumber = value;
+                                    });
+                                  },
+                                  type: TextFieldType.number),
+                            if (!logingIn)
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            const RememberCheckbox(),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          MyTextFormField(
-                              key: ValueKey(Random()),
-                              label: 'email',
-                              intialValue: _enteredEmail ?? '',
-                              onSaved: (value) {
-                                setState(() {
-                                  _enteredEmail = value;
-                                });
-                              },
-                              type: TextFieldType.email),
-                          const SizedBox(
-                            height: 10,
+                          UsecaseElevatedButton(
+                            usecaseTitle:
+                                logingIn ? "Connecte-toi" : "Créer son compte",
+                            onUsecaseCall: logingIn ? _userLogin : _userSignIn,
                           ),
-                          MyTextFormField(
-                              key: ValueKey(Random()),
-                              label: 'password',
-                              intialValue: _enteredPassword ?? '',
-                              onSaved: (value) {
-                                setState(() {
-                                  _enteredPassword = value;
-                                });
-                              },
-                              type: TextFieldType.password),
                           const SizedBox(
-                            height: 10,
+                            width: 10,
                           ),
-                          if (!logingIn)
-                            MyTextFormField(
-                                key: ValueKey(Random()),
-                                label: "Nom d'utilisateur",
-                                intialValue: _enteredUsername ?? '',
-                                onSaved: (value) {
-                                  setState(() {
-                                    _enteredUsername = value;
-                                  });
-                                },
-                                type: TextFieldType.text),
-                          if (!logingIn)
-                            const SizedBox(
-                              height: 10,
-                            ),
-                          if (!logingIn)
-                            MyTextFormField(
-                                key: ValueKey(Random()),
-                                label: 'numéro de téléphone',
-                                intialValue: _enteredPhoneNumber ?? '',
-                                onSaved: (value) {
-                                  setState(() {
-                                    _enteredPhoneNumber = value;
-                                  });
-                                },
-                                type: TextFieldType.number),
-                          if (!logingIn)
-                            const SizedBox(
-                              height: 10,
-                            ),
-                          const RememberCheckbox(),
+                          MyTextButton(
+                              text: logingIn
+                                  ? 'Créer un compte'
+                                  : " j'ai déjà un compte",
+                              onPressed: () {
+                                setState(() {
+                                  logingIn = !logingIn;
+                                });
+                              })
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        UsecaseElevatedButton(
-                          usecaseTitle:
-                              logingIn ? "Connecte-toi" : "Créer son compte",
-                          onUsecaseCall: logingIn ? _userLogin : _userSignIn,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        MyTextButton(
-                            text: logingIn
-                                ? 'Créer un compte'
-                                : " j'ai déjà un compte",
-                            onPressed: () {
-                              setState(() {
-                                logingIn = !logingIn;
-                              });
-                            })
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            )),
+              )),
+        ),
       ),
     );
   }

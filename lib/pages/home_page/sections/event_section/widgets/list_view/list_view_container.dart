@@ -15,7 +15,7 @@ class ListViewContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 355,
+      height: 310,
       child: ListViewLayout(
         listViewTitle: title,
         events: events,
