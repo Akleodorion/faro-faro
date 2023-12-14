@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../../core/errors/failures.dart';
 
-const MEMBERS_URL = "http://localhost:3001/members";
+const MEMBERS_URL = "http://192.168.1.27:3000/members";
 
 abstract class MemberRemoteDataSource {
   /// Crée un member pour un évènement donnée.

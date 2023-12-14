@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/widgets/components/ticket_tile.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/widgets/ticket_tile/ticket_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

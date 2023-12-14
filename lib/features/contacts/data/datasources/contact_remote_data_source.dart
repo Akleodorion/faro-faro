@@ -6,7 +6,7 @@ import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:http/http.dart' as http;
 
 // ignore: constant_identifier_names
-const INDEX_GET_URL = "http://localhost:3001/users";
+const INDEX_GET_URL = "http://192.168.1.27:3000/users";
 
 abstract class ContactRemoteDataSource {
   Future<List<Contact>> fetchContacts({required List<String> numbersList});

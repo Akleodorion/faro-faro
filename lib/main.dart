@@ -79,7 +79,6 @@ final theme = ThemeData(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await initializeDateFormatting('fr_FR', null);
   await di.init();
   await dotenv.load(fileName: ".env");

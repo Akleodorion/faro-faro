@@ -1,6 +1,6 @@
 import 'package:faro_clean_tdd/internal_features/general_filter/general_filter_provider.dart';
-import 'package:faro_clean_tdd/pages/search_page/pop_page/widgets/date_picker_filter.dart';
-import 'package:faro_clean_tdd/pages/search_page/pop_page/widgets/text_switch.dart';
+import 'package:faro_clean_tdd/internal_features/general_filter/widgets/date_picker_filter.dart';
+import 'package:faro_clean_tdd/internal_features/general_filter/widgets/text_switch.dart';
 import 'package:flutter/material.dart';
 
 class GeneralFilterPage extends StatelessWidget {

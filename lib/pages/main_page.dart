@@ -2,7 +2,7 @@ import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/pop_page/new_event_page/new_event_page.dart';
+import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/new_event_page.dart';
 
 import '../features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'settings_page/settings_page.dart';

@@ -34,8 +34,8 @@ abstract class EventRemoteDatasource {
   Future<EventModel> closeAnEvent({required int eventId});
 }
 
-const FETCH_URL = 'http://localhost:3001/events';
-const POST_EVENT_URL = 'http://localhost:3001/events';
+const FETCH_URL = 'http://192.168.1.27:3000/events';
+const POST_EVENT_URL = 'http://192.168.1.27:3000/events';
 
 class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   const EventRemoteDatasourceImpl({required this.client});

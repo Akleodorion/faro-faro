@@ -16,9 +16,9 @@ abstract class UserRemoteDataSource {
   Future<void> userLogOutRequest({required String jwt});
 }
 
-const LOG_IN_URL = 'http://localhost:3001/login';
-const SIGN_IN_URL = 'http://localhost:3001/signup';
-const LOG_OUT_URL = 'http://localhost:3001/logout';
+const LOG_IN_URL = 'http://192.168.1.27:3000/login';
+const SIGN_IN_URL = 'http://192.168.1.27:3000/signup';
+const LOG_OUT_URL = 'http://192.168.1.27:3000/logout';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   const UserRemoteDataSourceImpl({required this.client});
