@@ -1,15 +1,16 @@
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
+import 'package:faro_clean_tdd/pages/main_page/constants/main_page_strings.dart';
 import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/new_event_page.dart';
 
-import '../features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
-import 'settings_page/settings_page.dart';
-import 'ticket_page/ticket_page.dart';
+import '../../features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
+import '../settings_page/settings_page.dart';
+import '../ticket_page/ticket_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'home_page/home_page.dart';
+import '../home_page/home_page.dart';
 
 class MainPage extends ConsumerStatefulWidget {
   const MainPage({super.key});
@@ -98,19 +99,19 @@ class _MainPageState extends ConsumerState<MainPage> {
             icon: Icon(
               Icons.home,
             ),
-            label: "Home",
+            label: MainPageStrings.navHome,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: "Search",
+            label: MainPageStrings.navSearch,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt_long_rounded),
-            label: "Ticket",
+            label: MainPageStrings.navTicket,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: "Settings",
+            label: MainPageStrings.navSettings,
           )
         ],
 

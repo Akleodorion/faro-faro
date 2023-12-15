@@ -7,10 +7,12 @@ class ListViewLayout extends StatelessWidget {
     super.key,
     required this.events,
     required this.listViewTitle,
+    required this.listViewHeight,
   });
 
   final List<Event> events;
   final String listViewTitle;
+  final double listViewHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class ListViewLayout extends StatelessWidget {
                   itemCount: events.length,
                   itemBuilder: (BuildContext context, int index) {
                     return EventCard(
+                      listViewHeight: listViewHeight,
                       event: events[index],
                     );
                   },

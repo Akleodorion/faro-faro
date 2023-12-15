@@ -14,11 +14,21 @@ class ListViewContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late double listViewHeight;
+    final screenHeight = MediaQuery.of(context).size.height;
+    print(screenHeight);
+
+    if (screenHeight <= 750) {
+      listViewHeight = screenHeight * 0.45;
+    } else if (screenHeight >= 750 && screenHeight <= 1000) {
+      listViewHeight = screenHeight * 0.37;
+    }
     return SizedBox(
-      height: 310,
+      height: listViewHeight,
       child: ListViewLayout(
         listViewTitle: title,
         events: events,
+        listViewHeight: listViewHeight,
       ),
     );
   }

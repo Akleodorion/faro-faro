@@ -1,11 +1,19 @@
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/event_show_page.dart';
+import 'package:faro_clean_tdd/features/events/presentation/widgets/event_card/components/date_and_locality.dart';
+import 'package:faro_clean_tdd/features/events/presentation/widgets/event_card/components/event_card_price_info.dart';
+import 'package:faro_clean_tdd/features/events/presentation/widgets/event_card/components/event_card_title.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities/event.dart';
+import 'components/event_card_image_container.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({super.key, required this.event});
+  const EventCard({
+    super.key,
+    required this.event,
+    required this.listViewHeight,
+  });
   final Event event;
+  final double listViewHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -14,80 +22,33 @@ class EventCard extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
           borderRadius: BorderRadius.circular(10),
           boxShadow: kElevationToShadow[3]),
-      width: 210,
-      margin: const EdgeInsets.only(right: 35),
+      width: MediaQuery.of(context).size.width * 0.45,
+      margin: EdgeInsets.only(
+        right: MediaQuery.of(context).size.width * 0.07,
+      ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // image
-            Container(
-              width: double.infinity,
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(5),
-                  topRight: Radius.circular(5),
-                ),
-                image: DecorationImage(
-                  image: NetworkImage(event.imageUrl),
-                  fit: BoxFit.fill,
-                ),
-              ),
+            EventCardImageContainer(
+              imageUrl: event.imageUrl,
+              height: listViewHeight * 0.51,
             ),
             const SizedBox(
               height: 10,
             ),
-            Text(
-              event.name,
-              style: Theme.of(context).textTheme.titleMedium,
+            EventCardTitle(
+              title: event.name,
             ),
-            Text(
-              "${event.formatedDate} - ${event.address.getShortFormattedAddress()}",
-              style: Theme.of(context).textTheme.titleSmall,
+            DateAndLocality(
+              formatedDate: event.formatedDate,
+              formatedAddress: event.address.getShortFormattedAddress(),
             ),
             const SizedBox(
-              height: 5,
+              height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "A partir de:",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    Text(
-                      event.modelEco == ModelEco.gratuit
-                          ? "Gratuit"
-                          : "${event.standardTicketPrice} XOF",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                    textStyle: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.bold),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return EventShowPage(event: event);
-                    }));
-                  },
-                  child: const Text("Voir plus"),
-                )
-              ],
-            )
+            EventCardPriceInfo(event: event)
           ],
         ),
       ),
