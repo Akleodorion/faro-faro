@@ -44,22 +44,31 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
   @override
   Future<List<EventModel>> fetchAllEvents() async {
-    // initialisation des variables
-    List<EventModel> events = [];
-    final uri = Uri.parse(FETCH_URL);
-
-    final response = await client.get(uri);
-
-    if (response.statusCode == 200) {
-      final List<dynamic> array = json.decode(response.body);
-      for (var element in array) {
-        events.add(EventModel.fromJson(element));
-      }
-      return events;
-    } else {
-      // Si la requête est infructueuse
-      throw ServerException(errorMessage: response.body);
+    final response = await client.get(parse(FETCH_URL));
+    if (isStatusCodeOk(response)) {
+      return getListOfEventsFromResponse(response);
     }
+
+    throw ServerException(errorMessage: response.body);
+  }
+
+  Uri parse(String url) {
+    return Uri.parse(url);
+  }
+
+  List<EventModel> getListOfEventsFromResponse(http.Response response) {
+    List<EventModel> events = [];
+    final List<dynamic> eventsJson = json.decode(response.body);
+    for (var element in eventsJson) {
+      events.add(EventModel.fromJson(element));
+    }
+    return events;
+  }
+
+  bool isStatusCodeOk(http.Response response) {
+    final bool is200 = response.statusCode == 200;
+    final bool is201 = response.statusCode == 201;
+    return is200 || is201;
   }
 
   @override

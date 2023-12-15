@@ -43,7 +43,8 @@ class EventCard extends StatelessWidget {
             ),
             DateAndLocality(
               formatedDate: event.formatedDate,
-              formatedAddress: event.address.getShortFormattedAddress(),
+              formatedAddress:
+                  event.address.getLocalityIfPresentElseReturnCountry(),
             ),
             const SizedBox(
               height: 10,

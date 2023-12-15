@@ -13,15 +13,9 @@ class TicketModel extends Ticket {
   });
 
   factory TicketModel.fromJson(Map<String, dynamic> json) {
-    final typeMap = {
-      "standard": Type.standard,
-      "gold": Type.gold,
-      "platinum": Type.platinum
-    };
-
     return TicketModel(
         id: json["id"],
-        type: typeMap[json["type"]] ?? Type.unknown,
+        type: getTicketTypeFromJson(json),
         description: json["description"],
         eventId: json["event_id"],
         userId: json["user_id"],
@@ -41,4 +35,14 @@ class TicketModel extends Ticket {
       "verified": verified,
     };
   }
+}
+
+Type getTicketTypeFromJson(json) {
+  final typeMap = {
+    "standard": Type.standard,
+    "gold": Type.gold,
+    "platinum": Type.platinum
+  };
+
+  return typeMap["type"] ?? Type.unknown;
 }

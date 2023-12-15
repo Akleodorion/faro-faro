@@ -24,7 +24,8 @@ class GridViewEventCardLayout extends StatelessWidget {
         const SizedBox(height: 5),
         DateAndLocality(
           formatedDate: event.formatedDate,
-          formatedAddress: event.address.getShortFormattedAddress(),
+          formatedAddress:
+              event.address.getLocalityIfPresentElseReturnCountry(),
         ),
         const SizedBox(height: 10),
         EventCardPriceInfo(

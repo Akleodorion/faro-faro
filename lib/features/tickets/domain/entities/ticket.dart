@@ -16,7 +16,7 @@ class Ticket extends Equatable {
     required this.id,
     required this.type,
     required this.description,
-    this.price, // can be null if event is free
+    this.price,
     required this.eventId,
     required this.userId,
     required this.qrCodeUrl,

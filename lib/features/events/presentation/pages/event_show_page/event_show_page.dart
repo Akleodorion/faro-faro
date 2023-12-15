@@ -86,7 +86,7 @@ class EventShowPage extends ConsumerWidget {
                           SizedBox(
                             width: (mediaWidth * 1 - 40),
                             child: Text(
-                                "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address.getFullFormattedAddress()}",
+                                "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address.getFullAddress()}",
                                 style: Theme.of(context).textTheme.bodyMedium),
                           ),
                         ],
