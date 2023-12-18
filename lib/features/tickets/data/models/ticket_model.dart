@@ -44,5 +44,5 @@ Type getTicketTypeFromJson(json) {
     "platinum": Type.platinum
   };
 
-  return typeMap["type"] ?? Type.unknown;
+  return typeMap[json["type"]] ?? Type.unknown;
 }

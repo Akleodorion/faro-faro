@@ -1,7 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
 import 'dart:convert';
+
 import 'dart:io';
+import 'package:faro_clean_tdd/core/constants/server_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:http/http.dart' as http;
@@ -34,9 +36,6 @@ abstract class EventRemoteDatasource {
   Future<EventModel> closeAnEvent({required int eventId});
 }
 
-const FETCH_URL = 'http://192.168.1.27:3000/events';
-const POST_EVENT_URL = 'http://192.168.1.27:3000/events';
-
 class EventRemoteDatasourceImpl implements EventRemoteDatasource {
   const EventRemoteDatasourceImpl({required this.client});
 
@@ -44,31 +43,27 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
   @override
   Future<List<EventModel>> fetchAllEvents() async {
-    final response = await client.get(parse(FETCH_URL));
+    final response = await fetchEventIndex(ServerEventConstants.eventUrl);
     if (isStatusCodeOk(response)) {
       return getListOfEventsFromResponse(response);
     }
-
     throw ServerException(errorMessage: response.body);
   }
 
-  Uri parse(String url) {
-    return Uri.parse(url);
-  }
-
-  List<EventModel> getListOfEventsFromResponse(http.Response response) {
-    List<EventModel> events = [];
-    final List<dynamic> eventsJson = json.decode(response.body);
-    for (var element in eventsJson) {
-      events.add(EventModel.fromJson(element));
-    }
-    return events;
+  Future<http.Response> fetchEventIndex(String url) async {
+    return await client.get(
+      Uri.parse(ServerEventConstants.eventUrl),
+      headers: {'Accept': 'application/json'},
+    );
   }
 
   bool isStatusCodeOk(http.Response response) {
-    final bool is200 = response.statusCode == 200;
-    final bool is201 = response.statusCode == 201;
-    return is200 || is201;
+    return response.statusCode == 200;
+  }
+
+  List<EventModel> getListOfEventsFromResponse(http.Response response) {
+    final List<dynamic> eventsJson = json.decode(response.body);
+    return eventsJson.map((e) => EventModel.fromJson(e)).toList();
   }
 
   @override
@@ -76,7 +71,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
       {required EventModel event, required File image}) async {
     // initialisation des variables
     final Map<String, dynamic> myEvent = event.toJson();
-    final uri = Uri.parse(POST_EVENT_URL);
+    final uri = Uri.parse(ServerEventConstants.eventUrl);
 
     var request = http.MultipartRequest('POST', uri)
       ..headers['Content-Type'] = 'multipart/form-data';
@@ -110,7 +105,8 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
       {required EventModel event, required File image}) async {
     // initialisation des variables
     final Map<String, dynamic> myEvent = event.toJson();
-    final uri = Uri.parse('$POST_EVENT_URL/${event.id}');
+    final uri =
+        Uri.parse(ServerEventConstants(eventId: event.id!).specificEndPoint());
 
     var request = http.MultipartRequest('POST', uri)
       ..headers['Content-Type'] = 'multipart/form-data';
@@ -141,7 +137,8 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
   @override
   Future<EventModel> activateAnEvent({required int eventId}) async {
-    final uri = Uri.parse('$POST_EVENT_URL/$eventId/update_activation');
+    final uri =
+        Uri.parse(ServerEventConstants(eventId: eventId).updateEventUrl);
     final params = {"activated": true};
 
     final response = await client.put(uri,
@@ -167,13 +164,16 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
   @override
   Future<EventModel> closeAnEvent({required int eventId}) async {
-    final uri = Uri.parse('$POST_EVENT_URL/$eventId/update_close');
+    final uri = Uri.parse(ServerEventConstants(eventId: eventId).closeEventUrl);
     final params = {
       "closed": true,
     };
 
     final response = await client.put(uri,
-        headers: {"Content-Type": 'application/json'},
+        headers: {
+          "Content-Type": 'application/json',
+          'Accept': 'application/json',
+        },
         body: json.encode(params));
 
     final bool isSuccess =

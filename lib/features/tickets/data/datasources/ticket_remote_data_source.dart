@@ -2,11 +2,10 @@
 
 import 'dart:convert';
 
+import 'package:faro_clean_tdd/core/constants/server_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:http/http.dart' as http;
-
-const TICKETS_URL = "http://192.168.1.27:3000/tickets";
 
 abstract class TicketRemoteDataSource {
   /// Crée un ticket pour un évènement donnée.
@@ -38,10 +37,13 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
 
   @override
   Future<TicketModel> createTicket({required TicketModel ticket}) async {
-    final uri = Uri.parse(TICKETS_URL);
+    final uri = Uri.parse(ServerTicketConstants.ticketUrl);
 
     final response = await client.post(uri,
-        headers: {"Content-Type": 'application/json'},
+        headers: {
+          "Content-Type": 'application/json',
+          'Accept': 'application/json',
+        },
         body: json.encode(ticket.toJson()));
 
     if (response.statusCode == 201) {
@@ -65,8 +67,11 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
     final Map<String, String> params = {
       "user_id": userId.toString(),
     };
-    final uri = Uri.parse(TICKETS_URL).replace(queryParameters: params);
-    final response = await client.get(uri);
+    final uri = Uri.parse(ServerTicketConstants.ticketUrl)
+        .replace(queryParameters: params);
+    final response = await client.get(uri, headers: {
+      'Accept': 'application/json',
+    });
 
     if (response.statusCode == 200) {
       final List<dynamic> myDataMap = json.decode(response.body);
@@ -84,11 +89,16 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   @override
   Future<TicketModel> updateTicket(
       {required int ticketId, required int userId}) async {
-    final uri = Uri.parse('$TICKETS_URL/$ticketId');
+    final uri = Uri.parse(
+      ServerTicketConstants(ticketId: ticketId).specificEndPoint(),
+    );
     final Map<String, dynamic> params = {"user_id": userId};
     // faire la requête
     final response = await client.patch(uri,
-        headers: {"Content-Type": 'application/json'},
+        headers: {
+          "Content-Type": 'application/json',
+          'Accept': 'application/json',
+        },
         body: json.encode(params));
 
     if (response.statusCode == 200) {

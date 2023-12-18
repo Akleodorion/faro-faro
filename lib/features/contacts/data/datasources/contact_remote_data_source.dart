@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:faro_clean_tdd/core/constants/server_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/contacts/data/models/contact_model.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:http/http.dart' as http;
 
 // ignore: constant_identifier_names
-const INDEX_GET_URL = "http://192.168.1.27:3000/users";
 
 abstract class ContactRemoteDataSource {
   Future<List<Contact>> fetchContacts({required List<String> numbersList});
@@ -19,10 +19,14 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   Future<List<Contact>> fetchContacts(
       {required List<String> numbersList}) async {
     final Map<String, List<String>> params = {"phone_numbers[]": numbersList};
-    final uri = Uri.parse(INDEX_GET_URL).replace(queryParameters: params);
+    final uri =
+        Uri.parse(ServerConstants.userUrl).replace(queryParameters: params);
 
     //Fait la requête
-    final response = await client.get(uri);
+    final response = await client.get(
+      uri,
+      headers: {'Accept': 'application/json'},
+    );
     if (response.statusCode >= 200 && response.statusCode < 300) {
       late List<Contact> contacts = [];
       final List<dynamic> array = json.decode(response.body);
