@@ -9,7 +9,7 @@ import GoogleMaps
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         // Faites une requête HTTP pour récupérer la clé API
-        if let url = URL(string: "http://localhost:3001/get_api_key") {
+        if let url = URL(string: "http://192.168.1.21:3000/get_api_key") {
             do {
                 let data = try Data(contentsOf: url)
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
