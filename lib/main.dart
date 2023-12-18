@@ -6,7 +6,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/user_authentification/presentation/pages/auth_screen_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'pages/main_page.dart';
+import 'pages/main_page/main_page.dart';
 import 'injection_container.dart' as di;
 
 final theme = ThemeData(
@@ -50,6 +50,11 @@ final theme = ThemeData(
         fontSize: 12,
         color: Color.fromRGBO(243, 255, 198, 1),
         decoration: TextDecoration.underline),
+    bodySmall: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 8,
+      color: Color.fromRGBO(235, 240, 217, 1),
+    ),
     bodyMedium: TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: 12,
@@ -97,12 +102,13 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userAuth = ref.watch(userAuthProvider);
     return MaterialApp(
-        title: 'Faro App',
-        theme: theme,
-        localizationsDelegates: GlobalMaterialLocalizations.delegates,
-        supportedLocales: const [
-          Locale('fr', 'FR'),
-        ],
-        home: userAuth is Loaded ? const MainPage() : const AuthScreen());
+      title: 'Faro App',
+      theme: theme,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [
+        Locale('fr', 'FR'),
+      ],
+      home: userAuth is Loaded ? const MainPage() : const AuthScreen(),
+    );
   }
 }

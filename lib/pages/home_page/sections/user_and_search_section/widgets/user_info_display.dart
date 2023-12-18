@@ -1,3 +1,5 @@
+import 'package:faro_clean_tdd/pages/home_page/constants/home_page_strings.dart';
+
 import '../../../../../core/util/capitalize_first_letter.dart';
 import '../../../../../features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +19,14 @@ class UserInfoDisplay extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          "Hi $username",
+          "${HomePageStrings.greetings}$username",
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(
           height: 5,
         ),
         Text(
-          "Wanna hang out ?",
+          HomePageStrings.catchPhrase,
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ],

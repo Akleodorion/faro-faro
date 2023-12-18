@@ -1,7 +1,6 @@
-// ignore_for_file: constant_identifier_names
-
 import 'dart:convert';
 
+import 'package:faro_clean_tdd/core/constants/server_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 
 import '../models/user_model.dart';
@@ -16,23 +15,19 @@ abstract class UserRemoteDataSource {
   Future<void> userLogOutRequest({required String jwt});
 }
 
-const LOG_IN_URL = 'http://192.168.1.27:3000/login';
-const SIGN_IN_URL = 'http://192.168.1.27:3000/signup';
-const LOG_OUT_URL = 'http://192.168.1.27:3000/logout';
-
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   const UserRemoteDataSourceImpl({required this.client});
 
   final http.Client client;
   @override
   Future<UserModel> userLogInRequest(Map<String, String> logInInfo) async {
-    return _signInOrLogInRequest(LOG_IN_URL, logInInfo, true);
+    return _signInOrLogInRequest(ServerConstants.logInUrl, logInInfo, true);
   }
 
   @override
   Future<UserModel> userSignInRequest(
       {required Map<String, String> signInInfo}) async {
-    return _signInOrLogInRequest(SIGN_IN_URL, signInInfo, false);
+    return _signInOrLogInRequest(ServerConstants.signInUrl, signInInfo, false);
   }
 
   Future<UserModel> _signInOrLogInRequest(
@@ -42,7 +37,10 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     try {
       final response = await client.post(
         uri,
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: json.encode({"user": authInfo}),
       );
       if (response.statusCode == 200) {
@@ -67,7 +65,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<UserModel?> userLogInWithToken(
     String token,
   ) async {
-    final uri = Uri.parse(LOG_IN_URL);
+    final uri = Uri.parse(ServerConstants.logInUrl);
 
     // faire la requête de logIn  uniquement avec le Token
     final response = await client.post(uri, headers: {
@@ -85,12 +83,13 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
   @override
   Future<void> userLogOutRequest({required String jwt}) async {
-    final uri = Uri.parse(LOG_OUT_URL);
+    final uri = Uri.parse(ServerConstants.logOutUrl);
 
     final response = await http.delete(
       uri,
       headers: {
         'Authorization': "Bearer $jwt",
+        'Accept': 'application/json',
       },
     );
 

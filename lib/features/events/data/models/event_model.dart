@@ -1,5 +1,6 @@
 import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter/material.dart';
@@ -35,48 +36,6 @@ class EventModel extends Event {
       required super.tickets});
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
-    late Category category;
-
-    final Map<String, Category> categoryMap = {
-      "loisir": Category.loisir,
-      "culture": Category.culture,
-      "sport": Category.sport,
-      "concert": Category.concert,
-    };
-
-    final Map<String, Type> typeMap = {
-      "standard": Type.standard,
-      "gold": Type.gold,
-      "platinum": Type.platinum,
-    };
-
-    category = categoryMap[json["category"]] ?? Category.concert;
-
-    final List<Member> members = (json["members"] as List<dynamic>?)
-            ?.map((element) => Member(
-                  id: element["id"],
-                  userId: element["user_id"],
-                  username: element["username"],
-                  eventId: element["event_id"],
-                ))
-            .toList() ??
-        [];
-
-    final List<Ticket> tickets = (json["tickets"] as List<dynamic>?)
-            ?.map(
-              (element) => Ticket(
-                  id: element["id"],
-                  type: typeMap[element["type"]] ?? Type.unknown,
-                  description: element["description"],
-                  price: element["price"],
-                  eventId: element["event_id"],
-                  userId: element["user_id"],
-                  qrCodeUrl: element["qr_code_url"],
-                  verified: element["verified"]),
-            )
-            .toList() ??
-        [];
-
     return EventModel(
         name: json["name"],
         description: json["description"],
@@ -99,12 +58,12 @@ class EventModel extends Event {
           road: json["road"],
           plusCode: json["plus_code"],
         ),
-        category: category,
+        category: getCategoryFromJson(json),
         imageUrl: json["photo_url"],
         userId: json["user_id"],
         modelEco: json["free"] == true ? ModelEco.gratuit : ModelEco.payant,
-        members: members,
-        tickets: tickets, //!
+        members: getMemberListFromJson(json),
+        tickets: getTickketListFromJson(json),
         id: json["id"],
         activated: json["activated"],
         closed: json["closed"],
@@ -183,46 +142,47 @@ class EventModel extends Event {
   EventModel getEventModel(
       {required Map<String, dynamic> postEventMap, required int userId}) {
     final myEventModel = EventModel(
-        name: postEventMap["name"],
-        id: null,
-        description: postEventMap["description"],
-        date: postEventMap["date"],
-        startTime: TryParseTimeOfDayImpl()
-                .tryParseTimeOfDay(stringToParse: postEventMap["start_time"]) ??
-            const TimeOfDay(hour: 00, minute: 00),
-        endTime: TryParseTimeOfDayImpl()
-                .tryParseTimeOfDay(stringToParse: postEventMap["end_time"]) ??
-            const TimeOfDay(hour: 00, minute: 00),
-        address: Address(
-          latitude: postEventMap["latitude"],
-          longitude: postEventMap["longitude"],
-          geocodeUrl: getGeocoderUrl(
-              latitude: postEventMap["latitude"],
-              longitude: postEventMap["longitude"]),
-          country: postEventMap["country"],
-          countryCode: postEventMap["countryCode"],
-          locality: postEventMap["locality"],
-          sublocality: postEventMap["sublocality"],
-          road: postEventMap["road"],
-          plusCode: postEventMap["plus_code"],
-        ),
-        category: postEventMap["category"],
-        imageUrl: '',
-        userId: userId,
-        modelEco: postEventMap["modelEco"],
-        members: const [],
-        tickets: const [],
-        activated: false,
-        closed: false,
-        standardTicketPrice: postEventMap["standardTicketPrice"],
-        maxStandardTicket: postEventMap["maxStandardTicket"],
-        standardTicketDescription: postEventMap["standardTicketDescription"],
-        goldTicketPrice: postEventMap["vipTicketPrice"],
-        maxGoldTicket: postEventMap["maxVipTicket"],
-        goldTicketDescription: postEventMap["vipTicketDescription"],
-        platinumTicketPrice: postEventMap["vvipTicketPrice"],
-        maxPlatinumTicket: postEventMap["maxVvipTicket"],
-        platinumTicketDescription: postEventMap["vvipTicketDescription"]);
+      name: postEventMap["name"],
+      id: null,
+      description: postEventMap["description"],
+      date: postEventMap["date"],
+      startTime: TryParseTimeOfDayImpl()
+              .tryParseTimeOfDay(stringToParse: postEventMap["start_time"]) ??
+          const TimeOfDay(hour: 00, minute: 00),
+      endTime: TryParseTimeOfDayImpl()
+              .tryParseTimeOfDay(stringToParse: postEventMap["end_time"]) ??
+          const TimeOfDay(hour: 00, minute: 00),
+      address: Address(
+        latitude: postEventMap["latitude"],
+        longitude: postEventMap["longitude"],
+        geocodeUrl: getGeocoderUrl(
+            latitude: postEventMap["latitude"],
+            longitude: postEventMap["longitude"]),
+        country: postEventMap["country"],
+        countryCode: postEventMap["countryCode"],
+        locality: postEventMap["locality"],
+        sublocality: postEventMap["sublocality"],
+        road: postEventMap["road"],
+        plusCode: postEventMap["plus_code"],
+      ),
+      category: postEventMap["category"],
+      imageUrl: '',
+      userId: userId,
+      modelEco: postEventMap["modelEco"],
+      members: const [],
+      tickets: const [],
+      activated: false,
+      closed: false,
+      standardTicketPrice: postEventMap["standardTicketPrice"],
+      maxStandardTicket: postEventMap["maxStandardTicket"],
+      standardTicketDescription: postEventMap["standardTicketDescription"],
+      goldTicketPrice: postEventMap["vipTicketPrice"],
+      maxGoldTicket: postEventMap["maxVipTicket"],
+      goldTicketDescription: postEventMap["vipTicketDescription"],
+      platinumTicketPrice: postEventMap["vvipTicketPrice"],
+      maxPlatinumTicket: postEventMap["maxVvipTicket"],
+      platinumTicketDescription: postEventMap["vvipTicketDescription"],
+    );
 
     return myEventModel;
   }
@@ -230,4 +190,53 @@ class EventModel extends Event {
 
 String getGeocoderUrl({required double latitude, required double longitude}) {
   return "https://maps.googleapis.com/maps/api/staticmap?center=$latitude,$longitude&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C$latitude,$longitude&key=${dotenv.env['API_KEY']}";
+}
+
+Category getCategoryFromJson(json) {
+  final Map<String, Category> categoryMap = {
+    "loisir": Category.loisir,
+    "culture": Category.culture,
+    "sport": Category.sport,
+    "concert": Category.concert,
+  };
+
+  return categoryMap[json["category"]] ?? Category.unknown;
+}
+
+List<Member> getMemberListFromJson(json) {
+  return (json["members"] as List<dynamic>?)
+          ?.map(
+            (element) => MemberModel.fromJson(
+              element,
+            ),
+          )
+          .toList() ??
+      [];
+}
+
+List<Ticket> getTickketListFromJson(json) {
+  return (json["tickets"] as List<dynamic>?)
+          ?.map(
+            (element) => Ticket(
+                id: element["id"],
+                type: type(element["type"]),
+                description: element["description"],
+                price: element["price"],
+                eventId: element["event_id"],
+                userId: element["user_id"],
+                qrCodeUrl: element["qr_code_url"],
+                verified: element["verified"]),
+          )
+          .toList() ??
+      [];
+}
+
+Type type(String type) {
+  final Map<String, Type> typeMap = {
+    "standard": Type.standard,
+    "gold": Type.gold,
+    "platinum": Type.platinum,
+  };
+
+  return typeMap["type"] ?? Type.unknown;
 }

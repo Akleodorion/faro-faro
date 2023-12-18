@@ -2,14 +2,13 @@
 
 import 'dart:convert';
 
+import 'package:faro_clean_tdd/core/constants/server_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/errors/failures.dart';
-
-const MEMBERS_URL = "http://192.168.1.27:3000/members";
 
 abstract class MemberRemoteDataSource {
   /// Crée un member pour un évènement donnée.
@@ -40,11 +39,14 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
   Future<MemberModel> createMember({required MemberModel member}) async {
     // initialisation des variables.
     final params = member.toJson();
-    final uri = Uri.parse(MEMBERS_URL);
+    final uri = Uri.parse(ServerMembersConstants.memberUrl);
 
     // Fait la requête au serveur.
     final response = await client.post(uri,
-        headers: {"Content-Type": 'application/json'},
+        headers: {
+          "Content-Type": 'application/json',
+          'Accept': 'application/json',
+        },
         body: json.encode(params));
 
     if (response.statusCode == 201) {
@@ -68,8 +70,11 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
 
   @override
   Future<Failure?> deleteMember({required Member member}) async {
-    final uri = Uri.parse("$MEMBERS_URL/${member.id}");
-    final response = await http.delete(uri);
+    final uri = Uri.parse(
+        ServerMembersConstants(memberId: member.id!).specificEndPoint());
+    final response = await http.delete(uri, headers: {
+      'Accept': 'application/json',
+    });
 
     final isSuccess = response.statusCode >= 200 && response.statusCode < 300;
 
@@ -91,8 +96,11 @@ class MemberRemoteDataSourceImpl implements MemberRemoteDataSource {
     final Map<String, int> params = {
       "user_id": userId,
     };
-    final uri = Uri.parse(MEMBERS_URL).replace(queryParameters: params);
-    final response = await client.get(uri);
+    final uri = Uri.parse(ServerMembersConstants.memberUrl)
+        .replace(queryParameters: params);
+    final response = await client.get(uri, headers: {
+      'Accept': 'application/json',
+    });
 
     final bool isRequestSuccess =
         response.statusCode >= 200 && response.statusCode < 300;

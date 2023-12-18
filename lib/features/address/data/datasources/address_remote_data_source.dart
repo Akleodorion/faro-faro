@@ -61,7 +61,8 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
     final uri = Uri.parse(
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$APIKEY");
 
-    final response = await client.get(uri);
+    final response =
+        await client.get(uri, headers: {'Accept': 'application/json'});
     // Si la réponse est bonne créer le model et le retourner
     if (response.statusCode == 200) {
       return AddressModel.fromJson(json.decode(response.body));

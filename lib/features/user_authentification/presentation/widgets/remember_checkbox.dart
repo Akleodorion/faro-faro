@@ -1,3 +1,5 @@
+import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
+
 import '../providers/state/user_state.dart';
 import '../providers/user_provider.dart';
 import '../../../../main.dart';
@@ -33,7 +35,7 @@ class _RememberCheckboxState extends ConsumerState<RememberCheckbox> {
             }),
         const SizedBox(width: 10),
         Text(
-          'Se souvenir de moi ?',
+          Strings.rememberMe,
           style: TextStyle(color: theme.colorScheme.secondary, fontSize: 12),
         )
       ],
