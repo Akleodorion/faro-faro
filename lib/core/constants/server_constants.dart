@@ -23,7 +23,7 @@ class ServerEventConstants implements ServerEndPoint {
     return "${ServerConstants.eventUrl}/$eventId";
   }
 
-  String get updateEventUrl {
+  String get activateEventUrl {
     return "${ServerConstants.eventUrl}/$eventId/update_activation";
   }
 

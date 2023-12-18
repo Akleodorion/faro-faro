@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:faro_clean_tdd/core/constants/server_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+import 'package:faro_clean_tdd/core/util/api_call_methods.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -43,74 +44,98 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
   @override
   Future<List<EventModel>> fetchAllEvents() async {
-    final response = await fetchEventIndex(ServerEventConstants.eventUrl);
-    if (isStatusCodeOk(response)) {
+    final response = await callIndexEventApi(ServerEventConstants.eventUrl);
+
+    final apiCall = ApiCallMethodsImpl();
+    final bool isStatusCodeOk = apiCall.isStatusCodeOK(response);
+    final bool isStatusCodeBad = apiCall.isStatusCodeBad(response);
+
+    if (isStatusCodeOk) {
       return getListOfEventsFromResponse(response);
+    } else if (isStatusCodeBad) {
+      throw ServerException(
+        errorMessage: apiCall.extractErrorMessageFromReponse(response),
+      );
     }
+
     throw ServerException(errorMessage: response.body);
   }
 
-  Future<http.Response> fetchEventIndex(String url) async {
+  Future<http.Response> callIndexEventApi(String url) async {
     return await client.get(
       Uri.parse(ServerEventConstants.eventUrl),
       headers: {'Accept': 'application/json'},
     );
   }
 
-  bool isStatusCodeOk(http.Response response) {
-    return response.statusCode == 200;
-  }
-
   List<EventModel> getListOfEventsFromResponse(http.Response response) {
-    final List<dynamic> eventsJson = json.decode(response.body);
+    final List<dynamic> eventsJson =
+        ApiCallMethodsImpl().extractBodyFromResponse(response, "events");
     return eventsJson.map((e) => EventModel.fromJson(e)).toList();
   }
 
   @override
   Future<EventModel> postAnEvent(
       {required EventModel event, required File image}) async {
-    // initialisation des variables
-    final Map<String, dynamic> myEvent = event.toJson();
-    final uri = Uri.parse(ServerEventConstants.eventUrl);
-
-    var request = http.MultipartRequest('POST', uri)
-      ..headers['Content-Type'] = 'multipart/form-data';
-
-    myEvent.forEach((key, value) {
-      request.fields[key] = value.toString();
-    });
-
-    request.files.add(http.MultipartFile(
-      'photo',
-      image.readAsBytes().asStream(),
-      image.lengthSync(),
-      filename: 'event_image.jpg',
-    ));
-
-    // fait la requête au serveur
-    var response = await http.Response.fromStream(await request.send());
-    if (response.statusCode == 201) {
-      return EventModel.fromJson(json.decode(response.body)["event"]);
-    } else if (response.statusCode == 422) {
-      final errorList = json.decode(response.body)["errors"];
-      throw ServerException(errorMessage: errorList[0]);
-    } else {
-      // Si la requête est infructueuse
-      throw ServerException(errorMessage: response.body);
-    }
+    return postOrUpdateEvent(event, image, 1);
   }
 
   @override
   Future<EventModel> updateAnEvent(
       {required EventModel event, required File image}) async {
-    // initialisation des variables
-    final Map<String, dynamic> myEvent = event.toJson();
-    final uri =
-        Uri.parse(ServerEventConstants(eventId: event.id!).specificEndPoint());
+    return postOrUpdateEvent(event, image, 2);
+  }
+
+  Future<EventModel> postOrUpdateEvent(
+      EventModel event, File image, int postOrEvent) async {
+    final response = await callPostOrUpdateEvent(event, image, postOrEvent);
+
+    final apiCall = ApiCallMethodsImpl();
+    final bool isStatusCodeOk = apiCall.isStatusCodeOK(response);
+    final bool isStatusCodeBad = apiCall.isStatusCodeBad(response);
+
+    if (isStatusCodeOk) {
+      final eventJson = ApiCallMethodsImpl().extractBodyFromResponse(
+        response,
+        "event",
+      );
+      return EventModel.fromJson(eventJson);
+    } else if (isStatusCodeBad) {
+      final message = ApiCallMethodsImpl().extractErrorMessageFromReponse(
+        response,
+      );
+      throw ServerException(errorMessage: message);
+    }
+
+    throw ServerException(errorMessage: response.body);
+  }
+
+  Future<http.Response> callPostOrUpdateEvent(
+      EventModel event, File image, int postOrEvent) async {
+    if (postOrEvent == 1) {
+      return await callPostEventApi(event, image);
+    } else {
+      return await callUpdateEventApi(event, image);
+    }
+  }
+
+  Future<http.Response> callPostEventApi(EventModel event, File image) async {
+    final http.MultipartRequest request =
+        prepareRequest(event, image, ServerConstants.eventUrl);
+    return await http.Response.fromStream(await request.send());
+  }
+
+  http.MultipartRequest prepareRequest(
+    EventModel event,
+    File image,
+    String url,
+  ) {
+    final uri = Uri.parse(url);
 
     var request = http.MultipartRequest('POST', uri)
       ..headers['Content-Type'] = 'multipart/form-data';
 
+    final Map<String, dynamic> myEvent = event.toJson();
     myEvent.forEach((key, value) {
       request.fields[key] = value.toString();
     });
@@ -121,77 +146,79 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
       image.lengthSync(),
       filename: 'event_image.jpg',
     ));
+    return request;
+  }
 
-    // fait la requête au serveur
-    var response = await http.Response.fromStream(await request.send());
-    if (response.statusCode == 200) {
-      return EventModel.fromJson(json.decode(response.body)["event"]);
-    } else if (response.statusCode == 422) {
-      final errorList = json.decode(response.body)["errors"];
-      throw ServerException(errorMessage: errorList[0]);
-    } else {
-      // Si la requête est infructueuse
-      throw ServerException(errorMessage: response.body);
-    }
+  Future<http.Response> callUpdateEventApi(EventModel event, File image) async {
+    final request = prepareRequest(
+      event,
+      image,
+      ServerEventConstants(eventId: event.id!).specificEndPoint(),
+    );
+    return await http.Response.fromStream(await request.send());
   }
 
   @override
   Future<EventModel> activateAnEvent({required int eventId}) async {
-    final uri =
-        Uri.parse(ServerEventConstants(eventId: eventId).updateEventUrl);
-    final params = {"activated": true};
-
-    final response = await client.put(uri,
-        headers: {"Content-Type": 'application/json'},
-        body: json.encode(params));
-
-    final bool isSuccess =
-        response.statusCode >= 200 && response.statusCode < 300;
-
-    if (isSuccess) {
-      return EventModel.fromJson(json.decode(response.body)["event"]);
-    }
-    if (response.statusCode == 404) {
-      throw ServerException(errorMessage: "Not found");
-    }
-    if (response.statusCode == 422) {
-      throw ServerException(errorMessage: json.decode(response.body)["errors"]);
-    }
-
-    throw ServerException(
-        errorMessage: "An error as occured. Please try again later");
+    return await activateOrCloseEvent(eventId: eventId, activateOrClose: 1);
   }
 
   @override
   Future<EventModel> closeAnEvent({required int eventId}) async {
-    final uri = Uri.parse(ServerEventConstants(eventId: eventId).closeEventUrl);
-    final params = {
-      "closed": true,
-    };
+    return await activateOrCloseEvent(eventId: eventId, activateOrClose: 2);
+  }
 
-    final response = await client.put(uri,
-        headers: {
-          "Content-Type": 'application/json',
-          'Accept': 'application/json',
-        },
-        body: json.encode(params));
+  Future<EventModel> activateOrCloseEvent(
+      {required int eventId, required int activateOrClose}) async {
+    final response =
+        await callActivateOrCloseEventApi(eventId, activateOrClose);
 
-    final bool isSuccess =
-        response.statusCode >= 200 && response.statusCode < 300;
+    final apiCall = ApiCallMethodsImpl();
+    final bool isStatusCodeOk = apiCall.isStatusCodeOK(response);
+    final bool isStatusCodeBad = apiCall.isStatusCodeBad(response);
 
-    if (isSuccess) {
-      return EventModel.fromJson(json.decode(response.body)["event"]);
-    }
-    if (response.statusCode == 404) {
-      throw ServerException(errorMessage: "Not found");
-    }
-    if (response.statusCode == 422) {
-      throw ServerException(errorMessage: json.decode(response.body)["errors"]);
+    if (isStatusCodeOk) {
+      final eventJson = apiCall.extractBodyFromResponse(response, "event");
+      return EventModel.fromJson(eventJson);
+    } else if (isStatusCodeBad) {
+      final String message = apiCall.extractErrorMessageFromReponse(response);
+      throw ServerException(errorMessage: message);
     }
 
     throw ServerException(
-        errorMessage: "An error as occured. Please try again later");
+        errorMessage: "Une erreure s'est produite veuillez essayer plus tard");
   }
 
-  //
+  Future<http.Response> callActivateOrCloseEventApi(
+      int eventId, int eventOrClose) async {
+    if (eventOrClose == 1) {
+      return callActivateEventApi(eventId);
+    } else {
+      return callCloseEventApi(eventId);
+    }
+  }
+
+  Future<http.Response> callActivateEventApi(int eventId) async {
+    final params = {"activated": true};
+
+    final uri = Uri.parse(
+      ServerEventConstants(eventId: eventId).activateEventUrl,
+    );
+
+    return await client.put(
+      uri,
+      headers: {"Content-Type": 'application/json'},
+      body: json.encode(params),
+    );
+  }
+
+  Future<http.Response> callCloseEventApi(int eventId) async {
+    final params = {"closed": true};
+
+    final uri = Uri.parse(ServerEventConstants(eventId: eventId).closeEventUrl);
+
+    return await client.put(uri,
+        headers: {"Content-Type": 'application/json'},
+        body: json.encode(params));
+  }
 }
