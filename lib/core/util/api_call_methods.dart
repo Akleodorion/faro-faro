@@ -32,7 +32,7 @@ class ApiCallMethodsImpl implements ApiCallMethods {
     if (response.statusCode == 422) {
       return json.decode(response.body)["errors"][0];
     }
-    throw ServerException(errorMessage: "Une erreur c'est produite");
+    throw ServerException(errorMessage: "Une erreur s'est produite");
   }
 
   @override

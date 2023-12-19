@@ -39,6 +39,15 @@ class MockNetworkInfo extends _i1.Mock implements _i2.NetworkInfo {
         Invocation.getter(#isConnected),
         returnValue: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);
+
+  @override
+  _i3.Future<bool> getConnexionStatuts() => (super.noSuchMethod(
+        Invocation.method(
+          #getConnexionStatuts,
+          [],
+        ),
+        returnValue: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }
 
 /// A class which mocks [ContactRemoteDataSource].

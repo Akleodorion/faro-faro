@@ -13,8 +13,9 @@ class MyEventList extends ConsumerWidget {
 
     if (myEvents.isEmpty) {
       content = const Center(
-          child: Text(
-              "Vous n'avez pas crée d'évènement!\nN'hésitez pas à le faire!"));
+        child: Text(
+            "Vous n'avez pas crée d'évènement!\nN'hésitez pas à le faire!"),
+      );
     } else {
       content = SizedBox(
         height: MediaQuery.of(context).size.height * 0.7,

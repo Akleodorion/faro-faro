@@ -49,7 +49,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
             json.decode(response.body), isLogin, jwtToken[1]);
       } else {
         if (isLogin) {
-          final message = response.body;
+          final message = json.decode(response.body)["error"];
+
           throw ServerException(errorMessage: message);
         } else {
           final message = json.decode(response.body)["status"]["message"];

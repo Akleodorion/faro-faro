@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:faro_clean_tdd/core/constants/error_constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
@@ -18,11 +19,13 @@ class UserAuthentificationRepositoryImpl
   final NetworkInfo networkInfo;
   final DateTimeComparator dateTimeComparator;
 
-  UserAuthentificationRepositoryImpl(
-      {required this.localDataSource,
-      required this.remoteDataSource,
-      required this.networkInfo,
-      required this.dateTimeComparator});
+  UserAuthentificationRepositoryImpl({
+    required this.localDataSource,
+    required this.remoteDataSource,
+    required this.networkInfo,
+    required this.dateTimeComparator,
+  });
+
   @override
   Future<Either<Failure, UserModel?>> logUserIn(
       String email, String password, bool pref) async {
@@ -46,6 +49,7 @@ class UserAuthentificationRepositoryImpl
       "phone_number": phoneNumber,
       "pref": pref.toString(),
     };
+
     return await _getSignInOrLogIn(signInInfo, () {
       return remoteDataSource.userSignInRequest(signInInfo: signInInfo);
     });
@@ -70,7 +74,9 @@ class UserAuthentificationRepositoryImpl
         return Left(ServerFailure(errorMessage: error.errorMessage));
       }
     } else {
-      return const Left(ServerFailure(errorMessage: "no connexion"));
+      return const Left(
+        ServerFailure(errorMessage: ErrorConstants.noInternetConnexion),
+      );
     }
   }
 
