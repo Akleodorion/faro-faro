@@ -1,5 +1,6 @@
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 
 import '../../../../domain/usecases/fetch_all_events.dart';
@@ -50,7 +51,7 @@ class FetchEventNotifier extends StateNotifier<FetchEventState> {
   }
 
   void addMemberToEvent({
-    required Member member,
+    required MemberModel member,
     required Event event,
     required FetchEventState fetchEventState,
   }) {

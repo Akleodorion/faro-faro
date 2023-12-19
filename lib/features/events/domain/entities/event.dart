@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
+import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -34,8 +35,8 @@ class Event extends Equatable {
   final String imageUrl;
   final int userId;
   final ModelEco modelEco;
-  final List<Member> members;
-  final List<Ticket> tickets;
+  final List<MemberModel> members;
+  final List<TicketModel> tickets;
   final bool activated;
   final bool closed;
   final int? standardTicketPrice;
@@ -74,7 +75,7 @@ class Event extends Equatable {
       this.maxPlatinumTicket,
       this.platinumTicketDescription});
 
-  Event copyWith({List<Member>? members, bool? activated, bool? closed}) {
+  Event copyWith({List<MemberModel>? members, bool? activated, bool? closed}) {
     return Event(
       name: name,
       id: id,

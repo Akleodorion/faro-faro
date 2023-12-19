@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/member_card.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class MembersListView extends StatelessWidget {
       required this.event});
 
   final double mediaHeight;
-  final List<Member> memberList;
+  final List<MemberModel> memberList;
   final Event event;
 
   @override

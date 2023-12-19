@@ -4,7 +4,6 @@ import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
 import 'package:faro_clean_tdd/features/members/data/datasources/member_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart';
 
 const String noInternetConnexion =
@@ -20,7 +19,7 @@ class MemberRepositoryImpl implements MemberRepository {
   final MemberRemoteDataSource remoteDataSource;
 
   @override
-  Future<Either<Failure, Member>> createMember(
+  Future<Either<Failure, MemberModel>> createMember(
       {required MemberModel member}) async {
     if (await networkInfo.isConnected) {
       try {
@@ -37,7 +36,7 @@ class MemberRepositoryImpl implements MemberRepository {
   }
 
   @override
-  Future<Failure?> deleteMember({required Member member}) async {
+  Future<Failure?> deleteMember({required MemberModel member}) async {
     if (await networkInfo.isConnected) {
       try {
         return await remoteDataSource.deleteMember(member: member);
@@ -49,7 +48,7 @@ class MemberRepositoryImpl implements MemberRepository {
   }
 
   @override
-  Future<Either<Failure, List<Member>>> fetchMembers(
+  Future<Either<Failure, List<MemberModel>>> fetchMembers(
       {required int userId}) async {
     if (await networkInfo.isConnected) {
       try {

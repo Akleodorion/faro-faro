@@ -4,7 +4,7 @@ import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -15,7 +15,7 @@ import '../../../../fixtures/fixture_reader.dart';
 void main() async {
   await dotenv.load(fileName: ".env");
   final String? apiKey = dotenv.env['API_KEY'];
-  const tTicket1 = Ticket(
+  const tTicket1 = TicketModel(
       id: 1,
       type: Type.standard,
       description: "description",
@@ -23,7 +23,7 @@ void main() async {
       userId: 1,
       qrCodeUrl: "qrCodeUrl",
       verified: false);
-  const tTicket2 = Ticket(
+  const tTicket2 = TicketModel(
       id: 2,
       type: Type.standard,
       description: "description",
@@ -34,7 +34,7 @@ void main() async {
   const tTickets = [tTicket1, tTicket2];
   const tMember1 = MemberModel(id: 1, userId: 1, eventId: 1, username: "test");
   const tMember2 = MemberModel(id: 1, userId: 1, eventId: 1, username: "test2");
-  const List<Member> tMembers = [tMember1, tMember2];
+  const List<MemberModel> tMembers = [tMember1, tMember2];
   final Address address = Address(
       latitude: 42.41454,
       longitude: -127.5345,

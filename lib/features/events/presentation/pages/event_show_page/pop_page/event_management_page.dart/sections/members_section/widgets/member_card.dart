@@ -1,6 +1,7 @@
 import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
 import 'package:faro_clean_tdd/features/members/presentation/providers/delete_member/delete_member_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class MemberCard extends ConsumerWidget {
     required this.event,
   });
 
-  final Member member;
+  final MemberModel member;
   final Event event;
   @override
   Widget build(BuildContext context, WidgetRef ref) {

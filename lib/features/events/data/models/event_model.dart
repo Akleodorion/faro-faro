@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -63,7 +63,7 @@ class EventModel extends Event {
         userId: json["user_id"],
         modelEco: json["free"] == true ? ModelEco.gratuit : ModelEco.payant,
         members: getMemberListFromJson(json),
-        tickets: getTickketListFromJson(json),
+        tickets: getTicketListFromJson(json),
         id: json["id"],
         activated: json["activated"],
         closed: json["closed"],
@@ -203,7 +203,7 @@ Category getCategoryFromJson(json) {
   return categoryMap[json["category"]] ?? Category.unknown;
 }
 
-List<Member> getMemberListFromJson(json) {
+List<MemberModel> getMemberListFromJson(json) {
   return (json["members"] as List<dynamic>?)
           ?.map(
             (element) => MemberModel.fromJson(
@@ -214,10 +214,10 @@ List<Member> getMemberListFromJson(json) {
       [];
 }
 
-List<Ticket> getTickketListFromJson(json) {
+List<TicketModel> getTicketListFromJson(json) {
   return (json["tickets"] as List<dynamic>?)
           ?.map(
-            (element) => Ticket(
+            (element) => TicketModel(
                 id: element["id"],
                 type: type(element["type"]),
                 description: element["description"],

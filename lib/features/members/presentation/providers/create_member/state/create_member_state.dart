@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 
 class CreateMemberState extends Equatable {
   @override
@@ -13,7 +13,7 @@ class Loading extends CreateMemberState {}
 class Loaded extends CreateMemberState {
   Loaded({required this.member, required this.message});
 
-  final Member member;
+  final MemberModel member;
   final String message;
 }
 
