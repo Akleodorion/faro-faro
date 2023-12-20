@@ -18,13 +18,15 @@ class ListViewContainer extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    print(screenHeight);
-    print(screenWidth);
+    final bool screenIsMini = screenWidth < 350 && screenHeight < 580;
+    final bool screenIsSmall = screenWidth < 415 && screenHeight < 700;
 
-    if (screenHeight <= 600) {
+    if (screenIsMini) {
       listViewHeight = 280;
-    } else if (screenHeight >= 600 && screenHeight <= 700) {
+    } else if (screenIsSmall) {
       listViewHeight = 300;
+    } else {
+      listViewHeight = 330;
     }
     return SizedBox(
       height: listViewHeight,

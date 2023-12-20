@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:faro_clean_tdd/core/util/size_info.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
 
 import '../../../../core/util/text_field_enum.dart';
@@ -93,6 +94,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
 
   @override
   Widget build(BuildContext context) {
+    final horizontalPadding = getGlobalPadding();
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(25),
@@ -111,7 +113,8 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 45),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: horizontalPadding),
                       child: Column(
                         children: [
                           MyTextFormField(
@@ -207,5 +210,19 @@ class _AuthCardState extends ConsumerState<AuthCard> {
         ),
       ),
     );
+  }
+
+  double getGlobalPadding() {
+    final bool isScreenSizeMini = SizeInfo(context: context).isScreenSizeMini();
+    final bool isScreenSizeStandard =
+        SizeInfo(context: context).isScreenSizeStandard();
+
+    if (isScreenSizeMini) {
+      return 20;
+    } else if (isScreenSizeStandard) {
+      return 35;
+    } else {
+      return 45;
+    }
   }
 }

@@ -1,3 +1,5 @@
+import 'package:faro_clean_tdd/core/util/size_info.dart';
+
 import 'components/event_tile_general_info_container.dart';
 import 'components/event_tile_image_container.dart';
 import 'components/event_tile_more_info_container.dart';
@@ -12,6 +14,7 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleHeight = getTileHeight(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Container(
@@ -20,7 +23,7 @@ class EventTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           boxShadow: kElevationToShadow[3],
         ),
-        height: 100,
+        height: titleHeight,
         width: MediaQuery.of(context).size.width,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -36,5 +39,19 @@ class EventTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  double getTileHeight(BuildContext context) {
+    final bool screenIsMini = SizeInfo(context: context).isScreenSizeMini();
+    final bool screenIsStandard =
+        SizeInfo(context: context).isScreenSizeStandard();
+
+    if (screenIsMini) {
+      return 100;
+    } else if (screenIsStandard) {
+      return 120;
+    } else {
+      return 130;
+    }
   }
 }

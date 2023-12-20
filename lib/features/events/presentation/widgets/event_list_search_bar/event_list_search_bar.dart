@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/core/util/size_info.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:faro_clean_tdd/features/events/presentation/widgets/event_list_search_bar/components/search_bar_text_field.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,6 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final formKey = GlobalKey<FormState>();
 
@@ -33,15 +33,17 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
           textEditingController.text, ref.read(fetchEventProvider));
     }
 
+    final searchBarContainerHeight = getSearchBarContainerHeight(context);
+
     return Container(
-      height: screenHeight * 0.10,
+      height: searchBarContainerHeight,
       width: screenWidth * 0.65,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(30),
           boxShadow: kElevationToShadow[3]),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Form(
           key: formKey,
           child: Row(
@@ -58,5 +60,20 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
         ),
       ),
     );
+  }
+
+  double getSearchBarContainerHeight(context) {
+    final bool isScreenMini = SizeInfo(context: context).isScreenSizeMini();
+    final bool isScreenStandard =
+        SizeInfo(context: context).isScreenSizeStandard();
+
+    if (isScreenMini) {
+      return 40;
+    }
+    if (isScreenStandard) {
+      return 50;
+    }
+
+    return 60;
   }
 }

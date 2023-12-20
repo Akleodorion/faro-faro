@@ -72,12 +72,12 @@ class EventShowPage extends ConsumerWidget {
                             width: (mediaWidth * 0.5 - 40),
                             child: Text(event.eventTimeFrame,
                                 textAlign: TextAlign.end,
-                                style: Theme.of(context).textTheme.bodyMedium),
+                                style: Theme.of(context).textTheme.bodySmall),
                           ),
                         ],
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,9 +85,22 @@ class EventShowPage extends ConsumerWidget {
                         children: [
                           SizedBox(
                             width: (mediaWidth * 1 - 40),
-                            child: Text(
-                                "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address.getFullAddress()}",
-                                style: Theme.of(context).textTheme.bodyMedium),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text:
+                                          "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} :",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge),
+                                  TextSpan(
+                                      text: event.address.getFullAddress(),
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall)
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -99,10 +112,10 @@ class EventShowPage extends ConsumerWidget {
                           children: [
                             TextSpan(
                                 text: "Description : ",
-                                style: Theme.of(context).textTheme.titleLarge),
+                                style: Theme.of(context).textTheme.bodyLarge),
                             TextSpan(
                                 text: event.description,
-                                style: Theme.of(context).textTheme.bodyMedium)
+                                style: Theme.of(context).textTheme.bodySmall)
                           ],
                         ),
                       ),
@@ -110,7 +123,7 @@ class EventShowPage extends ConsumerWidget {
                         height: 20,
                       ),
                       Text("Tarifs",
-                          style: Theme.of(context).textTheme.titleLarge),
+                          style: Theme.of(context).textTheme.titleMedium),
                       const SizedBox(
                         height: 5,
                       ),
@@ -135,7 +148,7 @@ class EventShowPage extends ConsumerWidget {
                               SizedBox(
                                 width: mediaWidth - 40,
                                 child: Text(
-                                  "Description : ${event.standardTicketDescription}",
+                                  event.standardTicketDescription,
                                   textAlign: TextAlign.start,
                                 ),
                               ),
@@ -151,7 +164,7 @@ class EventShowPage extends ConsumerWidget {
                         const Divider(
                           thickness: 0.1,
                         ),
-                      if (event.modelEco != ModelEco.gratuit)
+                      if (event.goldTicketDescription == null ? false : true)
                         Column(
                           children: [
                             Row(
@@ -171,7 +184,7 @@ class EventShowPage extends ConsumerWidget {
                               SizedBox(
                                 width: mediaWidth - 40,
                                 child: Text(
-                                  "Description : ${event.goldTicketDescription}",
+                                  event.goldTicketDescription!,
                                   textAlign: TextAlign.start,
                                 ),
                               ),

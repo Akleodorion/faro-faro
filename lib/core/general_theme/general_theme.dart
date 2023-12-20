@@ -15,7 +15,18 @@ ThemeData getTheme(BuildContext context) {
 
   final bool screenIsMini = screenWidth < 350 && screenHeight < 580;
   final bool screenIsSmall = screenWidth < 415 && screenHeight < 700;
-  // final bool screenIsLarge = screenWidth < 415 && screenHeight > 700;
+  final bool screenIsLarge = screenWidth < 415 && screenHeight > 700;
+
+  if (screenIsLarge) {
+    titleLargeFontSize = 20;
+    titleMediumFontSize = 18;
+    titleSmallFontSize = 16;
+    headlineSmallFontSize = 18;
+    bodyLargeFontSize = 16;
+    bodyMediumFontSize = 14;
+    bodySmallFontSize = 12;
+    iconSize = 32;
+  }
   if (screenIsSmall) {
     titleLargeFontSize = 20;
     titleMediumFontSize = 18;
@@ -105,22 +116,31 @@ ThemeData getTheme(BuildContext context) {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: const Color.fromRGBO(243, 255, 198, 1),
-        textStyle: const TextStyle(
-          fontSize: 12,
+        textStyle: TextStyle(
+          fontSize: titleMediumFontSize,
           fontWeight: FontWeight.w500,
           decoration: TextDecoration.underline,
         ),
       ),
     ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        textStyle: TextStyle(fontSize: titleMediumFontSize),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        textStyle: TextStyle(
+            fontSize: titleSmallFontSize, fontWeight: FontWeight.w500),
+        backgroundColor: const Color.fromRGBO(243, 255, 198, 1),
+        foregroundColor: const Color.fromRGBO(42, 43, 42, 1),
       ),
     ),
+
+    //! Icons
     iconTheme: IconThemeData(
       color: const Color.fromRGBO(243, 255, 198, 1),
       size: iconSize,
     ),
+
+    //! Others
     bottomNavigationBarTheme: const BottomNavigationBarThemeData().copyWith(
       selectedItemColor: const Color.fromRGBO(235, 240, 217, 1),
       selectedLabelStyle: TextStyle(fontSize: titleLargeFontSize),
