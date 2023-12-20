@@ -50,10 +50,11 @@ class _TimePickerFieldState extends State<TimePickerField> {
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: TextFormField(
           readOnly: true,
+          style: Theme.of(context).textTheme.bodyMedium,
           decoration: InputDecoration(
             label: Text(
               widget.startOrEndTime == "start_time" ? "Start at :" : "End at :",
-              style: const TextStyle(fontSize: 14),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           validator: (value) {

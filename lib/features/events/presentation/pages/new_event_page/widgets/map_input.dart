@@ -14,9 +14,13 @@ class MapInput extends ConsumerStatefulWidget {
 }
 
 class _MapInputState extends ConsumerState<MapInput> {
-  Widget locationContent = const Center(child: Text("No place choosen"));
   @override
   Widget build(BuildContext context) {
+    Widget locationContent = Center(
+        child: Text(
+      "Aucun lieu sélectionné",
+      style: Theme.of(context).textTheme.bodyLarge,
+    ));
     final addressState = ref.watch(addressProvider);
 
     if (addressState is Loading) {
@@ -54,7 +58,7 @@ class _MapInputState extends ConsumerState<MapInput> {
                     .getCurrentLocationAddress();
               },
               icon: const Icon(Icons.pin_drop),
-              label: const Text("Current position"),
+              label: const Text("Localisation"),
             ),
             ElevatedButton.icon(
               onPressed: () async {
@@ -71,7 +75,7 @@ class _MapInputState extends ConsumerState<MapInput> {
                         pickedLocation.latitude, pickedLocation.longitude);
               },
               icon: const Icon(Icons.map),
-              label: const Text("Select on map"),
+              label: const Text("Carte"),
             )
           ],
         ),

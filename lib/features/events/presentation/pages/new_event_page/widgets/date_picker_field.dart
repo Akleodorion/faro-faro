@@ -50,10 +50,11 @@ class _DatePickerFieldState extends State<DatePickerField> {
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: TextFormField(
           readOnly: true,
-          decoration: const InputDecoration(
+          style: Theme.of(context).textTheme.bodyMedium,
+          decoration: InputDecoration(
             label: Text(
               "Date :",
-              style: TextStyle(fontSize: 14),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           validator: (value) {

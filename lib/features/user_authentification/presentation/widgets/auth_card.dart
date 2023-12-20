@@ -8,7 +8,6 @@ import 'my_text_button.dart';
 import 'my_text_form_field.dart';
 import 'remember_checkbox.dart';
 import 'usecase_elevated_button.dart';
-import '../../../../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/state/user_state.dart';
@@ -21,17 +20,19 @@ class AuthCard extends ConsumerStatefulWidget {
 }
 
 class _AuthCardState extends ConsumerState<AuthCard> {
-  final _formKey = GlobalKey<FormState>();
   bool logingIn = true;
+
   String? _enteredEmail;
   String? _enteredPassword;
   String? _enteredUsername;
   String? _enteredPhoneNumber;
   bool? _isChecked;
+  GlobalKey<FormState>? _formKey;
 
   @override
   void initState() {
     super.initState();
+    _formKey = GlobalKey<FormState>();
     final values = ref.read(userAuthProvider);
     if (values is Initial) {
       _enteredEmail = values.userInfo["email"];
@@ -41,8 +42,8 @@ class _AuthCardState extends ConsumerState<AuthCard> {
   }
 
   _userLogin() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+    if (_formKey!.currentState!.validate()) {
+      _formKey!.currentState!.save();
       final currentState = ref.read(userAuthProvider);
 
       if (currentState is Initial) {
@@ -52,14 +53,13 @@ class _AuthCardState extends ConsumerState<AuthCard> {
           .read(userAuthProvider.notifier)
           .logUserIn(_enteredEmail!, _enteredPassword!, _isChecked!);
 
-      if (state is Error) {
-        // ignore: use_build_context_synchronously
+      if (state is Error && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: theme.colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.background,
           content: Text(
             state.message,
             style: TextStyle(
-              color: theme.colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onBackground,
             ),
           ),
         ));
@@ -68,22 +68,22 @@ class _AuthCardState extends ConsumerState<AuthCard> {
   }
 
   void _userSignIn() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+    if (_formKey!.currentState!.validate()) {
+      _formKey!.currentState!.save();
       final state = await ref.read(userAuthProvider.notifier).signUserIn(
-          _enteredEmail!,
-          _enteredPassword!,
-          _enteredPhoneNumber!,
-          _enteredUsername!,
-          _isChecked!);
-      if (state is Error) {
-        // ignore: use_build_context_synchronously
+            _enteredEmail!,
+            _enteredPassword!,
+            _enteredPhoneNumber!,
+            _enteredUsername!,
+            _isChecked!,
+          );
+      if (state is Error && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: theme.colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.background,
           content: Text(
             state.message,
             style: TextStyle(
-              color: theme.colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onBackground,
             ),
           ),
         ));

@@ -18,9 +18,10 @@ class SearchBarTextField extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 10),
         child: TextFormField(
           controller: textEditingController,
-          decoration: const InputDecoration(
-            hintText: "Recherchez un évènement",
-          ),
+          style: Theme.of(context).textTheme.bodyLarge,
+          decoration: InputDecoration(
+              hintText: "Recherchez un évènement",
+              hintStyle: Theme.of(context).textTheme.bodyMedium),
         ),
       ),
     );

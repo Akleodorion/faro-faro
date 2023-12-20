@@ -65,7 +65,7 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
               setValue: widget.setTicketNumber,
             ),
             const SizedBox(
-              width: 15,
+              width: 5,
             ),
             if (!isFree)
               NumberInputField(

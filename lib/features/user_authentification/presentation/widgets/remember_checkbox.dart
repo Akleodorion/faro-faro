@@ -2,7 +2,6 @@ import 'package:faro_clean_tdd/features/user_authentification/presentation/widge
 
 import '../providers/state/user_state.dart';
 import '../providers/user_provider.dart';
-import '../../../../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,7 +35,8 @@ class _RememberCheckboxState extends ConsumerState<RememberCheckbox> {
         const SizedBox(width: 10),
         Text(
           Strings.rememberMe,
-          style: TextStyle(color: theme.colorScheme.secondary, fontSize: 12),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary, fontSize: 12),
         )
       ],
     );

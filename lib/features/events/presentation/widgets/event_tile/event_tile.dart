@@ -20,6 +20,7 @@ class EventTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           boxShadow: kElevationToShadow[3],
         ),
+        height: 100,
         width: MediaQuery.of(context).size.width,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

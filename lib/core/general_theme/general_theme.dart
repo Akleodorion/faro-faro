@@ -1,0 +1,134 @@
+import 'package:faro_clean_tdd/core/util/size_info.dart';
+import 'package:flutter/material.dart';
+
+ThemeData getTheme(BuildContext context) {
+  final double screenWidth = SizeInfo(context: context).width;
+  final double screenHeight = SizeInfo(context: context).height;
+  late double titleLargeFontSize;
+  late double titleMediumFontSize;
+  late double titleSmallFontSize;
+  late double headlineSmallFontSize;
+  late double bodyLargeFontSize;
+  late double bodyMediumFontSize;
+  late double bodySmallFontSize;
+  late double iconSize;
+
+  final bool screenIsMini = screenWidth < 350 && screenHeight < 580;
+  final bool screenIsSmall = screenWidth < 415 && screenHeight < 700;
+  // final bool screenIsLarge = screenWidth < 415 && screenHeight > 700;
+  if (screenIsSmall) {
+    titleLargeFontSize = 20;
+    titleMediumFontSize = 18;
+    titleSmallFontSize = 16;
+    headlineSmallFontSize = 18;
+    bodyLargeFontSize = 16;
+    bodyMediumFontSize = 14;
+    bodySmallFontSize = 12;
+    iconSize = 32;
+  }
+
+  if (screenIsMini) {
+    titleLargeFontSize = 14;
+    titleMediumFontSize = 12;
+    titleSmallFontSize = 10;
+    headlineSmallFontSize = 10;
+    bodyLargeFontSize = 12;
+    bodyMediumFontSize = 10;
+    bodySmallFontSize = 8;
+    iconSize = 24;
+  }
+
+  late final TextTheme textTheme;
+  textTheme = TextTheme(
+    titleLarge: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: titleLargeFontSize,
+      color: const Color.fromRGBO(235, 240, 217, 1),
+    ),
+    titleMedium: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: titleMediumFontSize,
+      color: const Color.fromRGBO(235, 240, 217, 1),
+    ),
+    titleSmall: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: titleSmallFontSize,
+      color: const Color.fromRGBO(235, 240, 217, 1),
+    ),
+    headlineSmall: TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: headlineSmallFontSize,
+        color: const Color.fromRGBO(243, 255, 198, 1),
+        decoration: TextDecoration.underline),
+    bodySmall: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: bodySmallFontSize,
+      color: const Color.fromRGBO(235, 240, 217, 1),
+    ),
+    bodyMedium: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: bodyMediumFontSize,
+      color: const Color.fromRGBO(235, 240, 217, 1),
+    ),
+    bodyLarge: TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: bodyLargeFontSize,
+      color: const Color.fromRGBO(235, 240, 217, 1),
+    ),
+  );
+
+  return ThemeData(
+    useMaterial3: true,
+    datePickerTheme: const DatePickerThemeData(
+      backgroundColor: Color.fromRGBO(42, 43, 42, 1),
+    ),
+
+    //! Text
+    textTheme: textTheme,
+
+    //! Colors
+    colorScheme: const ColorScheme(
+      brightness: Brightness.dark,
+      primary: Color.fromRGBO(243, 255, 198, 1),
+      onPrimary: Color.fromRGBO(42, 43, 42, 1),
+      secondary: Color.fromRGBO(235, 240, 217, 1),
+      onSecondary: Color.fromRGBO(42, 43, 42, 1),
+      error: Colors.red,
+      onError: Color.fromRGBO(42, 43, 42, 1),
+      background: Color.fromRGBO(42, 43, 42, 1),
+      onBackground: Color.fromRGBO(235, 240, 217, 1),
+      surface: Color.fromRGBO(243, 255, 198, 0.15),
+      onSurface: Color.fromRGBO(235, 240, 217, 1),
+    ),
+
+    //! Buttons
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: const Color.fromRGBO(243, 255, 198, 1),
+        textStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          decoration: TextDecoration.underline,
+        ),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: TextStyle(fontSize: titleMediumFontSize),
+      ),
+    ),
+    iconTheme: IconThemeData(
+      color: const Color.fromRGBO(243, 255, 198, 1),
+      size: iconSize,
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData().copyWith(
+      selectedItemColor: const Color.fromRGBO(235, 240, 217, 1),
+      selectedLabelStyle: TextStyle(fontSize: titleLargeFontSize),
+      unselectedLabelStyle: TextStyle(fontSize: titleSmallFontSize),
+      unselectedItemColor:
+          const Color.fromRGBO(235, 240, 217, 1).withOpacity(0.5),
+      showUnselectedLabels: false,
+      type: BottomNavigationBarType.fixed,
+    ),
+  );
+}

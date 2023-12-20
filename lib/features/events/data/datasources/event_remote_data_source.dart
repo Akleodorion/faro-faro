@@ -179,7 +179,7 @@ class EventRemoteDatasourceImpl implements EventRemoteDatasource {
 
     if (isStatusCodeOk) {
       final eventJson = apiCall.extractBodyFromResponse(response, "event");
-      return EventModel.fromJson(eventJson);
+      return EventModel.fromJson(eventJson["event"]);
     } else if (isStatusCodeBad) {
       final String message = apiCall.extractErrorMessageFromReponse(response);
       throw ServerException(errorMessage: message);

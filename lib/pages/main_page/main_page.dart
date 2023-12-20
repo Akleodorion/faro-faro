@@ -63,6 +63,7 @@ class _MainPageState extends ConsumerState<MainPage> {
       backgroundColor: Colors.transparent,
       floatingActionButton: (_currentIndex == 2 && isMyTicket == false)
           ? FloatingActionButton(
+              mini: false,
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
@@ -71,7 +72,6 @@ class _MainPageState extends ConsumerState<MainPage> {
               },
               child: const Icon(
                 Icons.add,
-                size: 40,
               ),
             )
           : null,
@@ -96,9 +96,7 @@ class _MainPageState extends ConsumerState<MainPage> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
+            icon: Icon(Icons.home),
             label: MainPageStrings.navHome,
           ),
           BottomNavigationBarItem(
@@ -114,22 +112,6 @@ class _MainPageState extends ConsumerState<MainPage> {
             label: MainPageStrings.navSettings,
           )
         ],
-
-        // selected Item style
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
-        selectedIconTheme: const IconThemeData(size: 40),
-        selectedLabelStyle:
-            const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-
-        // unselected Item style
-        unselectedItemColor:
-            Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-        unselectedIconTheme: const IconThemeData(size: 32),
-        unselectedLabelStyle:
-            const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-        showUnselectedLabels: true,
-        // General behavior
-        type: BottomNavigationBarType.fixed,
       ),
     );
   }

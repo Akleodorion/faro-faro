@@ -34,7 +34,7 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
     }
 
     return Container(
-      height: screenHeight * 0.06,
+      height: screenHeight * 0.10,
       width: screenWidth * 0.65,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,

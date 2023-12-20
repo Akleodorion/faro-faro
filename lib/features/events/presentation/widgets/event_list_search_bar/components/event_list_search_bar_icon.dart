@@ -19,7 +19,6 @@ class EventListSearchBarIcon extends StatelessWidget {
       },
       icon: Icon(
         Icons.search,
-        size: 40,
         color: Theme.of(context).colorScheme.secondary,
       ),
     );

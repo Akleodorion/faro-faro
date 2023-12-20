@@ -6,7 +6,6 @@ import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked
 
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
-import 'package:faro_clean_tdd/main.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/category_picker_field.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/date_picker_field.dart';
@@ -95,11 +94,11 @@ class NewEventPage extends ConsumerWidget {
         if (state is Error) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: theme.colorScheme.background,
+              backgroundColor: Theme.of(context).colorScheme.background,
               content: Text(
                 state.message,
                 style: TextStyle(
-                  color: theme.colorScheme.onBackground,
+                  color: Theme.of(context).colorScheme.onBackground,
                 ),
               ),
             ));
@@ -154,9 +153,8 @@ class NewEventPage extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text("Date et heure de l'évenèment",
-                      style: TextStyle(
-                          fontSize: 16, decoration: TextDecoration.underline)),
+                  Text("Date et heure de l'évenèment",
+                      style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

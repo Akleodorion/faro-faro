@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class PostEventNotifier extends StateNotifier<PostEventState> {
   final PostAnEvent postAnEventUsecase;
 
-  PostEventState get initialState => Initial(isFree: false);
+  PostEventState get initialState => Initial(isFree: true);
 
   // initialisation
   PostEventNotifier({

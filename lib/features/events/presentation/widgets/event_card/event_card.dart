@@ -27,27 +27,30 @@ class EventCard extends StatelessWidget {
         right: MediaQuery.of(context).size.width * 0.07,
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             EventCardImageContainer(
               imageUrl: event.imageUrl,
-              height: listViewHeight * 0.51,
+              height: listViewHeight * 0.45,
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            EventCardTitle(
-              title: event.name,
-            ),
-            DateAndLocality(
-              formatedDate: event.formatedDate,
-              formatedAddress:
-                  event.address.getLocalityIfPresentElseReturnCountry(),
-            ),
-            const SizedBox(
-              height: 10,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EventCardTitle(
+                  title: event.name,
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                DateAndLocality(
+                  formatedDate: event.formatedDate,
+                  formatedAddress:
+                      event.address.getLocalityIfPresentElseReturnCountry(),
+                ),
+              ],
             ),
             EventCardPriceInfo(event: event)
           ],

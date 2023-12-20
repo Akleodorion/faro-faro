@@ -1,11 +1,11 @@
 class ServerConstants {
-  static const ticketUrl = 'http://192.168.1.16:3000/tickets';
-  static const memberUrl = 'http://192.168.1.16:3000/members';
-  static const eventUrl = 'http://192.168.1.16:3000/events';
-  static const logInUrl = 'http://192.168.1.16:3000/login';
-  static const signInUrl = 'http://192.168.1.16:3000/signup';
-  static const logOutUrl = 'http://192.168.1.16:3000/logout';
-  static const userUrl = "http://192.168.1.16:3000/users";
+  static const ticketUrl = 'http://192.168.1.6:3000/tickets';
+  static const memberUrl = 'http://192.168.1.6:3000/members';
+  static const eventUrl = 'http://192.168.1.6:3000/events';
+  static const logInUrl = 'http://192.168.1.6:3000/login';
+  static const signInUrl = 'http://192.168.1.6:3000/signup';
+  static const logOutUrl = 'http://192.168.1.6:3000/logout';
+  static const userUrl = "http://192.168.1.6:3000/users";
 }
 
 abstract class ServerEndPoint {

@@ -21,8 +21,6 @@ class TitleAndNavigationSection extends StatelessWidget {
   }
 }
 
-// Titre de la page
-
 class MainTitle extends StatelessWidget {
   const MainTitle({
     super.key,
@@ -33,10 +31,7 @@ class MainTitle extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: Text("Créer un nouvel évènement",
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).colorScheme.onBackground)),
+          style: Theme.of(context).textTheme.titleLarge),
     );
   }
 }

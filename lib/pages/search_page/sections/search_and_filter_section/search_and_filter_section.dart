@@ -21,7 +21,6 @@ class SearchAndFilterSection extends StatelessWidget {
           },
           icon: const Icon(
             Icons.filter_list_alt,
-            size: 40,
           ),
         )
       ],

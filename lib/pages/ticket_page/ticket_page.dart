@@ -14,65 +14,67 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> {
-  ButtonStyle unSelectedPageStyle = TextButton.styleFrom(
-    foregroundColor: Colors.grey,
-    textStyle: const TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.bold,
-      decoration: TextDecoration.underline,
-    ),
-  );
-
-  ButtonStyle selectedPageStyle = TextButton.styleFrom(
-    textStyle: const TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
-      decoration: TextDecoration.underline,
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
+    ButtonStyle unSelectedPageStyle = TextButton.styleFrom(
+      foregroundColor: Colors.grey,
+      textStyle: TextStyle(
+        fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+        fontWeight: FontWeight.bold,
+        decoration: TextDecoration.underline,
+      ),
+    );
+
+    ButtonStyle selectedPageStyle = TextButton.styleFrom(
+      textStyle: TextStyle(
+        fontSize: Theme.of(context).textTheme.titleLarge!.fontSize,
+        fontWeight: FontWeight.bold,
+        decoration: TextDecoration.underline,
+      ),
+    );
+
     bool isMyTicket = widget.isMyTicket;
 
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                onPressed: () {
-                  widget.setEvent(true);
-                },
-                style: isMyTicket == true
-                    ? selectedPageStyle
-                    : unSelectedPageStyle,
-                child: const Text(
-                  "Mes tickets",
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    widget.setEvent(true);
+                  },
+                  style: isMyTicket == true
+                      ? selectedPageStyle
+                      : unSelectedPageStyle,
+                  child: const Text(
+                    "Mes tickets",
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  widget.setEvent(false);
-                },
-                style: isMyTicket == false
-                    ? selectedPageStyle
-                    : unSelectedPageStyle,
-                child: const Text("Mes Evènements"),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: isMyTicket ? const MyTicketList() : const MyEventList(),
-          )
-        ],
+                TextButton(
+                  onPressed: () {
+                    widget.setEvent(false);
+                  },
+                  style: isMyTicket == false
+                      ? selectedPageStyle
+                      : unSelectedPageStyle,
+                  child: const Text("Mes Evènements"),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: isMyTicket ? const MyTicketList() : const MyEventList(),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -30,8 +30,8 @@ class OpenStatusInfos extends ConsumerWidget {
           const Text(
             "L'évènement n'a pas commencé",
           ),
-          TextButton.icon(
-            label: const Text("Démmarez l'évènement!"),
+          TextButton(
+            child: const Text("Démmarez l'évènement!"),
             onPressed: () async {
               await usecaseAlertDialog(
                 context: context,
@@ -52,7 +52,6 @@ class OpenStatusInfos extends ConsumerWidget {
                 },
               );
             },
-            icon: const Icon(Icons.done, size: 24),
           )
         ],
       );
