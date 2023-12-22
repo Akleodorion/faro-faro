@@ -9,7 +9,6 @@ class EventTileGeneralInfoContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: (MediaQuery.of(context).size.width - 40) * 0.265,
       width: (MediaQuery.of(context).size.width - 40) * 0.40,
       child: Padding(
         padding: const EdgeInsets.only(left: 5),

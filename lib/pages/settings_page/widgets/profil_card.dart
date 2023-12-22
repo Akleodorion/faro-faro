@@ -19,7 +19,7 @@ class ProfilCard extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -29,7 +29,7 @@ class ProfilCard extends ConsumerWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
                 Text(
                   userInfo["email"],
@@ -65,7 +65,7 @@ class ProfilCard extends ConsumerWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
                 Text(
                   userInfo["phone_number"],

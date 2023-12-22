@@ -14,20 +14,8 @@ class ListViewContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late double listViewHeight;
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    final double listViewHeight = getListViewHeight(context);
 
-    final bool screenIsMini = screenWidth < 350 && screenHeight < 580;
-    final bool screenIsSmall = screenWidth < 415 && screenHeight < 700;
-
-    if (screenIsMini) {
-      listViewHeight = 280;
-    } else if (screenIsSmall) {
-      listViewHeight = 300;
-    } else {
-      listViewHeight = 330;
-    }
     return SizedBox(
       height: listViewHeight,
       child: ListViewLayout(
@@ -36,5 +24,21 @@ class ListViewContainer extends StatelessWidget {
         listViewHeight: listViewHeight,
       ),
     );
+  }
+
+  double getListViewHeight(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final bool screenHeightIsMini = screenHeight < 580;
+    final bool screenHeightIsStandard = screenHeight < 700;
+
+    if (screenHeightIsMini) {
+      return 280;
+    }
+
+    if (screenHeightIsStandard) {
+      return 320;
+    }
+
+    return 350;
   }
 }

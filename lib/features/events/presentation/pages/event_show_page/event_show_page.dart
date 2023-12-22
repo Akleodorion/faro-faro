@@ -93,7 +93,7 @@ class EventShowPage extends ConsumerWidget {
                                           "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} :",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyLarge),
+                                          .bodyMedium),
                                   TextSpan(
                                       text: event.address.getFullAddress(),
                                       style:
@@ -123,30 +123,35 @@ class EventShowPage extends ConsumerWidget {
                         height: 20,
                       ),
                       Text("Tarifs",
-                          style: Theme.of(context).textTheme.titleMedium),
+                          style: Theme.of(context).textTheme.titleLarge),
                       const SizedBox(
                         height: 5,
                       ),
                       Column(
                         children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.circle,
-                                size: 4,
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Text(event.modelEco == ModelEco.gratuit
-                                  ? "Ticket Standard : Gratuit - ${event.standardTicketLeft}"
-                                  : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice!)} XOF - ${event.standardTicketLeft}")
-                            ],
+                          SizedBox(
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.circle,
+                                  size: 4,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  event.modelEco == ModelEco.gratuit
+                                      ? "Ticket Standard : Gratuit - ${event.standardTicketLeft}"
+                                      : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice!)} XOF - ${event.standardTicketLeft}",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                )
+                              ],
+                            ),
                           ),
                           Row(
                             children: [
                               SizedBox(
-                                width: mediaWidth - 40,
+                                width: mediaWidth - 50,
                                 child: Text(
                                   event.standardTicketDescription,
                                   textAlign: TextAlign.start,
@@ -177,7 +182,9 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket Gold : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF - ${event.goldTicketLeft}")
+                                  "Ticket Gold : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF - ${event.goldTicketLeft}",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                )
                               ],
                             ),
                             Row(children: [
@@ -212,7 +219,9 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket Platinum : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF - ${event.platinumTicketLeft}")
+                                  "Ticket Platinum : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF - ${event.platinumTicketLeft}",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                )
                               ],
                             ),
                             Row(

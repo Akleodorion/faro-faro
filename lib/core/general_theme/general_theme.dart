@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 ThemeData getTheme(BuildContext context) {
   final double screenWidth = SizeInfo(context: context).width;
   final double screenHeight = SizeInfo(context: context).height;
+  print(screenWidth);
+  print(screenHeight);
   late double titleLargeFontSize;
   late double titleMediumFontSize;
   late double titleSmallFontSize;
@@ -13,11 +15,11 @@ ThemeData getTheme(BuildContext context) {
   late double bodySmallFontSize;
   late double iconSize;
 
-  final bool screenIsMini = screenWidth < 350 && screenHeight < 580;
-  final bool screenIsSmall = screenWidth < 415 && screenHeight < 700;
-  final bool screenIsLarge = screenWidth < 415 && screenHeight > 700;
+  final bool screenWidthIsMini = screenWidth < 350;
+  final bool screenWidthIsStandard = screenWidth >= 350 && screenWidth <= 400;
+  final bool screenWidthIsLarge = screenWidth > 400;
 
-  if (screenIsLarge) {
+  if (screenWidthIsLarge) {
     titleLargeFontSize = 20;
     titleMediumFontSize = 18;
     titleSmallFontSize = 16;
@@ -25,20 +27,21 @@ ThemeData getTheme(BuildContext context) {
     bodyLargeFontSize = 16;
     bodyMediumFontSize = 14;
     bodySmallFontSize = 12;
-    iconSize = 32;
-  }
-  if (screenIsSmall) {
-    titleLargeFontSize = 20;
-    titleMediumFontSize = 18;
-    titleSmallFontSize = 16;
-    headlineSmallFontSize = 18;
-    bodyLargeFontSize = 16;
-    bodyMediumFontSize = 14;
-    bodySmallFontSize = 12;
-    iconSize = 32;
+    iconSize = 30;
   }
 
-  if (screenIsMini) {
+  if (screenWidthIsStandard) {
+    titleLargeFontSize = 18;
+    titleMediumFontSize = 16;
+    titleSmallFontSize = 14;
+    headlineSmallFontSize = 16;
+    bodyLargeFontSize = 14;
+    bodyMediumFontSize = 12;
+    bodySmallFontSize = 10;
+    iconSize = 28;
+  }
+
+  if (screenWidthIsMini) {
     titleLargeFontSize = 14;
     titleMediumFontSize = 12;
     titleSmallFontSize = 10;
@@ -117,7 +120,7 @@ ThemeData getTheme(BuildContext context) {
       style: TextButton.styleFrom(
         foregroundColor: const Color.fromRGBO(243, 255, 198, 1),
         textStyle: TextStyle(
-          fontSize: titleMediumFontSize,
+          fontSize: titleSmallFontSize,
           fontWeight: FontWeight.w500,
           decoration: TextDecoration.underline,
         ),

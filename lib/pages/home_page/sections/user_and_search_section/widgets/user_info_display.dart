@@ -10,7 +10,6 @@ class UserInfoDisplay extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // initialisations des  variables
     final username = CapitalizeFirstLetterImpl()
         .capitalizeInput(ref.read(userInfoProvider)["username"]);
 

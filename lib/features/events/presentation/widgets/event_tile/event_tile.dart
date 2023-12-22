@@ -1,5 +1,3 @@
-import 'package:faro_clean_tdd/core/util/size_info.dart';
-
 import 'components/event_tile_general_info_container.dart';
 import 'components/event_tile_image_container.dart';
 import 'components/event_tile_more_info_container.dart';
@@ -42,16 +40,22 @@ class EventTile extends StatelessWidget {
   }
 
   double getTileHeight(BuildContext context) {
-    final bool screenIsMini = SizeInfo(context: context).isScreenSizeMini();
-    final bool screenIsStandard =
-        SizeInfo(context: context).isScreenSizeStandard();
+    final screenHeight = MediaQuery.of(context).size.height;
 
-    if (screenIsMini) {
-      return 100;
-    } else if (screenIsStandard) {
-      return 120;
-    } else {
-      return 130;
+    final bool screenHeightIsMini = screenHeight < 580;
+    final bool screenHeightIsStandard =
+        screenHeight >= 580 && screenHeight <= 700;
+    final bool screenHeightIsLarge = screenHeight > 700;
+
+    if (screenHeightIsMini) {
+      return 80;
     }
+    if (screenHeightIsStandard) {
+      return 100;
+    }
+    if (screenHeightIsLarge) {
+      return 120;
+    }
+    return 0;
   }
 }

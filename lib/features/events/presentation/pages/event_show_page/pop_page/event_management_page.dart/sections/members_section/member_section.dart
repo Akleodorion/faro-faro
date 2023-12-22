@@ -27,7 +27,7 @@ class MembersSection extends StatelessWidget {
           children: [
             Text(
               "Membres de l'évènement",
-              style: Theme.of(context).textTheme.labelLarge,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             AddMember(
                 mediaHeight: mediaHeight,

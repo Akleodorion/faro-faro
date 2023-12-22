@@ -46,6 +46,7 @@ class AddressModel extends Address {
 
 Map<String, dynamic> getInfoFromJson(json) {
   final Map<String, dynamic> updatedMap = {}; // Map temporaire
+  print(json);
   final Map<String, dynamic> addressMap = {
     "plus_code": null,
     "route": null,

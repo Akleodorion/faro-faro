@@ -17,14 +17,15 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double eventCardWidth = getCardWidth(context);
     return Container(
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
           borderRadius: BorderRadius.circular(10),
           boxShadow: kElevationToShadow[3]),
-      width: MediaQuery.of(context).size.width * 0.45,
-      margin: EdgeInsets.only(
-        right: MediaQuery.of(context).size.width * 0.07,
+      width: eventCardWidth,
+      margin: const EdgeInsets.only(
+        right: 20,
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
@@ -57,5 +58,24 @@ class EventCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  double getCardWidth(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final bool screenWidthIsMini = screenWidth < 350;
+    final bool screenWidthIsStandard = screenWidth >= 350 && screenWidth <= 400;
+    final bool screenWidthIsLarge = screenWidth > 400;
+
+    if (screenWidthIsMini) {
+      return 170;
+    }
+    if (screenWidthIsStandard) {
+      return 190;
+    }
+    if (screenWidthIsLarge) {
+      return 210;
+    }
+    return 0;
   }
 }

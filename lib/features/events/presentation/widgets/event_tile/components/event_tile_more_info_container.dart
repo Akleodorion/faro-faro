@@ -8,7 +8,7 @@ class EventTileMoreInfoContainer extends StatelessWidget {
   final Event event;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: (MediaQuery.of(context).size.width - 40) * 0.25,
       child: Column(
         mainAxisSize: MainAxisSize.max,

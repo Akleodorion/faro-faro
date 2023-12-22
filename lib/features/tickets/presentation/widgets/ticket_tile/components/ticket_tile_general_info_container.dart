@@ -22,30 +22,18 @@ class TicketTileGeneralInfoContainer extends ConsumerWidget {
         children: [
           Text(
             event.name,
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary),
-          ),
-          const SizedBox(
-            height: 5,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           Text(
             "Ticket: ${ticket.type.name}",
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary),
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
             ticket.description,
-            style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.normal,
-                color: Theme.of(context).colorScheme.secondary),
+            style: Theme.of(context).textTheme.bodySmall,
           ),
         ],
       ),

@@ -121,9 +121,9 @@ class Event extends Equatable {
     if (ticketCount == 0) {
       return "Il n'y a plus de ticket standard disponible";
     } else if (ticketCount == 1) {
-      return "$ticketCount ticket standard restant";
+      return "$ticketCount ticket restant";
     } else {
-      return '$ticketCount tickets standards restant';
+      return '$ticketCount tickets restants';
     }
   }
 
@@ -150,9 +150,9 @@ class Event extends Equatable {
       if (ticketCount == 0) {
         return "Il n'y a plus de ticket gold disponible";
       } else if (ticketCount == 1) {
-        return "$ticketCount ticket gold restant";
+        return "$ticketCount ticket restant";
       } else {
-        return '$ticketCount tickets golds restant';
+        return '$ticketCount tickets restants';
       }
     }
   }
@@ -181,11 +181,11 @@ class Event extends Equatable {
     } else {
       final ticketCount = maxPlatinumTicket! - myList.length;
       if (ticketCount == 0) {
-        return "Il n'y a plus de ticket platinum disponible";
+        return "plus de ticket disponible";
       } else if (ticketCount == 1) {
-        return "$ticketCount ticket platinum restant";
+        return "$ticketCount ticket restants";
       } else {
-        return '$ticketCount tickets platinums restant';
+        return '$ticketCount tickets restants';
       }
     }
   }
@@ -203,7 +203,7 @@ class Event extends Equatable {
   int get amountSold {
     int sum = 0;
     for (final ticket in tickets) {
-      ticket.price != null ? sum += ticket.price! : sum += 0;
+      ticket.price != null ? sum += ticket.price! : null;
     }
     return sum;
   }

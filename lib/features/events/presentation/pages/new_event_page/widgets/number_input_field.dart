@@ -44,13 +44,15 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
     late double containerWidth;
     final bool isScreenSizeSmall =
         SizeInfo(context: context).isScreenSizeMini();
-    // final bool isScreenSizeStandard =
-    //     SizeInfo(context: context).isScreenSizeStandard();
-    // final bool isScreenSizeLarge =
-    //     SizeInfo(context: context).isScreenSizeLarge();
+    final bool isScreenSizeStandard =
+        SizeInfo(context: context).isScreenSizeStandard();
 
     if (isScreenSizeSmall) {
       hasError ? containerWidth = 50 : containerWidth = 40;
+    } else if (isScreenSizeStandard) {
+      hasError ? containerWidth = 60 : containerWidth = 50;
+    } else {
+      hasError ? containerWidth = 60 : containerWidth = 50;
     }
 
     return Column(

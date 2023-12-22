@@ -13,7 +13,7 @@ class SearchBarTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: screenWidth * 0.45,
+      width: screenWidth * 0.40,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: TextFormField(
