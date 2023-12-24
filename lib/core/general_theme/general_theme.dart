@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 
 ThemeData getTheme(BuildContext context) {
   final double screenWidth = SizeInfo(context: context).width;
-  final double screenHeight = SizeInfo(context: context).height;
   print(screenWidth);
-  print(screenHeight);
   late double titleLargeFontSize;
   late double titleMediumFontSize;
   late double titleSmallFontSize;
@@ -16,8 +14,8 @@ ThemeData getTheme(BuildContext context) {
   late double iconSize;
 
   final bool screenWidthIsMini = screenWidth < 350;
-  final bool screenWidthIsStandard = screenWidth >= 350 && screenWidth <= 400;
-  final bool screenWidthIsLarge = screenWidth > 400;
+  final bool screenWidthIsStandard = screenWidth >= 350 && screenWidth <= 415;
+  final bool screenWidthIsLarge = screenWidth > 415;
 
   if (screenWidthIsLarge) {
     titleLargeFontSize = 20;
@@ -129,9 +127,9 @@ ThemeData getTheme(BuildContext context) {
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         textStyle: TextStyle(
-            fontSize: titleSmallFontSize, fontWeight: FontWeight.w500),
+            fontSize: titleMediumFontSize, fontWeight: FontWeight.w600),
         backgroundColor: const Color.fromRGBO(243, 255, 198, 1),
         foregroundColor: const Color.fromRGBO(42, 43, 42, 1),
       ),

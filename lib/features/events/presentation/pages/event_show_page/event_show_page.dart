@@ -49,14 +49,16 @@ class EventShowPage extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
-                vertical: 20,
               ),
               child: SizedBox(
-                height: mediaHeight * 0.47,
+                height: mediaHeight * 0.6,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
@@ -270,27 +272,38 @@ class EventShowPage extends ConsumerWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
-                      )
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      if (!isMine)
+                        Align(
+                          alignment: Alignment.center,
+                          child: UsecaseElevatedButton(
+                            usecaseTitle: isFree
+                                ? "Réserve ton ticket"
+                                : "Achète ton ticket",
+                            onUsecaseCall: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return TicketPaymentPage(
+                                      event: event,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            if (!isMine)
-              UsecaseElevatedButton(
-                  usecaseTitle:
-                      isFree ? "Réserve ton ticket" : "Achète ton ticket",
-                  onUsecaseCall: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return TicketPaymentPage(
-                            event: event,
-                          );
-                        },
-                      ),
-                    );
-                  })
           ],
         ),
       ),

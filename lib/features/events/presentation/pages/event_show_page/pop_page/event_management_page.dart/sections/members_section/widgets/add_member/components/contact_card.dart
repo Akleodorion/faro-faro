@@ -51,9 +51,11 @@ class ContactCard extends StatelessWidget {
             children: [
               Text(
                 contact.username,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
                 contact.phoneNumber,
+                style: Theme.of(context).textTheme.bodySmall,
               )
             ],
           ),

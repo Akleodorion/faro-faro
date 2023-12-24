@@ -28,6 +28,7 @@ class ListViewContainer extends StatelessWidget {
 
   double getListViewHeight(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    print(screenHeight);
     final bool screenHeightIsMini = screenHeight < 580;
     final bool screenHeightIsStandard = screenHeight < 700;
 

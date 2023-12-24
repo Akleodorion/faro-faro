@@ -1,4 +1,5 @@
 import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
+import 'package:faro_clean_tdd/core/util/general_spacers.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/sections/image_section/image_section.dart';
@@ -40,9 +41,9 @@ class MyTicketPage extends StatelessWidget {
               ticket: ticket,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 20,
+              padding: EdgeInsets.symmetric(
+                horizontal: GeneralSpacers().getMainColumnPadding(context),
+                vertical: GeneralSpacers().getMainColumnPadding(context),
               ),
               child: SizedBox(
                 height: mediaHeight * 0.47,
@@ -56,8 +57,8 @@ class MyTicketPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: GeneralSpacers().getBlocSeparation(context),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +75,7 @@ class MyTicketPage extends StatelessWidget {
                             width: (mediaWidth * 0.5 - 40),
                             child: Text(event.eventTimeFrame,
                                 textAlign: TextAlign.end,
-                                style: Theme.of(context).textTheme.bodyMedium),
+                                style: Theme.of(context).textTheme.bodySmall),
                           ),
                         ],
                       ),

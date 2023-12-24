@@ -1,3 +1,6 @@
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+import 'package:faro_clean_tdd/core/util/device_info.dart';
+import 'package:faro_clean_tdd/core/util/general_spacers.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:flutter/material.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
@@ -36,29 +39,23 @@ class BuyTicketCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Ticket ${ticketType.name}:",
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w500,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-          const SizedBox(
-            height: 5,
+          Text("Ticket ${ticketType.name}:",
+              style: Theme.of(context).textTheme.titleLarge),
+          SizedBox(
+            height: GeneralSpacers().getTitleSpace(context),
           ),
           Text(
             ticketLeft,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: GeneralSpacers().getTitleSpace(context),
           ),
           Container(
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(10)),
-            height: 75,
+            height: 60,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -66,10 +63,16 @@ class BuyTicketCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ticketPrice == null
-                      ? const Text("Grauit ")
-                      : Text("$ticketPrice XOF"),
+                      ? Text(
+                          "Grauit ",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        )
+                      : Text(
+                          "$ticketPrice XOF",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                   SizedBox(
-                    width: 200,
+                    width: getBuyTicketCardInputWidth(context),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -85,10 +88,11 @@ class BuyTicketCard extends StatelessWidget {
                           icon: const Icon(Icons.remove),
                         ),
                         Container(
+                          height: getBuyTicketCardInputHeight(context),
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.background,
                           ),
-                          width: 60,
+                          width: getBuyTicketCardInputHeight(context),
                           child: Center(
                             child: Text(
                               ticketQuantity.toString(),
@@ -117,5 +121,36 @@ class BuyTicketCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  double getBuyTicketCardInputHeight(BuildContext context) {
+    final screenHeight = DeviceInfo().getScreenHeight(context);
+
+    if (screenHeight == ScreenHeight.smallHeight) {
+      return 40;
+    }
+    if (screenHeight == ScreenHeight.standardHeight) {
+      return 50;
+    }
+    if (screenHeight == ScreenHeight.largeHeight) {
+      return 60;
+    }
+    throw ServerException(errorMessage: 'an error as occured');
+  }
+
+  double getBuyTicketCardInputWidth(BuildContext context) {
+    final screenWidth = DeviceInfo().getScreenWidth(context);
+
+    if (screenWidth == ScreenWidth.smallWidth) {
+      return 150;
+    }
+    if (screenWidth == ScreenWidth.standardWidth) {
+      return 180;
+    }
+    if (screenWidth == ScreenWidth.largeWidth) {
+      return 210;
+    }
+
+    throw ServerException(errorMessage: 'an error as occured');
   }
 }

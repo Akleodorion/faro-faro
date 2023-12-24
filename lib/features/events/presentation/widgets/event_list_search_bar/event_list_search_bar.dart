@@ -24,7 +24,6 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
     final formKey = GlobalKey<FormState>();
 
     void searchEvent() {
@@ -33,24 +32,26 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
           textEditingController.text, ref.read(fetchEventProvider));
     }
 
-    final searchBarContainerHeight = getSearchBarContainerHeight(context);
+    final double searchBarContainerHeight =
+        getSearchBarContainerHeight(context);
+    final double searchBarContainerWidth = getSearchBarContainerWidth(context);
 
     return Container(
       height: searchBarContainerHeight,
-      width: screenWidth * 0.65,
+      width: searchBarContainerWidth,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(30),
           boxShadow: kElevationToShadow[3]),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Form(
           key: formKey,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SearchBarTextField(
-                  screenWidth: screenWidth,
+                  searchBarWidth: searchBarContainerWidth * 0.7,
                   textEditingController: textEditingController),
               EventListSearchBarIcon(
                   textEditingController: textEditingController,
@@ -73,7 +74,30 @@ class _EventListSearchBarState extends ConsumerState<EventListSearchBar> {
     if (isScreenStandard) {
       return 50;
     }
-
     return 60;
+  }
+
+  double getSearchBarContainerWidth(context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final bool screenWidthIsMini = screenWidth < 350;
+    final bool screenWidthIsStandard = screenWidth >= 350 && screenWidth <= 400;
+    final bool screenWidthIsLarge = screenWidth > 400 && screenWidth <= 500;
+    final bool screenWidthIsXLarge = screenWidth > 500;
+
+    if (screenWidthIsMini) {
+      return 200;
+    }
+    if (screenWidthIsStandard) {
+      return 230;
+    }
+
+    if (screenWidthIsLarge) {
+      return 250;
+    }
+    if (screenWidthIsXLarge) {
+      return 300;
+    }
+
+    return 250;
   }
 }

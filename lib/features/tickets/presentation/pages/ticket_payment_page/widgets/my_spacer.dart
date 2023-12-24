@@ -10,13 +10,13 @@ class MySpacer extends StatelessWidget {
     return const Column(
       children: [
         SizedBox(
-          height: 10,
+          height: 5,
         ),
         Divider(
-          thickness: 0.5,
+          thickness: 0.1,
         ),
         SizedBox(
-          height: 10,
+          height: 5,
         ),
       ],
     );

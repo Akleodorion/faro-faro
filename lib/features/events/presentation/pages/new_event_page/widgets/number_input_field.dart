@@ -48,11 +48,11 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
         SizeInfo(context: context).isScreenSizeStandard();
 
     if (isScreenSizeSmall) {
-      hasError ? containerWidth = 50 : containerWidth = 40;
+      hasError ? containerWidth = 55 : containerWidth = 50;
     } else if (isScreenSizeStandard) {
-      hasError ? containerWidth = 60 : containerWidth = 50;
+      hasError ? containerWidth = 65 : containerWidth = 60;
     } else {
-      hasError ? containerWidth = 60 : containerWidth = 50;
+      hasError ? containerWidth = 75 : containerWidth = 70;
     }
 
     return Column(
@@ -84,7 +84,7 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
               Container(
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background),
-                width: hasError ? containerWidth : containerWidth,
+                width: containerWidth,
                 child: TextFormField(
                   controller: textEditingController,
                   focusNode: inputFocusNode,

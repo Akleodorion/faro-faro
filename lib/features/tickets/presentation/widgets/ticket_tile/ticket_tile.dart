@@ -14,7 +14,7 @@ class TicketTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Event> events = ref.read(allEventProvider);
-    print(MediaQuery.sizeOf(context).height);
+
     final Event event =
         events.firstWhere((element) => element.id == ticket.eventId);
     return Padding(

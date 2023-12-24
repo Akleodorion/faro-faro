@@ -208,6 +208,10 @@ class Event extends Equatable {
     return sum;
   }
 
+  bool get isFree {
+    return modelEco == ModelEco.gratuit;
+  }
+
   String get eventTimeFrame {
     return "${DateFormat('dd/MM/yyyy').format(date)}: ${TryParseTimeOfDayImpl().getString(timeToParse: startTime)}  - ${TryParseTimeOfDayImpl().getString(timeToParse: endTime)}";
   }

@@ -157,21 +157,20 @@ class _TicketsCheckoutLayoutState extends ConsumerState<TicketsCheckoutLayout> {
           children: [
             Text(
               "Montant:",
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             Container(
-              height: 65,
+              height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Theme.of(context).colorScheme.surface,
               ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Center(
                   child: Text(
                     totalAmount == null ? "Gratuit" : "$totalAmount XOF",
-                    style: const TextStyle(fontSize: 20),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
               ),
