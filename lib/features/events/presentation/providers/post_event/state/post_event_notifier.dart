@@ -1,17 +1,15 @@
 import 'dart:io';
-
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
-
 import '../../../../data/models/event_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PostEventNotifier extends StateNotifier<PostEventState> {
   final PostAnEvent postAnEventUsecase;
 
-  PostEventState get initialState => Initial(isFree: false);
+  PostEventState get initialState => Initial(isFree: true);
 
   // initialisation
   PostEventNotifier({

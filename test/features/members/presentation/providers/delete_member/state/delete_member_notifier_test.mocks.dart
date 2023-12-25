@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart'
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart'
     as _i2;
@@ -57,7 +57,7 @@ class MockDeleteMemberUsecase extends _i1.Mock
       ) as _i2.MemberRepository);
 
   @override
-  _i4.Future<_i5.Failure?> execute({required _i6.Member? member}) =>
+  _i4.Future<_i5.Failure?> execute({required _i6.MemberModel? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,

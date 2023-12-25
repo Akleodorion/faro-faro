@@ -15,10 +15,7 @@ class GeneralFilterPage extends StatelessWidget {
         children: [
           Text(
             'Filtres',
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onBackground),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const TextSwitch(
             switchText: 'Voir les évènements gratuits :',

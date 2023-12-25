@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
 import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
+import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -34,8 +35,8 @@ class Event extends Equatable {
   final String imageUrl;
   final int userId;
   final ModelEco modelEco;
-  final List<Member> members;
-  final List<Ticket> tickets;
+  final List<MemberModel> members;
+  final List<TicketModel> tickets;
   final bool activated;
   final bool closed;
   final int? standardTicketPrice;
@@ -74,7 +75,7 @@ class Event extends Equatable {
       this.maxPlatinumTicket,
       this.platinumTicketDescription});
 
-  Event copyWith({List<Member>? members, bool? activated, bool? closed}) {
+  Event copyWith({List<MemberModel>? members, bool? activated, bool? closed}) {
     return Event(
       name: name,
       id: id,
@@ -120,9 +121,9 @@ class Event extends Equatable {
     if (ticketCount == 0) {
       return "Il n'y a plus de ticket standard disponible";
     } else if (ticketCount == 1) {
-      return "$ticketCount ticket standard restant";
+      return "$ticketCount ticket restant";
     } else {
-      return '$ticketCount tickets standards restant';
+      return '$ticketCount tickets restants';
     }
   }
 
@@ -149,9 +150,9 @@ class Event extends Equatable {
       if (ticketCount == 0) {
         return "Il n'y a plus de ticket gold disponible";
       } else if (ticketCount == 1) {
-        return "$ticketCount ticket gold restant";
+        return "$ticketCount ticket restant";
       } else {
-        return '$ticketCount tickets golds restant';
+        return '$ticketCount tickets restants';
       }
     }
   }
@@ -180,11 +181,11 @@ class Event extends Equatable {
     } else {
       final ticketCount = maxPlatinumTicket! - myList.length;
       if (ticketCount == 0) {
-        return "Il n'y a plus de ticket platinum disponible";
+        return "plus de ticket disponible";
       } else if (ticketCount == 1) {
-        return "$ticketCount ticket platinum restant";
+        return "$ticketCount ticket restants";
       } else {
-        return '$ticketCount tickets platinums restant';
+        return '$ticketCount tickets restants';
       }
     }
   }
@@ -202,9 +203,13 @@ class Event extends Equatable {
   int get amountSold {
     int sum = 0;
     for (final ticket in tickets) {
-      ticket.price != null ? sum += ticket.price! : sum += 0;
+      ticket.price != null ? sum += ticket.price! : null;
     }
     return sum;
+  }
+
+  bool get isFree {
+    return modelEco == ModelEco.gratuit;
   }
 
   String get eventTimeFrame {

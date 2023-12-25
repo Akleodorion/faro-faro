@@ -15,26 +15,43 @@ class ProfilCard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Profil :",
-              style: Theme.of(context).textTheme.displaySmall,
+              "Profil",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  "Email :",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  userInfo["email"],
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
             ),
             const SizedBox(
               height: 10,
             ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text(
-                  "Email :",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                Text(
+                  "Nom d'utilisateur :",
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Text(
-                  userInfo["email"],
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w500),
+                  userInfo["username"],
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
             ),
@@ -43,33 +60,17 @@ class ProfilCard extends ConsumerWidget {
             ),
             Row(
               children: [
-                const Text(
-                  "Nom d'utilisateur :",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(userInfo["username"],
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w500)),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                const Text(
+                Text(
                   "Numéro de téléphone :",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
-                Text(userInfo["phone_number"],
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w500)),
+                Text(
+                  userInfo["phone_number"],
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ],
             )
           ],

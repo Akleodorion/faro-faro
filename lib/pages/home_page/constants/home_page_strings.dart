@@ -5,6 +5,6 @@ class HomePageStrings {
       "Nous sommes désolé, il n' y a pas d'évènements actuellement";
   static const addEvent = "Crée ton évènement, c'est facile !";
   static const minus10EventTitle = "Evènements disponible";
-  static const randomListViewTitle = "Random";
-  static const upcomingListViewTitle = "Upcoming";
+  static const randomListViewTitle = "À découvrir";
+  static const upcomingListViewTitle = "À venir";
 }

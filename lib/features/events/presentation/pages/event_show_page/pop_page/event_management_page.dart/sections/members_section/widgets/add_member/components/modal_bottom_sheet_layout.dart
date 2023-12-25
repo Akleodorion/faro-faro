@@ -35,12 +35,16 @@ class ModalBottomSheetLayout extends StatelessWidget {
           Center(
             child: Text(
               title,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text("Contact:"),
+          Text(
+            "Contact:",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
           const SizedBox(
             height: 2,
           ),

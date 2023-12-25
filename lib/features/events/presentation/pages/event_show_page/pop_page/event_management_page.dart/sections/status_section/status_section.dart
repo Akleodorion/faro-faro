@@ -18,18 +18,19 @@ class StatusSection extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             "Status de l'évènement:",
-            style: Theme.of(context).textTheme.labelLarge,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
         const SizedBox(
           height: 10,
         ),
         event.closed
-            ? const SizedBox(
+            ? SizedBox(
                 height: 200,
                 child: Center(
                   child: Text(
                     "L'évènement est fermé",
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
               )

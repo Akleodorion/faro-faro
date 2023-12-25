@@ -36,10 +36,7 @@ class _TextSwitchState extends ConsumerState<TextSwitch> {
         Row(
           children: [
             Text(widget.switchText,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onBackground)),
+                style: Theme.of(context).textTheme.bodyLarge),
             const SizedBox(
               width: 15,
             ),

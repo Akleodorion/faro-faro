@@ -49,8 +49,7 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
       children: [
         Center(
           child: Text('Ticket ${widget.ticketType}',
-              style: const TextStyle(
-                  fontSize: 20, decoration: TextDecoration.underline)),
+              style: Theme.of(context).textTheme.titleLarge),
         ),
         const SizedBox(
           height: 20,
@@ -65,7 +64,7 @@ class _TicketInputFormState extends ConsumerState<TicketInputForm> {
               setValue: widget.setTicketNumber,
             ),
             const SizedBox(
-              width: 15,
+              width: 5,
             ),
             if (!isFree)
               NumberInputField(

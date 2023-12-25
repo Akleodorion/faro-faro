@@ -85,10 +85,8 @@ class ImageContainer extends StatelessWidget {
                             child: TextButton.icon(
                               label: const Text("Gestion de l'évènement"),
                               onPressed: () {
-                                //Ferme le pop menu item
                                 Navigator.of(context).pop();
 
-                                // Redirige vers la page de gestion des membres
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) {

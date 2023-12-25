@@ -13,8 +13,14 @@ Future<void> usecaseAlertDialog({
       return AlertDialog(
         titleTextStyle: const TextStyle(fontSize: 24),
         contentTextStyle: const TextStyle(fontSize: 16),
-        title: Text(title),
-        content: Text(content),
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        content: Text(
+          content,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         actions: [
           Consumer(
               builder: (BuildContext context, WidgetRef ref, Widget? child) {

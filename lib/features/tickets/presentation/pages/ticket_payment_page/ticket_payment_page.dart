@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/core/util/general_spacers.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/pages/ticket_payment_page/widgets/tickets_checkout_layout.dart';
 import 'package:flutter/material.dart';
@@ -26,26 +27,30 @@ class TicketPaymentPage extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                event.name,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TicketsCheckoutLayout(
-                event: event,
-                isFree: event.modelEco == ModelEco.gratuit ? true : false,
-                isGoldTicketPresent:
-                    event.goldTicketPrice == null ? false : true,
-                isPlatinumTicketPresent:
-                    event.platinumTicketPrice == null ? false : true,
-              ),
-            ],
+          padding: EdgeInsets.symmetric(
+              horizontal: GeneralSpacers().getMainColumnPadding(context),
+              vertical: GeneralSpacers().getMainColumnPadding(context)),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  event.name,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                SizedBox(
+                  height: GeneralSpacers().getBlocSeparation(context),
+                ),
+                TicketsCheckoutLayout(
+                  event: event,
+                  isFree: event.modelEco == ModelEco.gratuit ? true : false,
+                  isGoldTicketPresent:
+                      event.goldTicketPrice == null ? false : true,
+                  isPlatinumTicketPresent:
+                      event.platinumTicketPrice == null ? false : true,
+                ),
+              ],
+            ),
           ),
         ),
       ),

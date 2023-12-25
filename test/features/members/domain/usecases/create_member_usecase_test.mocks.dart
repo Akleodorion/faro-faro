@@ -8,8 +8,6 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:faro_clean_tdd/core/errors/failures.dart' as _i5;
 import 'package:faro_clean_tdd/features/members/data/models/member_model.dart'
-    as _i7;
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart'
     as _i3;
@@ -47,16 +45,16 @@ class MockMemberRepository extends _i1.Mock implements _i3.MemberRepository {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.Member>> createMember(
-          {required _i7.MemberModel? member}) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.MemberModel>> createMember(
+          {required _i6.MemberModel? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #createMember,
           [],
           {#member: member},
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Member>>.value(
-            _FakeEither_0<_i5.Failure, _i6.Member>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.MemberModel>>.value(
+            _FakeEither_0<_i5.Failure, _i6.MemberModel>(
           this,
           Invocation.method(
             #createMember,
@@ -64,10 +62,10 @@ class MockMemberRepository extends _i1.Mock implements _i3.MemberRepository {
             {#member: member},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Member>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.MemberModel>>);
 
   @override
-  _i4.Future<_i5.Failure?> deleteMember({required _i6.Member? member}) =>
+  _i4.Future<_i5.Failure?> deleteMember({required _i6.MemberModel? member}) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteMember,
@@ -78,7 +76,7 @@ class MockMemberRepository extends _i1.Mock implements _i3.MemberRepository {
       ) as _i4.Future<_i5.Failure?>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Member>>> fetchMembers(
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.MemberModel>>> fetchMembers(
           {required int? userId}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -87,8 +85,8 @@ class MockMemberRepository extends _i1.Mock implements _i3.MemberRepository {
           {#userId: userId},
         ),
         returnValue:
-            _i4.Future<_i2.Either<_i5.Failure, List<_i6.Member>>>.value(
-                _FakeEither_0<_i5.Failure, List<_i6.Member>>(
+            _i4.Future<_i2.Either<_i5.Failure, List<_i6.MemberModel>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i6.MemberModel>>(
           this,
           Invocation.method(
             #fetchMembers,
@@ -96,5 +94,5 @@ class MockMemberRepository extends _i1.Mock implements _i3.MemberRepository {
             {#userId: userId},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Member>>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.MemberModel>>>);
 }

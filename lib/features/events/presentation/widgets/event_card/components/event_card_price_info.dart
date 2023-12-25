@@ -9,32 +9,27 @@ class EventCardPriceInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isFree = event.modelEco == ModelEco.gratuit;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if (isFree)
-          Text(
-            EventWidgetsStrings.free,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        if (!isFree)
-          Column(
-            children: [
-              Text(
-                EventWidgetsStrings.startAt,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                "${event.standardTicketPrice} XOF",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ],
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              EventWidgetsStrings.startAt,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              event.isFree
+                  ? EventWidgetsStrings.free
+                  : "${event.standardTicketPrice} XOF",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ],
+        ),
         EventCardButton(
           event: event,
         ),

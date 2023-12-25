@@ -42,14 +42,14 @@ class TicketColumn extends ConsumerWidget {
         ),
         if (!isFree)
           TicketInputForm(
-            ticketType: "Vip",
+            ticketType: "Gold",
             setTicketDescription: setGoldTicketDescription,
             setTicketNumber: setGoldTicketNumber,
             setTicketPrice: setGoldTicketPrice,
           ),
         if (!isFree)
           TicketInputForm(
-            ticketType: "Vvip",
+            ticketType: "Platinum",
             setTicketDescription: setPlatinumTicketDescription,
             setTicketNumber: setPlatinumTicketNumber,
             setTicketPrice: setPlatinumTicketPrice,

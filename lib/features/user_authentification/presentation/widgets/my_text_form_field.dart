@@ -68,13 +68,19 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         countries: const ['CI', 'BJ', 'SN', 'BF', 'FR', 'ML', 'CM'],
         keyboardType: TextInputType.number,
         formatInput: false,
-        selectorTextStyle: const TextStyle(fontSize: 12),
+        selectorTextStyle: Theme.of(context).textTheme.bodyMedium,
+        selectorConfig:
+            const SelectorConfig(selectorType: PhoneInputSelectorType.DROPDOWN),
         initialValue: number,
-        textStyle: const TextStyle(fontSize: 12),
+        textStyle: Theme.of(context).textTheme.bodyLarge,
         inputDecoration: InputDecoration(
+          errorStyle: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: Colors.red),
           label: Text(
             widget.label,
-            style: const TextStyle(fontSize: 12),
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
         validator: (value) {
@@ -105,7 +111,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         decoration: InputDecoration(
           label: Text(
             widget.label,
-            style: const TextStyle(fontSize: 12),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
         autocorrect: false,

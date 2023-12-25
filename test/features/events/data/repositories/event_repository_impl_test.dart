@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
+import 'package:faro_clean_tdd/core/constants/error_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
@@ -9,8 +9,8 @@ import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_dat
 import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
 import 'package:faro_clean_tdd/features/events/data/repositories/event_repository_impl.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/members/data/repositories/member_repository_impl.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
+import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,20 +33,20 @@ void main() {
         networkInfo: mockNetworkInfo);
   });
 
-  const tMember1 = Member(
+  const tMember1 = MemberModel(
     id: 1,
     userId: 1,
     eventId: 1,
     username: "test",
   );
 
-  const tMember2 = Member(
+  const tMember2 = MemberModel(
     id: 2,
     userId: 2,
     eventId: 1,
     username: "test2",
   );
-  const tTicket1 = Ticket(
+  const tTicket1 = TicketModel(
     id: 1,
     type: Type.standard,
     description: "description",
@@ -55,7 +55,7 @@ void main() {
     qrCodeUrl: "qrCodeUrl",
     verified: false,
   );
-  const tTicket2 = Ticket(
+  const tTicket2 = TicketModel(
     id: 2,
     type: Type.standard,
     description: "description",
@@ -159,7 +159,7 @@ void main() {
         "If there is an internet connexion",
         () {
           setUp(() {
-            when(mockNetworkInfo.isConnected)
+            when(mockNetworkInfo.getConnexionStatuts())
                 .thenAnswer((realInvocation) async => true);
           });
 
@@ -186,13 +186,17 @@ void main() {
             "should return a Failure",
             () async {
               //arrange
-              when(mockNetworkInfo.isConnected)
-                  .thenAnswer((realInvocation) async => false);
+
+              when(mockNetworkInfo.getConnexionStatuts()).thenThrow(
+                  ServerException(
+                      errorMessage: ErrorConstants.noInternetConnexion));
               //act
               final result = await eventRepositoryImpl.fetchAllEvents();
               //assert
-              expect(result,
-                  const Left(ServerFailure(errorMessage: noInternetConnexion)));
+              expect(
+                  result,
+                  const Left(ServerFailure(
+                      errorMessage: ErrorConstants.noInternetConnexion)));
             },
           );
         },
@@ -201,7 +205,7 @@ void main() {
   );
 
   group('postAnEvent', () {
-    const tTicket1 = Ticket(
+    const tTicket1 = TicketModel(
         id: 1,
         type: Type.standard,
         description: "description",
@@ -209,7 +213,7 @@ void main() {
         userId: 1,
         qrCodeUrl: "qrCodeUrl",
         verified: false);
-    const tTicket2 = Ticket(
+    const tTicket2 = TicketModel(
         id: 2,
         type: Type.standard,
         description: "description",
@@ -218,8 +222,10 @@ void main() {
         qrCodeUrl: "qrCodeUrl",
         verified: false);
     const tTickets = [tTicket1, tTicket2];
-    const tMember1 = Member(id: 1, userId: 1, eventId: 1, username: "test");
-    const tMember2 = Member(id: 2, userId: 2, eventId: 1, username: "test2");
+    const tMember1 =
+        MemberModel(id: 1, userId: 1, eventId: 1, username: "test");
+    const tMember2 =
+        MemberModel(id: 2, userId: 2, eventId: 1, username: "test2");
     const tMembers = [tMember1, tMember2];
     final tEvent = EventModel(
         name: "My test event",
@@ -259,7 +265,7 @@ void main() {
     final tImage = File('flyers.jpg');
     group('if there is an internet connexion', () {
       setUp(() {
-        when(mockNetworkInfo.isConnected)
+        when(mockNetworkInfo.getConnexionStatuts())
             .thenAnswer((realInvocation) async => true);
       });
       test(
@@ -298,22 +304,24 @@ void main() {
         "should return a ServerFailure with the correct message",
         () async {
           //arrange
-          when(mockNetworkInfo.isConnected)
-              .thenAnswer((realInvocation) async => false);
+          when(mockNetworkInfo.getConnexionStatuts()).thenThrow(ServerException(
+              errorMessage: ErrorConstants.noInternetConnexion));
           //act
           final result = await eventRepositoryImpl.postAnEvent(
               event: tEvent, image: tImage);
           //assert
-          verify(mockNetworkInfo.isConnected).called(1);
-          expect(result,
-              const Left(ServerFailure(errorMessage: 'No internet connexion')));
+          verify(mockNetworkInfo.getConnexionStatuts()).called(1);
+          expect(
+              result,
+              const Left(ServerFailure(
+                  errorMessage: ErrorConstants.noInternetConnexion)));
         },
       );
     });
   });
 
   group('updateAnEvent', () {
-    const tTicket1 = Ticket(
+    const tTicket1 = TicketModel(
         id: 1,
         type: Type.standard,
         description: "description",
@@ -321,7 +329,7 @@ void main() {
         userId: 1,
         qrCodeUrl: "qrCodeUrl",
         verified: false);
-    const tTicket2 = Ticket(
+    const tTicket2 = TicketModel(
         id: 2,
         type: Type.standard,
         description: "description",
@@ -330,8 +338,10 @@ void main() {
         qrCodeUrl: "qrCodeUrl",
         verified: false);
     const tTickets = [tTicket1, tTicket2];
-    const tMember1 = Member(id: 1, userId: 1, eventId: 1, username: "test");
-    const tMember2 = Member(id: 2, userId: 2, eventId: 1, username: "test2");
+    const tMember1 =
+        MemberModel(id: 1, userId: 1, eventId: 1, username: "test");
+    const tMember2 =
+        MemberModel(id: 2, userId: 2, eventId: 1, username: "test2");
     const tMembers = [tMember1, tMember2];
     final tEvent = EventModel(
         name: "My test event",
@@ -371,7 +381,7 @@ void main() {
     final tImage = File('flyers.jpg');
     group('if there is an internet connexion', () {
       setUp(() {
-        when(mockNetworkInfo.isConnected)
+        when(mockNetworkInfo.getConnexionStatuts())
             .thenAnswer((realInvocation) async => true);
       });
       test(
@@ -410,15 +420,17 @@ void main() {
         "should return a ServerFailure with the correct message",
         () async {
           //arrange
-          when(mockNetworkInfo.isConnected)
-              .thenAnswer((realInvocation) async => false);
+          when(mockNetworkInfo.getConnexionStatuts()).thenThrow(ServerException(
+              errorMessage: ErrorConstants.noInternetConnexion));
           //act
           final result = await eventRepositoryImpl.updateAnEvent(
               event: tEvent, image: tImage);
           //assert
-          verify(mockNetworkInfo.isConnected).called(1);
-          expect(result,
-              const Left(ServerFailure(errorMessage: 'No internet connexion')));
+          verify(mockNetworkInfo.getConnexionStatuts()).called(1);
+          expect(
+              result,
+              const Left(ServerFailure(
+                  errorMessage: ErrorConstants.noInternetConnexion)));
         },
       );
     });
@@ -469,16 +481,19 @@ void main() {
             "should return a ServerFailure with the right message",
             () async {
               //arrange
-              when(mockNetworkInfo.isConnected)
-                  .thenAnswer((realInvocation) async => false);
+              when(mockNetworkInfo.getConnexionStatuts()).thenThrow(
+                  ServerException(
+                      errorMessage: ErrorConstants.noInternetConnexion));
               //act
               final result =
                   await eventRepositoryImpl.activateAnEvent(eventId: tEventId);
               //assert
 
-              expect(result,
-                  const Left(ServerFailure(errorMessage: noInternetConnexion)));
-              verify(mockNetworkInfo.isConnected).called(1);
+              expect(
+                  result,
+                  const Left(ServerFailure(
+                      errorMessage: ErrorConstants.noInternetConnexion)));
+              verify(mockNetworkInfo.getConnexionStatuts()).called(1);
             },
           );
         },
@@ -487,7 +502,7 @@ void main() {
       group(
         "if there is an internet connexion",
         () {
-          setUp(() => when(mockNetworkInfo.isConnected)
+          setUp(() => when(mockNetworkInfo.getConnexionStatuts())
               .thenAnswer((realInvocation) async => true));
           test(
             "should return the event model when the call is a success",
@@ -541,16 +556,19 @@ void main() {
             "should return a ServerFailure with the right message",
             () async {
               //arrange
-              when(mockNetworkInfo.isConnected)
-                  .thenAnswer((realInvocation) async => false);
+              when(mockNetworkInfo.getConnexionStatuts()).thenThrow(
+                  ServerException(
+                      errorMessage: ErrorConstants.noInternetConnexion));
               //act
               final result =
                   await eventRepositoryImpl.closeAnEvent(eventId: tEvent1.id!);
               //assert
 
-              expect(result,
-                  const Left(ServerFailure(errorMessage: noInternetConnexion)));
-              verify(mockNetworkInfo.isConnected).called(1);
+              expect(
+                  result,
+                  const Left(ServerFailure(
+                      errorMessage: ErrorConstants.noInternetConnexion)));
+              verify(mockNetworkInfo.getConnexionStatuts()).called(1);
             },
           );
         },
@@ -559,7 +577,7 @@ void main() {
       group(
         "if there is an internet connexion",
         () {
-          setUp(() => when(mockNetworkInfo.isConnected)
+          setUp(() => when(mockNetworkInfo.getConnexionStatuts())
               .thenAnswer((realInvocation) async => true));
           test(
             "should return the event model when the call is a success",

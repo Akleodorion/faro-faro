@@ -49,14 +49,16 @@ class EventShowPage extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
-                vertical: 20,
               ),
               child: SizedBox(
-                height: mediaHeight * 0.47,
+                height: mediaHeight * 0.6,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
@@ -72,12 +74,12 @@ class EventShowPage extends ConsumerWidget {
                             width: (mediaWidth * 0.5 - 40),
                             child: Text(event.eventTimeFrame,
                                 textAlign: TextAlign.end,
-                                style: Theme.of(context).textTheme.bodyMedium),
+                                style: Theme.of(context).textTheme.bodySmall),
                           ),
                         ],
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,9 +87,22 @@ class EventShowPage extends ConsumerWidget {
                         children: [
                           SizedBox(
                             width: (mediaWidth * 1 - 40),
-                            child: Text(
-                                "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} : ${event.address.getFullAddress()}",
-                                style: Theme.of(context).textTheme.bodyMedium),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text:
+                                          "${CapitalizeFirstLetterImpl().capitalizeInput(event.category.name)} :",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium),
+                                  TextSpan(
+                                      text: event.address.getFullAddress(),
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall)
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -99,10 +114,10 @@ class EventShowPage extends ConsumerWidget {
                           children: [
                             TextSpan(
                                 text: "Description : ",
-                                style: Theme.of(context).textTheme.titleLarge),
+                                style: Theme.of(context).textTheme.bodyLarge),
                             TextSpan(
                                 text: event.description,
-                                style: Theme.of(context).textTheme.bodyMedium)
+                                style: Theme.of(context).textTheme.bodySmall)
                           ],
                         ),
                       ),
@@ -116,26 +131,31 @@ class EventShowPage extends ConsumerWidget {
                       ),
                       Column(
                         children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.circle,
-                                size: 4,
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Text(event.modelEco == ModelEco.gratuit
-                                  ? "Ticket Standard : Gratuit - ${event.standardTicketLeft}"
-                                  : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice!)} XOF - ${event.standardTicketLeft}")
-                            ],
+                          SizedBox(
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.circle,
+                                  size: 4,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  event.modelEco == ModelEco.gratuit
+                                      ? "Ticket Standard : Gratuit - ${event.standardTicketLeft}"
+                                      : "Ticket Standard : ${NumberFormatterImpl().formatNumber(event.standardTicketPrice!)} XOF - ${event.standardTicketLeft}",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                )
+                              ],
+                            ),
                           ),
                           Row(
                             children: [
                               SizedBox(
-                                width: mediaWidth - 40,
+                                width: mediaWidth - 50,
                                 child: Text(
-                                  "Description : ${event.standardTicketDescription}",
+                                  event.standardTicketDescription,
                                   textAlign: TextAlign.start,
                                 ),
                               ),
@@ -151,7 +171,7 @@ class EventShowPage extends ConsumerWidget {
                         const Divider(
                           thickness: 0.1,
                         ),
-                      if (event.modelEco != ModelEco.gratuit)
+                      if (event.goldTicketDescription == null ? false : true)
                         Column(
                           children: [
                             Row(
@@ -164,14 +184,16 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket Gold : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF - ${event.goldTicketLeft}")
+                                  "Ticket Gold : ${NumberFormatterImpl().formatNumber(event.goldTicketPrice!)} XOF - ${event.goldTicketLeft}",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                )
                               ],
                             ),
                             Row(children: [
                               SizedBox(
                                 width: mediaWidth - 40,
                                 child: Text(
-                                  "Description : ${event.goldTicketDescription}",
+                                  event.goldTicketDescription!,
                                   textAlign: TextAlign.start,
                                 ),
                               ),
@@ -199,7 +221,9 @@ class EventShowPage extends ConsumerWidget {
                                   width: 8,
                                 ),
                                 Text(
-                                    "Ticket Platinum : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF - ${event.platinumTicketLeft}")
+                                  "Ticket Platinum : ${NumberFormatterImpl().formatNumber(event.platinumTicketPrice!)} XOF - ${event.platinumTicketLeft}",
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                )
                               ],
                             ),
                             Row(
@@ -248,27 +272,38 @@ class EventShowPage extends ConsumerWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
-                      )
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      if (!isMine)
+                        Align(
+                          alignment: Alignment.center,
+                          child: UsecaseElevatedButton(
+                            usecaseTitle: isFree
+                                ? "Réserve ton ticket"
+                                : "Achète ton ticket",
+                            onUsecaseCall: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return TicketPaymentPage(
+                                      event: event,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            if (!isMine)
-              UsecaseElevatedButton(
-                  usecaseTitle:
-                      isFree ? "Réserve ton ticket" : "Achète ton ticket",
-                  onUsecaseCall: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return TicketPaymentPage(
-                            event: event,
-                          );
-                        },
-                      ),
-                    );
-                  })
           ],
         ),
       ),

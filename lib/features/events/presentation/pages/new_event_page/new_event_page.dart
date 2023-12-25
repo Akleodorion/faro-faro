@@ -3,10 +3,8 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
-
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
-import 'package:faro_clean_tdd/main.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/category_picker_field.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/date_picker_field.dart';
@@ -51,12 +49,10 @@ class NewEventPage extends ConsumerWidget {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
 
-        // récupération des infos utilisateurs & de l'event en cours de création
         final userId = ref.read(userInfoProvider)["user_id"];
         final pickedAddress = ref.read(pickedAddressProvider);
         final pickedImage = ref.read(pickedImagedProvider);
 
-        // Création du model
         final myEventModel = EventModel(
             name: enteredName,
             id: null,
@@ -86,29 +82,25 @@ class NewEventPage extends ConsumerWidget {
                 platinumTicketNumber == 0 ? null : platinumTicketNumber,
             platinumTicketDescription: platinumTicketDescription);
 
-        // Usecase
         final state = await ref
             .read(postEventProvider.notifier)
             .postAnEvent(event: myEventModel, image: pickedImage!.image);
 
-        // Si une erreur alors snackbar
         if (state is Error) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: theme.colorScheme.background,
+              backgroundColor: Theme.of(context).colorScheme.background,
               content: Text(
                 state.message,
                 style: TextStyle(
-                  color: theme.colorScheme.onBackground,
+                  color: Theme.of(context).colorScheme.onBackground,
                 ),
               ),
             ));
           });
         }
 
-        // Si tout bon alors pop
-        if (state is Loaded) {
-          // ignore: use_build_context_synchronously
+        if (state is Loaded && context.mounted) {
           Navigator.of(context).pop();
         }
       }
@@ -154,9 +146,8 @@ class NewEventPage extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text("Date et heure de l'évenèment",
-                      style: TextStyle(
-                          fontSize: 16, decoration: TextDecoration.underline)),
+                  Text("Date et heure de l'évenèment",
+                      style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

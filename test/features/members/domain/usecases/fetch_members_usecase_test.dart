@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
 import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart';
 import 'package:faro_clean_tdd/features/members/domain/usecases/fetch_members_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,9 +25,9 @@ void main() {
       const tUserId = 1;
       const tUsername = "test";
       const tMember1 =
-          Member(id: 1, userId: tUserId, eventId: 1, username: tUsername);
+          MemberModel(id: 1, userId: tUserId, eventId: 1, username: tUsername);
       const tMember2 =
-          Member(id: 2, userId: tUserId, eventId: 2, username: tUsername);
+          MemberModel(id: 2, userId: tUserId, eventId: 2, username: tUsername);
 
       const tMembers = [tMember1, tMember2];
       test(

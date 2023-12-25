@@ -9,35 +9,25 @@ class EventTileGeneralInfoContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: (MediaQuery.of(context).size.width - 40) * 0.265,
       width: (MediaQuery.of(context).size.width - 40) * 0.40,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            event.name,
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary),
-          ),
-          Text(event.address.getLocalityIfPresentElseReturnCountry(),
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.normal,
-                  color: Theme.of(context).colorScheme.secondary)),
-          Text(event.formatedDate,
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.normal,
-                  color: Theme.of(context).colorScheme.secondary)),
-          Text("Category: ${event.category.name}",
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.normal,
-                  color: Theme.of(context).colorScheme.secondary))
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(left: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              event.name,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text(event.address.getLocalityIfPresentElseReturnCountry(),
+                style: Theme.of(context).textTheme.titleSmall),
+            Text(event.formatedDate,
+                style: Theme.of(context).textTheme.titleSmall),
+            Text("Category: ${event.category.name}",
+                style: Theme.of(context).textTheme.titleSmall)
+          ],
+        ),
       ),
     );
   }

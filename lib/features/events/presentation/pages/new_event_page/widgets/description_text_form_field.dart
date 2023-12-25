@@ -55,12 +55,13 @@ class _DescriptionTextFormFieldState
         child: TextFormField(
           maxLines: widget.isTicket == true ? 3 : 5,
           maxLength: maxCharsValue,
+          
           decoration: InputDecoration(
             label: Text(
               widget.isTicket == true
                   ? "Description des prestations du ticket :"
                   : "Description de l'évènement :",
-              style: const TextStyle(fontSize: 14),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           keyboardType: TextInputType.name,

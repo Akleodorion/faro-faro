@@ -19,10 +19,7 @@ class _DatePickerFilterState extends ConsumerState<DatePickerFilter> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text("A partir du : ${formated.format(pickedDate)}",
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onBackground)),
+            style: Theme.of(context).textTheme.bodyLarge),
         IconButton(
           onPressed: () async {
             final pickedDate = await showDatePicker(
@@ -39,7 +36,6 @@ class _DatePickerFilterState extends ConsumerState<DatePickerFilter> {
           },
           icon: const Icon(
             Icons.calendar_month_outlined,
-            size: 36,
           ),
         )
       ],

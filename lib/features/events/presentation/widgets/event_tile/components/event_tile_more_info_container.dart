@@ -11,21 +11,26 @@ class EventTileMoreInfoContainer extends StatelessWidget {
     return SizedBox(
       width: (MediaQuery.of(context).size.width - 40) * 0.25,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const Text(
-            "A partir de :",
-            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-          ),
-          Text(
-            event.modelEco == ModelEco.gratuit
-                ? "Gratuit"
-                : "${event.standardTicketPrice} XOF",
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 5,
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                "A partir de :",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                event.modelEco == ModelEco.gratuit
+                    ? "Gratuit"
+                    : "${event.standardTicketPrice} XOF",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
           ),
           EventTileElevatedButton(
             event: event,

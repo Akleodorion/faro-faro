@@ -7,7 +7,8 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/domain/usecases/update_an_event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/update_event/state/update_event_notifier.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/update_event/state/update_event_state.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
+import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:mockito/mockito.dart';
@@ -36,9 +37,9 @@ void main() {
     },
   );
   const tSuccessMessage = "Réussi";
-  const tMember1 = Member(id: 1, userId: 1, eventId: 1, username: "test");
-  const tMember2 = Member(id: 2, userId: 2, eventId: 1, username: "test2");
-  const tTicket1 = Ticket(
+  const tMember1 = MemberModel(id: 1, userId: 1, eventId: 1, username: "test");
+  const tMember2 = MemberModel(id: 2, userId: 2, eventId: 1, username: "test2");
+  const tTicket1 = TicketModel(
       id: 1,
       type: Type.standard,
       description: "description",
@@ -46,7 +47,7 @@ void main() {
       userId: 1,
       qrCodeUrl: "qrCodeUrl",
       verified: false);
-  const tTicket2 = Ticket(
+  const tTicket2 = TicketModel(
       id: 2,
       type: Type.standard,
       description: "description",

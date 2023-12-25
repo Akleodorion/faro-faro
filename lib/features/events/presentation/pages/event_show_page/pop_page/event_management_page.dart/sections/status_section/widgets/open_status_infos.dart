@@ -15,11 +15,12 @@ class OpenStatusInfos extends ConsumerWidget {
     late Widget content;
 
     if (event.activated) {
-      content = const Row(
+      content = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "L'évènement a débuté",
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
       );
@@ -27,11 +28,12 @@ class OpenStatusInfos extends ConsumerWidget {
       content = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
+          Text(
             "L'évènement n'a pas commencé",
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
-          TextButton.icon(
-            label: const Text("Démmarez l'évènement!"),
+          TextButton(
+            child: const Text("Commencer"),
             onPressed: () async {
               await usecaseAlertDialog(
                 context: context,
@@ -52,7 +54,6 @@ class OpenStatusInfos extends ConsumerWidget {
                 },
               );
             },
-            icon: const Icon(Icons.done, size: 24),
           )
         ],
       );

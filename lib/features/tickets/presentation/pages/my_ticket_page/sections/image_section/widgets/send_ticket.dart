@@ -36,7 +36,6 @@ class SendTicket extends ConsumerWidget {
           },
           icon: Icon(
             Icons.send,
-            size: 24,
             color: Theme.of(context).colorScheme.onBackground,
           ),
         ),

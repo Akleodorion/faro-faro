@@ -49,15 +49,15 @@ class EventSection extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListViewContainer(
-              title: HomePageStrings.randomListViewTitle,
-              events: randomEvents,
+              title: HomePageStrings.upcomingListViewTitle,
+              events: upcomingEvents,
             ),
             const SizedBox(
               height: 10,
             ),
             ListViewContainer(
-              title: HomePageStrings.upcomingListViewTitle,
-              events: upcomingEvents,
+              title: HomePageStrings.randomListViewTitle,
+              events: randomEvents,
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:faro_clean_tdd/core/constants/error_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
@@ -67,8 +68,8 @@ void main() {
               //arrange
               expect(
                   result,
-                  equals(
-                      const Left(ServerFailure(errorMessage: 'no connexion'))));
+                  equals(const Left(ServerFailure(
+                      errorMessage: ErrorConstants.noInternetConnexion))));
             },
           );
         },
@@ -196,8 +197,10 @@ void main() {
                   await userAuthentificationRepositoryImpl.signUserIn(
                       tEmail, tPassword, tUsername, tPhoneNumber, tPref);
               //arrange
-              expect(result,
-                  const Left(ServerFailure(errorMessage: 'no connexion')));
+              expect(
+                  result,
+                  const Left(ServerFailure(
+                      errorMessage: ErrorConstants.noInternetConnexion)));
             },
           );
         },

@@ -1,7 +1,7 @@
 class Strings {
   static const email = "Mail";
   static const password = "Mot de passe";
-  static const phoneNumber = "Numéro de téléphone";
+  static const phoneNumber = "Téléphone";
   static const userName = "Nom d'utilisateur";
   static const logIn = "Se connecter";
   static const signIn = "S'enregistrer";

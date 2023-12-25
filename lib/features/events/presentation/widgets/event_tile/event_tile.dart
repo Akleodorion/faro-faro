@@ -12,6 +12,7 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleHeight = getTileHeight(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Container(
@@ -20,6 +21,7 @@ class EventTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           boxShadow: kElevationToShadow[3],
         ),
+        height: titleHeight,
         width: MediaQuery.of(context).size.width,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -35,5 +37,26 @@ class EventTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  double getTileHeight(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    print(screenHeight);
+
+    final bool screenHeightIsMini = screenHeight < 580;
+    final bool screenHeightIsStandard =
+        screenHeight >= 580 && screenHeight <= 700;
+    final bool screenHeightIsLarge = screenHeight > 700;
+
+    if (screenHeightIsMini) {
+      return 80;
+    }
+    if (screenHeightIsStandard) {
+      return 120;
+    }
+    if (screenHeightIsLarge) {
+      return 130;
+    }
+    return 0;
   }
 }

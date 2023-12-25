@@ -23,15 +23,15 @@ class _EcoPickerFieldState extends ConsumerState<EcoPickerField> {
     return Container(
       decoration:
           BoxDecoration(color: Theme.of(context).colorScheme.background),
-      width: (mediaWidth - 40) * 0.3,
+      width: (mediaWidth - 40) * 0.4,
       height: minHeight,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: DropdownButtonFormField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
               label: Text(
             'Model Eco',
-            style: TextStyle(fontSize: 12),
+            style: Theme.of(context).textTheme.bodyLarge,
           )),
           value: pickedValue,
           items: [
@@ -41,12 +41,12 @@ class _EcoPickerFieldState extends ConsumerState<EcoPickerField> {
                 ModelEco.gratuit.name,
               ),
             ),
-            // DropdownMenuItem(
-            //   value: ModelEco.payant,
-            //   child: Text(
-            //     ModelEco.payant.name,
-            //   ),
-            // )
+            DropdownMenuItem(
+              value: ModelEco.payant,
+              child: Text(
+                ModelEco.payant.name,
+              ),
+            )
           ],
           onChanged: (value) {
             setState(() {

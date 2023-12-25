@@ -22,15 +22,15 @@ class _CategoryPickerFieldState extends ConsumerState<CategoryPickerField> {
     return Container(
       decoration:
           BoxDecoration(color: Theme.of(context).colorScheme.background),
-      width: (mediaWidth - 40) * 0.3,
+      width: (mediaWidth - 40) * 0.4,
       height: minHeight,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: DropdownButtonFormField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
               label: Text(
             'Categorie',
-            style: TextStyle(fontSize: 12),
+            style: Theme.of(context).textTheme.bodyLarge,
           )),
           value: pickedValue,
           items: [

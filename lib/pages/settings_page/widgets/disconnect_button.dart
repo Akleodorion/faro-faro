@@ -13,7 +13,6 @@ class DisconnectButton extends ConsumerWidget {
       child: TextButton.icon(
         label: const Text(
           "Déconnexion",
-          style: TextStyle(fontSize: 16),
         ),
         onPressed: () async {
           await ref

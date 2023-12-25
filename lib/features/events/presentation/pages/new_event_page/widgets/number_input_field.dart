@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/core/util/size_info.dart';
 import 'package:faro_clean_tdd/core/util/validate_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,7 +41,19 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
 
   @override
   Widget build(BuildContext context) {
-    final double maxWidth = MediaQuery.of(context).size.width;
+    late double containerWidth;
+    final bool isScreenSizeSmall =
+        SizeInfo(context: context).isScreenSizeMini();
+    final bool isScreenSizeStandard =
+        SizeInfo(context: context).isScreenSizeStandard();
+
+    if (isScreenSizeSmall) {
+      hasError ? containerWidth = 55 : containerWidth = 50;
+    } else if (isScreenSizeStandard) {
+      hasError ? containerWidth = 65 : containerWidth = 60;
+    } else {
+      hasError ? containerWidth = 75 : containerWidth = 70;
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,9 +61,7 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
         Text(
           widget.trailingText,
           textAlign: TextAlign.left,
-          style: const TextStyle(
-            fontSize: 16,
-          ),
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
           height: 5,
@@ -73,13 +84,17 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
               Container(
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background),
-                width: hasError ? maxWidth * 0.20 : maxWidth * 0.15,
+                width: containerWidth,
                 child: TextFormField(
                   controller: textEditingController,
                   focusNode: inputFocusNode,
                   keyboardType: TextInputType.number,
-                  style: const TextStyle(fontSize: 20),
-                  decoration: const InputDecoration(),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  decoration: InputDecoration(
+                      errorStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: Colors.red)),
                   textAlign: TextAlign.center,
                   validator: (value) {
                     setState(() => hasError = false);

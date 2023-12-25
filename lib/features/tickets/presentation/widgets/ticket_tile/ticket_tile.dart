@@ -14,18 +14,23 @@ class TicketTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Event> events = ref.read(allEventProvider);
+
     final Event event =
         events.firstWhere((element) => element.id == ticket.eventId);
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
-            return MyTicketPage(
-              event: event,
-              ticket: ticket,
-            );
-          }));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (builder) {
+                return MyTicketPage(
+                  event: event,
+                  ticket: ticket,
+                );
+              },
+            ),
+          );
         },
         child: Container(
           decoration: BoxDecoration(
@@ -33,6 +38,7 @@ class TicketTile extends ConsumerWidget {
             borderRadius: BorderRadius.circular(5),
             boxShadow: kElevationToShadow[3],
           ),
+          height: getTileHeight(context),
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.all(8),
@@ -48,5 +54,25 @@ class TicketTile extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  double getTileHeight(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final bool screenHeightIsMini = screenHeight < 580;
+    final bool screenHeightIsStandard =
+        screenHeight >= 580 && screenHeight <= 700;
+    final bool screenHeightIsLarge = screenHeight > 700;
+
+    if (screenHeightIsMini) {
+      return 80;
+    }
+    if (screenHeightIsStandard) {
+      return 100;
+    }
+    if (screenHeightIsLarge) {
+      return 120;
+    }
+    return 0;
   }
 }
