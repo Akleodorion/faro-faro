@@ -93,11 +93,11 @@ class EventCardClass {
 
     return DateAndLocality(
       formatedDate: event.formatedDate,
-      formatedAddress: limitLegnthOfFormattedAddress(address),
+      formatedAddress: limitLengthOfFormattedAddress(address),
     );
   }
 
-  String limitLegnthOfFormattedAddress(String address) {
+  String limitLengthOfFormattedAddress(String address) {
     if (address.length > 14) {
       return "${address.substring(0, 10)}...";
     }

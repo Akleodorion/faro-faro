@@ -11,7 +11,7 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Column(
           children: [
             SearchAndFilterSection(),
