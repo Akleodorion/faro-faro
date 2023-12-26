@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 ThemeData getTheme(BuildContext context) {
   final double screenWidth = SizeInfo(context: context).width;
-  print(screenWidth);
   late double titleLargeFontSize;
   late double titleMediumFontSize;
   late double titleSmallFontSize;

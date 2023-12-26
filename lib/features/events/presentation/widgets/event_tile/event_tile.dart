@@ -41,8 +41,6 @@ class EventTile extends StatelessWidget {
 
   double getTileHeight(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    print(screenHeight);
-
     final bool screenHeightIsMini = screenHeight < 580;
     final bool screenHeightIsStandard =
         screenHeight >= 580 && screenHeight <= 700;

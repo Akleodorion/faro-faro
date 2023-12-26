@@ -16,7 +16,6 @@ enum ScreenWidth {
 class DeviceInfo {
   ScreenHeight getScreenHeight(BuildContext context) {
     final mediaHeight = MediaQuery.sizeOf(context).height;
-    print(mediaHeight);
     final bool isScreenHeightSmall = mediaHeight < 580;
     final bool isScreenHeightStandard = mediaHeight >= 580 && mediaHeight < 700;
     final bool isScreenHeightLarge = mediaHeight >= 700;
@@ -37,7 +36,6 @@ class DeviceInfo {
 
   ScreenWidth getScreenWidth(BuildContext context) {
     final mediaWidth = MediaQuery.sizeOf(context).width;
-    print(mediaWidth);
     final bool isScreenWidthSmall = mediaWidth < 350;
     final bool isScreenWidthStandard = mediaWidth >= 350 && mediaWidth < 415;
     final bool isScreenWidthLarge = mediaWidth >= 415;
