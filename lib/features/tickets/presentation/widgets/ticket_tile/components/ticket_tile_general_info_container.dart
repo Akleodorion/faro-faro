@@ -5,9 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TicketTileGeneralInfoContainer extends ConsumerWidget {
-  const TicketTileGeneralInfoContainer({super.key, required this.ticket});
+  const TicketTileGeneralInfoContainer({
+    super.key,
+    required this.ticket,
+    required this.ticketFormatedDescription,
+  });
 
   final Ticket ticket;
+  final String ticketFormatedDescription;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Event> events = ref.read(allEventProvider);
@@ -32,7 +37,7 @@ class TicketTileGeneralInfoContainer extends ConsumerWidget {
             height: 5,
           ),
           Text(
-            ticket.description,
+            ticketFormatedDescription,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],

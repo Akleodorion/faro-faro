@@ -74,7 +74,7 @@ class MemberCard extends ConsumerWidget {
                             contentTextStyle: const TextStyle(fontSize: 16),
                             title: const Text("Ajouter le contact"),
                             content: Text(
-                                "Voulez-vous supprimé ${member.userId} à la liste des membres de l'évènement"),
+                                "Voulez-vous supprimé ${member.username} à la liste des membres de l'évènement"),
                             actions: [
                               IconButton(
                                 onPressed: () async {
