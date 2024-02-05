@@ -15,7 +15,7 @@ class RememberCheckbox extends ConsumerStatefulWidget {
 class _RememberCheckboxState extends ConsumerState<RememberCheckbox> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.read(userAuthProvider);
+    final state = ref.watch(userAuthProvider);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

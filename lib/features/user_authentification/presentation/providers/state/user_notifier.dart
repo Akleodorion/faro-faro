@@ -71,7 +71,7 @@ class UserNotifier extends StateNotifier<UserState> {
   Future<UserState?> logUserOut({required String jwt}) async {
     state = Loading();
     await logUserOutUsecase.execute(jwt: jwt);
-    getUserInfo();
+    state = await getUserInfo();
     return state;
   }
 

@@ -1,11 +1,18 @@
 class ServerConstants {
-  static const ticketUrl = 'http://192.168.1.19:3000/tickets';
-  static const memberUrl = 'http://192.168.1.19:3000/members';
-  static const eventUrl = 'http://192.168.1.19:3000/events';
-  static const logInUrl = 'http://192.168.1.19:3000/login';
-  static const signInUrl = 'http://192.168.1.19:3000/signup';
-  static const logOutUrl = 'http://192.168.1.19:3000/logout';
-  static const userUrl = "http://192.168.1.19:3000/users";
+  static const ticketUrl =
+      "https://quiet-sea-37674-533e813b216d.herokuapp.com/tickets";
+  static const memberUrl =
+      "https://quiet-sea-37674-533e813b216d.herokuapp.com/members";
+  static const eventUrl =
+      "https://quiet-sea-37674-533e813b216d.herokuapp.com/events";
+  static const logInUrl =
+      "https://quiet-sea-37674-533e813b216d.herokuapp.com/login";
+  static const signInUrl =
+      "https://quiet-sea-37674-533e813b216d.herokuapp.com/signup";
+  static const logOutUrl =
+      "https://quiet-sea-37674-533e813b216d.herokuapp.com/logout";
+  static const userUrl =
+      "https://quiet-sea-37674-533e813b216d.herokuapp.com/users";
 }
 
 abstract class ServerEndPoint {

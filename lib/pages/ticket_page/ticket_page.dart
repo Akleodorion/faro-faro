@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/pages/ticket_page/constants/ticket_page_strings.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/widgets/my_event_list.dart';
 import 'package:faro_clean_tdd/pages/ticket_page/widgets/my_ticket_list.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _TicketPageState extends State<TicketPage> {
                       ? selectedPageStyle
                       : unSelectedPageStyle,
                   child: const Text(
-                    "Mes tickets",
+                    TicketPageString.myTickets,
                   ),
                 ),
                 TextButton(
@@ -62,7 +63,7 @@ class _TicketPageState extends State<TicketPage> {
                   style: isMyTicket == false
                       ? selectedPageStyle
                       : unSelectedPageStyle,
-                  child: const Text("Mes Evènements"),
+                  child: const Text(TicketPageString.myEvents),
                 )
               ],
             ),

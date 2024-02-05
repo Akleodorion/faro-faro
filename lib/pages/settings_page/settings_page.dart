@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/pages/settings_page/constants/setting_page_strings.dart';
 import 'package:faro_clean_tdd/pages/settings_page/widgets/disconnect_button.dart';
 import 'package:faro_clean_tdd/pages/settings_page/widgets/profil_card.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class SettingsPage extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    "Paramètres",
+                    SettingPageStrings.parameters,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(

@@ -65,7 +65,9 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
               ),
               child: userAuth is Initial
                   ? const AuthCard()
-                  : const Center(child: CircularProgressIndicator()),
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    ),
             ),
           );
         }

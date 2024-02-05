@@ -43,6 +43,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         },
         body: json.encode({"user": authInfo}),
       );
+
       if (response.statusCode == 200) {
         final jwtToken = response.headers["authorization"]!.split(' ');
         return UserModel.fromJson(

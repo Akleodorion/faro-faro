@@ -1,4 +1,5 @@
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
+import 'package:faro_clean_tdd/pages/settings_page/constants/setting_page_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +16,7 @@ class ProfilCard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Profil",
+              SettingPageStrings.profil,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
@@ -25,7 +26,7 @@ class ProfilCard extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "Email :",
+                  SettingPageStrings.email,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
@@ -43,7 +44,7 @@ class ProfilCard extends ConsumerWidget {
             Row(
               children: [
                 Text(
-                  "Nom d'utilisateur :",
+                  SettingPageStrings.username,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
@@ -61,7 +62,7 @@ class ProfilCard extends ConsumerWidget {
             Row(
               children: [
                 Text(
-                  "Numéro de téléphone :",
+                  SettingPageStrings.phoneNumber,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(

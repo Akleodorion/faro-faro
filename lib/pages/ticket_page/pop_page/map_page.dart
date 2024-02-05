@@ -1,3 +1,4 @@
+import 'package:faro_clean_tdd/pages/ticket_page/constants/ticket_page_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -18,22 +19,29 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: const Text('Pick a location'),
+        title: const Text(
+          TicketPageString.pickLocation,
+        ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).pop(_picketLocation);
-              },
-              icon: const Icon(Icons.save))
+            onPressed: () {
+              Navigator.of(context).pop(
+                _picketLocation,
+              );
+            },
+            icon: const Icon(Icons.save),
+          )
         ],
       ),
       body: GoogleMap(
         onTap: (position) {
-          setState(() {
-            markerLat = position.latitude;
-            markerLng = position.longitude;
-            _picketLocation = position;
-          });
+          setState(
+            () {
+              markerLat = position.latitude;
+              markerLng = position.longitude;
+              _picketLocation = position;
+            },
+          );
         },
         initialCameraPosition: const CameraPosition(
           zoom: 16,

@@ -21,26 +21,29 @@ class TicketTileGeneralInfoContainer extends ConsumerWidget {
 
     return SizedBox(
       width: (MediaQuery.of(context).size.width - 40) * 0.7,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            event.name,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          Text(
-            "Ticket: ${ticket.type.name}",
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            ticketFormatedDescription,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              event.name,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text(
+              "Ticket: ${ticket.type.name}",
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              ticketFormatedDescription,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
+        ),
       ),
     );
   }
