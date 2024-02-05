@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../events/domain/entities/event.dart';
-
 class TicketTileImageContainer extends StatelessWidget {
-  const TicketTileImageContainer({super.key, required this.event});
+  const TicketTileImageContainer({super.key, required this.eventUrl});
 
-  final Event event;
+  final String eventUrl;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75,
-      width: (MediaQuery.of(context).size.width - 40) * 0.2,
+      width: (MediaQuery.of(context).size.width - 40) * 0.25,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(event.imageUrl),
+          image: NetworkImage(eventUrl),
           fit: BoxFit.fill,
         ),
       ),

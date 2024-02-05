@@ -1,3 +1,6 @@
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+import 'package:faro_clean_tdd/core/util/device_info.dart';
+
 import '../../../../../../features/events/domain/entities/event.dart';
 import 'list_view_layout.dart';
 import 'package:flutter/material.dart';
@@ -21,25 +24,25 @@ class ListViewContainer extends StatelessWidget {
       child: ListViewLayout(
         listViewTitle: title,
         events: events,
-        listViewHeight: listViewHeight,
       ),
     );
   }
 
   double getListViewHeight(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    print(screenHeight);
-    final bool screenHeightIsMini = screenHeight < 580;
-    final bool screenHeightIsStandard = screenHeight < 700;
+    final screenHeight = DeviceInfo().getScreenHeight(context);
 
-    if (screenHeightIsMini) {
+    if (screenHeight == ScreenHeight.smallHeight) {
       return 280;
     }
 
-    if (screenHeightIsStandard) {
+    if (screenHeight == ScreenHeight.standardHeight) {
       return 320;
     }
 
-    return 350;
+    if (screenHeight == ScreenHeight.largeHeight) {
+      return 350;
+    }
+
+    throw ServerException(errorMessage: 'oops');
   }
 }

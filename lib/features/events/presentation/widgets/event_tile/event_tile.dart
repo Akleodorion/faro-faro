@@ -1,8 +1,5 @@
-import 'components/event_tile_general_info_container.dart';
-import 'components/event_tile_image_container.dart';
-import 'components/event_tile_more_info_container.dart';
+import 'package:faro_clean_tdd/features/events/presentation/widgets/event_tile/event_tile_class.dart';
 import 'package:flutter/material.dart';
-
 import '../../../domain/entities/event.dart';
 
 class EventTile extends StatelessWidget {
@@ -12,51 +9,23 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleHeight = getTileHeight(context);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: kElevationToShadow[3],
-        ),
-        height: titleHeight,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              EventTileImageContainer(event: event),
-              EventTileGeneralInfoContainer(event: event),
-              EventTileMoreInfoContainer(event: event),
-            ],
-          ),
+    final tileClass = EventTileClass(context: context, event: event);
+    return Container(
+      margin: tileClass.getContainerMargin(),
+      decoration: tileClass.getBoxDecoration(),
+      height: tileClass.getTileHeight(),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            tileClass.getImageContainer(),
+            tileClass.getGeneralInfoContainer(),
+            tileClass.getMoreInfoContainer(),
+          ],
         ),
       ),
     );
-  }
-
-  double getTileHeight(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    print(screenHeight);
-
-    final bool screenHeightIsMini = screenHeight < 580;
-    final bool screenHeightIsStandard =
-        screenHeight >= 580 && screenHeight <= 700;
-    final bool screenHeightIsLarge = screenHeight > 700;
-
-    if (screenHeightIsMini) {
-      return 80;
-    }
-    if (screenHeightIsStandard) {
-      return 120;
-    }
-    if (screenHeightIsLarge) {
-      return 130;
-    }
-    return 0;
   }
 }

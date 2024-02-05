@@ -24,8 +24,8 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   PhoneNumber number = PhoneNumber(isoCode: 'CI');
   late Widget content;
   bool hasError = false;
-  double minHeight = 70.0; // Taille minimale
-  double maxHeight = 90.0; // Taille maximale en cas d'erreur
+  double minHeight = 70.0;
+  double maxHeight = 90.0;
 
   @override
   Widget build(BuildContext context) {

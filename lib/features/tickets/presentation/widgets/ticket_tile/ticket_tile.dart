@@ -2,8 +2,7 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/my_ticket_page.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/widgets/ticket_tile/components/ticket_tile_general_info_container.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/widgets/ticket_tile/components/ticket_tile_image_container.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/widgets/ticket_tile/ticket_tile_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,10 +12,16 @@ class TicketTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Event> events = ref.read(allEventProvider);
+    Event getEvent(Ticket ticket) {
+      final List<Event> events = ref.read(allEventProvider);
+      return events.firstWhere((element) => element.id == ticket.eventId);
+    }
 
-    final Event event =
-        events.firstWhere((element) => element.id == ticket.eventId);
+    final Event event = getEvent(ticket);
+
+    final tileClass =
+        TicketTileClass(context: context, ticket: ticket, event: event);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: InkWell(
@@ -33,46 +38,21 @@ class TicketTile extends ConsumerWidget {
           );
         },
         child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: kElevationToShadow[3],
-          ),
-          height: getTileHeight(context),
-          width: MediaQuery.of(context).size.width,
+          decoration: tileClass.getBoxDecoration(),
+          height: tileClass.getTileHeight(),
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                TicketTileImageContainer(event: event),
-                TicketTileGeneralInfoContainer(ticket: ticket)
+                tileClass.getImageContainer(event.imageUrl),
+                tileClass.getGeneralInfoContainer(),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  double getTileHeight(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    final bool screenHeightIsMini = screenHeight < 580;
-    final bool screenHeightIsStandard =
-        screenHeight >= 580 && screenHeight <= 700;
-    final bool screenHeightIsLarge = screenHeight > 700;
-
-    if (screenHeightIsMini) {
-      return 80;
-    }
-    if (screenHeightIsStandard) {
-      return 100;
-    }
-    if (screenHeightIsLarge) {
-      return 120;
-    }
-    return 0;
   }
 }

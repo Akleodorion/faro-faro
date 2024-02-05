@@ -1,10 +1,17 @@
-import '../../../../domain/entities/event.dart';
 import 'package:flutter/material.dart';
 
 class EventTileGeneralInfoContainer extends StatelessWidget {
-  const EventTileGeneralInfoContainer({super.key, required this.event});
+  const EventTileGeneralInfoContainer(
+      {super.key,
+      required this.eventTitle,
+      required this.eventLimitedAddress,
+      required this.eventFormatedAddress,
+      required this.eventCategory});
 
-  final Event event;
+  final String eventTitle;
+  final String eventLimitedAddress;
+  final String eventFormatedAddress;
+  final String eventCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +24,14 @@ class EventTileGeneralInfoContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              event.name,
+              eventTitle,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            Text(event.address.getLocalityIfPresentElseReturnCountry(),
+            Text(eventLimitedAddress,
                 style: Theme.of(context).textTheme.titleSmall),
-            Text(event.formatedDate,
+            Text(eventFormatedAddress,
                 style: Theme.of(context).textTheme.titleSmall),
-            Text("Category: ${event.category.name}",
+            Text("Category: $eventCategory",
                 style: Theme.of(context).textTheme.titleSmall)
           ],
         ),
