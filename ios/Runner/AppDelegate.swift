@@ -9,7 +9,7 @@ import GoogleMaps
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         // Faites une requête HTTP pour récupérer la clé API
-        if let url = URL(string: "https://quiet-sea-37674-533e813b216d.herokuapp.com/get_api_key") {
+        if let url = URL(string: "https://faro-faro-721376a5fee3.herokuapp.com/get_api_key") {
             do {
                 let data = try Data(contentsOf: url)
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],

@@ -22,7 +22,6 @@ class AuthCard extends ConsumerStatefulWidget {
 
 class _AuthCardState extends ConsumerState<AuthCard> {
   bool logingIn = true;
-
   String? _enteredEmail;
   String? _enteredPassword;
   String? _enteredUsername;
@@ -52,7 +51,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
       }
       final state = await ref
           .read(userAuthProvider.notifier)
-          .logUserIn(_enteredEmail!, _enteredPassword!, _isChecked!);
+          .logUserIn(_enteredEmail!, _enteredPassword!, _isChecked ?? false);
 
       if (state is Error && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -173,7 +172,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                             const SizedBox(
                               height: 10,
                             ),
-                          const RememberCheckbox(),
+                          RememberCheckbox(isChecked: _isChecked ?? false),
                         ],
                       ),
                     ),

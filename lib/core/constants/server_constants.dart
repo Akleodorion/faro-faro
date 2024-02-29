@@ -1,18 +1,15 @@
 class ServerConstants {
   static const ticketUrl =
-      "https://quiet-sea-37674-533e813b216d.herokuapp.com/tickets";
+      "https://faro-faro-721376a5fee3.herokuapp.com/tickets";
   static const memberUrl =
-      "https://quiet-sea-37674-533e813b216d.herokuapp.com/members";
-  static const eventUrl =
-      "https://quiet-sea-37674-533e813b216d.herokuapp.com/events";
-  static const logInUrl =
-      "https://quiet-sea-37674-533e813b216d.herokuapp.com/login";
+      "https://faro-faro-721376a5fee3.herokuapp.com/members";
+  static const eventUrl = "https://faro-faro-721376a5fee3.herokuapp.com/events";
+  static const logInUrl = "https://faro-faro-721376a5fee3.herokuapp.com/login";
   static const signInUrl =
-      "https://quiet-sea-37674-533e813b216d.herokuapp.com/signup";
+      "https://faro-faro-721376a5fee3.herokuapp.com/signup";
   static const logOutUrl =
-      "https://quiet-sea-37674-533e813b216d.herokuapp.com/logout";
-  static const userUrl =
-      "https://quiet-sea-37674-533e813b216d.herokuapp.com/users";
+      "https://faro-faro-721376a5fee3.herokuapp.com/logout";
+  static const userUrl = "https://faro-faro-721376a5fee3.herokuapp.com/users";
 }
 
 abstract class ServerEndPoint {

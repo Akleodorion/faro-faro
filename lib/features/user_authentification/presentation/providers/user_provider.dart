@@ -39,3 +39,11 @@ final userInfoProvider = Provider<Map<String, dynamic>>((ref) {
   }
   return {};
 });
+
+final userLoginStatusProvider = Provider<bool>((ref) {
+  final state = ref.watch(userAuthProvider);
+  if (state is Loaded) {
+    return true;
+  }
+  return false;
+});

@@ -3,6 +3,7 @@ import 'package:faro_clean_tdd/core/util/usecase_alert_dialog.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/activate_event/activate_event_provider.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/activate_event/state/activate_event_state.dart';
+import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,6 +14,27 @@ class OpenStatusInfos extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     late Widget content;
+
+    void activateEvent({
+      required BuildContext context,
+      required ActivateEventState activateEventState,
+    }) {
+      final bool isSuccess = activateEventState is Loaded && context.mounted;
+      final bool isError = activateEventState is Error && context.mounted;
+
+      if (isSuccess) {
+        final fetchEventState = ref.read(fetchEventProvider);
+        ref.read(fetchEventProvider.notifier).setEventActivatedToTrue(
+            event: event, fetchEventState: fetchEventState);
+        showResultMessageSnackbar(
+            context: context, message: activateEventState.message);
+      }
+
+      if (isError) {
+        showResultMessageSnackbar(
+            context: context, message: activateEventState.message);
+      }
+    }
 
     if (event.activated) {
       content = Row(
@@ -60,23 +82,5 @@ class OpenStatusInfos extends ConsumerWidget {
     }
 
     return content;
-  }
-
-  void activateEvent({
-    required BuildContext context,
-    required ActivateEventState activateEventState,
-  }) {
-    final bool isSuccess = activateEventState is Loaded && context.mounted;
-    final bool isError = activateEventState is Error && context.mounted;
-
-    if (isSuccess) {
-      showResultMessageSnackbar(
-          context: context, message: activateEventState.message);
-    }
-
-    if (isError) {
-      showResultMessageSnackbar(
-          context: context, message: activateEventState.message);
-    }
   }
 }

@@ -39,12 +39,16 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   Future<TicketModel> createTicket({required TicketModel ticket}) async {
     final uri = Uri.parse(ServerTicketConstants.ticketUrl);
 
-    final response = await client.post(uri,
-        headers: {
-          "Content-Type": 'application/json',
-          'Accept': 'application/json',
-        },
-        body: json.encode(ticket.toJson()));
+    final response = await client.post(
+      uri,
+      headers: {
+        "Content-Type": 'application/json',
+        'Accept': 'application/json',
+      },
+      body: json.encode(
+        ticket.toJson(),
+      ),
+    );
 
     if (response.statusCode == 201) {
       final TicketModel createMember =

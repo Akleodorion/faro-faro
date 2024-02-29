@@ -24,8 +24,8 @@ class ContactRepositoryImpl implements ContactRepository {
     if (await networkInfo.isConnected) {
       try {
         final numbersList = await contactList.getContacts();
-        final result =
-            await remoteDataSource.fetchContacts(numbersList: numbersList);
+        final result = await remoteDataSource.fetchContactsInBatches(
+            numbersList: numbersList);
         return Right(result);
       } on ServerException catch (error) {
         return Left(ServerFailure(errorMessage: error.errorMessage));

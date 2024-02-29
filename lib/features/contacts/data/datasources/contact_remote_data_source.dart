@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:faro_clean_tdd/core/constants/server_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+import 'package:faro_clean_tdd/core/util/list_to_batches.dart';
 import 'package:faro_clean_tdd/features/contacts/data/models/contact_model.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,8 @@ import 'package:http/http.dart' as http;
 
 abstract class ContactRemoteDataSource {
   Future<List<Contact>> fetchContacts({required List<String> numbersList});
+  Future<List<Contact>> fetchContactsInBatches(
+      {required List<String> numbersList});
 }
 
 class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
@@ -21,7 +24,6 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
     final Map<String, List<String>> params = {"phone_numbers[]": numbersList};
     final uri =
         Uri.parse(ServerConstants.userUrl).replace(queryParameters: params);
-
     //Fait la requête
     final response = await client.get(
       uri,
@@ -42,5 +44,20 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
       throw ServerException(
           errorMessage: "An error as occured please try again later");
     }
+  }
+
+  @override
+  Future<List<Contact>> fetchContactsInBatches(
+      {required List<String> numbersList}) async {
+    const int batchSize = 100;
+
+    final List<List<String>> batches = ListToBatchesImpl()
+        .listToBatches(batchSize: batchSize, list: numbersList);
+    List<Contact> allContacts = [];
+    for (List<String> batch in batches) {
+      List<Contact> contacts = await fetchContacts(numbersList: batch);
+      allContacts.addAll(contacts);
+    }
+    return allContacts;
   }
 }

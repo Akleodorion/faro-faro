@@ -87,6 +87,7 @@ class UserNotifier extends StateNotifier<UserState> {
       return await getUserInfo();
     }
     state = Loaded(user: response, message: "Connecté avec succès!");
+
     return state;
   }
 

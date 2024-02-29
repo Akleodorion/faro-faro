@@ -36,46 +36,44 @@ class _TicketPageState extends State<TicketPage> {
 
     bool isMyTicket = widget.isMyTicket;
 
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    widget.setEvent(true);
-                  },
-                  style: isMyTicket == true
-                      ? selectedPageStyle
-                      : unSelectedPageStyle,
-                  child: const Text(
-                    TicketPageString.myTickets,
-                  ),
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {
+                  widget.setEvent(true);
+                },
+                style: isMyTicket == true
+                    ? selectedPageStyle
+                    : unSelectedPageStyle,
+                child: const Text(
+                  TicketPageString.myTickets,
                 ),
-                TextButton(
-                  onPressed: () {
-                    widget.setEvent(false);
-                  },
-                  style: isMyTicket == false
-                      ? selectedPageStyle
-                      : unSelectedPageStyle,
-                  child: const Text(TicketPageString.myEvents),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: isMyTicket ? const MyTicketList() : const MyEventList(),
-            )
-          ],
-        ),
+              ),
+              TextButton(
+                onPressed: () {
+                  widget.setEvent(false);
+                },
+                style: isMyTicket == false
+                    ? selectedPageStyle
+                    : unSelectedPageStyle,
+                child: const Text(TicketPageString.myEvents),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: isMyTicket ? const MyTicketList() : const MyEventList(),
+          )
+        ],
       ),
     );
   }
