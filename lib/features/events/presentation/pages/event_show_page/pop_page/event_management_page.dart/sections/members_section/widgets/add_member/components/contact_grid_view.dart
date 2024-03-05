@@ -25,6 +25,7 @@ class ContactGridView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final bool isForAddMember = event != null;
     return SizedBox(
       height: mediaHeight * 0.2,
