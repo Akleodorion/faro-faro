@@ -49,7 +49,6 @@ class UserAuthentificationRepositoryImpl
       "phone_number": phoneNumber,
       "pref": pref.toString(),
     };
-
     return await _getSignInOrLogIn(signInInfo, () {
       return remoteDataSource.userSignInRequest(signInInfo: signInInfo);
     });
@@ -86,7 +85,6 @@ class UserAuthentificationRepositoryImpl
     final cachedToken = await localDataSource.getLastCachedToken();
     final lastLoginDateTime = await localDataSource.getLastLoginDatetime();
     final lastUserAuth = await localDataSource.getUserAuth();
-
     final userInfo = {
       "email": lastUserAuth!["email"],
       "password": lastUserAuth["password"],
@@ -114,7 +112,7 @@ class UserAuthentificationRepositoryImpl
   Future<Failure?> logUserOut({required String jwt}) async {
     try {
       await remoteDataSource.userLogOutRequest(jwt: jwt);
-      // destroy token.
+      await localDataSource.resetLastCachedTokenAndDateTime();
       return null;
     } on ServerException catch (e) {
       return ServerFailure(errorMessage: e.errorMessage);

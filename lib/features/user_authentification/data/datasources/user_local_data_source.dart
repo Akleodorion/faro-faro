@@ -17,6 +17,9 @@ abstract class UserLocalDataSource {
   ///Gets the last cached JWT token
   Future<String?> getLastCachedToken();
 
+  //Sets the last cached JWT token to empty string
+  Future<void>? resetLastCachedTokenAndDateTime();
+
   /// Stores all the connexion data in the cache
   Future<void>? storeConnexionData({
     required bool pref,
@@ -90,5 +93,11 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
         pref ? json.encode(userAuth) : json.encode(clearedUserAuth));
     sharedPreferences.setString(CACHED_LOGIN_DATETIME, pref ? dateTime : "");
     sharedPreferences.setString(CACHED_JWT_TOKEN, pref ? jwtToken : "");
+  }
+
+  @override
+  Future<void>? resetLastCachedTokenAndDateTime() async {
+    sharedPreferences.setString(CACHED_JWT_TOKEN, "");
+    sharedPreferences.setString(CACHED_LOGIN_DATETIME, "");
   }
 }

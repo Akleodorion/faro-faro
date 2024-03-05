@@ -23,7 +23,6 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   @override
   Future<List<Contact>> fetchContactsInBatches(
       {required List<String> numbersList}) async {
-    print(numbersList);
     List<Contact> allContacts = [];
 
     final List<dynamic> batches = ListToBatchesImpl().listToBatches(

@@ -27,7 +27,7 @@ final userAuthProvider = StateNotifierProvider<UserNotifier, UserState>(
 );
 
 final userInfoProvider = Provider<Map<String, dynamic>>((ref) {
-  final state = ref.read(userAuthProvider);
+  final state = ref.watch(userAuthProvider);
   if (state is Loaded) {
     return {
       'username': state.user.username,
