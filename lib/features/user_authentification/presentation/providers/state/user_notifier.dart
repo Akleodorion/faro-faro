@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../../core/errors/failures.dart';
 import '../../../domain/usecases/get_user_info.dart';
@@ -37,6 +38,7 @@ class UserNotifier extends StateNotifier<UserState> {
     }, (user) {
       state = Loaded(user: user!, message: "Connecté avec succès!");
     });
+
     return state;
   }
 
@@ -49,12 +51,14 @@ class UserNotifier extends StateNotifier<UserState> {
   Future<UserState> signUserIn(String email, String password,
       String phoneNumber, String username, bool pref) async {
     state = Loading();
-    final response = await signUserInUsecase.call(si.Params(
-        email: email,
-        password: password,
-        username: username,
-        phoneNumber: phoneNumber,
-        pref: pref));
+    final response = await signUserInUsecase.call(
+      si.Params(
+          email: email,
+          password: password,
+          username: username,
+          phoneNumber: phoneNumber,
+          pref: pref),
+    );
 
     response.fold((failure) {
       if (failure is ServerFailure) {
@@ -71,8 +75,13 @@ class UserNotifier extends StateNotifier<UserState> {
   Future<UserState?> logUserOut({required String jwt}) async {
     state = Loading();
     await logUserOutUsecase.execute(jwt: jwt);
+    await restartApp();
     state = await getUserInfo();
     return state;
+  }
+
+  Future<void> restartApp() async {
+    await SystemNavigator.pop();
   }
 
   Future<UserState> getUserInfo() async {
