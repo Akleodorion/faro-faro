@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SendTicket extends ConsumerWidget {
-  const SendTicket(
-      {super.key, required this.mediaHeight, required this.ticket});
+  const SendTicket({
+    super.key,
+    required this.mediaHeight,
+    required this.ticket,
+  });
 
   final double mediaHeight;
   final Ticket ticket;
