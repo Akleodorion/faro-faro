@@ -1,5 +1,6 @@
 import 'package:faro_clean_tdd/core/general_theme/general_theme.dart';
 import 'package:faro_clean_tdd/widgets/autch_checker.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -12,10 +13,11 @@ void main() async {
   await initializeDateFormatting('fr_FR', null);
   await di.init();
   await dotenv.load(fileName: ".env");
-
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+    (value) => runApp(
+      const ProviderScope(
+        child: MyApp(),
+      ),
     ),
   );
 }

@@ -169,7 +169,7 @@ class Event extends Equatable {
 
   int get platinumTicketNumber {
     final myList =
-        tickets.where((element) => element.type == Type.gold).toList();
+        tickets.where((element) => element.type == Type.platinum).toList();
     return myList.length;
   }
 

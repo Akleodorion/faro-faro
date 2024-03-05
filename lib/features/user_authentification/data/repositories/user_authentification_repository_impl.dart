@@ -114,6 +114,7 @@ class UserAuthentificationRepositoryImpl
   Future<Failure?> logUserOut({required String jwt}) async {
     try {
       await remoteDataSource.userLogOutRequest(jwt: jwt);
+      // destroy token.
       return null;
     } on ServerException catch (e) {
       return ServerFailure(errorMessage: e.errorMessage);

@@ -1,4 +1,3 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/permission_requester.dart';
@@ -14,6 +13,7 @@ class GetContactListImpl implements GetContactList {
 
   final PermissionRequester permissionRequester;
   final ContactService contactService;
+
   @override
   Future<List<String>> getContacts() async {
     final requestStatus = await permissionRequester.requestContactPermission();
@@ -22,30 +22,12 @@ class GetContactListImpl implements GetContactList {
     }
 
     final listOfContacts = await contactService.callContactService();
-    final List<String> contacts = filteredContactList(listOfContacts);
+    final List<String> contacts = contactService.filterContactList(
+      contacts: listOfContacts,
+      digits: 10,
+      prefix: 225,
+    );
+
     return contacts;
   }
-}
-
-List<String> filteredContactList(List<Contact> contacts) {
-  List<String> contactList = [];
-  //Filtrer les contacts sans numéro
-  contacts.removeWhere((element) => element.phones!.isEmpty);
-  // Filtrer les contacts qui n'ont pas de numéro soit de 10 chiffres soit de 14 chiffres
-  for (final contact in contacts) {
-    for (final phone in contact.phones!) {
-      final checkedPhone = phone.value!.replaceAll(' ', '');
-      final bool isTenDigits = checkedPhone.length == 10;
-      final bool isIvorianPhone = checkedPhone.contains("+225");
-
-      if (isTenDigits) {
-        contactList.add("+225$checkedPhone");
-      }
-      if (isIvorianPhone) {
-        contactList.add(checkedPhone);
-      }
-    }
-  }
-
-  return contactList;
 }
