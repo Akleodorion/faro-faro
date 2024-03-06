@@ -110,12 +110,12 @@ class Event extends Equatable {
 
   int get standardTicketNumber {
     final myList =
-        tickets.where((element) => element.type == Type.standard).toList();
+        tickets.where((ticket) => ticket.type == Type.standard).toList();
     return myList.length;
   }
 
   String get standardTicketLeft {
-    final myList = tickets.where((element) => element.type == Type.standard);
+    final myList = tickets.where((ticket) => ticket.type == Type.standard);
     final ticketCount = maxStandardTicket - myList.length;
 
     if (ticketCount == 0) {
@@ -128,20 +128,19 @@ class Event extends Equatable {
   }
 
   int get standardTicketCountLeft {
-    final myList = tickets.where((element) => element.type == Type.standard);
+    final myList = tickets.where((ticket) => ticket.type == Type.standard);
     final ticketCount = maxStandardTicket - myList.length;
 
     return ticketCount;
   }
 
   int get goldTicketNumber {
-    final myList =
-        tickets.where((element) => element.type == Type.gold).toList();
+    final myList = tickets.where((ticket) => ticket.type == Type.gold).toList();
     return myList.length;
   }
 
   String get goldTicketLeft {
-    final myList = tickets.where((element) => element.type == Type.gold);
+    final myList = tickets.where((ticket) => ticket.type == Type.gold);
 
     if (maxGoldTicket == null) {
       return "Il n'y a pas de ticket de ce type en vente.";
@@ -158,7 +157,7 @@ class Event extends Equatable {
   }
 
   int? get goldTicketCountLeft {
-    final myList = tickets.where((element) => element.type == Type.gold);
+    final myList = tickets.where((ticket) => ticket.type == Type.gold);
     if (maxGoldTicket != null) {
       final ticketCount = maxGoldTicket! - myList.length;
       return ticketCount;
@@ -169,12 +168,12 @@ class Event extends Equatable {
 
   int get platinumTicketNumber {
     final myList =
-        tickets.where((element) => element.type == Type.platinum).toList();
+        tickets.where((ticket) => ticket.type == Type.platinum).toList();
     return myList.length;
   }
 
   String get platinumTicketLeft {
-    final myList = tickets.where((element) => element.type == Type.platinum);
+    final myList = tickets.where((ticket) => ticket.type == Type.platinum);
 
     if (maxPlatinumTicket == null) {
       return "Il n'y a pas de ticket de ce type en vente.";
@@ -191,7 +190,7 @@ class Event extends Equatable {
   }
 
   int? get platinumTicketCountLeft {
-    final myList = tickets.where((element) => element.type == Type.platinum);
+    final myList = tickets.where((ticket) => ticket.type == Type.platinum);
     if (maxPlatinumTicket != null) {
       final ticketCount = maxPlatinumTicket! - myList.length;
       return ticketCount;
