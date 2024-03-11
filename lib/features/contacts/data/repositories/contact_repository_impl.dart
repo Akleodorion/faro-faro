@@ -20,12 +20,12 @@ class ContactRepositoryImpl implements ContactRepository {
   final GetContactList contactList;
 
   @override
-  Future<Either<Failure, List<Contact>>> fectchConctacts() async {
+  Future<Either<Failure, List<Contact>>> fectchConctacts(
+      List<String> numberList) async {
     if (await networkInfo.isConnected) {
       try {
-        final numbersList = await contactList.getContacts();
         final result = await remoteDataSource.fetchContactsInBatches(
-            numbersList: numbersList);
+            numbersList: numberList);
         return Right(result);
       } on ServerException catch (error) {
         return Left(ServerFailure(errorMessage: error.errorMessage));
