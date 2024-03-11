@@ -1,4 +1,3 @@
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/add_member/add_member.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/member_list_view/member_list_view.dart';
@@ -9,12 +8,10 @@ class MembersSection extends StatelessWidget {
   const MembersSection({
     super.key,
     required this.mediaHeight,
-    required this.contactList,
     required this.event,
   });
 
   final double mediaHeight;
-  final List<Contact> contactList;
   final Event event;
 
   @override
@@ -29,10 +26,7 @@ class MembersSection extends StatelessWidget {
               "Membres de l'évènement",
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            AddMember(
-                mediaHeight: mediaHeight,
-                contactList: contactList,
-                event: event),
+            AddMember(mediaHeight: mediaHeight, event: event),
           ],
         ),
         const SizedBox(
