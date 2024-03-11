@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
@@ -30,7 +30,7 @@ class AddMember extends ConsumerWidget {
           try {
             final List<String> numberList = await GetContactListImpl(
               contactService: ContactServiceImpl(),
-              permissionRequester: PermissionRequesterImpl(),
+              permissionHandler: PermissionHandlerImp(),
             ).getContacts(context);
 
             await ref
