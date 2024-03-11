@@ -1,11 +1,12 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/add_member/components/modal_bottom_sheet_layout.dart';
+import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/add_member/fonctions/pop_up_bottom_sheet.dart';
+import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/add_member/fonctions/pop_up_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,7 +31,7 @@ class AddMember extends ConsumerWidget {
           try {
             final List<String> numberList = await GetContactListImpl(
               contactService: ContactServiceImpl(),
-              permissionRequester: PermissionRequesterImpl(),
+              permissionHandler: PermissionHandlerImp(),
             ).getContacts(context);
 
             await ref
@@ -38,41 +39,18 @@ class AddMember extends ConsumerWidget {
                 .fetchContact(numberList);
           } on ServerException {
             if (context.mounted) {
-              await showDialog(
-                context: context,
-                builder: (builder) {
-                  return AlertDialog(
-                    title: const Text("Accès liste des contacts"),
-                    content: const Text(
-                        "L'application n'a pas reçu l'autorisation d'accès à la liste de contact.\nVeuillez l'activer dans les paramètres du téléphone."),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text(
-                          "Confirmer",
-                        ),
-                      )
-                    ],
-                  );
-                },
-              );
+              await popUpDialog(context: context);
+
               return;
             }
           }
         }
 
         if (context.mounted) {
-          showModalBottomSheet(
-            context: (context),
-            builder: (BuildContext context) {
-              return ModalBottomSheetLayout(
-                mediaHeight: mediaHeight,
-                contactList: ref.read(contactsListProvider),
-                event: event,
-              );
-            },
+          await popUpBottomSheet(
+            context: context,
+            mediaHeight: mediaHeight,
+            ref: ref,
           );
         }
       },

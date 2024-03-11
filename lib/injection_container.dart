@@ -1,6 +1,7 @@
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
 import 'package:faro_clean_tdd/core/util/get_location.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler.dart';
 import 'package:faro_clean_tdd/core/util/permission_requester.dart';
 import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/address/data/repositories/address_repository_impl.dart';
@@ -215,11 +216,12 @@ Future<void> init() async {
 
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
-  sl.registerLazySingleton<GetContactList>(() =>
-      GetContactListImpl(contactService: sl(), permissionRequester: sl()));
+  sl.registerLazySingleton<GetContactList>(
+      () => GetContactListImpl(contactService: sl(), permissionHandler: sl()));
   sl.registerLazySingleton(() => GetLocationImpl(location: sl()));
   sl.registerLazySingleton<DateTimeComparator>(() => DateTimeComparatorImpl());
   sl.registerLazySingleton<ContactService>(() => ContactServiceImpl());
+  sl.registerLazySingleton<PermissionHandler>(() => PermissionHandlerImp());
   sl.registerLazySingleton<PermissionRequester>(
       () => PermissionRequesterImpl());
 

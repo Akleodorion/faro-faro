@@ -1,6 +1,6 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -10,45 +10,28 @@ abstract class GetContactList {
 
 class GetContactListImpl implements GetContactList {
   GetContactListImpl(
-      {required this.contactService, required this.permissionRequester});
+      {required this.contactService, required this.permissionHandler});
 
-  final PermissionRequester permissionRequester;
   final ContactService contactService;
+  final PermissionHandler permissionHandler;
 
   @override
   Future<List<String>> getContacts(BuildContext context) async {
     PermissionStatus requestStatus = await Permission.contacts.status;
+
     if (requestStatus == PermissionStatus.denied && context.mounted) {
-      // Montrer le dialog
-      await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Permission"),
-              content: const Text(
-                  "Cette fonctionnalité à besoin d'un accès à votre liste de contact."),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Continuer"),
-                )
-              ],
-            );
-          });
-      // demander la permission.
-      requestStatus = await Permission.contacts.request();
+      requestStatus = await permissionHandler.requestContact(context: context);
     }
+
     if (requestStatus == PermissionStatus.granted) {
-      final listOfContacts = await contactService.callContactService();
-      final List<String> contacts = contactService.filterContactList(
-        contacts: listOfContacts,
+      final contacts = await contactService.callContactService();
+      final List<String> filteredContacts = contactService.filterContactList(
+        contacts: contacts,
         digits: 10,
         prefix: 225,
       );
 
-      return contacts;
+      return filteredContacts;
     }
     throw ServerException(
       errorMessage: "La permission n'a pas été accordée",
