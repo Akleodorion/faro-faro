@@ -11,6 +11,7 @@ import 'package:faro_clean_tdd/features/contacts/data/datasources/contact_remote
     as _i4;
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart'
     as _i5;
+import 'package:flutter/material.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -70,6 +71,18 @@ class MockContactRemoteDataSource extends _i1.Mock
         ),
         returnValue: _i3.Future<List<_i5.Contact>>.value(<_i5.Contact>[]),
       ) as _i3.Future<List<_i5.Contact>>);
+
+  @override
+  _i3.Future<List<_i5.Contact>> fetchContactsInBatches(
+          {required List<String>? numbersList}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchContactsInBatches,
+          [],
+          {#numbersList: numbersList},
+        ),
+        returnValue: _i3.Future<List<_i5.Contact>>.value(<_i5.Contact>[]),
+      ) as _i3.Future<List<_i5.Contact>>);
 }
 
 /// A class which mocks [GetContactList].
@@ -81,10 +94,11 @@ class MockGetContactList extends _i1.Mock implements _i6.GetContactList {
   }
 
   @override
-  _i3.Future<List<String>> getContacts() => (super.noSuchMethod(
+  _i3.Future<List<String>> getContacts(_i7.BuildContext? context) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getContacts,
-          [],
+          [context],
         ),
         returnValue: _i3.Future<List<String>>.value(<String>[]),
       ) as _i3.Future<List<String>>);

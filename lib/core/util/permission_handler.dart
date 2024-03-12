@@ -3,6 +3,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 abstract class PermissionHandler {
   Future<PermissionStatus> requestContact({BuildContext? context});
+  Future<PermissionStatus> requestContactStatus();
 }
 
 class PermissionHandlerImp implements PermissionHandler {
@@ -23,21 +24,27 @@ class PermissionHandlerImp implements PermissionHandler {
   Future dialogPopUp(
       {required BuildContext context, required String featureNeeded}) async {
     await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Permission requise."),
-            content: Text(
-                "Cette fonctionnalité à besoin d'un accès à votre $featureNeeded."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Continuer"),
-              )
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Permission requise."),
+          content: Text(
+              "Cette fonctionnalité à besoin d'un accès à votre $featureNeeded."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Continuer"),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Future<PermissionStatus> requestContactStatus() async {
+    return await Permission.contacts.status;
   }
 }

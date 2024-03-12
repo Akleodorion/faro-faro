@@ -2,7 +2,8 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -10,89 +11,96 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'get_contact_list_test.mocks.dart';
 
-@GenerateMocks([PermissionRequester, ContactService])
+@GenerateMocks([PermissionHandler, ContactService, BuildContext])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late MockPermissionRequester mockPermissionRequester;
+  late MockPermissionHandler mockPermissionHandler;
+  late MockBuildContext mockBuildContext;
   late MockContactService mockContactService;
   late GetContactListImpl sut;
 
   setUp(() {
-    mockPermissionRequester = MockPermissionRequester();
+    mockPermissionHandler = MockPermissionHandler();
+    mockBuildContext = MockBuildContext();
     mockContactService = MockContactService();
     sut = GetContactListImpl(
-        permissionRequester: mockPermissionRequester,
+        permissionHandler: mockPermissionHandler,
         contactService: mockContactService);
   });
 
   group(
     "getContacts",
     () {
+      setUp(() {
+        when(mockPermissionHandler.requestContactStatus()).thenAnswer(
+          (_) async => PermissionStatus.denied,
+        );
+      });
       group(
         "when the permission has not been granted",
         () {
-          test(
-            "should throw a serverexception",
-            () async {
-              //arrange
-              when(mockPermissionRequester.requestContactPermission())
-                  .thenAnswer(
-                      (realInvocation) async => PermissionStatus.denied);
-              //act
-              //assert
+          setUp(() {
+            when(mockPermissionHandler.requestContact(
+                    context: anyNamed('context')))
+                .thenAnswer((_) async => PermissionStatus.denied);
 
-              expect(
-                () => sut.getContacts(),
-                throwsA(isA<ServerException>()),
-              );
-            },
-          );
+            when(mockBuildContext.mounted).thenReturn(true);
+          });
+          test("should throw a ServerException", () async {
+            expect(
+              () async => await sut.getContacts(mockBuildContext),
+              throwsA(
+                isA<ServerException>(),
+              ),
+            );
+          });
         },
       );
 
       group(
         "when the permission has been granted",
         () {
-          final List<Contact> tContactNumber = [
-            Contact(phones: [
-              Item(label: "chris", value: "+225 10 20 30 40 50"),
-              Item(label: "chris-whatsapp", value: "+225 52 52 52 52 52")
-            ]),
-            Contact(phones: [
-              Item(label: "tressy", value: "+225 50 60 70 80 90"),
-            ]),
-          ];
-
-          test(
-            "should return an empty string if no number was found",
-            () async {
-              //arrange
-              when(mockPermissionRequester.requestContactPermission())
-                  .thenAnswer(
-                      (realInvocation) async => PermissionStatus.granted);
-              when(mockContactService.callContactService())
-                  .thenAnswer((realInvocation) async => []);
-              //act
-              final result = await sut.getContacts();
-              //assert
-              expect(result, []);
-            },
+          final Contact contact1 = Contact(
+            givenName: "Chris",
+            phones: [
+              Item(value: "+225 08 07 09 02 94"),
+            ],
           );
+          final Contact contact2 = Contact(
+            givenName: "Tressy",
+            phones: [
+              Item(value: "+225 08 07 26 01 93"),
+            ],
+          );
+          final List<Contact> contacts = [contact1, contact2];
+          setUp(() {
+            when(
+              mockPermissionHandler.requestContact(
+                context: anyNamed('context'),
+              ),
+            ).thenAnswer((_) async => PermissionStatus.granted);
+            when(mockBuildContext.mounted).thenReturn(true);
+          });
 
           test(
-            "should return the full list of phone number",
+            "should return a filtered list of phone number",
             () async {
-              //arrange
-              when(mockPermissionRequester.requestContactPermission())
-                  .thenAnswer(
-                      (realInvocation) async => PermissionStatus.granted);
+              final List<String> numbers = [
+                "+225 08 07 09 02 94",
+                "+225 08 07 26 01 93",
+              ];
+
               when(mockContactService.callContactService())
-                  .thenAnswer((realInvocation) async => tContactNumber);
-              //act
-              final result = await sut.getContacts();
-              //assert
-              expect(result,
-                  ["+2251020304050", "+2255252525252", "+2255060708090"]);
+                  .thenAnswer((_) async => contacts);
+              when(
+                mockContactService.filterContactList(
+                    contacts: anyNamed("contacts"),
+                    digits: anyNamed("digits"),
+                    prefix: anyNamed("prefix")),
+              ).thenAnswer((_) => numbers);
+
+              final result = await sut.getContacts(mockBuildContext);
+              expect(result, numbers);
             },
           );
         },

@@ -175,6 +175,15 @@ class MockUserLocalDataSource extends _i1.Mock
       ) as _i4.Future<String?>);
 
   @override
+  _i4.Future<void>? resetLastCachedTokenAndDateTime() => (super.noSuchMethod(
+        Invocation.method(
+          #resetLastCachedTokenAndDateTime,
+          [],
+        ),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>?);
+
+  @override
   _i4.Future<void>? storeConnexionData({
     required bool? pref,
     required Map<String, String>? userAuth,

@@ -45,11 +45,12 @@ class MockContactRepository extends _i1.Mock implements _i3.ContactRepository {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Contact>>> fectchConctacts() =>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Contact>>> fectchConctacts(
+          List<String>? numberList) =>
       (super.noSuchMethod(
         Invocation.method(
           #fectchConctacts,
-          [],
+          [numberList],
         ),
         returnValue:
             _i4.Future<_i2.Either<_i5.Failure, List<_i6.Contact>>>.value(
@@ -57,7 +58,7 @@ class MockContactRepository extends _i1.Mock implements _i3.ContactRepository {
           this,
           Invocation.method(
             #fectchConctacts,
-            [],
+            [numberList],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Contact>>>);

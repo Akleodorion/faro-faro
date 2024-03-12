@@ -68,11 +68,12 @@ class MockFetchContactUsecase extends _i1.Mock
       ) as _i2.ContactRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Contact>>> execute() =>
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Contact>>> execute(
+          List<String>? numberList) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [],
+          [numberList],
         ),
         returnValue:
             _i5.Future<_i3.Either<_i6.Failure, List<_i7.Contact>>>.value(
@@ -80,7 +81,7 @@ class MockFetchContactUsecase extends _i1.Mock
           this,
           Invocation.method(
             #execute,
-            [],
+            [numberList],
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Contact>>>);

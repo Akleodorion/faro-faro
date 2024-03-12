@@ -17,24 +17,26 @@ class GetContactListImpl implements GetContactList {
 
   @override
   Future<List<String>> getContacts(BuildContext context) async {
-    PermissionStatus requestStatus = await Permission.contacts.status;
+    PermissionStatus requestStatus =
+        await permissionHandler.requestContactStatus();
 
     if (requestStatus == PermissionStatus.denied && context.mounted) {
       requestStatus = await permissionHandler.requestContact(context: context);
     }
 
-    if (requestStatus == PermissionStatus.granted) {
-      final contacts = await contactService.callContactService();
-      final List<String> filteredContacts = contactService.filterContactList(
-        contacts: contacts,
-        digits: 10,
-        prefix: 225,
+    if (requestStatus != PermissionStatus.granted) {
+      throw ServerException(
+        errorMessage: "La permission n'a pas été accordée",
       );
-
-      return filteredContacts;
     }
-    throw ServerException(
-      errorMessage: "La permission n'a pas été accordée",
+
+    final contacts = await contactService.callContactService();
+    final List<String> filteredContacts = contactService.filterContactList(
+      contacts: contacts,
+      digits: 10,
+      prefix: 225,
     );
+
+    return filteredContacts;
   }
 }
