@@ -29,14 +29,14 @@ class AddMember extends ConsumerWidget {
 
         if (contactState is Loading) {
           try {
-            final List<String> numberList = await GetContactListImpl(
+            final List<String> numbers = await GetContactListImpl(
               contactService: ContactServiceImpl(),
               permissionHandler: PermissionHandlerImp(),
             ).getContacts(context);
 
             await ref
                 .read(contactStateProvider.notifier)
-                .fetchContact(numberList);
+                .fetchContact(numbers: numbers);
           } on ServerException {
             if (context.mounted) {
               await popUpDialog(context: context);

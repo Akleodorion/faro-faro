@@ -9,8 +9,8 @@ class ContactNotifier extends StateNotifier<ContactState> {
   final FetchContactUsecase usecase;
   ContactState get initialState => Loading();
 
-  Future<ContactState> fetchContact(List<String> numberList) async {
-    final result = await usecase.execute(numberList);
+  Future<ContactState> fetchContact({required List<String> numbers}) async {
+    final result = await usecase.execute(numbers: numbers);
     result.fold((failure) {
       if (failure is ServerFailure) {
         state = Error(message: failure.errorMessage);

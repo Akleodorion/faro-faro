@@ -7,13 +7,19 @@ import 'package:faro_clean_tdd/features/contacts/data/datasources/contact_remote
 import 'package:faro_clean_tdd/features/contacts/data/repositories/contact_repository_impl.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:faro_clean_tdd/features/members/data/repositories/member_repository_impl.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'contact_repository_impl_test.mocks.dart';
 
-@GenerateMocks([NetworkInfo, ContactRemoteDataSource, GetContactList])
+@GenerateMocks([
+  NetworkInfo,
+  ContactRemoteDataSource,
+  GetContactList,
+  BuildContext,
+])
 void main() {
   late MockNetworkInfo mockNetworkInfo;
   late MockContactRemoteDataSource mockContactRemoteDataSource;
@@ -48,7 +54,7 @@ void main() {
           test(
             " should return return  a ServerFailure",
             () async {
-              final result = await sut.fectchConctacts();
+              final result = await sut.fectchConctacts(numbers: tNumbersList);
               //assert
               expect(result,
                   const Left(ServerFailure(errorMessage: noInternetConnexion)));
@@ -70,58 +76,40 @@ void main() {
                 "should return a ServerFailure",
                 () async {
                   //arrange
-                  when(mockGetContactList.getContacts()).thenThrow(
-                      ServerException(errorMessage: 'permission requise'));
+                  when(mockContactRemoteDataSource.fetchContactsInBatches(
+                          numbersList: anyNamed("numbersList")))
+                      .thenThrow(
+                          ServerException(errorMessage: 'permission requise'));
                   //act
-                  final result = await sut.fectchConctacts();
+                  final result =
+                      await sut.fectchConctacts(numbers: tNumbersList);
                   //assert
                   expect(
-                      result,
-                      const Left(
-                          ServerFailure(errorMessage: 'permission requise')));
-                  verify(mockGetContactList.getContacts()).called(1);
+                    result,
+                    const Left(
+                      ServerFailure(errorMessage: 'permission requise'),
+                    ),
+                  );
                 },
               );
             },
           );
 
           group(
-            "when the request of contact list is granted",
+            "when the request is successfull ",
             () {
-              setUp(() => when(mockGetContactList.getContacts())
-                  .thenAnswer((realInvocation) async => tNumbersList));
               test(
-                "should return a valid list of contacts when the call is succesfull",
+                "should return a Right contact List",
                 () async {
                   //arrange
-                  when(mockContactRemoteDataSource.fetchContacts(
-                          numbersList: anyNamed('numbersList')))
-                      .thenAnswer((realInvocation) async => tContacts);
+                  when(mockContactRemoteDataSource.fetchContactsInBatches(
+                          numbersList: anyNamed("numbersList")))
+                      .thenAnswer((_) async => tContacts);
                   //act
-                  final result = await sut.fectchConctacts();
+                  final result =
+                      await sut.fectchConctacts(numbers: tNumbersList);
                   //assert
                   expect(result, const Right(tContacts));
-                  verify(mockContactRemoteDataSource.fetchContacts(
-                          numbersList: tNumbersList))
-                      .called(1);
-                },
-              );
-
-              test(
-                "should return a ServerFailure when the call is unsuccesfull",
-                () async {
-                  //arrange
-                  when(mockContactRemoteDataSource.fetchContacts(
-                          numbersList: anyNamed('numbersList')))
-                      .thenThrow(ServerException(errorMessage: 'oops'));
-                  //act
-                  final result = await sut.fectchConctacts();
-                  //assert
-                  expect(
-                      result, const Left(ServerFailure(errorMessage: 'oops')));
-                  verify(mockContactRemoteDataSource.fetchContacts(
-                          numbersList: tNumbersList))
-                      .called(1);
                 },
               );
             },

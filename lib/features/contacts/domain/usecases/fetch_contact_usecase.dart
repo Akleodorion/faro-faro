@@ -9,7 +9,7 @@ class FetchContactUsecase {
   FetchContactUsecase({required this.repository});
 
   Future<Either<Failure, List<Contact>>> execute(
-      List<String> numberList) async {
-    return await repository.fectchConctacts(numberList);
+      {required List<String> numbers}) async {
+    return await repository.fectchConctacts(numbers: numbers);
   }
 }

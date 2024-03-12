@@ -27,17 +27,19 @@ void main() {
       const Contact tContact2 =
           Contact(userId: 2, phoneNumber: "+2251025452674", username: "user 2");
       const tContacts = [tContact1, tContact2];
+      const tNumbersList = ["+2254546585", "+22552525252"];
       test(
         "should return a valid list of contact if the call is a success",
         () async {
           //arrange
-          when(mockContactRepository.fectchConctacts())
+          when(mockContactRepository.fectchConctacts(
+                  numbers: anyNamed('numbers')))
               .thenAnswer((realInvocation) async => const Right(tContacts));
           //act
-          final result = await sut.execute();
+          final result = await sut.execute(numbers: tNumbersList);
           //assert
           expect(result, const Right(tContacts));
-          verify(mockContactRepository.fectchConctacts());
+          verify(mockContactRepository.fectchConctacts(numbers: tNumbersList));
         },
       );
 
@@ -45,14 +47,15 @@ void main() {
         "should return a ServerFailure if the call is not a success",
         () async {
           //arrange
-          when(mockContactRepository.fectchConctacts()).thenAnswer(
-              (realInvocation) async =>
+          when(mockContactRepository.fectchConctacts(
+                  numbers: anyNamed("numbers")))
+              .thenAnswer((realInvocation) async =>
                   const Left(ServerFailure(errorMessage: 'oops')));
           //act
-          final result = await sut.execute();
+          final result = await sut.execute(numbers: tNumbersList);
           //assert
           expect(result, const Left(ServerFailure(errorMessage: 'oops')));
-          verify(mockContactRepository.fectchConctacts());
+          verify(mockContactRepository.fectchConctacts(numbers: tNumbersList));
         },
       );
     },
