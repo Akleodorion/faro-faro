@@ -54,33 +54,34 @@ class NewEventPage extends ConsumerWidget {
         final pickedImage = ref.read(pickedImagedProvider);
 
         final myEventModel = EventModel(
-            name: enteredName,
-            id: null,
-            description: enteredDescription ?? '',
-            date: enteredDateTime,
-            startTime: pickedStartTime,
-            endTime: pickedEndTime,
-            address: pickedAddress!,
-            category: pickedCategory,
-            imageUrl: "",
-            userId: userId,
-            modelEco: pickedModelEco,
-            members: const [],
-            tickets: const [],
-            activated: false,
-            closed: false,
-            standardTicketPrice:
-                standardTicketPrice == 0 ? null : standardTicketPrice,
-            maxStandardTicket: standardTicketNumber,
-            standardTicketDescription: standardTicketDescritpion ?? '',
-            goldTicketPrice: goldTicketPrice == 0 ? null : goldTicketPrice,
-            maxGoldTicket: goldTicketNumber == 0 ? null : goldTicketNumber,
-            goldTicketDescription: goldTicketDescription,
-            platinumTicketPrice:
-                platinumTicketPrice == 0 ? null : platinumTicketPrice,
-            maxPlatinumTicket:
-                platinumTicketNumber == 0 ? null : platinumTicketNumber,
-            platinumTicketDescription: platinumTicketDescription);
+          name: enteredName,
+          id: null,
+          description: enteredDescription ?? '',
+          date: enteredDateTime,
+          startTime: pickedStartTime,
+          endTime: pickedEndTime,
+          address: pickedAddress!,
+          category: pickedCategory,
+          imageUrl: "",
+          userId: userId,
+          modelEco: pickedModelEco,
+          members: const [],
+          tickets: const [],
+          activated: false,
+          closed: false,
+          standardTicketPrice:
+              standardTicketPrice == 0 ? null : standardTicketPrice,
+          maxStandardTicket: standardTicketNumber,
+          standardTicketDescription: standardTicketDescritpion ?? '',
+          goldTicketPrice: goldTicketPrice == 0 ? null : goldTicketPrice,
+          maxGoldTicket: goldTicketNumber == 0 ? null : goldTicketNumber,
+          goldTicketDescription: goldTicketDescription,
+          platinumTicketPrice:
+              platinumTicketPrice == 0 ? null : platinumTicketPrice,
+          maxPlatinumTicket:
+              platinumTicketNumber == 0 ? null : platinumTicketNumber,
+          platinumTicketDescription: platinumTicketDescription,
+        );
 
         final state = await ref
             .read(postEventProvider.notifier)
@@ -107,7 +108,9 @@ class NewEventPage extends ConsumerWidget {
     }
 
     if (state is Loading) {
-      content = const Center(child: CircularProgressIndicator());
+      content = const Center(
+        child: CircularProgressIndicator(),
+      );
     } else {
       content = SafeArea(
         child: Form(
