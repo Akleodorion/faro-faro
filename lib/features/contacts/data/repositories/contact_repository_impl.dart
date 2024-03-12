@@ -21,11 +21,11 @@ class ContactRepositoryImpl implements ContactRepository {
 
   @override
   Future<Either<Failure, List<Contact>>> fectchConctacts(
-      List<String> numberList) async {
+      {required List<String> numbers}) async {
     if (await networkInfo.isConnected) {
       try {
-        final result = await remoteDataSource.fetchContactsInBatches(
-            numbersList: numberList);
+        final result =
+            await remoteDataSource.fetchContactsInBatches(numbersList: numbers);
         return Right(result);
       } on ServerException catch (error) {
         return Left(ServerFailure(errorMessage: error.errorMessage));

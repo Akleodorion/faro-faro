@@ -6,5 +6,5 @@ import '../../../../core/errors/failures.dart';
 abstract class ContactRepository {
   //Récupère la liste des contacts de l'utilisateur connecté.
   Future<Either<Failure, List<Contact>>> fectchConctacts(
-      List<String> numberList);
+      {required List<String> numbers});
 }

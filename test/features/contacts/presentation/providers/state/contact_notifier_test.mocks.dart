@@ -69,11 +69,12 @@ class MockFetchContactUsecase extends _i1.Mock
 
   @override
   _i5.Future<_i3.Either<_i6.Failure, List<_i7.Contact>>> execute(
-          List<String>? numberList) =>
+          {required List<String>? numbers}) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
-          [numberList],
+          [],
+          {#numbers: numbers},
         ),
         returnValue:
             _i5.Future<_i3.Either<_i6.Failure, List<_i7.Contact>>>.value(
@@ -81,7 +82,8 @@ class MockFetchContactUsecase extends _i1.Mock
           this,
           Invocation.method(
             #execute,
-            [numberList],
+            [],
+            {#numbers: numbers},
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Contact>>>);
