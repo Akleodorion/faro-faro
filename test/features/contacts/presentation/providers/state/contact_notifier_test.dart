@@ -38,12 +38,13 @@ void main() {
       const Contact tContact2 =
           Contact(userId: 2, phoneNumber: "+2251025452674", username: "user 2");
       const tContacts = [tContact1, tContact2];
+      const tNumbersList = ["+2254546585", "+22552525252"];
       const tSuccessMessage = "Contacts récupérés avec succès";
       test(
         "should call emit [Loaded] if the call is successfull",
         () async {
           //arrange
-          when(mockFetchContactUsecase.execute())
+          when(mockFetchContactUsecase.execute(numbers: anyNamed("numbers")))
               .thenAnswer((realInvocation) async => const Right(tContacts));
           //assert later
           final expected = [
@@ -51,8 +52,9 @@ void main() {
           ];
           expectLater(sut.stream, emitsInOrder(expected));
           // act
-          await sut.fetchContact();
-          verify(mockFetchContactUsecase.execute()).called(1);
+          await sut.fetchContact(numbers: tNumbersList);
+          verify(mockFetchContactUsecase.execute(numbers: tNumbersList))
+              .called(1);
         },
       );
 
@@ -60,15 +62,16 @@ void main() {
         "should call emit [Error] if the call is not successfull",
         () async {
           //arrange
-          when(mockFetchContactUsecase.execute()).thenAnswer(
-              (realInvocation) async =>
+          when(mockFetchContactUsecase.execute(numbers: anyNamed("numbers")))
+              .thenAnswer((realInvocation) async =>
                   const Left(ServerFailure(errorMessage: 'oops')));
           //assert later
           final expected = [Error(message: 'oops')];
           expectLater(sut.stream, emitsInOrder(expected));
           // act
-          await sut.fetchContact();
-          verify(mockFetchContactUsecase.execute()).called(1);
+          await sut.fetchContact(numbers: tNumbersList);
+          verify(mockFetchContactUsecase.execute(numbers: tNumbersList))
+              .called(1);
         },
       );
     },
