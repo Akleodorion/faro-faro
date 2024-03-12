@@ -26,7 +26,6 @@ class AddMember extends ConsumerWidget {
       label: const Text("Ajouter un membre"),
       onPressed: () async {
         final contactState = ref.read(contactStateProvider);
-
         if (contactState is Loading) {
           try {
             final List<String> numbers = await GetContactListImpl(
@@ -48,6 +47,7 @@ class AddMember extends ConsumerWidget {
 
         if (context.mounted) {
           await popUpBottomSheet(
+            event: event,
             context: context,
             mediaHeight: mediaHeight,
             ref: ref,
