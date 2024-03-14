@@ -4,7 +4,6 @@ import 'package:faro_clean_tdd/features/events/presentation/providers/post_event
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/category_picker_field.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/date_picker_field.dart';
@@ -19,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../data/models/event_model.dart';
+import 'widgets/usecase_elevated_button.dart';
 
 class NewEventPage extends ConsumerWidget {
   const NewEventPage({super.key});

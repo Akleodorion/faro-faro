@@ -54,15 +54,17 @@ class _AuthCardState extends ConsumerState<AuthCard> {
           .logUserIn(_enteredEmail!, _enteredPassword!, _isChecked ?? false);
 
       if (state is Error && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          content: Text(
-            state.message,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground,
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            content: Text(
+              state.message,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
             ),
           ),
-        ));
+        );
       }
     }
   }
@@ -107,7 +109,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
+                padding: const EdgeInsets.only(top: 20, bottom: 15),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -118,7 +120,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                         children: [
                           MyTextFormField(
                               key: ValueKey(Random()),
-                              label: 'email',
+                              label: Strings.email,
                               intialValue: _enteredEmail ?? '',
                               onSaved: (value) {
                                 setState(() {
@@ -191,16 +193,60 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                           width: 10,
                         ),
                         MyTextButton(
-                            text: logingIn
-                                ? Strings.createAccount
-                                : Strings.haveAccount,
-                            onPressed: () {
-                              setState(() {
-                                logingIn = !logingIn;
-                              });
-                            })
+                          text: logingIn
+                              ? Strings.createAccount
+                              : Strings.haveAccount,
+                          onPressed: () {
+                            setState(() {
+                              logingIn = !logingIn;
+                            });
+                          },
+                        )
                       ],
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    if (logingIn)
+                      MyTextButton(
+                        text: Strings.forgotPassword,
+                        onPressed: () {
+                          showModalBottomSheet(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surface,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 35, horizontal: 35),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Text(
+                                          "Récupération du mot de passe"),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      MyTextFormField(
+                                          key: ValueKey(Random()),
+                                          label: Strings.email,
+                                          intialValue: '',
+                                          onSaved: (value) {
+                                            setState(() {});
+                                          },
+                                          type: TextFieldType.email),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      UsecaseElevatedButton(
+                                          usecaseTitle: "soumettre l'email",
+                                          onUsecaseCall: () {})
+                                    ],
+                                  ),
+                                );
+                              });
+                        },
+                      )
                   ],
                 ),
               ),
