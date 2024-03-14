@@ -76,13 +76,6 @@ class ImageContainer extends StatelessWidget {
                         return <PopupMenuItem>[
                           PopupMenuItem(
                             child: TextButton.icon(
-                              label: const Text("Modifier l'évènement"),
-                              onPressed: () {},
-                              icon: const Icon(Icons.edit),
-                            ),
-                          ),
-                          PopupMenuItem(
-                            child: TextButton.icon(
                               label: const Text("Gestion de l'évènement"),
                               onPressed: () {
                                 Navigator.of(context).pop();
