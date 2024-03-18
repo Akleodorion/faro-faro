@@ -4,14 +4,14 @@ import 'package:faro_clean_tdd/core/util/size_info.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
 
 import '../../../../core/util/text_field_enum.dart';
-import '../providers/user_provider.dart';
+import '../providers/user_auth/user_provider.dart';
 import 'my_text_button.dart';
 import 'my_text_form_field.dart';
 import 'remember_checkbox.dart';
 import 'usecase_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/state/user_state.dart';
+import '../providers/user_auth/state/user_state.dart';
 
 class AuthCard extends ConsumerStatefulWidget {
   const AuthCard({super.key});

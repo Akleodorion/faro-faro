@@ -137,4 +137,24 @@ class MockUserAuthentificationRepository extends _i1.Mock
         ),
         returnValue: _i4.Future<_i6.User?>.value(),
       ) as _i4.Future<_i6.User?>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, String>> resetPassword(
+          {required String? email}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [],
+          {#email: email},
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
+            _FakeEither_0<_i5.Failure, String>(
+          this,
+          Invocation.method(
+            #resetPassword,
+            [],
+            {#email: email},
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
 }

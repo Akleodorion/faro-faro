@@ -13,6 +13,7 @@ abstract class UserRemoteDataSource {
       {required Map<String, String> signInInfo});
 
   Future<void> userLogOutRequest({required String jwt});
+  Future<String> resetPassword({required String email});
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -100,5 +101,11 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     } else {
       throw ServerException(errorMessage: 'an error has occured');
     }
+  }
+
+  @override
+  Future<String> resetPassword({required String email}) {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
   }
 }

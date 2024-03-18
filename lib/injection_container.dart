@@ -62,7 +62,7 @@ import 'features/user_authentification/domain/usecases/get_user_info.dart';
 import 'features/user_authentification/domain/usecases/log_in_with_token.dart';
 import 'features/user_authentification/domain/usecases/log_user_in.dart';
 import 'features/user_authentification/domain/usecases/sign_user_in.dart';
-import 'features/user_authentification/presentation/providers/state/user_notifier.dart';
+import 'features/user_authentification/presentation/providers/user_auth/state/user_notifier.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';

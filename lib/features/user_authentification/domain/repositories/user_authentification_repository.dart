@@ -18,4 +18,6 @@ abstract class UserAuthentificationRepository {
   Future<Failure?> logUserOut({required String jwt});
 
   Future<User?> logInWithToken();
+
+  Future<Either<Failure, String>> resetPassword({required String email});
 }

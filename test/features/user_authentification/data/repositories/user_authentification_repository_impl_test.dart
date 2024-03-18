@@ -409,4 +409,33 @@ void main() {
       );
     },
   );
+
+  group("resetPassword", () {
+    const String tEmail = "test1@gmail.com";
+    test("should return the email when the call is a sucess", () async {
+      // arrange
+      when(mockUserRemoteDataSource.resetPassword(email: anyNamed("email")))
+          .thenAnswer((_) async => tEmail);
+      // act
+      final result =
+          await userAuthentificationRepositoryImpl.resetPassword(email: tEmail);
+      // assert
+
+      expect(result, const Right(tEmail));
+    });
+
+    test("should return a server exception when the call is not a sucess",
+        () async {
+      //arrange
+      when(mockUserRemoteDataSource.resetPassword(email: anyNamed("email")))
+          .thenThrow(ServerException(errorMessage: "oops"));
+
+      //act
+      final result =
+          await userAuthentificationRepositoryImpl.resetPassword(email: tEmail);
+
+      //assert
+      expect(result, const Left(ServerFailure(errorMessage: "oops")));
+    });
+  });
 }

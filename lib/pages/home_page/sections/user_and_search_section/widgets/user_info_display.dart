@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/pages/home_page/constants/home_page_strings.dart';
 
 import '../../../../../core/util/capitalize_first_letter.dart';
-import '../../../../../features/user_authentification/presentation/providers/user_provider.dart';
+import '../../../../../features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

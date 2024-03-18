@@ -118,4 +118,14 @@ class UserAuthentificationRepositoryImpl
       return ServerFailure(errorMessage: e.errorMessage);
     }
   }
+
+  @override
+  Future<Either<Failure, String>> resetPassword({required String email}) async {
+    try {
+      final result = await remoteDataSource.resetPassword(email: email);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(errorMessage: e.errorMessage));
+    }
+  }
 }

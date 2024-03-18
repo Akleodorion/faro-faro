@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 import 'package:faro_clean_tdd/pages/main_page/constants/main_page_strings.dart';
 import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/new_event_page.dart';
