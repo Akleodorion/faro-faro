@@ -44,6 +44,9 @@ import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ti
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_notifier.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/state/update_ticket_notifier.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/request_reset_token.dart';
+import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/reset_password.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/password/state/password_notifier.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
@@ -62,7 +65,7 @@ import 'features/user_authentification/domain/usecases/get_user_info.dart';
 import 'features/user_authentification/domain/usecases/log_in_with_token.dart';
 import 'features/user_authentification/domain/usecases/log_user_in.dart';
 import 'features/user_authentification/domain/usecases/sign_user_in.dart';
-import 'features/user_authentification/presentation/providers/state/user_notifier.dart';
+import 'features/user_authentification/presentation/providers/user_auth/state/user_notifier.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -72,13 +75,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Features - userAuth
+  // Features - userAuth - Password
   sl.registerFactory(() => UserNotifier(
         logInWithTokenUsecase: sl(),
         logUserInUsecase: sl(),
         signUserInUsecase: sl(),
         getUserInfoUsecase: sl(),
         logUserOutUsecase: sl(),
+      ));
+  sl.registerFactory(() => PasswordNotifier(
+        requestResetTokenUsecase: sl(),
+        resetPasswordUsecase: sl(),
       ));
 
   // usecases
@@ -87,6 +94,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SignUserIn(repository: sl()));
   sl.registerLazySingleton(() => GetUserInfo(repository: sl()));
   sl.registerLazySingleton(() => LogUserOutUsecase(repository: sl()));
+  sl.registerLazySingleton(() => RequestResetTokenUsecase(repository: sl()));
+  sl.registerLazySingleton(() => ResetPasswordUsecase(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<UserAuthentificationRepository>(() =>

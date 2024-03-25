@@ -8,4 +8,5 @@ class Strings {
   static const createAccount = "Créer un compte";
   static const haveAccount = "J'ai déjà un compte";
   static const rememberMe = "Se souvenir de moi ?";
+  static const forgotPassword = "Mot de passe oublié ?";
 }

@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
 import 'package:faro_clean_tdd/core/util/number_formatter.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/widgets/image_container.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/pages/ticket_payment_page/ticket_payment_page.dart';

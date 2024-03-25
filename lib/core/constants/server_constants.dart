@@ -1,15 +1,15 @@
 class ServerConstants {
-  static const ticketUrl =
-      "https://faro-faro-721376a5fee3.herokuapp.com/tickets";
-  static const memberUrl =
-      "https://faro-faro-721376a5fee3.herokuapp.com/members";
-  static const eventUrl = "https://faro-faro-721376a5fee3.herokuapp.com/events";
-  static const logInUrl = "https://faro-faro-721376a5fee3.herokuapp.com/login";
-  static const signInUrl =
-      "https://faro-faro-721376a5fee3.herokuapp.com/signup";
-  static const logOutUrl =
-      "https://faro-faro-721376a5fee3.herokuapp.com/logout";
-  static const userUrl = "https://faro-faro-721376a5fee3.herokuapp.com/users";
+  static const serverUrl = "https://faro-faro-721376a5fee3.herokuapp.com";
+  static const localhostUrl = "http://localhost:3001";
+  static const ticketUrl = "$localhostUrl/tickets";
+  static const memberUrl = "$localhostUrl/members";
+  static const eventUrl = "$localhostUrl/events";
+  static const logInUrl = "$localhostUrl/login";
+  static const signInUrl = "$localhostUrl/signup";
+  static const logOutUrl = "$localhostUrl/logout";
+  static const userUrl = "$localhostUrl/users";
+  static const requestResetTokenUrl = "$localhostUrl/password/forgot";
+  static const resetPasswordUrl = "$localhostUrl/password/reset";
 }
 
 abstract class ServerEndPoint {

@@ -1,17 +1,18 @@
 import 'dart:math';
 
 import 'package:faro_clean_tdd/core/util/size_info.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/pages/pop_up/forgot_passord_modal.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
 
 import '../../../../core/util/text_field_enum.dart';
-import '../providers/user_provider.dart';
+import '../providers/user_auth/user_provider.dart';
 import 'my_text_button.dart';
 import 'my_text_form_field.dart';
 import 'remember_checkbox.dart';
 import 'usecase_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/state/user_state.dart';
+import '../providers/user_auth/state/user_state.dart';
 
 class AuthCard extends ConsumerStatefulWidget {
   const AuthCard({super.key});
@@ -54,15 +55,17 @@ class _AuthCardState extends ConsumerState<AuthCard> {
           .logUserIn(_enteredEmail!, _enteredPassword!, _isChecked ?? false);
 
       if (state is Error && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          content: Text(
-            state.message,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground,
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            content: Text(
+              state.message,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
             ),
           ),
-        ));
+        );
       }
     }
   }
@@ -78,15 +81,17 @@ class _AuthCardState extends ConsumerState<AuthCard> {
             _isChecked!,
           );
       if (state is Error && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          content: Text(
-            state.message,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground,
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            content: Text(
+              state.message,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
             ),
           ),
-        ));
+        );
       }
     }
   }
@@ -107,7 +112,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
+                padding: const EdgeInsets.only(top: 20, bottom: 15),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -118,7 +123,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                         children: [
                           MyTextFormField(
                               key: ValueKey(Random()),
-                              label: 'email',
+                              label: Strings.email,
                               intialValue: _enteredEmail ?? '',
                               onSaved: (value) {
                                 setState(() {
@@ -191,16 +196,27 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                           width: 10,
                         ),
                         MyTextButton(
-                            text: logingIn
-                                ? Strings.createAccount
-                                : Strings.haveAccount,
-                            onPressed: () {
-                              setState(() {
-                                logingIn = !logingIn;
-                              });
-                            })
+                          text: logingIn
+                              ? Strings.createAccount
+                              : Strings.haveAccount,
+                          onPressed: () {
+                            setState(() {
+                              logingIn = !logingIn;
+                            });
+                          },
+                        )
                       ],
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    if (logingIn)
+                      MyTextButton(
+                        text: Strings.forgotPassword,
+                        onPressed: () {
+                          forgotPasswordModal(context);
+                        },
+                      )
                   ],
                 ),
               ),

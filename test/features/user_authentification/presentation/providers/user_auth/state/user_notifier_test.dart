@@ -7,8 +7,8 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/lo
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
 import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart'
     as si;
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_notifier.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_notifier.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

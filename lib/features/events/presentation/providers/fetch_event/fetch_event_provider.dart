@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 
 import 'state/fetch_event_state.dart';
 

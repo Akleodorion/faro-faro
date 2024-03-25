@@ -1,6 +1,6 @@
 import 'package:faro_clean_tdd/features/user_authentification/presentation/pages/auth_screen_page.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/state/user_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 import 'package:faro_clean_tdd/pages/loading_page/loading_page.dart';
 import 'package:faro_clean_tdd/pages/main_page/main_page.dart';
 import 'package:flutter/material.dart';
