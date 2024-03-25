@@ -13,7 +13,11 @@ abstract class UserRemoteDataSource {
       {required Map<String, String> signInInfo});
 
   Future<void> userLogOutRequest({required String jwt});
-  Future<String> resetPassword({required String email});
+  Future<String> requestResetToken({required String email});
+  Future<String> resetPassword(
+      {required String email,
+      required String token,
+      required String newPassword});
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -104,8 +108,57 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<String> resetPassword({required String email}) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<String> requestResetToken({required String email}) async {
+    final uri = Uri.parse(ServerConstants.requestResetTokenUrl);
+
+    final response = await http.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: json.encode({"email": email}),
+    );
+
+    if (response.statusCode == 200) {
+      return "Le code a été envoyé à l'adresse e-mail.";
+    }
+
+    if (response.statusCode == 404) {
+      throw ServerException(
+          errorMessage: json.decode(response.body)["error"][0]);
+    }
+
+    throw ServerException(
+        errorMessage: "une erreur s'est produite veuillez ré-éssayer.");
+  }
+
+  @override
+  Future<String> resetPassword(
+      {required String email,
+      required String token,
+      required String newPassword}) async {
+    final uri = Uri.parse(ServerConstants.resetPasswordUrl);
+    final String params =
+        json.encode({"email": email, "token": token, "password": newPassword});
+
+    final response = await http.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: params,
+    );
+
+    if (response.statusCode == 200) {
+      return "Le mot de passe à été changé avec succès";
+    }
+    if (response.statusCode == 404) {
+      throw ServerException(
+          errorMessage: json.decode(response.body)["error"][0]);
+    }
+    throw ServerException(
+        errorMessage: json.decode(response.body)["errors"][0]);
   }
 }

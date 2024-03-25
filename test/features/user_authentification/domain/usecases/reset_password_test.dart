@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 import 'reset_password_test.mocks.dart';
 
 @GenerateMocks([UserAuthentificationRepository])
-main() {
+void main() {
   late MockUserAuthentificationRepository mockUserAuthentificationRepository;
   late ResetPasswordUsecase sut;
 
@@ -18,36 +18,38 @@ main() {
     sut = ResetPasswordUsecase(repository: mockUserAuthentificationRepository);
   });
 
-  group("Reset Password", () {
-    const tEmail = "Test1@gmail.com";
-    test("Should return a valid string", () async {
+  group('Reset Password Usecase', () {
+    const String tEmail = "test@gmail.com";
+    const String tToken = "b4c2d6";
+    const String tPassword = "password";
+    test("should return Right String if the call is successful", () async {
       // arrange
       when(mockUserAuthentificationRepository.resetPassword(
-              email: anyNamed('email')))
-          .thenAnswer((realInvocation) async => const Right(tEmail));
-      // act
-      final result = await sut.execute(email: tEmail);
+              email: anyNamed("email"),
+              token: anyNamed("token"),
+              newPassword: anyNamed("newPassword")))
+          .thenAnswer((realInvocation) async => const Right("Answer"));
       // assert
-      expect(result, const Right(tEmail));
+      final result = await sut.execute(
+          email: tEmail, token: tToken, newPassword: tPassword);
+      // act
+      expect(result, const Right("Answer"));
     });
 
-    test(
-      "Should return a server failure when the call is not successful",
-      () async {
-        // arrange
-        when(mockUserAuthentificationRepository.resetPassword(
-                email: anyNamed('email')))
-            .thenAnswer(
-          (realInvocation) async => const Left(
-            ServerFailure(errorMessage: 'oops'),
-          ),
-        );
-
-        // act
-        final result = await sut.execute(email: tEmail);
-        // assert
-        expect(result, const Left(ServerFailure(errorMessage: 'oops')));
-      },
-    );
+    test("should return Left ServerFailure if the call is unsuccessful",
+        () async {
+      // arrange
+      when(mockUserAuthentificationRepository.resetPassword(
+              email: anyNamed("email"),
+              token: anyNamed("token"),
+              newPassword: anyNamed("newPassword")))
+          .thenAnswer((realInvocation) async =>
+              const Left(ServerFailure(errorMessage: "oops")));
+      // assert
+      final result = await sut.execute(
+          email: tEmail, token: tToken, newPassword: tPassword);
+      // act
+      expect(result, const Left(ServerFailure(errorMessage: "oops")));
+    });
   });
 }

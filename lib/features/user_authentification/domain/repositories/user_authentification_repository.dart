@@ -19,5 +19,11 @@ abstract class UserAuthentificationRepository {
 
   Future<User?> logInWithToken();
 
-  Future<Either<Failure, String>> resetPassword({required String email});
+  Future<Either<Failure, String>> requestResetToken({required String email});
+
+  Future<Either<Failure, String>> resetPassword({
+    required String email,
+    required String token,
+    required String newPassword,
+  });
 }

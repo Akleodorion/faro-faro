@@ -120,12 +120,28 @@ class UserAuthentificationRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, String>> resetPassword({required String email}) async {
+  Future<Either<Failure, String>> requestResetToken(
+      {required String email}) async {
     try {
-      final result = await remoteDataSource.resetPassword(email: email);
+      final result = await remoteDataSource.requestResetToken(email: email);
       return Right(result);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(errorMessage: e.errorMessage));
+    } on ServerException catch (error) {
+      return Left(ServerFailure(errorMessage: error.errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> resetPassword({
+    required String email,
+    required String token,
+    required String newPassword,
+  }) async {
+    try {
+      final result = await remoteDataSource.resetPassword(
+          email: email, token: token, newPassword: newPassword);
+      return Right(result);
+    } on ServerException catch (error) {
+      return Left(ServerFailure(errorMessage: error.errorMessage));
     }
   }
 }

@@ -5,11 +5,16 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/repositorie
 class ResetPasswordUsecase {
   final UserAuthentificationRepository repository;
 
-  ResetPasswordUsecase({
-    required this.repository,
-  });
+  ResetPasswordUsecase({required this.repository});
 
-  Future<Either<Failure, String>> execute({required String email}) async {
-    return await repository.resetPassword(email: email);
+  Future<Either<Failure, String>> execute(
+      {required String email,
+      required String token,
+      required String newPassword}) async {
+    return await repository.resetPassword(
+      email: email,
+      token: token,
+      newPassword: newPassword,
+    );
   }
 }

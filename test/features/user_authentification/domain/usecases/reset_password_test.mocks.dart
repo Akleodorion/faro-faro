@@ -139,11 +139,11 @@ class MockUserAuthentificationRepository extends _i1.Mock
       ) as _i4.Future<_i6.User?>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, String>> resetPassword(
+  _i4.Future<_i2.Either<_i5.Failure, String>> requestResetToken(
           {required String? email}) =>
       (super.noSuchMethod(
         Invocation.method(
-          #resetPassword,
+          #requestResetToken,
           [],
           {#email: email},
         ),
@@ -151,9 +151,40 @@ class MockUserAuthentificationRepository extends _i1.Mock
             _FakeEither_0<_i5.Failure, String>(
           this,
           Invocation.method(
-            #resetPassword,
+            #requestResetToken,
             [],
             {#email: email},
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, String>> resetPassword({
+    required String? email,
+    required String? token,
+    required String? newPassword,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [],
+          {
+            #email: email,
+            #token: token,
+            #newPassword: newPassword,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
+            _FakeEither_0<_i5.Failure, String>(
+          this,
+          Invocation.method(
+            #resetPassword,
+            [],
+            {
+              #email: email,
+              #token: token,
+              #newPassword: newPassword,
+            },
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, String>>);

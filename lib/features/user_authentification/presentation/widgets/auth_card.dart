@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:faro_clean_tdd/core/util/size_info.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/pages/pop_up/forgot_passord_modal.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
 
 import '../../../../core/util/text_field_enum.dart';
@@ -80,15 +81,17 @@ class _AuthCardState extends ConsumerState<AuthCard> {
             _isChecked!,
           );
       if (state is Error && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          content: Text(
-            state.message,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground,
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            content: Text(
+              state.message,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
             ),
           ),
-        ));
+        );
       }
     }
   }
@@ -211,40 +214,7 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                       MyTextButton(
                         text: Strings.forgotPassword,
                         onPressed: () {
-                          showModalBottomSheet(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.surface,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 35, horizontal: 35),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Text(
-                                          "Récupération du mot de passe"),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      MyTextFormField(
-                                          key: ValueKey(Random()),
-                                          label: Strings.email,
-                                          intialValue: '',
-                                          onSaved: (value) {
-                                            setState(() {});
-                                          },
-                                          type: TextFieldType.email),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      UsecaseElevatedButton(
-                                          usecaseTitle: "soumettre l'email",
-                                          onUsecaseCall: () {})
-                                    ],
-                                  ),
-                                );
-                              });
+                          forgotPasswordModal(context);
                         },
                       )
                   ],

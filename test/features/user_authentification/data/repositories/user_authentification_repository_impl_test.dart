@@ -410,15 +410,15 @@ void main() {
     },
   );
 
-  group("resetPassword", () {
+  group("requestResetToken", () {
     const String tEmail = "test1@gmail.com";
     test("should return the email when the call is a sucess", () async {
       // arrange
-      when(mockUserRemoteDataSource.resetPassword(email: anyNamed("email")))
+      when(mockUserRemoteDataSource.requestResetToken(email: anyNamed("email")))
           .thenAnswer((_) async => tEmail);
       // act
-      final result =
-          await userAuthentificationRepositoryImpl.resetPassword(email: tEmail);
+      final result = await userAuthentificationRepositoryImpl.requestResetToken(
+          email: tEmail);
       // assert
 
       expect(result, const Right(tEmail));
@@ -427,15 +427,55 @@ void main() {
     test("should return a server exception when the call is not a sucess",
         () async {
       //arrange
-      when(mockUserRemoteDataSource.resetPassword(email: anyNamed("email")))
+      when(mockUserRemoteDataSource.requestResetToken(email: anyNamed("email")))
           .thenThrow(ServerException(errorMessage: "oops"));
 
       //act
-      final result =
-          await userAuthentificationRepositoryImpl.resetPassword(email: tEmail);
+      final result = await userAuthentificationRepositoryImpl.requestResetToken(
+          email: tEmail);
 
       //assert
       expect(result, const Left(ServerFailure(errorMessage: "oops")));
+    });
+  });
+
+  group("Reset Password", () {
+    const String tEmail = "test@gmail.com";
+    const String tToken = "c2d5e6";
+    const String tPassword = "password";
+    test("Should return a Right(string) when the call is a success", () async {
+      // arrange
+      when(mockUserRemoteDataSource.resetPassword(
+              email: anyNamed('email'),
+              token: anyNamed('token'),
+              newPassword: anyNamed("newPassword")))
+          .thenAnswer((realInvocation) async => "Password has been changed");
+      // act
+      final result = await userAuthentificationRepositoryImpl.resetPassword(
+          email: tEmail, token: tToken, newPassword: tPassword);
+      // assert
+      expect(
+        result,
+        const Right("Password has been changed"),
+      );
+    });
+
+    test("Should return a Left(ServerFailure) when the call is not a success",
+        () async {
+      // arrange
+      when(mockUserRemoteDataSource.resetPassword(
+              email: anyNamed('email'),
+              token: anyNamed('token'),
+              newPassword: anyNamed("newPassword")))
+          .thenThrow(ServerException(errorMessage: "oops"));
+      // act
+      final result = await userAuthentificationRepositoryImpl.resetPassword(
+          email: tEmail, token: tToken, newPassword: tPassword);
+      // assert
+      expect(
+        result,
+        const Left(ServerFailure(errorMessage: "oops")),
+      );
     });
   });
 }
