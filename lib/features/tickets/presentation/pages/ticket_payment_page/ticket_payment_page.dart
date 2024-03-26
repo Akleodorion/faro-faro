@@ -30,27 +30,25 @@ class TicketPaymentPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: GeneralSpacers().getMainColumnPadding(context),
               vertical: GeneralSpacers().getMainColumnPadding(context)),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  event.name,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                SizedBox(
-                  height: GeneralSpacers().getBlocSeparation(context),
-                ),
-                TicketsCheckoutLayout(
-                  event: event,
-                  isFree: event.modelEco == ModelEco.gratuit ? true : false,
-                  isGoldTicketPresent:
-                      event.goldTicketPrice == null ? false : true,
-                  isPlatinumTicketPresent:
-                      event.platinumTicketPrice == null ? false : true,
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                event.name,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              SizedBox(
+                height: GeneralSpacers().getBlocSeparation(context),
+              ),
+              TicketsCheckoutLayout(
+                event: event,
+                isFree: event.modelEco == ModelEco.gratuit ? true : false,
+                isGoldTicketPresent:
+                    event.goldTicketPrice == null ? false : true,
+                isPlatinumTicketPresent:
+                    event.platinumTicketPrice == null ? false : true,
+              ),
+            ],
           ),
         ),
       ),

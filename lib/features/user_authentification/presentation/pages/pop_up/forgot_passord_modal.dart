@@ -183,9 +183,16 @@ class _ForgotPasswordModalState extends ConsumerState<ForgotPasswordModal> {
             const SizedBox(
               height: 20,
             ),
-            UsecaseElevatedButton(
-              usecaseTitle: ctaName,
-              onUsecaseCall: isRequesting ? _requestToken : _resetPassword,
+            Consumer(
+              builder: (context, WidgetRef ref, child) {
+                final state = ref.watch(passwordProvider);
+                final isLoading = state is Loading;
+                return UsecaseElevatedButton(
+                  usecaseTitle: ctaName,
+                  onUsecaseCall: isRequesting ? _requestToken : _resetPassword,
+                  isLoading: isLoading,
+                );
+              },
             )
           ],
         ),

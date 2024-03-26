@@ -182,6 +182,8 @@ class _TicketsCheckoutLayoutState extends ConsumerState<TicketsCheckoutLayout> {
         ),
         Consumer(
           builder: (BuildContext context, WidgetRef ref, child) {
+            final state = ref.watch(createTicketProvider);
+            final isLoading = state is Loading;
             return UsecaseElevatedButton(
               usecaseTitle: widget.isFree
                   ? "Reservez votre billet"
@@ -209,6 +211,7 @@ class _TicketsCheckoutLayoutState extends ConsumerState<TicketsCheckoutLayout> {
                   }
                 }
               },
+              isLoading: isLoading,
             );
           },
         )
