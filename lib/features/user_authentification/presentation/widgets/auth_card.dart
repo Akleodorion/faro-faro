@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:faro_clean_tdd/core/util/size_info.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/pages/pop_up/forgot_passord_modal.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/auto_login/auto_login_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
 
 import '../../../../core/util/text_field_enum.dart';
@@ -15,7 +16,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/user_auth/state/user_state.dart';
 
 class AuthCard extends ConsumerStatefulWidget {
-  const AuthCard({super.key});
+  const AuthCard({
+    super.key,
+  });
 
   @override
   ConsumerState<AuthCard> createState() => _AuthCardState();
@@ -34,12 +37,10 @@ class _AuthCardState extends ConsumerState<AuthCard> {
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
-    final values = ref.read(userAuthProvider);
-    if (values is Initial) {
-      _enteredEmail = values.userInfo["email"];
-      _enteredPassword = values.userInfo["password"];
-      _isChecked = values.userInfo["pref"];
-    }
+    final values = ref.read(autoLoginInfoProvider);
+    _enteredEmail = values["email"];
+    _enteredPassword = values["password"];
+    _isChecked = values["pref"];
   }
 
   _userLogin() async {

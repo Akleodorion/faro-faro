@@ -1,7 +1,6 @@
 import 'package:faro_clean_tdd/features/user_authentification/presentation/pages/auth_screen_page.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
-import 'package:faro_clean_tdd/pages/loading_page/loading_page.dart';
 import 'package:faro_clean_tdd/pages/main_page/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,14 +18,14 @@ class _AutchCheckerState extends ConsumerState<AuthChecker> {
     return state;
   }
 
-  void logInWithToken() async {
-    await ref.read(userAuthProvider.notifier).logInWithToken();
-  }
-
   @override
   void initState() {
     super.initState();
     logInWithToken();
+  }
+
+  void logInWithToken() async {
+    await ref.read(userAuthProvider.notifier).logInWithToken();
   }
 
   @override
@@ -35,13 +34,10 @@ class _AutchCheckerState extends ConsumerState<AuthChecker> {
       future: _checkUserAuth(),
       builder: (context, snapshot) {
         final state = snapshot.data;
-        if (state is Initial) {
-          return const AuthScreen();
-        }
         if (state is Loaded) {
           return const MainPage();
         }
-        return const LoadingPage();
+        return const AuthScreen();
       },
     );
   }
