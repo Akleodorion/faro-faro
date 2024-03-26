@@ -187,11 +187,16 @@ class _AuthCardState extends ConsumerState<AuthCard> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        UsecaseElevatedButton(
-                          usecaseTitle:
-                              logingIn ? Strings.logIn : Strings.signIn,
-                          onUsecaseCall: logingIn ? _userLogin : _userSignIn,
-                        ),
+                        Consumer(builder: (context, ref, child) {
+                          final state = ref.watch(userAuthProvider);
+                          final isLoading = state is Loading;
+                          return UsecaseElevatedButton(
+                            usecaseTitle:
+                                logingIn ? Strings.logIn : Strings.signIn,
+                            onUsecaseCall: logingIn ? _userLogin : _userSignIn,
+                            isLoading: isLoading,
+                          );
+                        }),
                         const SizedBox(
                           width: 10,
                         ),

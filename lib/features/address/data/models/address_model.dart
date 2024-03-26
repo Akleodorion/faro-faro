@@ -16,7 +16,6 @@ class AddressModel extends Address {
 
   factory AddressModel.fromJson(Map<String, dynamic> json) {
     final Map<String, dynamic> addressInfoMap = getInfoFromJson(json);
-
     return AddressModel(
         latitude: addressInfoMap["latitude"],
         longitude: addressInfoMap["longitude"],

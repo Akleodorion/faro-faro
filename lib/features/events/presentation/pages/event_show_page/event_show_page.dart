@@ -294,6 +294,7 @@ class EventShowPage extends ConsumerWidget {
                                 ),
                               );
                             },
+                            isLoading: false,
                           ),
                         ),
                       const SizedBox(
