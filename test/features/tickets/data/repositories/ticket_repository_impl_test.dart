@@ -260,4 +260,67 @@ void main() {
       );
     },
   );
+
+  group(
+    "Activate Ticket",
+    () {
+      const int tUserId = 1;
+      const TicketModel tTicket = TicketModel(
+          id: 1,
+          type: Type.standard,
+          description: "description",
+          eventId: 12,
+          userId: 6,
+          qrCodeUrl: "qrCodeUrl",
+          verified: false);
+
+      group(
+        "When there is no internet connexion",
+        () {
+          setUp(() =>
+              when(mockNetworkInfo.isConnected).thenAnswer((_) async => false));
+
+          test(
+            "should return ServerFailure",
+            () async {
+              //act
+              final result =
+                  await sut.activateTicket(ticket: tTicket, userId: tUserId);
+              //assert
+              expect(result,
+                  const Left(ServerFailure(errorMessage: noInternetConnexion)));
+            },
+          );
+        },
+      );
+
+      group("when there is an internet connexion", () {
+        setUp(() =>
+            when(mockNetworkInfo.isConnected).thenAnswer((_) async => true));
+        test("should return Right(String) if is a success", () async {
+          // arrange
+          when(mockTicketRemoteDataSource.activateTicket(
+                  userId: anyNamed('userId'), ticket: anyNamed('ticket')))
+              .thenAnswer((_) async => "String");
+          // act
+          final result =
+              await sut.activateTicket(userId: tUserId, ticket: tTicket);
+          // assert
+          expect(result, const Right("String"));
+        });
+
+        test("should return Left(ServerFailure) if is not a success", () async {
+          // arrange
+          when(mockTicketRemoteDataSource.activateTicket(
+                  userId: anyNamed('userId'), ticket: anyNamed('ticket')))
+              .thenThrow(ServerException(errorMessage: "oops"));
+          // act
+          final result =
+              await sut.activateTicket(userId: tUserId, ticket: tTicket);
+          // assert
+          expect(result, const Left(ServerFailure(errorMessage: "oops")));
+        });
+      });
+    },
+  );
 }
