@@ -47,6 +47,14 @@ class ServerTicketConstants extends ServerEndPoint {
   String specificEndPoint() {
     return "${ServerConstants.ticketUrl}/$ticketId";
   }
+
+  String get transferTicketUrl {
+    return "${specificEndPoint()}/transfer_ticket";
+  }
+
+  String get validateTicketUrl {
+    return "${specificEndPoint()}/validate_ticket";
+  }
 }
 
 class ServerMembersConstants implements ServerEndPoint {
