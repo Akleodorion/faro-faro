@@ -114,4 +114,32 @@ class MockTicketRepository extends _i1.Mock implements _i3.TicketRepository {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Ticket>>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, String>> activateTicket({
+    required int? userId,
+    required _i7.TicketModel? ticket,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #activateTicket,
+          [],
+          {
+            #userId: userId,
+            #ticket: ticket,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, String>>.value(
+            _FakeEither_0<_i5.Failure, String>(
+          this,
+          Invocation.method(
+            #activateTicket,
+            [],
+            {
+              #userId: userId,
+              #ticket: ticket,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
 }

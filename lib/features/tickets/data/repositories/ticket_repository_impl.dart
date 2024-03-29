@@ -57,4 +57,11 @@ class TicketRepositoryImpl implements TicketRepository {
     }
     return const Left(ServerFailure(errorMessage: noInternetConnexion));
   }
+
+  @override
+  Future<Either<Failure, String>> activateTicket(
+      {required int userId, required TicketModel ticket}) {
+    // TODO: implement activateTicket
+    throw UnimplementedError();
+  }
 }
