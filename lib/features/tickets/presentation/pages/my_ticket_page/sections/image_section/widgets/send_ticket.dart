@@ -1,10 +1,10 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler.dart';
+import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page.dart/sections/members_section/widgets/add_member/fonctions/pop_up_dialog.dart';
+import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/fonctions/pop_up_dialog.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/sections/image_section/functions.dart/pop_up_bottom_seet.dart';
 import 'package:flutter/material.dart';

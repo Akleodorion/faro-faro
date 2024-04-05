@@ -57,4 +57,23 @@ class TicketRepositoryImpl implements TicketRepository {
     }
     return const Left(ServerFailure(errorMessage: noInternetConnexion));
   }
+
+  @override
+  Future<Either<Failure, String>> activateTicket(
+      {required int userId, required TicketModel ticket}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await remoteDataSource.activateTicket(
+            userId: userId, ticket: ticket);
+        return Right(result);
+      } on ServerException catch (failure) {
+        return Left(
+          ServerFailure(errorMessage: failure.errorMessage),
+        );
+      }
+    }
+    return const Left(
+      ServerFailure(errorMessage: noInternetConnexion),
+    );
+  }
 }

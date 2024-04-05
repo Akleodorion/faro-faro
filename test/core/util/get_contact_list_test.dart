@@ -2,7 +2,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler.dart';
+import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

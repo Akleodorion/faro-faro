@@ -36,7 +36,6 @@ class _ForgotPasswordModalState extends ConsumerState<ForgotPasswordModal> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _formKey = GlobalKey<FormState>();
     super.initState();
   }

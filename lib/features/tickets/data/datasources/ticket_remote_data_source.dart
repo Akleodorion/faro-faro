@@ -28,6 +28,13 @@ abstract class TicketRemoteDataSource {
   ///
   /// En cas d'erreur jette un [ServerException]
   Future<List<TicketModel>> fetchUserTickets({required int userId});
+
+  /// Active un ticket si ce dernier n'est pas déjà ativée
+  /// Fait une requête http à l'addresse  http://localhost:3001/tickets/:id/activate_ticket
+  ///
+  /// En cas d'erreur jette un [ServerException]
+  Future<String> activateTicket(
+      {required int userId, required TicketModel ticket});
 }
 
 class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
@@ -94,16 +101,18 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   Future<TicketModel> updateTicket(
       {required int ticketId, required int userId}) async {
     final uri = Uri.parse(
-      ServerTicketConstants(ticketId: ticketId).specificEndPoint(),
+      ServerTicketConstants(ticketId: ticketId).transferTicketUrl,
     );
     final Map<String, dynamic> params = {"user_id": userId};
     // faire la requête
-    final response = await client.patch(uri,
-        headers: {
-          "Content-Type": 'application/json',
-          'Accept': 'application/json',
-        },
-        body: json.encode(params));
+    final response = await client.put(
+      uri,
+      headers: {
+        "Content-Type": 'application/json',
+        'Accept': 'application/json',
+      },
+      body: json.encode(params),
+    );
 
     if (response.statusCode == 200) {
       return TicketModel.fromJson(json.decode(response.body)["ticket"]);
@@ -115,5 +124,37 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
       throw ServerException(
           errorMessage: "An error as occured please try again later");
     }
+  }
+
+  @override
+  Future<String> activateTicket(
+      {required int userId, required TicketModel ticket}) async {
+    final Uri uri = Uri.parse(
+        ServerTicketConstants(ticketId: ticket.id!).transferTicketUrl);
+
+    final Map<String, dynamic> params = {
+      "user_id": userId,
+      "id": ticket.id,
+      "type": ticket.type,
+      "event_id": ticket.eventId,
+    };
+
+    final response = await http.put(uri,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: json.encode(params));
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body)["message"];
+    }
+
+    if (response.statusCode == 404 || response.statusCode == 422) {
+      throw ServerException(errorMessage: json.decode(response.body)["error"]);
+    }
+
+    throw ServerException(
+        errorMessage: "An error as occured please try again later");
   }
 }
