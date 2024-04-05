@@ -8,6 +8,8 @@
   <string>This app requires contacts access to function properly.</string>
   <key>FLTEnableImpeller</key>
   <false />
+  <key>NSCameraUsageDescription</key>
+  <string>This app needs camera access to scan QR codes</string>
   <key>NSLocationWhenInUseUsageDescription</key>
   <string>Get your location</string>
   <key>NSLocationAlwaysUsageDescription</key>

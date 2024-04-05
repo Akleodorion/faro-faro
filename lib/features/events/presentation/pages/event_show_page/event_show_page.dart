@@ -1,6 +1,8 @@
 import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
 import 'package:faro_clean_tdd/core/util/number_formatter.dart';
+import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/barcode_scanner_page/barcode_scanner_page.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/widgets/image_container.dart';
@@ -12,7 +14,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'pop_page/map_page.dart';
 
 class EventShowPage extends ConsumerWidget {
-  const EventShowPage({super.key, required this.event});
+  const EventShowPage({
+    super.key,
+    required this.event,
+  });
 
   final Event event;
 
@@ -29,6 +34,21 @@ class EventShowPage extends ConsumerWidget {
     // Widget
     return Scaffold(
       backgroundColor: Colors.transparent,
+      floatingActionButton: isMine
+          ? FloatingActionButton(
+              onPressed: () {
+                PermissionHandlerImp().requestCamera();
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return const BarcodeScannerPage();
+                }));
+              },
+              mini: false,
+              child: const Icon(
+                Icons.camera,
+              ),
+            )
+          : null,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

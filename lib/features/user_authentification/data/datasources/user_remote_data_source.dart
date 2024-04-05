@@ -14,10 +14,11 @@ abstract class UserRemoteDataSource {
 
   Future<void> userLogOutRequest({required String jwt});
   Future<String> requestResetToken({required String email});
-  Future<String> resetPassword(
-      {required String email,
-      required String token,
-      required String newPassword});
+  Future<String> resetPassword({
+    required String email,
+    required String token,
+    required String newPassword,
+  });
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -64,6 +65,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         }
       }
     } on http.ClientException catch (error) {
+      print("-------------------------------");
+      print(error);
+      print("-------------------------");
       throw ServerException(errorMessage: error.message);
     }
   }

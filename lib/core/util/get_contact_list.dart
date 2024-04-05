@@ -1,6 +1,6 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler.dart';
+import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 

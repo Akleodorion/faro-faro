@@ -1,6 +1,7 @@
 import '../../domain/entities/user.dart';
 
 class UserModel extends User {
+  // ignore: use_super_parameters
   const UserModel({
     required email,
     required username,

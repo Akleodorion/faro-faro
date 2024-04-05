@@ -1,8 +1,8 @@
 import 'package:faro_clean_tdd/core/util/contact_service.dart';
 import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
 import 'package:faro_clean_tdd/core/util/get_location.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester.dart';
+import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
+import 'package:faro_clean_tdd/core/util/permission_requester/permission_requester.dart';
 import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/address/data/repositories/address_repository_impl.dart';
 import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
