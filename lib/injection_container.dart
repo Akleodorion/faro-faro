@@ -37,9 +37,11 @@ import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/
 import 'package:faro_clean_tdd/features/tickets/data/datasources/ticket_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/tickets/data/repositories/ticket_repository_impl.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/repositories/ticket_repository.dart';
+import 'package:faro_clean_tdd/features/tickets/domain/usecases/activate_ticket_usecase.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/usecases/create_ticket_usecase.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/usecases/fetch_user_tickets_usecase.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/usecases/update_ticket_usecase.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/activate_ticket/state/activate_ticket_notifier.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ticket/state/create_ticket_notifier.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_notifier.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/state/update_ticket_notifier.dart';
@@ -141,15 +143,17 @@ Future<void> init() async {
   sl.registerLazySingleton<EventRemoteDatasource>(
       () => EventRemoteDatasourceImpl(client: sl()));
 
-  //! Features - Fetch Tickets - Create Ticket - Update Ticket
+  //! Features - Fetch Tickets - Create Ticket - Update Ticket - Activate Ticket
   sl.registerFactory(() => FetchTicketsNotifier(usecase: sl()));
   sl.registerFactory(() => CreateTicketNotifier(usecase: sl()));
   sl.registerFactory(() => UpdateTicketNotifier(usecase: sl()));
+  sl.registerFactory(() => ActivateTicketNotifier(usecase: sl()));
 
   // Usecases
   sl.registerLazySingleton(() => FetchUserTicketsUsecase(repository: sl()));
   sl.registerLazySingleton(() => CreateTicketUsecase(repository: sl()));
   sl.registerLazySingleton(() => UpdateTicketUsecase(repository: sl()));
+  sl.registerLazySingleton(() => ActivateTicketUsecase(repository: sl()));
 
   // Repository
   sl.registerLazySingleton<TicketRepository>(

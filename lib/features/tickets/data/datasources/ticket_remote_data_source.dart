@@ -130,21 +130,23 @@ class TicketRemoteDataSourceImpl implements TicketRemoteDataSource {
   Future<String> activateTicket(
       {required int userId, required TicketModel ticket}) async {
     final Uri uri = Uri.parse(
-        ServerTicketConstants(ticketId: ticket.id!).transferTicketUrl);
+        ServerTicketConstants(ticketId: ticket.id!).validateTicketUrl);
 
     final Map<String, dynamic> params = {
       "user_id": userId,
       "id": ticket.id,
-      "type": ticket.type,
+      "type": ticket.type.name,
       "event_id": ticket.eventId,
     };
 
-    final response = await http.put(uri,
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: json.encode(params));
+    final response = await http.put(
+      uri,
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: json.encode(params),
+    );
 
     if (response.statusCode == 200) {
       return json.decode(response.body)["message"];
