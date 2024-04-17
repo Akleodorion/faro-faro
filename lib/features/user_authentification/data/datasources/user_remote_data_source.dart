@@ -65,9 +65,6 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         }
       }
     } on http.ClientException catch (error) {
-      print("-------------------------------");
-      print(error);
-      print("-------------------------");
       throw ServerException(errorMessage: error.message);
     }
   }

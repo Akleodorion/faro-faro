@@ -215,6 +215,10 @@ class Event extends Equatable {
     return "${DateFormat('dd/MM/yyyy').format(date)}: ${TryParseTimeOfDayImpl().getString(timeToParse: startTime)}  - ${TryParseTimeOfDayImpl().getString(timeToParse: endTime)}";
   }
 
+  TicketModel retrieveTicketWithId({required int ticketId}) {
+    return tickets.firstWhere((element) => element.id == ticketId);
+  }
+
   @override
   List<Object?> get props => [
         name,

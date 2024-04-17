@@ -2,7 +2,10 @@ import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
 import 'package:faro_clean_tdd/core/util/number_formatter.dart';
 import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/methods/methods.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/barcode_scanner_page/barcode_scanner_page.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/activate_ticket/activate_ticket_provider.dart';
+import 'package:faro_clean_tdd/features/tickets/presentation/providers/activate_ticket/state/activate_ticket_state.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/widgets/image_container.dart';
@@ -36,12 +39,78 @@ class EventShowPage extends ConsumerWidget {
       backgroundColor: Colors.transparent,
       floatingActionButton: isMine
           ? FloatingActionButton(
-              onPressed: () {
+              onPressed: () async {
                 PermissionHandlerImp().requestCamera();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const BarcodeScannerPage();
-                }));
+
+                final String? value = await Navigator.of(context).push<String>(
+                  MaterialPageRoute(builder: (context) {
+                    return const BarcodeScannerPage();
+                  }),
+                );
+
+                if (value == null) {
+                  return;
+                }
+
+                final Map<String, dynamic> ticketInfo =
+                    getTicketInfo(qrcode: value);
+
+                final bool ticketIsInList = isATicketOfEvent(
+                  tickets: event.tickets,
+                  ticketId: ticketInfo["ticketId"],
+                  type: ticketInfo["ticketType"],
+                );
+
+                if (!ticketIsInList && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("ne fait pas parti de la liste",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontSize: 16)),
+                      backgroundColor: Theme.of(context).colorScheme.background,
+                      duration: const Duration(seconds: 3),
+                    ),
+                  );
+                  return;
+                }
+
+                final state = await ref
+                    .read(activateTicketProvider.notifier)
+                    .activateTicket(
+                      userId: userInfo["user_id"],
+                      ticket: event.retrieveTicketWithId(
+                        ticketId: ticketInfo["ticketId"],
+                      ),
+                    );
+
+                if (state is Loaded && context.mounted) {
+                  // prevenir que le truc est bon.
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontSize: 16)),
+                      backgroundColor: Theme.of(context).colorScheme.background,
+                      duration: const Duration(seconds: 3),
+                    ),
+                  );
+                }
+
+                if (state is Error && context.mounted) {
+                  // prevenir que le truc est bon.
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              fontSize: 16)),
+                      backgroundColor: Theme.of(context).colorScheme.background,
+                      duration: const Duration(seconds: 3),
+                    ),
+                  );
+                }
               },
               mini: false,
               child: const Icon(

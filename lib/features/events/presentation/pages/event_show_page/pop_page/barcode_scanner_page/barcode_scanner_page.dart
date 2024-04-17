@@ -11,11 +11,14 @@ class BarcodeScannerPage extends StatelessWidget {
       body: MobileScanner(
         fit: BoxFit.contain,
         controller: MobileScannerController(
-          detectionSpeed: DetectionSpeed.normal,
-          facing: CameraFacing.front,
-          torchEnabled: true,
+          detectionSpeed: DetectionSpeed.noDuplicates,
+          facing: CameraFacing.back,
+          torchEnabled: false,
         ),
-        onDetect: (capture) {},
+        onDetect: (capture) {
+          final List<Barcode> barcodes = capture.barcodes;
+          Navigator.of(context).pop(barcodes[0].rawValue);
+        },
       ),
     );
   }
