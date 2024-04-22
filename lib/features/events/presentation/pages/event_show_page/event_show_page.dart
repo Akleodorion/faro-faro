@@ -1,6 +1,9 @@
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
 import 'package:faro_clean_tdd/core/util/number_formatter.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/methods/get_permission_status.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/methods/permission_request_dialog.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/methods/methods.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/barcode_scanner_page/barcode_scanner_page.dart';
@@ -34,82 +37,101 @@ class EventShowPage extends ConsumerWidget {
     final userInfo = ref.read(userInfoProvider);
     userInfo["user_id"] == event.userId ? isMine = true : isMine = false;
 
-    // Widget
     return Scaffold(
       backgroundColor: Colors.transparent,
       floatingActionButton: isMine
           ? FloatingActionButton(
               onPressed: () async {
-                PermissionHandlerImp().requestCamera();
-
-                final String? value = await Navigator.of(context).push<String>(
-                  MaterialPageRoute(builder: (context) {
-                    return const BarcodeScannerPage();
-                  }),
-                );
-
-                if (value == null) {
-                  return;
+                try {
+                  await getPermissionStatus(
+                      context: context, permissionEnum: PermissionEnum.camera);
+                } on UtilException {
+                  if (context.mounted) {
+                    permissionRequestDialog(
+                      context: context,
+                      permissionEnum: PermissionEnum.camera,
+                      isSuccess: false,
+                    );
+                  }
                 }
 
-                final Map<String, dynamic> ticketInfo =
-                    getTicketInfo(qrcode: value);
-
-                final bool ticketIsInList = isATicketOfEvent(
-                  tickets: event.tickets,
-                  ticketId: ticketInfo["ticketId"],
-                  type: ticketInfo["ticketType"],
-                );
-
-                if (!ticketIsInList && context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("ne fait pas parti de la liste",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: 16)),
-                      backgroundColor: Theme.of(context).colorScheme.background,
-                      duration: const Duration(seconds: 3),
-                    ),
+                if (context.mounted) {
+                  final String? value =
+                      await Navigator.of(context).push<String>(
+                    MaterialPageRoute(builder: (context) {
+                      return const BarcodeScannerPage();
+                    }),
                   );
-                  return;
-                }
 
-                final state = await ref
-                    .read(activateTicketProvider.notifier)
-                    .activateTicket(
-                      userId: userInfo["user_id"],
-                      ticket: event.retrieveTicketWithId(
-                        ticketId: ticketInfo["ticketId"],
+                  if (value == null) {
+                    return;
+                  }
+
+                  final Map<String, dynamic> ticketInfo =
+                      getTicketInfo(qrcode: value);
+
+                  final bool ticketIsInList = isATicketOfEvent(
+                    tickets: event.tickets,
+                    ticketId: ticketInfo["ticketId"],
+                    type: ticketInfo["ticketType"],
+                  );
+
+                  if (!ticketIsInList && context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("ne fait pas parti de la liste",
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontSize: 16)),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.background,
+                        duration: const Duration(seconds: 3),
                       ),
                     );
+                    return;
+                  }
 
-                if (state is Loaded && context.mounted) {
-                  // prevenir que le truc est bon.
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message,
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: 16)),
-                      backgroundColor: Theme.of(context).colorScheme.background,
-                      duration: const Duration(seconds: 3),
-                    ),
-                  );
-                }
+                  final state = await ref
+                      .read(activateTicketProvider.notifier)
+                      .activateTicket(
+                        userId: userInfo["user_id"],
+                        ticket: event.retrieveTicketWithId(
+                          ticketId: ticketInfo["ticketId"],
+                        ),
+                      );
 
-                if (state is Error && context.mounted) {
-                  // prevenir que le truc est bon.
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message,
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onBackground,
-                              fontSize: 16)),
-                      backgroundColor: Theme.of(context).colorScheme.background,
-                      duration: const Duration(seconds: 3),
-                    ),
-                  );
+                  if (state is Loaded && context.mounted) {
+                    // prevenir que le truc est bon.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message,
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontSize: 16)),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.background,
+                        duration: const Duration(seconds: 3),
+                      ),
+                    );
+                  }
+
+                  if (state is Error && context.mounted) {
+                    // prevenir que le truc est bon.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.message,
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                fontSize: 16)),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.background,
+                        duration: const Duration(seconds: 3),
+                      ),
+                    );
+                  }
                 }
               },
               mini: false,

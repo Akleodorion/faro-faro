@@ -20,10 +20,11 @@ class MemberCard extends ConsumerWidget {
   final Event event;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    void deleteMember(
-        {required BuildContext context,
-        required DeleteMemberState deleteMemberState,
-        required Member member}) {
+    void deleteMember({
+      required BuildContext context,
+      required DeleteMemberState deleteMemberState,
+      required Member member,
+    }) {
       final bool isSuccess = deleteMemberState is Initial && context.mounted;
       final bool isError = deleteMemberState is Error && context.mounted;
 

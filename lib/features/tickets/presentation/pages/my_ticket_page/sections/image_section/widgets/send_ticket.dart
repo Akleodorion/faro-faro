@@ -1,7 +1,5 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/contact_service.dart';
-import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
+import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/fonctions/pop_up_dialog.dart';
@@ -36,10 +34,8 @@ class SendTicket extends ConsumerWidget {
 
             if (contactState is Loading) {
               try {
-                final List<String> numbers = await GetContactListImpl(
-                  contactService: ContactServiceImpl(),
-                  permissionHandler: PermissionHandlerImp(),
-                ).getContacts(context);
+                final List<String> numbers =
+                    await ContactListImpl().retrieveContacts();
 
                 await ref
                     .read(contactStateProvider.notifier)

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
-import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
+import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
 import 'package:faro_clean_tdd/features/contacts/data/datasources/contact_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/contacts/data/repositories/contact_repository_impl.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
@@ -17,23 +17,23 @@ import 'contact_repository_impl_test.mocks.dart';
 @GenerateMocks([
   NetworkInfo,
   ContactRemoteDataSource,
-  GetContactList,
+  ContactList,
   BuildContext,
 ])
 void main() {
   late MockNetworkInfo mockNetworkInfo;
   late MockContactRemoteDataSource mockContactRemoteDataSource;
-  late MockGetContactList mockGetContactList;
+  late MockContactList mockContactList;
   late ContactRepositoryImpl sut;
 
   setUp(() {
     mockNetworkInfo = MockNetworkInfo();
     mockContactRemoteDataSource = MockContactRemoteDataSource();
-    mockGetContactList = MockGetContactList();
+    mockContactList = MockContactList();
     sut = ContactRepositoryImpl(
         networkInfo: mockNetworkInfo,
         remoteDataSource: mockContactRemoteDataSource,
-        contactList: mockGetContactList);
+        contactList: mockContactList);
   });
 
   group(

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/constants/error_constants.dart';
+import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
-import '../../../../core/util/datetime_comparator.dart';
 import '../datasources/user_local_data_source.dart';
 import '../datasources/user_remote_data_source.dart';
 import '../models/user_model.dart';
@@ -17,13 +17,13 @@ class UserAuthentificationRepositoryImpl
   final UserLocalDataSource localDataSource;
   final UserRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
-  final DateTimeComparator dateTimeComparator;
+  final DateTimeUtil dateTimeUtil;
 
   UserAuthentificationRepositoryImpl({
     required this.localDataSource,
     required this.remoteDataSource,
     required this.networkInfo,
-    required this.dateTimeComparator,
+    required this.dateTimeUtil,
   });
 
   @override
@@ -100,8 +100,13 @@ class UserAuthentificationRepositoryImpl
   Future<User?> logInWithToken() async {
     final cachedToken = await localDataSource.getLastCachedToken();
     final lastLoginDateTime = await localDataSource.getLastLoginDatetime();
-    if (cachedToken!.isNotEmpty &&
-        dateTimeComparator.isValid(lastLoginDateTime!)) {
+    final bool isLastLoginValid =
+        dateTimeUtil.isDateTimeDifferenceInMinuteValid(
+            first: DateTime.now(),
+            second: lastLoginDateTime!,
+            minutesTreshold: 60);
+
+    if (cachedToken!.isNotEmpty && isLastLoginValid) {
       return remoteDataSource.userLogInWithToken(cachedToken);
     } else {
       return null;

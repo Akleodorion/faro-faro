@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
-import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
+import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
 import 'package:faro_clean_tdd/features/contacts/data/datasources/contact_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 import 'package:faro_clean_tdd/features/contacts/domain/repositories/contact_repository.dart';
@@ -17,7 +17,7 @@ class ContactRepositoryImpl implements ContactRepository {
 
   final NetworkInfo networkInfo;
   final ContactRemoteDataSource remoteDataSource;
-  final GetContactList contactList;
+  final ContactList contactList;
 
   @override
   Future<Either<Failure, List<Contact>>> fectchConctacts(

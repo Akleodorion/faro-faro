@@ -1,3 +1,7 @@
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/methods/get_permission_status.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/methods/permission_request_dialog.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_state.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +29,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
         icon: const Icon(Icons.camera),
         label: const Text('Add a picture'),
         onPressed: () async {
-          await ref.read(imageProvider.notifier).pickImageFromGalery();
+          await _pickImage(context);
         },
       );
     }
@@ -53,9 +57,24 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       alignment: Alignment.center,
       child: InkWell(
           onTap: () async {
-            await ref.read(imageProvider.notifier).pickImageFromGalery();
+            await _pickImage(context);
           },
           child: content),
     );
+  }
+
+  Future<void> _pickImage(BuildContext context) async {
+    try {
+      await getPermissionStatus(
+          context: context, permissionEnum: PermissionEnum.photos);
+      await ref.read(imageProvider.notifier).pickImageFromGalery();
+    } on UtilException {
+      if (context.mounted) {
+        permissionRequestDialog(
+            context: context,
+            permissionEnum: PermissionEnum.photos,
+            isSuccess: false);
+      }
+    }
   }
 }
