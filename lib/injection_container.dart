@@ -1,8 +1,7 @@
-import 'package:faro_clean_tdd/core/util/contact_service.dart';
-import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
+import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart';
+import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
 import 'package:faro_clean_tdd/core/util/get_location.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester/permission_requester.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/permission_handler.dart';
 import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/address/data/repositories/address_repository_impl.dart';
 import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
@@ -53,7 +52,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
 import 'core/network/network_info.dart';
-import 'core/util/datetime_comparator.dart';
 import 'features/events/data/datasources/event_remote_data_source.dart';
 import 'features/events/data/repositories/event_repository_impl.dart';
 import 'features/events/domain/repositories/event_repository.dart';
@@ -102,7 +100,7 @@ Future<void> init() async {
   // Repository
   sl.registerLazySingleton<UserAuthentificationRepository>(() =>
       UserAuthentificationRepositoryImpl(
-          dateTimeComparator: sl(),
+          dateTimeUtil: sl(),
           localDataSource: sl(),
           remoteDataSource: sl(),
           networkInfo: sl()));
@@ -229,14 +227,10 @@ Future<void> init() async {
 
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
-  sl.registerLazySingleton<GetContactList>(
-      () => GetContactListImpl(contactService: sl(), permissionHandler: sl()));
+  sl.registerLazySingleton<ContactList>(() => ContactListImpl());
   sl.registerLazySingleton(() => GetLocationImpl(location: sl()));
-  sl.registerLazySingleton<DateTimeComparator>(() => DateTimeComparatorImpl());
-  sl.registerLazySingleton<ContactService>(() => ContactServiceImpl());
+  sl.registerLazySingleton<DateTimeUtil>(() => DateTimeUtilImpl());
   sl.registerLazySingleton<PermissionHandler>(() => PermissionHandlerImp());
-  sl.registerLazySingleton<PermissionRequester>(
-      () => PermissionRequesterImpl());
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();

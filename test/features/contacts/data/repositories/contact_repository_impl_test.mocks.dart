@@ -6,13 +6,15 @@
 import 'dart:async' as _i5;
 
 import 'package:faro_clean_tdd/core/network/network_info.dart' as _i4;
-import 'package:faro_clean_tdd/core/util/get_contact_list.dart' as _i8;
 import 'package:faro_clean_tdd/features/contacts/data/datasources/contact_remote_data_source.dart'
     as _i6;
 import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart'
     as _i7;
+import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart'
+    as _i8;
 import 'package:flutter/foundation.dart' as _i3;
-import 'package:flutter/material.dart' as _i2;
+import 'package:flutter/src/widgets/framework.dart' as _i2;
+import 'package:flutter/src/widgets/notification_listener.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -38,7 +40,7 @@ class _FakeWidget_0 extends _i1.SmartFake implements _i2.Widget {
         );
 
   @override
-  String toString({_i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.info}) =>
+  String toString({_i3.DiagnosticLevel? minLevel = _i3.DiagnosticLevel.info}) =>
       super.toString();
 }
 
@@ -53,12 +55,12 @@ class _FakeInheritedWidget_1 extends _i1.SmartFake
         );
 
   @override
-  String toString({_i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.info}) =>
+  String toString({_i3.DiagnosticLevel? minLevel = _i3.DiagnosticLevel.info}) =>
       super.toString();
 }
 
 class _FakeDiagnosticsNode_2 extends _i1.SmartFake
-    implements _i2.DiagnosticsNode {
+    implements _i3.DiagnosticsNode {
   _FakeDiagnosticsNode_2(
     Object parent,
     Invocation parentInvocation,
@@ -70,7 +72,7 @@ class _FakeDiagnosticsNode_2 extends _i1.SmartFake
   @override
   String toString({
     _i3.TextTreeConfiguration? parentConfiguration,
-    _i2.DiagnosticLevel? minLevel = _i2.DiagnosticLevel.info,
+    _i3.DiagnosticLevel? minLevel = _i3.DiagnosticLevel.info,
   }) =>
       super.toString();
 }
@@ -133,20 +135,19 @@ class MockContactRemoteDataSource extends _i1.Mock
       ) as _i5.Future<List<_i7.Contact>>);
 }
 
-/// A class which mocks [GetContactList].
+/// A class which mocks [ContactList].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetContactList extends _i1.Mock implements _i8.GetContactList {
-  MockGetContactList() {
+class MockContactList extends _i1.Mock implements _i8.ContactList {
+  MockContactList() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<List<String>> getContacts(_i2.BuildContext? context) =>
-      (super.noSuchMethod(
+  _i5.Future<List<String>> retrieveContacts() => (super.noSuchMethod(
         Invocation.method(
-          #getContacts,
-          [context],
+          #retrieveContacts,
+          [],
         ),
         returnValue: _i5.Future<List<String>>.value(<String>[]),
       ) as _i5.Future<List<String>>);
@@ -222,7 +223,7 @@ class MockBuildContext extends _i1.Mock implements _i2.BuildContext {
       );
 
   @override
-  void dispatchNotification(_i2.Notification? notification) =>
+  void dispatchNotification(_i9.Notification? notification) =>
       super.noSuchMethod(
         Invocation.method(
           #dispatchNotification,
@@ -232,7 +233,7 @@ class MockBuildContext extends _i1.Mock implements _i2.BuildContext {
       );
 
   @override
-  _i2.DiagnosticsNode describeElement(
+  _i3.DiagnosticsNode describeElement(
     String? name, {
     _i3.DiagnosticsTreeStyle? style = _i3.DiagnosticsTreeStyle.errorProperty,
   }) =>
@@ -250,10 +251,10 @@ class MockBuildContext extends _i1.Mock implements _i2.BuildContext {
             {#style: style},
           ),
         ),
-      ) as _i2.DiagnosticsNode);
+      ) as _i3.DiagnosticsNode);
 
   @override
-  _i2.DiagnosticsNode describeWidget(
+  _i3.DiagnosticsNode describeWidget(
     String? name, {
     _i3.DiagnosticsTreeStyle? style = _i3.DiagnosticsTreeStyle.errorProperty,
   }) =>
@@ -271,10 +272,10 @@ class MockBuildContext extends _i1.Mock implements _i2.BuildContext {
             {#style: style},
           ),
         ),
-      ) as _i2.DiagnosticsNode);
+      ) as _i3.DiagnosticsNode);
 
   @override
-  List<_i2.DiagnosticsNode> describeMissingAncestor(
+  List<_i3.DiagnosticsNode> describeMissingAncestor(
           {required Type? expectedAncestorType}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -282,11 +283,11 @@ class MockBuildContext extends _i1.Mock implements _i2.BuildContext {
           [],
           {#expectedAncestorType: expectedAncestorType},
         ),
-        returnValue: <_i2.DiagnosticsNode>[],
-      ) as List<_i2.DiagnosticsNode>);
+        returnValue: <_i3.DiagnosticsNode>[],
+      ) as List<_i3.DiagnosticsNode>);
 
   @override
-  _i2.DiagnosticsNode describeOwnershipChain(String? name) =>
+  _i3.DiagnosticsNode describeOwnershipChain(String? name) =>
       (super.noSuchMethod(
         Invocation.method(
           #describeOwnershipChain,
@@ -299,5 +300,5 @@ class MockBuildContext extends _i1.Mock implements _i2.BuildContext {
             [name],
           ),
         ),
-      ) as _i2.DiagnosticsNode);
+      ) as _i3.DiagnosticsNode);
 }

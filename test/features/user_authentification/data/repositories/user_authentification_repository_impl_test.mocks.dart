@@ -6,7 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:faro_clean_tdd/core/network/network_info.dart' as _i3;
-import 'package:faro_clean_tdd/core/util/datetime_comparator.dart' as _i8;
+import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart'
+    as _i8;
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart'
     as _i7;
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart'
@@ -254,20 +255,29 @@ class MockUserLocalDataSource extends _i1.Mock
       ) as _i4.Future<void>?);
 }
 
-/// A class which mocks [DateTimeComparator].
+/// A class which mocks [DateTimeUtil].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDateTimeComparator extends _i1.Mock
-    implements _i8.DateTimeComparator {
-  MockDateTimeComparator() {
+class MockDateTimeUtil extends _i1.Mock implements _i8.DateTimeUtil {
+  MockDateTimeUtil() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  bool isValid(DateTime? dateTime) => (super.noSuchMethod(
+  bool isDateTimeDifferenceInMinuteValid({
+    required DateTime? first,
+    required DateTime? second,
+    required int? minutesTreshold,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
-          #isValid,
-          [dateTime],
+          #isDateTimeDifferenceInMinuteValid,
+          [],
+          {
+            #first: first,
+            #second: second,
+            #minutesTreshold: minutesTreshold,
+          },
         ),
         returnValue: false,
       ) as bool);

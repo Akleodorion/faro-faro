@@ -1,7 +1,7 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/contact_service.dart';
-import 'package:faro_clean_tdd/core/util/get_contact_list.dart';
-import 'package:faro_clean_tdd/core/util/permission_requester/permission_handler.dart';
+import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/methods/get_permission_status.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
@@ -28,23 +28,20 @@ class AddMember extends ConsumerWidget {
         final contactState = ref.read(contactStateProvider);
         if (contactState is Loading) {
           try {
-            final List<String> numbers = await GetContactListImpl(
-              contactService: ContactServiceImpl(),
-              permissionHandler: PermissionHandlerImp(),
-            ).getContacts(context);
-
+            await getPermissionStatus(
+                context: context, permissionEnum: PermissionEnum.contact);
+            final List<String> numbers =
+                await ContactListImpl().retrieveContacts();
             await ref
                 .read(contactStateProvider.notifier)
                 .fetchContact(numbers: numbers);
           } on ServerException {
             if (context.mounted) {
               await popUpDialog(context: context);
-
               return;
             }
           }
         }
-
         if (context.mounted) {
           await popUpBottomSheet(
             event: event,

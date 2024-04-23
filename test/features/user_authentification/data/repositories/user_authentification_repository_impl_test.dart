@@ -3,7 +3,7 @@ import 'package:faro_clean_tdd/core/constants/error_constants.dart';
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/errors/failures.dart';
 import 'package:faro_clean_tdd/core/network/network_info.dart';
-import 'package:faro_clean_tdd/core/util/datetime_comparator.dart';
+import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart';
@@ -18,22 +18,22 @@ import './user_authentification_repository_impl_test.mocks.dart';
   NetworkInfo,
   UserRemoteDataSource,
   UserLocalDataSource,
-  DateTimeComparator,
+  DateTimeUtil,
 ])
 void main() {
   late MockUserRemoteDataSource mockUserRemoteDataSource;
   late MockUserLocalDataSource mockUserLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
-  late MockDateTimeComparator mockDateTimeComparator;
+  late MockDateTimeUtil mockDateTimeUtil;
   late UserAuthentificationRepositoryImpl userAuthentificationRepositoryImpl;
 
   setUp(() {
     mockUserRemoteDataSource = MockUserRemoteDataSource();
     mockUserLocalDataSource = MockUserLocalDataSource();
-    mockDateTimeComparator = MockDateTimeComparator();
+    mockDateTimeUtil = MockDateTimeUtil();
     mockNetworkInfo = MockNetworkInfo();
     userAuthentificationRepositoryImpl = UserAuthentificationRepositoryImpl(
-        dateTimeComparator: mockDateTimeComparator,
+        dateTimeUtil: mockDateTimeUtil,
         localDataSource: mockUserLocalDataSource,
         remoteDataSource: mockUserRemoteDataSource,
         networkInfo: mockNetworkInfo);
@@ -310,7 +310,11 @@ void main() {
           .thenAnswer((_) async => tToken);
       when(mockUserLocalDataSource.getLastLoginDatetime())
           .thenAnswer((_) async => tDatetime);
-      when(mockDateTimeComparator.isValid(any)).thenAnswer((_) => true);
+      when(mockDateTimeUtil.isDateTimeDifferenceInMinuteValid(
+              first: anyNamed('first'),
+              second: anyNamed('second'),
+              minutesTreshold: anyNamed('minutesTreshold')))
+          .thenAnswer((_) => true);
       when(mockUserRemoteDataSource.userLogInWithToken(any))
           .thenAnswer((realInvocation) async => tUserModel);
     });
@@ -352,7 +356,11 @@ void main() {
       "when the token is not valid",
       () {
         setUp(() {
-          when(mockDateTimeComparator.isValid(any)).thenAnswer((_) => false);
+          when(mockDateTimeUtil.isDateTimeDifferenceInMinuteValid(
+                  first: anyNamed('first'),
+                  second: anyNamed('second'),
+                  minutesTreshold: anyNamed('minutesTreshold')))
+              .thenAnswer((_) => true);
           when(mockUserLocalDataSource.getLastCachedToken())
               .thenAnswer((realInvocation) async => '');
         });
