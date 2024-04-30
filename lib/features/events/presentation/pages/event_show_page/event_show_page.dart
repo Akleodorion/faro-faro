@@ -2,8 +2,7 @@ import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
 import 'package:faro_clean_tdd/core/util/number_formatter.dart';
 import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/methods/get_permission_status.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/methods/permission_request_dialog.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/permission_handler.dart';
 import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/methods/methods.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/barcode_scanner_page/barcode_scanner_page.dart';
@@ -43,15 +42,16 @@ class EventShowPage extends ConsumerWidget {
           ? FloatingActionButton(
               onPressed: () async {
                 try {
-                  await getPermissionStatus(
-                      context: context, permissionEnum: PermissionEnum.camera);
+                  await PermissionHandlerImp(
+                    context: context,
+                    permissionEnum: PermissionEnum.camera,
+                  ).requestPermission();
                 } on UtilException {
                   if (context.mounted) {
-                    permissionRequestDialog(
-                      context: context,
-                      permissionEnum: PermissionEnum.camera,
-                      isSuccess: false,
-                    );
+                    await PermissionHandlerImp(
+                            context: context,
+                            permissionEnum: PermissionEnum.camera)
+                        .showPermissionErrorDialog();
                   }
                 }
 
