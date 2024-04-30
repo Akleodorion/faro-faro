@@ -1,6 +1,10 @@
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:location/location.dart';
 
 abstract class GetLocation {
+  /// This method return a map
+  /// The first information is the latitude, the second is the longitude
+  /// If the application does not have the permission it will throw a [UtilException] .
   Future<Map<String, double>?>? getLocation();
 }
 
@@ -11,29 +15,14 @@ class GetLocationImpl implements GetLocation {
 
   @override
   Future<Map<String, double>?>? getLocation() async {
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
     LocationData locationData;
-    serviceEnabled = await location.serviceEnabled();
-
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return null;
-      }
+    try {
+      locationData = await location.getLocation();
+      final latitude = locationData.latitude;
+      final longitude = locationData.longitude;
+      return {'latitude': latitude!, 'longitude': longitude!};
+    } catch (error) {
+      throw UtilException();
     }
-
-    permissionGranted = await location.hasPermission();
-
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return null;
-      }
-    }
-    locationData = await location.getLocation();
-    final latitude = locationData.latitude;
-    final longitude = locationData.longitude;
-    return {'latitude': latitude!, 'longitude': longitude!};
   }
 }

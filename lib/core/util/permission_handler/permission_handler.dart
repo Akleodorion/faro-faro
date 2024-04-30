@@ -1,40 +1,96 @@
+import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/constants/permission_constants.dart';
 import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/methods/permission_request_dialog.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/methods/content_text.dart';
+import 'package:faro_clean_tdd/widgets/alert_dialog/Info_alert_dialog/info_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 abstract class PermissionHandler {
-  Future<PermissionStatus> requestPermission({
-    required BuildContext context,
-    required PermissionEnum permissionEnum,
-  });
-  Future<PermissionStatus> requestPermissionStatus(
-      {required PermissionEnum permissionEnum});
+  /// This function requests the permission for a specific feature.
+  ///
+  /// If an error occurs throws a [UtilException] the permission hasn't been grated.
+  Future<void> requestPermission();
+
+  /// This function shows an alert dialog.
+  ///
+  /// it take a [PermissionEnum] as parameter.
+  ///
+  /// it will display the corresponding content of the enum selected.
+  Future<void> showPermissionErrorDialog();
 }
 
 class PermissionHandlerImp implements PermissionHandler {
-  final Map<PermissionEnum, Permission> permissionMap = {
-    PermissionEnum.camera: Permission.camera,
-    PermissionEnum.contact: Permission.contacts,
-    PermissionEnum.location: Permission.location,
-    PermissionEnum.photos: Permission.photos,
-  };
+  final BuildContext context;
+  final PermissionEnum permissionEnum;
+
+  PermissionHandlerImp({
+    required this.context,
+    required this.permissionEnum,
+  });
 
   @override
-  Future<PermissionStatus> requestPermission(
-      {required BuildContext context,
-      required PermissionEnum permissionEnum}) async {
-    await permissionRequestDialog(
-        context: context, permissionEnum: permissionEnum, isSuccess: true);
+  Future<void> requestPermission() async {
+    PermissionStatus status =
+        await _requestPermissionStatus(permissionEnum: permissionEnum);
 
-    final PermissionStatus result =
-        await permissionMap[permissionEnum]!.request();
-    return result;
+    final permissionDenied = (status == PermissionStatus.denied);
+    if (permissionDenied && context.mounted) {
+      await _showPermissionDialog(
+        context: context,
+        permissionEnum: permissionEnum,
+      );
+
+      status = await _requestPermission(permissionEnum: permissionEnum);
+    }
+
+    final permissionNotGranted = (status != PermissionStatus.granted);
+    if (permissionNotGranted) {
+      throw UtilException();
+    }
+  }
+
+  Future<PermissionStatus> _requestPermissionStatus(
+      {required PermissionEnum permissionEnum}) async {
+    return await PermissionConstants.permissionMap[permissionEnum]!.status;
+  }
+
+  Future<void> _showPermissionDialog({
+    required BuildContext context,
+    required PermissionEnum permissionEnum,
+  }) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return InfoAlertDialog(
+          title: PermissionConstants.title,
+          content: contentText(
+            requestEnum: permissionEnum,
+            isSuccess: true,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<PermissionStatus> _requestPermission(
+      {required PermissionEnum permissionEnum}) async {
+    return await PermissionConstants.permissionMap[permissionEnum]!.request();
   }
 
   @override
-  Future<PermissionStatus> requestPermissionStatus(
-      {required PermissionEnum permissionEnum}) async {
-    return await permissionMap[permissionEnum]!.status;
+  Future<void> showPermissionErrorDialog() async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return InfoAlertDialog(
+          title: PermissionConstants.title,
+          content: contentText(
+            requestEnum: permissionEnum,
+            isSuccess: false,
+          ),
+        );
+      },
+    );
   }
 }

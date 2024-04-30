@@ -1,3 +1,6 @@
+import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 class PermissionConstants {
   static const title = "Permission requise";
   static const errorTitle = "Permission non fournie";
@@ -26,4 +29,11 @@ class PermissionConstants {
       "Cette requête est une erreur, veuillez retenter plus tard.";
 
   static const pass = "Continuer";
+
+  static const Map<PermissionEnum, Permission> permissionMap = {
+    PermissionEnum.camera: Permission.camera,
+    PermissionEnum.contact: Permission.contacts,
+    PermissionEnum.location: Permission.location,
+    PermissionEnum.photos: Permission.photos,
+  };
 }

@@ -1,7 +1,6 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/methods/get_permission_status.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/methods/permission_request_dialog.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/permission_handler.dart';
 import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,19 +57,20 @@ class _MapInputState extends ConsumerState<MapInput> {
             ElevatedButton.icon(
               onPressed: () async {
                 try {
-                  await getPermissionStatus(
-                      context: context,
-                      permissionEnum: PermissionEnum.location);
+                  await PermissionHandlerImp(
+                    context: context,
+                    permissionEnum: PermissionEnum.location,
+                  ).requestPermission();
 
                   await ref
                       .read(addressProvider.notifier)
                       .getCurrentLocationAddress();
                 } on UtilException {
                   if (context.mounted) {
-                    permissionRequestDialog(
-                        context: context,
-                        permissionEnum: PermissionEnum.location,
-                        isSuccess: false);
+                    PermissionHandlerImp(
+                      context: context,
+                      permissionEnum: PermissionEnum.location,
+                    ).showPermissionErrorDialog();
                   }
                 }
               },
