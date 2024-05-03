@@ -20,7 +20,9 @@ class ApiCallMethodsImpl implements ApiCallMethods {
     if (statusCode == 201) {
       return json.decode(response.body)[modelName];
     }
-    throw ServerException(errorMessage: "Une erreur s'est produite");
+    throw ServerException(
+      errorMessage: "Une erreur s'est produite",
+    );
   }
 
   @override

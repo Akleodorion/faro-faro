@@ -1,6 +1,6 @@
 import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart';
 import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
-import 'package:faro_clean_tdd/core/util/get_location.dart';
+import 'package:faro_clean_tdd/core/util/location/location_repo.dart';
 import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart';
 import 'package:faro_clean_tdd/features/address/data/repositories/address_repository_impl.dart';
 import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
@@ -227,7 +227,7 @@ Future<void> init() async {
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton<ContactList>(() => ContactListImpl());
-  sl.registerLazySingleton(() => GetLocationImpl(location: sl()));
+  sl.registerLazySingleton(() => LocationRepoImpl(location: sl()));
   sl.registerLazySingleton<DateTimeUtil>(() => DateTimeUtilImpl());
 
   //! External
