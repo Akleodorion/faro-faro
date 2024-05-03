@@ -2,7 +2,7 @@ import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/permission_handler/constants/permission_constants.dart';
 import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
 import 'package:faro_clean_tdd/core/util/permission_handler/methods/content_text.dart';
-import 'package:faro_clean_tdd/widgets/alert_dialog/Info_alert_dialog/info_alert_dialog.dart';
+import 'package:faro_clean_tdd/general%20widgets/alert_dialog/Info_alert_dialog/info_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 

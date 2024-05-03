@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/core/general_theme/general_theme.dart';
-import 'package:faro_clean_tdd/widgets/auto_login_checker.dart';
+import 'package:faro_clean_tdd/general%20widgets/auto_login_checker.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,9 @@ void main() async {
   await initializeDateFormatting('fr_FR', null);
   await di.init();
   await dotenv.load(fileName: ".env");
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  ).then(
     (value) => runApp(
       const ProviderScope(
         child: MyApp(),

@@ -1,6 +1,6 @@
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/auto_login/auto_login_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/auto_login/state/auto_login_state.dart';
-import 'package:faro_clean_tdd/widgets/autch_checker.dart';
+import 'package:faro_clean_tdd/general%20widgets/autch_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/get_location.dart';
+import 'package:faro_clean_tdd/core/util/location/location_repo.dart';
 import 'package:faro_clean_tdd/features/address/data/models/address_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -29,17 +29,13 @@ abstract class AddressRemoteDataSource {
 class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
   AddressRemoteDataSourceImpl({required this.location, required this.client});
 
-  final GetLocationImpl location;
+  final LocationRepoImpl location;
   final http.Client client;
   @override
   Future<AddressModel> fetchAddressDataFromCurrentLocation() async {
     // récupérer la position du téléphone
     final setLocation = await location.getLocation();
 
-    if (setLocation == null) {
-      throw ServerException(
-          errorMessage: "We have not managed to retrieve your position");
-    }
     // faire la requête http
     final uri = Uri.parse(
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=${setLocation['latitude']},${setLocation['longitude']}&key=$APIKEY");
