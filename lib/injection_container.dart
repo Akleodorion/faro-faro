@@ -49,7 +49,6 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/re
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/password/state/password_notifier.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
-
 import 'core/network/network_info.dart';
 import 'features/events/data/datasources/event_remote_data_source.dart';
 import 'features/events/data/repositories/event_repository_impl.dart';

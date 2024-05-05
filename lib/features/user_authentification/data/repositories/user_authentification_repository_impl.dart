@@ -92,7 +92,6 @@ class UserAuthentificationRepositoryImpl
       "datetime": lastLoginDateTime,
       "pref": lastPref,
     };
-
     return userInfo;
   }
 

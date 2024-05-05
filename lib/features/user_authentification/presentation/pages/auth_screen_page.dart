@@ -1,15 +1,9 @@
-import '../widgets/auth_card.dart';
+import '../widgets/auth_card/auth_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AuthScreen extends ConsumerStatefulWidget {
+class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
 
-  @override
-  ConsumerState createState() => _AuthScreenState();
-}
-
-class _AuthScreenState extends ConsumerState<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
