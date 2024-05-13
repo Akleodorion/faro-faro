@@ -1,5 +1,5 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/state/logged_in_state.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
 
 import 'package:flutter/material.dart';
@@ -32,10 +32,10 @@ class _RememberCheckboxState extends State<RememberCheckbox> {
           return Checkbox(
             value: _isChecked ?? false,
             onChanged: (value) {
-              final state = ref.read(userAuthProvider);
-              if (state is Initial) {
+              final state = ref.read(loggedInProvider);
+              if (state is Unloaded) {
                 ref
-                    .read(userAuthProvider.notifier)
+                    .read(loggedInProvider.notifier)
                     .togglePref(state.userInfo, value!);
               }
               setState(() {

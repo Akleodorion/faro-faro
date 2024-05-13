@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// Pour connecter l'utilisateur à son compte
 ///
 /// En cas d'erreur jette un [UtilException] avec le message d'erreur
-Future<void> logOrSignUserIn({
+Future<UserState> logOrSignUserIn({
   required WidgetRef ref,
   required Map<String, dynamic> logInInfoMap,
   required bool isLogingIn,
@@ -30,6 +30,8 @@ Future<void> logOrSignUserIn({
           logInInfoMap["pref"],
         );
   }
-
-  state is Error ? throw UtilException(errorMessage: state.message) : null;
+  if (state is Error) {
+    throw UtilException(errorMessage: state.message);
+  }
+  return state;
 }

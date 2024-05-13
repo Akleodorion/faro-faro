@@ -6,13 +6,13 @@ abstract class UserState extends Equatable {
   List<Object?> get props => [];
 }
 
-class Initial extends UserState {
-  final Map<String, dynamic> userInfo;
-
-  Initial({required this.userInfo});
+class Unloaded extends UserState {
+  Unloaded();
 }
 
 class Loading extends UserState {}
+
+class AutoLoging extends UserState {}
 
 class Loaded extends UserState {
   final User user;

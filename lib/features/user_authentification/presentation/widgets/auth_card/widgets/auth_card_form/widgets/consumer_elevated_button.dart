@@ -1,5 +1,6 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
 import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
@@ -33,7 +34,6 @@ class ConsumerElevatedButton extends ConsumerWidget {
             logInInfoMap: logInInfo,
             context: context,
           );
-          print(logInInfo);
         },
         isLoading: isLoading);
   }
@@ -47,11 +47,12 @@ class ConsumerElevatedButton extends ConsumerWidget {
     try {
       validateForm(form: formKey);
       logInInfo["pref"] = assignCheckedStatus(ref: ref);
-      await logOrSignUserIn(
-        ref: ref,
-        logInInfoMap: logInInfoMap,
-        isLogingIn: logingIn,
-      );
+      final userState = await logOrSignUserIn(
+          ref: ref, logInInfoMap: logInInfoMap, isLogingIn: logingIn);
+
+      if (userState is Loaded) {
+        ref.read(loggedInProvider.notifier).statusToLoaded(userState.user);
+      }
     } on UtilException catch (error) {
       if (context.mounted) {
         showResultMessageSnackbar(

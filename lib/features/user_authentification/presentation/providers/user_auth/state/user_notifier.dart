@@ -3,7 +3,6 @@ import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/lo
 
 import '../../../../../../core/errors/failures.dart';
 import '../../../../domain/usecases/get_user_info.dart';
-import '../../../../domain/usecases/log_in_with_token.dart';
 import 'user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/usecases/log_user_in.dart';
@@ -11,20 +10,18 @@ import '../../../../domain/usecases/sign_user_in.dart' as si;
 
 class UserNotifier extends StateNotifier<UserState> {
   final LogUserIn logUserInUsecase;
-  final LogInWithToken logInWithTokenUsecase;
   final si.SignUserIn signUserInUsecase;
   final LogUserOutUsecase logUserOutUsecase;
   final GetUserInfo getUserInfoUsecase;
 
-  UserState get initialState => Loading();
+  UserState get initialState => Unloaded();
 
   UserNotifier(
       {required this.logUserInUsecase,
       required this.signUserInUsecase,
-      required this.logInWithTokenUsecase,
       required this.getUserInfoUsecase,
       required this.logUserOutUsecase})
-      : super(Loading());
+      : super(Unloaded());
 
   Future<UserState> logUserIn(String email, String password, bool pref) async {
     state = Loading();
@@ -38,12 +35,6 @@ class UserNotifier extends StateNotifier<UserState> {
       state = Loaded(user: user!, message: "Connecté avec succès!");
     });
 
-    return state;
-  }
-
-  Future<UserState> reset() async {
-    state = Loading();
-    state = await getUserInfo();
     return state;
   }
 
@@ -74,34 +65,7 @@ class UserNotifier extends StateNotifier<UserState> {
   Future<UserState?> logUserOut({required String jwt}) async {
     state = Loading();
     await logUserOutUsecase.execute(jwt: jwt);
-    state = await getUserInfo();
+    state = Unloaded();
     return state;
-  }
-
-  Future<UserState> getUserInfo() async {
-    final response = await getUserInfoUsecase.call();
-    state = Initial(userInfo: response!);
-    return state;
-  }
-
-  Future<UserState> logInWithToken() async {
-    final response = await logInWithTokenUsecase.call();
-    if (response == null) {
-      return await getUserInfo();
-    }
-    state = Loaded(user: response, message: "Connecté avec succès!");
-
-    return state;
-  }
-
-  void togglePref(Map<String, dynamic> prevState, bool isActive) async {
-    final newState = {
-      "email": prevState["email"],
-      "password": prevState["password"],
-      "token": prevState["token"],
-      "datetime": prevState["datetime"],
-      "pref": isActive,
-    };
-    state = Initial(userInfo: newState);
   }
 }

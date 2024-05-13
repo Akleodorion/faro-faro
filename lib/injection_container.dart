@@ -1,4 +1,5 @@
 import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/state/logged_in_notifier.dart';
 import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
 import 'package:faro_clean_tdd/core/util/location/location_repo.dart';
 import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart';
@@ -73,14 +74,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // Features - userAuth - Password
+  //! Features - userAuth - Password - logged In
+  sl.registerFactory(() =>
+      LoggedInNotifier(getUserInfoUsecase: sl(), logInWithTokenUsecase: sl()));
+
   sl.registerFactory(() => UserNotifier(
-        logInWithTokenUsecase: sl(),
         logUserInUsecase: sl(),
         signUserInUsecase: sl(),
         getUserInfoUsecase: sl(),
         logUserOutUsecase: sl(),
       ));
+
   sl.registerFactory(() => PasswordNotifier(
         requestResetTokenUsecase: sl(),
         resetPasswordUsecase: sl(),

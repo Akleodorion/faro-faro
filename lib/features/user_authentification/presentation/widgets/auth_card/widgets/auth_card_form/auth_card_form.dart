@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/user_authentification/presentation/pages/pop_up/forgot_passord_modal.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/auto_login/auto_login_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/methods/get_global_padding.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/widgets/consumer_elevated_button.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/widgets/text_form_field_column.dart';
@@ -26,7 +26,8 @@ class _AuthCardFormState extends ConsumerState<AuthCardForm> {
   @override
   void initState() {
     formKey = GlobalKey<FormState>();
-    final values = ref.read(autoLoginInfoProvider);
+    final values = ref.read(userInfoProvider);
+    print(values);
     logInInfo = setLogInInfoEmailPasswordPrefValues(values, logInInfo);
     super.initState();
   }
