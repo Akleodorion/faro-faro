@@ -2,15 +2,15 @@ class ServerConstants {
   static const serverUrl = "https://faro-faro-721376a5fee3.herokuapp.com";
   static const localhostUrl =
       "http://localhost:3001"; // if android : 10.0.2.2:8000 , ios : http://localhost:3001
-  static const ticketUrl = "$localhostUrl/tickets";
-  static const memberUrl = "$localhostUrl/members";
-  static const eventUrl = "$localhostUrl/events";
-  static const logInUrl = "$localhostUrl/login";
-  static const signInUrl = "$localhostUrl/signup";
-  static const logOutUrl = "$localhostUrl/logout";
-  static const userUrl = "$localhostUrl/users";
-  static const requestResetTokenUrl = "$localhostUrl/password/forgot";
-  static const resetPasswordUrl = "$localhostUrl/password/reset";
+  static const ticketUrl = "$serverUrl/tickets";
+  static const memberUrl = "$serverUrl/members";
+  static const eventUrl = "$serverUrl/events";
+  static const logInUrl = "$serverUrl/login";
+  static const signInUrl = "$serverUrl/signup";
+  static const logOutUrl = "$serverUrl/logout";
+  static const userUrl = "$serverUrl/users";
+  static const requestResetTokenUrl = "$serverUrl/password/forgot";
+  static const resetPasswordUrl = "$serverUrl/password/reset";
 }
 
 abstract class ServerEndPoint {
