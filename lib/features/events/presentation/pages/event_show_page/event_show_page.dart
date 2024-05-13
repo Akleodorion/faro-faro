@@ -8,7 +8,7 @@ import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_pag
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/barcode_scanner_page/barcode_scanner_page.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/activate_ticket/activate_ticket_provider.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/activate_ticket/state/activate_ticket_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/widgets/image_container.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/pages/ticket_payment_page/ticket_payment_page.dart';

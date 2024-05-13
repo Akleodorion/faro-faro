@@ -21,11 +21,6 @@ class _AutchCheckerState extends ConsumerState<AuthChecker> {
   @override
   void initState() {
     super.initState();
-    logInWithToken();
-  }
-
-  void logInWithToken() async {
-    await ref.read(userAuthProvider.notifier).logInWithToken();
   }
 
   @override
@@ -36,8 +31,13 @@ class _AutchCheckerState extends ConsumerState<AuthChecker> {
         final state = snapshot.data;
         if (state is Loaded) {
           return const MainPage();
+        } else if (state is Unloaded) {
+          return const AuthScreen();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
-        return const AuthScreen();
       },
     );
   }

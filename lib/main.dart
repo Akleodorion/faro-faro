@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/core/general_theme/general_theme.dart';
-import 'package:faro_clean_tdd/general%20widgets/auto_login_checker.dart';
+import 'package:faro_clean_tdd/general%20widgets/logged_in_checker.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('fr', 'FR'),
       ],
-      home: const AutoLoginChecker(),
+      home: const LoggedInChecker(),
     );
   }
 }

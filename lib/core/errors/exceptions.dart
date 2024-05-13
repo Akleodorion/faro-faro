@@ -5,7 +5,8 @@ class ServerException implements Exception {
 }
 
 class UtilException implements Exception {
-  UtilException();
+  final String? errorMessage;
+  UtilException({this.errorMessage});
 }
 
 class CacheException implements Exception {}

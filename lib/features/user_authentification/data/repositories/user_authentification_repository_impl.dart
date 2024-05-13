@@ -27,7 +27,7 @@ class UserAuthentificationRepositoryImpl
   });
 
   @override
-  Future<Either<Failure, UserModel?>> logUserIn(
+  Future<Either<Failure, UserModel>> logUserIn(
       String email, String password, bool pref) async {
     final logInInfo = {
       "email": email,
@@ -80,7 +80,7 @@ class UserAuthentificationRepositoryImpl
   }
 
   @override
-  Future<Map<String, dynamic>?> getUserInfo() async {
+  Future<Map<String, dynamic>> getUserInfo() async {
     final lastPref = await localDataSource.getLastPref();
     final cachedToken = await localDataSource.getLastCachedToken();
     final lastLoginDateTime = await localDataSource.getLastLoginDatetime();
@@ -92,7 +92,6 @@ class UserAuthentificationRepositoryImpl
       "datetime": lastLoginDateTime,
       "pref": lastPref,
     };
-
     return userInfo;
   }
 
@@ -107,7 +106,6 @@ class UserAuthentificationRepositoryImpl
                 DateTime(DateTime.now().year, DateTime.now().month,
                     DateTime.now().day - 1),
             minutesTreshold: 60);
-
     if (cachedToken!.isNotEmpty && isLastLoginValid) {
       return remoteDataSource.userLogInWithToken(cachedToken);
     } else {

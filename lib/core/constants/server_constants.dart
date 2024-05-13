@@ -1,7 +1,7 @@
 class ServerConstants {
   static const serverUrl = "https://faro-faro-721376a5fee3.herokuapp.com";
   static const localhostUrl =
-      "http://10.0.2.2:3001"; // if android : 10.0.2.2:8000 , ios : http://localhost:3001
+      "http://localhost:3001"; // if android : 10.0.2.2:8000 , ios : http://localhost:3001
   static const ticketUrl = "$serverUrl/tickets";
   static const memberUrl = "$serverUrl/members";
   static const eventUrl = "$serverUrl/events";

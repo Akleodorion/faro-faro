@@ -1,4 +1,4 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
 import 'package:faro_clean_tdd/pages/settings_page/constants/setting_page_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

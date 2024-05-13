@@ -3,7 +3,7 @@ import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
 import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import 'package:faro_clean_tdd/features/pick_image/presentation/providers/picked_image_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/sections/title_and_return_section.dart/title_and_navigatio_section.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/category_picker_field.dart';
 import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/date_picker_field.dart';

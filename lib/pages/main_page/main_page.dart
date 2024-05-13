@@ -1,5 +1,5 @@
 import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
 import 'package:faro_clean_tdd/pages/main_page/methods/get_selected_page.dart';
 import 'package:faro_clean_tdd/pages/main_page/widgets/my_bottom_navigation_bar/my_bottom_navigation_bar.dart';
 import 'package:faro_clean_tdd/pages/main_page/widgets/my_floating_action_button/my_floating_action_button.dart';
@@ -35,7 +35,6 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     final content = getSelectedPage(
       selectedIndex: _currentIndex,
       setEvent: setEvent,

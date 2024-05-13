@@ -5,7 +5,7 @@ class GetUserInfo {
 
   final UserAuthentificationRepository repository;
 
-  Future<Map<String, dynamic>?> call() async {
+  Future<Map<String, dynamic>> call() async {
     return repository.getUserInfo();
   }
 }

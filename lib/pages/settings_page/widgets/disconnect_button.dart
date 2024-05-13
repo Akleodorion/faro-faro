@@ -1,3 +1,5 @@
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
+import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
 import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,9 +17,13 @@ class DisconnectButton extends ConsumerWidget {
           "Déconnexion",
         ),
         onPressed: () async {
-          await ref
+          final UserState = await ref
               .read(userAuthProvider.notifier)
               .logUserOut(jwt: userInfo["jwt"]);
+
+          if (UserState is Unloaded) {
+            await ref.read(loggedInProvider.notifier).statusToUnloaded();
+          }
         },
         icon: const Icon(
           Icons.logout,
