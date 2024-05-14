@@ -17,11 +17,11 @@ class DisconnectButton extends ConsumerWidget {
           "Déconnexion",
         ),
         onPressed: () async {
-          final UserState = await ref
+          final userState = await ref
               .read(userAuthProvider.notifier)
               .logUserOut(jwt: userInfo["jwt"]);
 
-          if (UserState is Unloaded) {
+          if (userState is Unloaded) {
             await ref.read(loggedInProvider.notifier).statusToUnloaded();
           }
         },

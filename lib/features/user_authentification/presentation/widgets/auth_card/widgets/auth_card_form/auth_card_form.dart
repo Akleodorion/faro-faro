@@ -27,7 +27,6 @@ class _AuthCardFormState extends ConsumerState<AuthCardForm> {
   void initState() {
     formKey = GlobalKey<FormState>();
     final values = ref.read(userInfoProvider);
-    print(values);
     logInInfo = setLogInInfoEmailPasswordPrefValues(values, logInInfo);
     super.initState();
   }

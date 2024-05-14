@@ -1,8 +1,9 @@
 import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:faro_clean_tdd/core/util/permission_handler/permission_handler.dart';
 import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
 import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/fonctions/pop_up_dialog.dart';
 import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/sections/image_section/functions.dart/pop_up_bottom_seet.dart';
 import 'package:flutter/material.dart';
@@ -34,17 +35,25 @@ class SendTicket extends ConsumerWidget {
 
             if (contactState is Loading) {
               try {
+                await PermissionHandlerImp(
+                  context: context,
+                  permissionEnum: PermissionEnum.contact,
+                ).requestPermission();
+
                 final List<String> numbers =
                     await ContactListImpl().retrieveContacts();
 
                 await ref
                     .read(contactStateProvider.notifier)
                     .fetchContact(numbers: numbers);
-              } on ServerException {
+              } on UtilException {
                 if (context.mounted) {
-                  await popUpDialog(context: context);
-                  return;
+                  await PermissionHandlerImp(
+                    context: context,
+                    permissionEnum: PermissionEnum.contact,
+                  ).showPermissionErrorDialog();
                 }
+                return;
               }
             }
             if (context.mounted) {

@@ -34,14 +34,16 @@ class PermissionHandlerImp implements PermissionHandler {
     PermissionStatus status =
         await _requestPermissionStatus(permissionEnum: permissionEnum);
 
+    print(status);
     final permissionDenied = (status == PermissionStatus.denied);
     if (permissionDenied && context.mounted) {
       await _showPermissionDialog(
         context: context,
         permissionEnum: permissionEnum,
       );
-
+      print(permissionEnum);
       status = await _requestPermission(permissionEnum: permissionEnum);
+      print(status);
     }
 
     final permissionNotGranted = (status != PermissionStatus.granted);

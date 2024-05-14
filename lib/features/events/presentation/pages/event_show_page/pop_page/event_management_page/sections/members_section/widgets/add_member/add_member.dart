@@ -31,6 +31,11 @@ class AddMember extends ConsumerWidget {
               context: context,
               permissionEnum: PermissionEnum.contact,
             ).requestPermission();
+            final List<String> numbers =
+                await ContactListImpl().retrieveContacts();
+            await ref
+                .read(contactStateProvider.notifier)
+                .fetchContact(numbers: numbers);
           } on UtilException {
             if (context.mounted) {
               await PermissionHandlerImp(
@@ -40,11 +45,6 @@ class AddMember extends ConsumerWidget {
             }
             return;
           }
-          final List<String> numbers =
-              await ContactListImpl().retrieveContacts();
-          await ref
-              .read(contactStateProvider.notifier)
-              .fetchContact(numbers: numbers);
         }
         if (context.mounted) {
           await popUpBottomSheet(
