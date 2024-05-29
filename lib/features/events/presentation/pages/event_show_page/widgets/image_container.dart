@@ -43,8 +43,7 @@ class ImageContainer extends StatelessWidget {
           left: 20,
           child: Container(
             decoration: BoxDecoration(
-                color:
-                    Theme.of(context).colorScheme.background.withOpacity(0.9)),
+                color: Theme.of(context).colorScheme.tertiary.withOpacity(0.9)),
             child: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -52,7 +51,7 @@ class ImageContainer extends StatelessWidget {
               icon: Icon(
                 Icons.arrow_back_ios_new,
                 size: 24,
-                color: Theme.of(context).colorScheme.onBackground,
+                color: Theme.of(context).colorScheme.onTertiary,
               ),
             ),
           ),
@@ -65,12 +64,12 @@ class ImageContainer extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Theme.of(context)
                         .colorScheme
-                        .background
+                        .tertiary
                         .withOpacity(0.9)),
                 child: Consumer(
                   builder: (BuildContext context, WidgetRef ref, child) {
                     return PopupMenuButton(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.tertiary,
                       icon: const Icon(Icons.dehaze),
                       itemBuilder: (BuildContext context) {
                         return <PopupMenuItem>[

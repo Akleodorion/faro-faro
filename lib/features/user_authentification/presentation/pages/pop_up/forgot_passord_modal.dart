@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<dynamic> forgotPasswordModal(BuildContext context) {
   return showModalBottomSheet(
-    backgroundColor: Theme.of(context).colorScheme.background,
+    backgroundColor: Theme.of(context).colorScheme.tertiary,
     context: context,
     builder: (BuildContext context) {
       return const ForgotPasswordModal();
@@ -49,8 +49,7 @@ class _ForgotPasswordModalState extends ConsumerState<ForgotPasswordModal> {
           .read(passwordProvider.notifier)
           .requestResetToken(email: _enteredEmail!);
 
-      if (state is Error && context.mounted) {
-        // résultat négatif. affiche une alerte.
+      if (state is Error && mounted) {
         await showDialog(
             context: context,
             builder: (context) {
@@ -85,7 +84,7 @@ class _ForgotPasswordModalState extends ConsumerState<ForgotPasswordModal> {
           token: _enteredCode!,
           newPassword: _enteredPassword!);
 
-      if (state is Error && context.mounted) {
+      if (state is Error && mounted) {
         // résultat négatif. affiche une alerte.
         await showDialog(
             context: context,
@@ -106,17 +105,17 @@ class _ForgotPasswordModalState extends ConsumerState<ForgotPasswordModal> {
         return;
       }
 
-      if (context.mounted) {
+      if (mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
               "Le mot de passe a été changé avec succès",
               style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
+                  color: Theme.of(context).colorScheme.onTertiary,
                   fontSize: 16),
             ),
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.tertiary,
             duration: const Duration(seconds: 3),
           ),
         );

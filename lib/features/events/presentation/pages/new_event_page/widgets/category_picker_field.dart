@@ -20,8 +20,7 @@ class _CategoryPickerFieldState extends ConsumerState<CategoryPickerField> {
     final double mediaWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      decoration:
-          BoxDecoration(color: Theme.of(context).colorScheme.background),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
       width: (mediaWidth - 40) * 0.4,
       height: minHeight,
       child: Padding(

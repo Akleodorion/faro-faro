@@ -16,7 +16,7 @@ class SearchAndFilterSection extends StatelessWidget {
           onPressed: () {
             showModalBottomSheet(
                 context: context,
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
                 builder: (context) => const GeneralFilterPage());
           },
           icon: const Icon(

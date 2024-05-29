@@ -81,11 +81,9 @@ class EventShowPage extends ConsumerWidget {
                       SnackBar(
                         content: Text("ne fait pas parti de la liste",
                             style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onTertiary,
                                 fontSize: 16)),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.background,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
                         duration: const Duration(seconds: 3),
                       ),
                     );
@@ -107,11 +105,9 @@ class EventShowPage extends ConsumerWidget {
                       SnackBar(
                         content: Text(state.message,
                             style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onTertiary,
                                 fontSize: 16)),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.background,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
                         duration: const Duration(seconds: 3),
                       ),
                     );
@@ -123,11 +119,9 @@ class EventShowPage extends ConsumerWidget {
                       SnackBar(
                         content: Text(state.message,
                             style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onTertiary,
                                 fontSize: 16)),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.background,
+                        backgroundColor: Theme.of(context).colorScheme.tertiary,
                         duration: const Duration(seconds: 3),
                       ),
                     );

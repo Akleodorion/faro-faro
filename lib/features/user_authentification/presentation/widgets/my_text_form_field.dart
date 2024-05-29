@@ -130,8 +130,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
     }
 
     return Container(
-      decoration:
-          BoxDecoration(color: Theme.of(context).colorScheme.background),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
       height: hasError ? maxHeight : minHeight,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),

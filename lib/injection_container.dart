@@ -81,7 +81,6 @@ Future<void> init() async {
   sl.registerFactory(() => UserNotifier(
         logUserInUsecase: sl(),
         signUserInUsecase: sl(),
-        getUserInfoUsecase: sl(),
         logUserOutUsecase: sl(),
       ));
 

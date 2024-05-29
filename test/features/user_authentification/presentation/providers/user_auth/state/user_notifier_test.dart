@@ -21,7 +21,6 @@ void main() {
   late MockLogUserIn mockLogUserIn;
   late MockSignUserIn mockSignUserIn;
   late MockGetUserInfo mockGetUserInfo;
-  late MockLogInWithToken mockLogInWithToken;
   late MockLogUserOutUsecase mockLogUserOutUsecase;
 
   late UserNotifier userNotifier;
@@ -29,14 +28,11 @@ void main() {
   setUp(() {
     mockLogUserIn = MockLogUserIn();
     mockSignUserIn = MockSignUserIn();
-    mockLogInWithToken = MockLogInWithToken();
     mockGetUserInfo = MockGetUserInfo();
     mockLogUserOutUsecase = MockLogUserOutUsecase();
     userNotifier = UserNotifier(
-      logInWithTokenUsecase: mockLogInWithToken,
       logUserInUsecase: mockLogUserIn,
       signUserInUsecase: mockSignUserIn,
-      getUserInfoUsecase: mockGetUserInfo,
       logUserOutUsecase: mockLogUserOutUsecase,
     );
   });
@@ -45,7 +41,7 @@ void main() {
     "initialState test should be loading",
     () async {
       //arrange
-      expect(userNotifier.initialState, Loading());
+      expect(userNotifier.initialState, Unloaded());
     },
   );
   const tSuccessMessage = "Réussi";
@@ -189,33 +185,6 @@ void main() {
   );
 
   group(
-    "getUserInfo",
-    () {
-      final tDatetime = DateTime.now();
-      const tToken =
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZWYyMGYwZC02OGY5LTQ5OTAtYjk4MC';
-      final tUserInfo = {
-        "email": "chris@gmail.com",
-        "password": "123456",
-        "token": tToken,
-        "datetime": tDatetime,
-        "pref": true,
-      };
-      test(
-        "should return the stored data",
-        () async {
-          //arrange
-          when(mockGetUserInfo.call()).thenAnswer((_) async => tUserInfo);
-          //act
-          await userNotifier.getUserInfo();
-          //assert
-          verify(mockGetUserInfo.call()).called(1);
-        },
-      );
-    },
-  );
-
-  group(
     "logUserOut",
     () {
       final tDatetime = DateTime.now();
@@ -237,7 +206,7 @@ void main() {
               .thenAnswer((realInvocation) async => null);
           when(mockGetUserInfo.call()).thenAnswer((_) async => tUserInfo);
           //act
-          final expectedResult = [Loading(), Initial(userInfo: tUserInfo)];
+          final expectedResult = [Loading(), Unloaded()];
           expectLater(userNotifier.stream, emitsInOrder(expectedResult));
           //assert
           await userNotifier.logUserOut(jwt: tToken);

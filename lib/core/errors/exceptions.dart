@@ -8,5 +8,3 @@ class UtilException implements Exception {
   final String? errorMessage;
   UtilException({this.errorMessage});
 }
-
-class CacheException implements Exception {}

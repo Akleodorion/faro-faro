@@ -8,9 +8,9 @@ void showResultMessageSnackbar(
       content: Text(
         message,
         style: TextStyle(
-            color: Theme.of(context).colorScheme.onBackground, fontSize: 16),
+            color: Theme.of(context).colorScheme.onTertiary, fontSize: 16),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       duration: const Duration(seconds: 3),
     ),
   );

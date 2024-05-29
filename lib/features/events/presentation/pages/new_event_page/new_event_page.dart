@@ -90,11 +90,11 @@ class NewEventPage extends ConsumerWidget {
         if (state is Error) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Theme.of(context).colorScheme.background,
+              backgroundColor: Theme.of(context).colorScheme.tertiary,
               content: Text(
                 state.message,
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
+                  color: Theme.of(context).colorScheme.onTertiary,
                 ),
               ),
             ));

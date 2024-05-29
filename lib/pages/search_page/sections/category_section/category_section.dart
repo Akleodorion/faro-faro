@@ -23,10 +23,10 @@ class CategorySection extends ConsumerWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: filterMap[category] == true
                         ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.background,
+                        : Theme.of(context).colorScheme.tertiary,
                     foregroundColor: filterMap[category] == true
                         ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.onBackground,
+                        : Theme.of(context).colorScheme.onTertiary,
                   ),
                   onPressed: () {
                     ref.read(filtersProvider.notifier).setFilter(category);

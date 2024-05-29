@@ -27,7 +27,7 @@ class SendTicket extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: Theme.of(context).colorScheme.background.withOpacity(0.9),
+          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.9),
         ),
         child: IconButton(
           onPressed: () async {
@@ -67,7 +67,7 @@ class SendTicket extends ConsumerWidget {
           },
           icon: Icon(
             Icons.send,
-            color: Theme.of(context).colorScheme.onBackground,
+            color: Theme.of(context).colorScheme.onTertiary,
           ),
         ),
       ),

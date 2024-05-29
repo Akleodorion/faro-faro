@@ -48,14 +48,12 @@ class _DescriptionTextFormFieldState
     return Container(
       width: (mediaWidth - 40),
       height: hasError ? maxHeight : minHeight,
-      decoration:
-          BoxDecoration(color: Theme.of(context).colorScheme.background),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: TextFormField(
           maxLines: widget.isTicket == true ? 3 : 5,
           maxLength: maxCharsValue,
-          
           decoration: InputDecoration(
             label: Text(
               widget.isTicket == true

@@ -46,7 +46,7 @@ class MockUserAuthentificationRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.User?>> logUserIn(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.User>> logUserIn(
     String? email,
     String? password,
     bool? pref,
@@ -60,8 +60,8 @@ class MockUserAuthentificationRepository extends _i1.Mock
             pref,
           ],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>.value(
-            _FakeEither_0<_i5.Failure, _i6.User?>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User>>.value(
+            _FakeEither_0<_i5.Failure, _i6.User>(
           this,
           Invocation.method(
             #logUserIn,
@@ -72,10 +72,10 @@ class MockUserAuthentificationRepository extends _i1.Mock
             ],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.User?>> signUserIn(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.User>> signUserIn(
     String? email,
     String? password,
     String? username,
@@ -93,8 +93,8 @@ class MockUserAuthentificationRepository extends _i1.Mock
             pref,
           ],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>.value(
-            _FakeEither_0<_i5.Failure, _i6.User?>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.User>>.value(
+            _FakeEither_0<_i5.Failure, _i6.User>(
           this,
           Invocation.method(
             #signUserIn,
@@ -107,16 +107,17 @@ class MockUserAuthentificationRepository extends _i1.Mock
             ],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User?>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
 
   @override
-  _i4.Future<Map<String, dynamic>?> getUserInfo() => (super.noSuchMethod(
+  _i4.Future<Map<String, dynamic>> getUserInfo() => (super.noSuchMethod(
         Invocation.method(
           #getUserInfo,
           [],
         ),
-        returnValue: _i4.Future<Map<String, dynamic>?>.value(),
-      ) as _i4.Future<Map<String, dynamic>?>);
+        returnValue:
+            _i4.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+      ) as _i4.Future<Map<String, dynamic>>);
 
   @override
   _i4.Future<_i5.Failure?> logUserOut({required String? jwt}) =>

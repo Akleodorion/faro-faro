@@ -59,7 +59,7 @@ class ReturnButton extends ConsumerWidget {
         icon: Icon(
           Icons.arrow_back_ios_new,
           size: 24,
-          color: Theme.of(context).colorScheme.onBackground,
+          color: Theme.of(context).colorScheme.onTertiary,
         ),
       ),
     );

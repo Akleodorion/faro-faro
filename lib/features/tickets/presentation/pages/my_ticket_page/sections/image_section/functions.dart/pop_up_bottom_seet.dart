@@ -11,7 +11,7 @@ Future<dynamic> popUpBottomSheet({
   required Ticket ticket,
 }) async {
   return showModalBottomSheet(
-    backgroundColor: Theme.of(context).colorScheme.background,
+    backgroundColor: Theme.of(context).colorScheme.tertiary,
     context: context,
     builder: (BuildContext context) {
       return ModalBottomSheetLayout(

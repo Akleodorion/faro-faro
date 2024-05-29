@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
-  const Failure([List properties = const <dynamic>[]]);
+  const Failure([
+    List properties = const <dynamic>[],
+  ]);
 }
 
 class ServerFailure extends Failure {
@@ -9,10 +11,7 @@ class ServerFailure extends Failure {
 
   const ServerFailure({required this.errorMessage});
   @override
-  List<Object?> get props => [errorMessage];
-}
-
-class CacheFailure extends Failure {
-  @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        errorMessage,
+      ];
 }

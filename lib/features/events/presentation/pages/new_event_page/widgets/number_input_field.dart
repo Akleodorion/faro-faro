@@ -83,7 +83,7 @@ class _NumberInputFieldState extends ConsumerState<NumberInputField> {
               ),
               Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background),
+                    color: Theme.of(context).colorScheme.tertiary),
                 width: containerWidth,
                 child: TextFormField(
                   controller: textEditingController,

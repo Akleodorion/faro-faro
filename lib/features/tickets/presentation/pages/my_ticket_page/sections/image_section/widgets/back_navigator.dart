@@ -15,14 +15,14 @@ class BackNavigator extends StatelessWidget {
       left: 20,
       child: Container(
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background.withOpacity(0.9)),
+            color: Theme.of(context).colorScheme.tertiary.withOpacity(0.9)),
         child: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Theme.of(context).colorScheme.onBackground,
+            color: Theme.of(context).colorScheme.onTertiary,
           ),
         ),
       ),

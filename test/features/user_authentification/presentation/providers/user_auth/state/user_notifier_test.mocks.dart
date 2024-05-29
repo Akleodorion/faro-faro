@@ -145,13 +145,14 @@ class MockGetUserInfo extends _i1.Mock implements _i9.GetUserInfo {
       ) as _i2.UserAuthentificationRepository);
 
   @override
-  _i5.Future<Map<String, dynamic>?> call() => (super.noSuchMethod(
+  _i5.Future<Map<String, dynamic>> call() => (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
         ),
-        returnValue: _i5.Future<Map<String, dynamic>?>.value(),
-      ) as _i5.Future<Map<String, dynamic>?>);
+        returnValue:
+            _i5.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+      ) as _i5.Future<Map<String, dynamic>>);
 }
 
 /// A class which mocks [LogInWithToken].

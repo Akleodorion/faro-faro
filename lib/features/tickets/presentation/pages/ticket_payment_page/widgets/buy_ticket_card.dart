@@ -90,7 +90,7 @@ class BuyTicketCard extends StatelessWidget {
                         Container(
                           height: getBuyTicketCardInputHeight(context),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.tertiary,
                           ),
                           width: getBuyTicketCardInputHeight(context),
                           child: Center(

@@ -12,8 +12,6 @@ class Unloaded extends UserState {
 
 class Loading extends UserState {}
 
-class AutoLoging extends UserState {}
-
 class Loaded extends UserState {
   final User user;
   final String message;
@@ -27,5 +25,7 @@ class Loaded extends UserState {
 class Error extends UserState {
   final String message;
 
-  Error({required this.message});
+  Error({
+    required this.message,
+  });
 }

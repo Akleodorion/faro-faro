@@ -21,8 +21,7 @@ class _EcoPickerFieldState extends ConsumerState<EcoPickerField> {
     WidgetsBinding.instance.addPostFrameCallback((_) {});
 
     return Container(
-      decoration:
-          BoxDecoration(color: Theme.of(context).colorScheme.background),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
       width: (mediaWidth - 40) * 0.4,
       height: minHeight,
       child: Padding(

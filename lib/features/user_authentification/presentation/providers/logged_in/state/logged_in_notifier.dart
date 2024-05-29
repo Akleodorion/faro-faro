@@ -20,7 +20,7 @@ class LoggedInNotifier extends StateNotifier<LoggedInState> {
       final userInfoMap = await getUserInfoUsecase.call();
       state = Unloaded(userInfo: userInfoMap);
     } else {
-      state = Loaded(user: response, message: "yatta");
+      state = Loaded(user: response, message: "succes");
     }
     return state;
   }

@@ -34,8 +34,7 @@ class _TitleTextFormFieldState extends ConsumerState<TitleTextFormField> {
     return Container(
       width: (mediaWidth - 40),
       height: hasError ? maxHeight : minHeight,
-      decoration:
-          BoxDecoration(color: Theme.of(context).colorScheme.background),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: TextFormField(
