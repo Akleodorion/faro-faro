@@ -1,11 +1,13 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/reset_password.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/user_authentification/domain/repositories/user_authentification_repository.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/reset_password.dart';
 import 'reset_password_test.mocks.dart';
 
 @GenerateMocks([UserAuthentificationRepository])

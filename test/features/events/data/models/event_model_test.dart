@@ -1,15 +1,20 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// Project imports:
+import 'package:faro_faro/features/address/domain/entities/address.dart';
+import 'package:faro_faro/features/events/data/models/event_model.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/tickets/data/models/ticket_model.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() async {

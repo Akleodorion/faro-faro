@@ -1,9 +1,14 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/pages/auth_screen_page.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
-import 'package:faro_clean_tdd/pages/main_page/main_page.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/user_authentification/presentation/pages/auth_screen_page.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
+import 'package:faro_faro/pages/main_page/main_page.dart';
 
 class AuthChecker extends ConsumerStatefulWidget {
   const AuthChecker({super.key});

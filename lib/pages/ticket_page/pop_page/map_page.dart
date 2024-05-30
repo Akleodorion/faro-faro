@@ -1,6 +1,11 @@
-import 'package:faro_clean_tdd/pages/ticket_page/constants/ticket_page_strings.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+// Project imports:
+import 'package:faro_faro/pages/ticket_page/constants/ticket_page_strings.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});

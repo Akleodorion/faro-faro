@@ -1,8 +1,11 @@
-import 'package:faro_clean_tdd/pages/home_page/home_page.dart';
-import 'package:faro_clean_tdd/pages/search_page/search_page.dart';
-import 'package:faro_clean_tdd/pages/settings_page/settings_page.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/ticket_page.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/pages/home_page/home_page.dart';
+import 'package:faro_faro/pages/search_page/search_page.dart';
+import 'package:faro_faro/pages/settings_page/settings_page.dart';
+import 'package:faro_faro/pages/ticket_page/ticket_page.dart';
 
 Widget getSelectedPage({
   required int selectedIndex,

@@ -1,21 +1,25 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
-import 'package:faro_clean_tdd/core/util/number_formatter.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/permission_handler.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/methods/methods.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/barcode_scanner_page/barcode_scanner_page.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/activate_ticket/activate_ticket_provider.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/activate_ticket/state/activate_ticket_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/widgets/image_container.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/ticket_payment_page/ticket_payment_page.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/capitalize_first_letter.dart';
+import 'package:faro_faro/core/util/number_formatter.dart';
+import 'package:faro_faro/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:faro_faro/core/util/permission_handler/permission_handler.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/methods/methods.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/barcode_scanner_page/barcode_scanner_page.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/widgets/image_container.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/ticket_payment_page/ticket_payment_page.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/activate_ticket/activate_ticket_provider.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/activate_ticket/state/activate_ticket_state.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'pop_page/map_page.dart';
 
 class EventShowPage extends ConsumerWidget {

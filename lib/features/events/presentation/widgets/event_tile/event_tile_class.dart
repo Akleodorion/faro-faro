@@ -1,10 +1,13 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/device_info.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/event_tile/components/event_tile_general_info_container.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/event_tile/components/event_tile_image_container.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/event_tile/components/event_tile_more_info_container.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/device_info.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/widgets/event_tile/components/event_tile_general_info_container.dart';
+import 'package:faro_faro/features/events/presentation/widgets/event_tile/components/event_tile_image_container.dart';
+import 'package:faro_faro/features/events/presentation/widgets/event_tile/components/event_tile_more_info_container.dart';
 
 class EventTileClass {
   final BuildContext context;

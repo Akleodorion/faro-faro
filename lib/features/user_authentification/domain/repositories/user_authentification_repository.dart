@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import '../../../../core/errors/failures.dart';
 
+// Project imports:
+import '../../../../core/errors/failures.dart';
 import '../entities/user.dart';
 
 abstract class UserAuthentificationRepository {

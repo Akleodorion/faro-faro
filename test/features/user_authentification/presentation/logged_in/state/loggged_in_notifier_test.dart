@@ -1,12 +1,14 @@
-import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/state/logged_in_notifier.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/state/logged_in_state.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/features/user_authentification/data/models/user_model.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/get_user_info.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_in_with_token.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/logged_in/state/logged_in_notifier.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/logged_in/state/logged_in_state.dart';
 import '../../providers/user_auth/state/user_notifier_test.mocks.dart';
 
 @GenerateMocks([GetUserInfo, LogInWithToken])

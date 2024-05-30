@@ -1,16 +1,20 @@
-import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ticket/create_ticket_provider.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/create_ticket/state/create_ticket_state.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/ticket_payment_page/widgets/buy_ticket_card.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Project imports:
+import 'package:faro_faro/core/util/show_result_message_snackbar.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/tickets/data/models/ticket_model.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/ticket_payment_page/widgets/buy_ticket_card.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/create_ticket/create_ticket_provider.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/create_ticket/state/create_ticket_state.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/fetch_tickets/fetch_tickets_provider.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 import 'my_spacer.dart';
 
 class TicketsCheckoutLayout extends ConsumerStatefulWidget {

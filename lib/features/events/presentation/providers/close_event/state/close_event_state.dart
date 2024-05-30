@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
+
+// Project imports:
 import '../../../../domain/entities/event.dart';
 
 abstract class CloseEventState extends Equatable {

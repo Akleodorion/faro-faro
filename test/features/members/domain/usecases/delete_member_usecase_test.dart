@@ -1,11 +1,13 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart';
-import 'package:faro_clean_tdd/features/members/domain/usecases/delete_member_usecase.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/members/domain/repositories/member_repository.dart';
+import 'package:faro_faro/features/members/domain/usecases/delete_member_usecase.dart';
 import 'delete_member_usecase_test.mocks.dart';
 
 @GenerateMocks([MemberRepository])

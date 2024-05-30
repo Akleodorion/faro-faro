@@ -1,8 +1,13 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/event_tile/event_tile.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/constants/ticket_page_strings.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
+import 'package:faro_faro/features/events/presentation/widgets/event_tile/event_tile.dart';
+import 'package:faro_faro/pages/ticket_page/constants/ticket_page_strings.dart';
 
 class MyEventList extends ConsumerWidget {
   const MyEventList({super.key});

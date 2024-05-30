@@ -1,6 +1,9 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
 import '../../../../../../features/events/domain/entities/event.dart';
 import '../../../../../../features/events/presentation/widgets/event_card/event_card.dart';
-import 'package:flutter/material.dart';
 
 class ListViewLayout extends StatelessWidget {
   const ListViewLayout({

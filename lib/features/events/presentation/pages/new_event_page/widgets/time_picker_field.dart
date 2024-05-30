@@ -1,6 +1,9 @@
-import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
-import 'package:faro_clean_tdd/core/util/validate_input.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/try_parse_time_of_day.dart';
+import 'package:faro_faro/core/util/validate_input.dart';
 
 class TimePickerField extends StatefulWidget {
   const TimePickerField(

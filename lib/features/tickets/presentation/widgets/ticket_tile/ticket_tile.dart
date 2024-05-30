@@ -1,10 +1,15 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/my_ticket_page.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/widgets/ticket_tile/ticket_tile_class.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/my_ticket_page/my_ticket_page.dart';
+import 'package:faro_faro/features/tickets/presentation/widgets/ticket_tile/ticket_tile_class.dart';
 
 class TicketTile extends ConsumerWidget {
   const TicketTile({super.key, required this.ticket});

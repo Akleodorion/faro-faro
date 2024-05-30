@@ -1,7 +1,10 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/event_show_page.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/constants/event_widgets_strings.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/event_show_page.dart';
+import 'package:faro_faro/features/events/presentation/widgets/constants/event_widgets_strings.dart';
 
 class EventCardButton extends StatelessWidget {
   const EventCardButton({super.key, required this.event});

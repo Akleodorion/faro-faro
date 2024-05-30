@@ -1,10 +1,14 @@
-import 'package:faro_clean_tdd/pages/home_page/constants/home_page_strings.dart';
-import 'package:faro_clean_tdd/pages/home_page/sections/event_section/widgets/grid_view/grid_view_layout.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/pages/home_page/constants/home_page_strings.dart';
+import 'package:faro_faro/pages/home_page/sections/event_section/widgets/grid_view/grid_view_layout.dart';
 import '../../../../features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
 import 'widgets/list_view/list_view_container.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EventSection extends ConsumerWidget {
   const EventSection({super.key});

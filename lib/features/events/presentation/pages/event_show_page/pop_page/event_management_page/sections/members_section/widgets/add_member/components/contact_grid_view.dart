@@ -1,14 +1,19 @@
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/functions/show_create_member_result.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/functions/show_update_ticket_result.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/create_member_provider.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/update_ticket_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/components/contact_card.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/functions/show_create_member_result.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/functions/show_update_ticket_result.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/components/contact_card.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/members/presentation/providers/create_member/create_member_provider.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/update_ticket/update_ticket_provider.dart';
 
 class ContactGridView extends ConsumerWidget {
   const ContactGridView(

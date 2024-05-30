@@ -1,9 +1,12 @@
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
-import '../../../../../../core/errors/failures.dart';
-import 'user_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_user_out.dart';
+import '../../../../../../core/errors/failures.dart';
 import '../../../../domain/usecases/log_user_in.dart';
 import '../../../../domain/usecases/sign_user_in.dart' as si;
+import 'user_state.dart';
 
 class UserNotifier extends StateNotifier<UserState> {
   final LogUserIn logUserInUsecase;

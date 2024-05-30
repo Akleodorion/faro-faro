@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/general%20widgets/alert_dialog/Info_alert_dialog/iat_constants.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/general%20widgets/alert_dialog/Info_alert_dialog/iat_constants.dart';
 
 class InfoAlertDialog extends StatelessWidget {
   const InfoAlertDialog({

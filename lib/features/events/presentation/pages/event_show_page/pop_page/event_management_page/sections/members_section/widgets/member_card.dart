@@ -1,12 +1,16 @@
-import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
-import 'package:faro_clean_tdd/features/members/presentation/providers/delete_member/delete_member_provider.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Project imports:
+import 'package:faro_faro/core/util/show_result_message_snackbar.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/providers/fetch_event/fetch_event_provider.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/members/domain/entities/member.dart';
+import 'package:faro_faro/features/members/presentation/providers/delete_member/delete_member_provider.dart';
 import '../../../../../../../../../members/presentation/providers/delete_member/state/delete_member_state.dart';
 
 class MemberCard extends ConsumerWidget {

@@ -1,7 +1,12 @@
-import 'package:faro_clean_tdd/internal_features/category_filter/category_filter_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/event_tile/event_tile.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/presentation/widgets/event_tile/event_tile.dart';
+import 'package:faro_faro/internal_features/category_filter/category_filter_provider.dart';
 
 class EventListSection extends ConsumerWidget {
   const EventListSection({super.key});

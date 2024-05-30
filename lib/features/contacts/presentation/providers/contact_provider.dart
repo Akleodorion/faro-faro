@@ -1,9 +1,12 @@
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/usecases/fetch_contact_usecase.dart';
-import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_notifier.dart';
-import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
-import 'package:faro_clean_tdd/injection_container.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
+import 'package:faro_faro/features/contacts/domain/usecases/fetch_contact_usecase.dart';
+import 'package:faro_faro/features/contacts/presentation/providers/state/contact_notifier.dart';
+import 'package:faro_faro/features/contacts/presentation/providers/state/contact_state.dart';
+import 'package:faro_faro/injection_container.dart';
 
 final contactStateProvider =
     StateNotifierProvider<ContactNotifier, ContactState>((ref) {

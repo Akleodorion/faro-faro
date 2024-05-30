@@ -1,11 +1,16 @@
-import 'package:faro_clean_tdd/core/general_theme/general_theme.dart';
-import 'package:faro_clean_tdd/general%20widgets/logged_in_checker.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/services.dart';
+
+// Package imports:
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
+// Project imports:
+import 'package:faro_faro/core/general_theme/general_theme.dart';
+import 'package:faro_faro/general%20widgets/logged_in_checker.dart';
 import 'injection_container.dart' as di;
 
 void main() async {

@@ -1,9 +1,12 @@
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/sections/image_section/widgets/back_navigator.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/sections/image_section/widgets/image_container.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/sections/image_section/widgets/opacity_filter.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/sections/image_section/widgets/send_ticket.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/my_ticket_page/sections/image_section/widgets/back_navigator.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/my_ticket_page/sections/image_section/widgets/image_container.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/my_ticket_page/sections/image_section/widgets/opacity_filter.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/my_ticket_page/sections/image_section/widgets/send_ticket.dart';
 
 class ImageSection extends StatelessWidget {
   const ImageSection(

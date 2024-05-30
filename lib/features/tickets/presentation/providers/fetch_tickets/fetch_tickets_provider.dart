@@ -1,9 +1,12 @@
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/usecases/fetch_user_tickets_usecase.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_notifier.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_state.dart';
-import 'package:faro_clean_tdd/injection_container.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
+import 'package:faro_faro/features/tickets/domain/usecases/fetch_user_tickets_usecase.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_notifier.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_state.dart';
+import 'package:faro_faro/injection_container.dart';
 
 final fetchTicketsProvider =
     StateNotifierProvider<FetchTicketsNotifier, FetchTicketsState>((ref) {

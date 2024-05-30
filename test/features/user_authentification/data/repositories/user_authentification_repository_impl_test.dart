@@ -1,17 +1,19 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/constants/error_constants.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/core/network/network_info.dart';
-import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart';
-import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
-import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart';
-import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart';
-import 'package:faro_clean_tdd/features/user_authentification/data/repositories/user_authentification_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/constants/error_constants.dart';
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/core/network/network_info.dart';
+import 'package:faro_faro/core/util/date_time_util/date_time_util.dart';
+import 'package:faro_faro/features/user_authentification/data/datasources/user_local_data_source.dart';
+import 'package:faro_faro/features/user_authentification/data/datasources/user_remote_data_source.dart';
+import 'package:faro_faro/features/user_authentification/data/models/user_model.dart';
+import 'package:faro_faro/features/user_authentification/data/repositories/user_authentification_repository_impl.dart';
 import './user_authentification_repository_impl_test.mocks.dart';
 
 @GenerateMocks([

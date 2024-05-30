@@ -1,10 +1,14 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/location/location_repo.dart';
-import 'package:faro_clean_tdd/features/address/data/models/address_model.dart';
+// Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/location/location_repo.dart';
+import 'package:faro_faro/features/address/data/models/address_model.dart';
 
 // ignore: non_constant_identifier_names
 final APIKEY = dotenv.env['API_KEY'];

@@ -1,10 +1,13 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/core/constants/server_constants.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-
-import '../models/user_model.dart';
+// Package imports:
 import 'package:http/http.dart' as http;
+
+// Project imports:
+import 'package:faro_faro/core/constants/server_constants.dart';
+import 'package:faro_faro/core/errors/exceptions.dart';
+import '../models/user_model.dart';
 
 abstract class UserRemoteDataSource {
   Future<UserModel> userLogInRequest(Map<String, String> logInInfo);

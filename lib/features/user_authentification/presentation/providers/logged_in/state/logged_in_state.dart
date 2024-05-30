@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
+
+// Project imports:
+import 'package:faro_faro/features/user_authentification/domain/entities/user.dart';
 
 abstract class LoggedInState extends Equatable {
   @override

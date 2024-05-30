@@ -1,13 +1,18 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/pages/pop_up/forgot_passord_modal.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/methods/get_global_padding.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/widgets/consumer_elevated_button.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/widgets/text_form_field_column.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/methods/set_log_in_info_email_password_pref_values.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/my_text_button.dart';
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/user_authentification/presentation/pages/pop_up/forgot_passord_modal.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/methods/get_global_padding.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/widgets/consumer_elevated_button.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/widgets/text_form_field_column.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/constants/constants.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/methods/set_log_in_info_email_password_pref_values.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/my_text_button.dart';
 
 class AuthCardForm extends ConsumerStatefulWidget {
   const AuthCardForm({

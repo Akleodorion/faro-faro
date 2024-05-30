@@ -1,13 +1,15 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
-import 'package:faro_clean_tdd/features/members/domain/usecases/fetch_members_usecase.dart';
-import 'package:faro_clean_tdd/features/members/presentation/providers/fetch_members/state/fetch_members_notifier.dart';
-import 'package:faro_clean_tdd/features/members/presentation/providers/fetch_members/state/fetch_members_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/members/domain/entities/member.dart';
+import 'package:faro_faro/features/members/domain/usecases/fetch_members_usecase.dart';
+import 'package:faro_faro/features/members/presentation/providers/fetch_members/state/fetch_members_notifier.dart';
+import 'package:faro_faro/features/members/presentation/providers/fetch_members/state/fetch_members_state.dart';
 import 'fetch_members_notifier_test.mocks.dart';
 
 @GenerateMocks([FetchMembersUsecase])

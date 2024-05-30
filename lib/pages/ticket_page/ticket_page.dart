@@ -1,7 +1,10 @@
-import 'package:faro_clean_tdd/pages/ticket_page/constants/ticket_page_strings.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/widgets/my_event_list.dart';
-import 'package:faro_clean_tdd/pages/ticket_page/widgets/my_ticket_list.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/pages/ticket_page/constants/ticket_page_strings.dart';
+import 'package:faro_faro/pages/ticket_page/widgets/my_event_list.dart';
+import 'package:faro_faro/pages/ticket_page/widgets/my_ticket_list.dart';
 
 class TicketPage extends StatefulWidget {
   const TicketPage(

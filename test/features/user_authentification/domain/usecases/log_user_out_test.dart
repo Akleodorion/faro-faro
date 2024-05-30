@@ -1,10 +1,12 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/user_authentification/domain/repositories/user_authentification_repository.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_user_out.dart';
 import 'log_user_out_test.mocks.dart';
 
 @GenerateMocks([UserAuthentificationRepository])

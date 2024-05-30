@@ -1,11 +1,14 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Project imports:
+import 'package:faro_faro/features/user_authentification/data/datasources/user_local_data_source.dart';
 import '../../../../fixtures/fixture_reader.dart';
 import 'user_local_data_source_test.mocks.dart';
 

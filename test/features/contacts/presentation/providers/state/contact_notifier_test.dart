@@ -1,13 +1,15 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/usecases/fetch_contact_usecase.dart';
-import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_notifier.dart';
-import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
+import 'package:faro_faro/features/contacts/domain/usecases/fetch_contact_usecase.dart';
+import 'package:faro_faro/features/contacts/presentation/providers/state/contact_notifier.dart';
+import 'package:faro_faro/features/contacts/presentation/providers/state/contact_state.dart';
 import 'contact_notifier_test.mocks.dart';
 
 @GenerateMocks([FetchContactUsecase])

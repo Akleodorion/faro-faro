@@ -1,12 +1,14 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/repositories/contact_repository.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/usecases/fetch_contact_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
+import 'package:faro_faro/features/contacts/domain/repositories/contact_repository.dart';
+import 'package:faro_faro/features/contacts/domain/usecases/fetch_contact_usecase.dart';
 import 'fetch_contacts_test.mocks.dart';
 
 @GenerateMocks([ContactRepository])

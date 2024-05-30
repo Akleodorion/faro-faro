@@ -1,8 +1,13 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/description_text_form_field.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/widgets/number_input_field.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/presentation/pages/new_event_page/widgets/description_text_form_field.dart';
+import 'package:faro_faro/features/events/presentation/pages/new_event_page/widgets/number_input_field.dart';
+import 'package:faro_faro/features/events/presentation/providers/post_event/post_event_provider.dart';
 
 class TicketInputForm extends ConsumerStatefulWidget {
   const TicketInputForm(

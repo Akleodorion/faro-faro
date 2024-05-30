@@ -1,11 +1,15 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/core/constants/server_constants.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/list_to_batches.dart';
-import 'package:faro_clean_tdd/features/contacts/data/models/contact_model.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
+// Package imports:
 import 'package:http/http.dart' as http;
+
+// Project imports:
+import 'package:faro_faro/core/constants/server_constants.dart';
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/list_to_batches.dart';
+import 'package:faro_faro/features/contacts/data/models/contact_model.dart';
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
 
 // ignore: constant_identifier_names
 

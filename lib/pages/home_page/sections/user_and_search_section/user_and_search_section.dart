@@ -1,5 +1,8 @@
-import 'widgets/user_info_display.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'widgets/user_info_display.dart';
 
 class UserAndSearchSection extends StatelessWidget {
   const UserAndSearchSection({super.key});

@@ -1,8 +1,11 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/usecases/fetch_user_tickets_usecase.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
+import 'package:faro_faro/features/tickets/domain/usecases/fetch_user_tickets_usecase.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/fetch_tickets/state/fetch_tickets_state.dart';
 
 class FetchTicketsNotifier extends StateNotifier<FetchTicketsState> {
   FetchTicketsNotifier({required this.usecase}) : super(Loading());

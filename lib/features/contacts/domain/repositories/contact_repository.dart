@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
 
+// Project imports:
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
 import '../../../../core/errors/failures.dart';
 
 abstract class ContactRepository {

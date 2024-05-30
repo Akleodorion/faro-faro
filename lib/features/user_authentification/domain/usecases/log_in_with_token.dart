@@ -1,6 +1,6 @@
-import '../repositories/user_authentification_repository.dart';
-
+// Project imports:
 import '../entities/user.dart';
+import '../repositories/user_authentification_repository.dart';
 
 class LogInWithToken {
   final UserAuthentificationRepository repository;

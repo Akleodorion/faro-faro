@@ -1,10 +1,15 @@
+// Dart imports:
 import 'dart:io';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
-import '../../../../data/models/event_model.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/domain/usecases/post_an_event.dart';
+import 'package:faro_faro/features/events/presentation/providers/post_event/state/post_event_state.dart';
+import '../../../../data/models/event_model.dart';
 
 class PostEventNotifier extends StateNotifier<PostEventState> {
   final PostAnEvent postAnEventUsecase;

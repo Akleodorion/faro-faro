@@ -1,6 +1,9 @@
-import 'package:faro_clean_tdd/core/constants/error_constants.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+// Package imports:
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+// Project imports:
+import 'package:faro_faro/core/constants/error_constants.dart';
+import 'package:faro_faro/core/errors/exceptions.dart';
 
 abstract class NetworkInfo {
   Future<bool> get isConnected;

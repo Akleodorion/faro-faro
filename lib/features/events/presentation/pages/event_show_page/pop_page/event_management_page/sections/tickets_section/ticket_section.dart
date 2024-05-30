@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/domain/entities/event.dart';
 
 class TicketsSection extends StatelessWidget {
   const TicketsSection({

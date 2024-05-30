@@ -1,11 +1,12 @@
-import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/features/user_authentification/data/models/user_model.dart';
+import 'package:faro_faro/features/user_authentification/domain/repositories/user_authentification_repository.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_in_with_token.dart';
 import 'log_user_in_test.mocks.dart';
 
 @GenerateMocks([UserAuthentificationRepository])

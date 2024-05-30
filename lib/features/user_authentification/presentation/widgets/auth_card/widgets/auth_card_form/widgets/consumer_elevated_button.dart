@@ -1,15 +1,20 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/methods/assign_checked_status.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/methods/log_or_sign_user_usecase.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/methods/validate_form.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/show_result_message_snackbar.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/user_auth/user_provider.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/constants/constants.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/methods/assign_checked_status.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/methods/log_or_sign_user_usecase.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/methods/validate_form.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 
 class ConsumerElevatedButton extends ConsumerWidget {
   const ConsumerElevatedButton(

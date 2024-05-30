@@ -1,4 +1,5 @@
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+// Project imports:
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
 
 class TicketModel extends Ticket {
   const TicketModel({

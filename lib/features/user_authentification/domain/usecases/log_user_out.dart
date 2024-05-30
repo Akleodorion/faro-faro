@@ -1,5 +1,6 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart';
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/user_authentification/domain/repositories/user_authentification_repository.dart';
 
 class LogUserOutUsecase {
   final UserAuthentificationRepository repository;

@@ -1,7 +1,9 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
 
+// Project imports:
+import 'package:faro_faro/features/address/domain/entities/address.dart';
+import 'package:faro_faro/features/address/domain/repositories/address_repository.dart';
 import '../../../../core/errors/failures.dart';
 
 class GetCurrentLocationAddress {

@@ -1,6 +1,9 @@
-import 'package:faro_clean_tdd/core/util/usecase_alert_dialog.dart';
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/usecase_alert_dialog.dart';
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
 
 class ContactCard extends StatelessWidget {
   const ContactCard(

@@ -1,5 +1,7 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:equatable/equatable.dart';
 
 class PickedImage extends Equatable {

@@ -1,6 +1,8 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart';
+// Project imports:
+import 'package:faro_faro/features/pick_image/domain/entities/picked_image.dart';
 
 class PickedImageModel extends PickedImage {
   const PickedImageModel({required super.image});

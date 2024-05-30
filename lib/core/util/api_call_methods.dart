@@ -1,7 +1,11 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+// Package imports:
 import 'package:http/http.dart' as http;
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
 
 abstract class ApiCallMethods {
   bool isStatusCodeOK(http.Response response);

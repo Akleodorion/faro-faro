@@ -1,6 +1,8 @@
-import 'package:faro_clean_tdd/features/events/presentation/widgets/event_card/event_card_class.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
+import 'package:faro_faro/features/events/presentation/widgets/event_card/event_card_class.dart';
 import '../../../domain/entities/event.dart';
 
 class EventCard extends StatelessWidget {

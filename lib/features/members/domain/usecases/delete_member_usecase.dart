@@ -1,6 +1,7 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart';
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/members/domain/repositories/member_repository.dart';
 
 class DeleteMemberUsecase {
   final MemberRepository repository;

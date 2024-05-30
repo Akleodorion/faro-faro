@@ -1,16 +1,21 @@
-import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
-import 'package:faro_clean_tdd/features/events/domain/usecases/fetch_all_events.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
+
+// Package imports:
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/address/domain/entities/address.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/domain/repositories/event_repository.dart';
+import 'package:faro_faro/features/events/domain/usecases/fetch_all_events.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/tickets/data/models/ticket_model.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
 import 'fetch_all_events_test.mocks.dart';
 
 @GenerateMocks([EventRepository])

@@ -1,8 +1,13 @@
-import 'package:faro_clean_tdd/core/util/validate_input.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/validate_input.dart';
 import '../../../../core/util/phone_number_validator.dart';
 import '../../../../core/util/text_field_enum.dart';
-import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class MyTextFormField extends StatefulWidget {
   final String intialValue;

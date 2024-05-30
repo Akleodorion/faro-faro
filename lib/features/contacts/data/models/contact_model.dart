@@ -1,4 +1,5 @@
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
+// Project imports:
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
 
 class ContactModel extends Contact {
   const ContactModel(

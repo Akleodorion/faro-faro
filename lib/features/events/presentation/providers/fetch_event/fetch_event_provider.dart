@@ -1,13 +1,13 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
-
-import 'state/fetch_event_state.dart';
-
-import '../../../domain/usecases/fetch_all_events.dart';
-import 'state/fetch_event_notifier.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Project imports:
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/logged_in/logged_in_provider.dart';
 import '../../../../../injection_container.dart';
+import '../../../domain/usecases/fetch_all_events.dart';
+import 'state/fetch_event_notifier.dart';
+import 'state/fetch_event_state.dart';
 
 final fetchEventProvider =
     StateNotifierProvider<FetchEventNotifier, FetchEventState>((ref) {

@@ -1,13 +1,18 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/permission_handler.dart';
-import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
-import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
-import 'package:faro_clean_tdd/features/contacts/presentation/providers/state/contact_state.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/fonctions/pop_up_bottom_sheet.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:faro_faro/core/util/permission_handler/permission_handler.dart';
+import 'package:faro_faro/features/contacts/presentation/providers/contact_provider.dart';
+import 'package:faro_faro/features/contacts/presentation/providers/state/contact_state.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/fonctions/pop_up_bottom_sheet.dart';
+import 'package:faro_faro/internal_features/contact_list/contact_list.dart';
 
 class AddMember extends ConsumerWidget {
   const AddMember({

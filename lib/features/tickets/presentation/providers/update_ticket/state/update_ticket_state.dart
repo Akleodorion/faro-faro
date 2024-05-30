@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+
+// Project imports:
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
 
 abstract class UpdateTicketState extends Equatable {
   @override

@@ -1,10 +1,12 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/location/location_repo.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:location/location.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/location/location_repo.dart';
 import 'location_repo_test.mocks.dart';
 
 @GenerateMocks([Location])

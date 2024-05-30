@@ -1,10 +1,14 @@
-import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+// Project imports:
+import 'package:faro_faro/core/util/try_parse_time_of_day.dart';
+import 'package:faro_faro/features/address/domain/entities/address.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/tickets/data/models/ticket_model.dart';
 import '../../domain/entities/event.dart';
 
 class EventModel extends Event {

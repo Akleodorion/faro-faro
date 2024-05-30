@@ -3,19 +3,24 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+// Dart imports:
 import 'dart:async' as _i4;
 
-import 'package:faro_clean_tdd/core/network/network_info.dart' as _i3;
-import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart'
-    as _i8;
-import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_local_data_source.dart'
-    as _i7;
-import 'package:faro_clean_tdd/features/user_authentification/data/datasources/user_remote_data_source.dart'
-    as _i5;
-import 'package:faro_clean_tdd/features/user_authentification/data/models/user_model.dart'
-    as _i2;
+// Package imports:
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
+
+// Project imports:
+import 'package:faro_faro/core/network/network_info.dart' as _i3;
+import 'package:faro_faro/core/util/date_time_util/date_time_util.dart' as _i8;
+
+import 'package:faro_faro/features/user_authentification/data/datasources/user_local_data_source.dart'
+    as _i7;
+import 'package:faro_faro/features/user_authentification/data/datasources/user_remote_data_source.dart'
+    as _i5;
+import 'package:faro_faro/features/user_authentification/data/models/user_model.dart'
+    as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

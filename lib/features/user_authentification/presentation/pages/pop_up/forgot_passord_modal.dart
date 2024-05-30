@@ -1,13 +1,19 @@
+// Dart imports:
 import 'dart:math';
 
-import 'package:faro_clean_tdd/core/util/text_field_enum.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/password/password_provider.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/password/state/password_state.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/my_text_form_field.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/text_field_enum.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/password/password_provider.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/password/state/password_state.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/constants/constants.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/my_text_form_field.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/usecase_elevated_button.dart';
 
 Future<dynamic> forgotPasswordModal(BuildContext context) {
   return showModalBottomSheet(

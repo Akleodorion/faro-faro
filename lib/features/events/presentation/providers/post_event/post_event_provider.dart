@@ -1,8 +1,10 @@
-import 'package:faro_clean_tdd/features/events/domain/usecases/post_an_event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_notifier.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/state/post_event_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Project imports:
+import 'package:faro_faro/features/events/domain/usecases/post_an_event.dart';
+import 'package:faro_faro/features/events/presentation/providers/post_event/state/post_event_notifier.dart';
+import 'package:faro_faro/features/events/presentation/providers/post_event/state/post_event_state.dart';
 import '../../../../../injection_container.dart';
 
 final postEventProvider =

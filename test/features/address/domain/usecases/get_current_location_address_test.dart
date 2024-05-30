@@ -1,11 +1,13 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
-import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/features/address/domain/entities/address.dart';
+import 'package:faro_faro/features/address/domain/repositories/address_repository.dart';
+import 'package:faro_faro/features/address/domain/usecases/get_current_location_address.dart';
 import 'get_current_location_address_test.mocks.dart';
 
 @GenerateMocks([AddressRepository])

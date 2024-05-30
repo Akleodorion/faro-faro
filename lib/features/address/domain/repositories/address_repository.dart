@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
 
+// Project imports:
+import 'package:faro_faro/features/address/domain/entities/address.dart';
 import '../../../../core/errors/failures.dart';
 
 abstract class AddressRepository {

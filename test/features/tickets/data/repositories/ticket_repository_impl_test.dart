@@ -1,16 +1,18 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/core/network/network_info.dart';
-import 'package:faro_clean_tdd/features/members/data/repositories/member_repository_impl.dart';
-import 'package:faro_clean_tdd/features/tickets/data/datasources/ticket_remote_data_source.dart';
-import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
-import 'package:faro_clean_tdd/features/tickets/data/repositories/ticket_repository_impl.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/core/network/network_info.dart';
+import 'package:faro_faro/features/members/data/repositories/member_repository_impl.dart';
+import 'package:faro_faro/features/tickets/data/datasources/ticket_remote_data_source.dart';
+import 'package:faro_faro/features/tickets/data/models/ticket_model.dart';
+import 'package:faro_faro/features/tickets/data/repositories/ticket_repository_impl.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
 import 'ticket_repository_impl_test.mocks.dart';
 
 @GenerateMocks([TicketRemoteDataSource, NetworkInfo])

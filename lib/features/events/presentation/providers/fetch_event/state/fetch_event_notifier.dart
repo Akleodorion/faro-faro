@@ -1,11 +1,13 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+// Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/members/domain/entities/member.dart';
 import '../../../../domain/usecases/fetch_all_events.dart';
 import 'fetch_event_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FetchEventNotifier extends StateNotifier<FetchEventState> {
   final FetchAllEvents fetchAllEventsUsecase;

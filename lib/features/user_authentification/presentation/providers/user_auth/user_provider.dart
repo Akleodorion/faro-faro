@@ -1,11 +1,13 @@
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
+// Package imports:
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'state/user_notifier.dart';
-import 'state/user_state.dart';
+// Project imports:
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_user_out.dart';
 import '../../../../../injection_container.dart';
 import '../../../domain/usecases/log_user_in.dart';
 import '../../../domain/usecases/sign_user_in.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'state/user_notifier.dart';
+import 'state/user_state.dart';
 
 final userAuthProvider = StateNotifierProvider<UserNotifier, UserState>(
   (ref) {

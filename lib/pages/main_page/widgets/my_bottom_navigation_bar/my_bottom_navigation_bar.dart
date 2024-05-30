@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/pages/main_page/widgets/my_bottom_navigation_bar/navigation_bar_constants.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/pages/main_page/widgets/my_bottom_navigation_bar/navigation_bar_constants.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
   const MyBottomNavigationBar(

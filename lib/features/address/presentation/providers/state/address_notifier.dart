@@ -1,8 +1,11 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
-import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
-import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/address/domain/usecases/get_current_location_address.dart';
+import 'package:faro_faro/features/address/domain/usecases/get_selected_location_address.dart';
+import 'package:faro_faro/features/address/presentation/providers/state/address_state.dart';
 
 class AddressNotifier extends StateNotifier<AddressState> {
   AddressNotifier(

@@ -1,7 +1,10 @@
-import 'package:faro_clean_tdd/core/util/general_spacers.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/ticket_payment_page/widgets/tickets_checkout_layout.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/general_spacers.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/ticket_payment_page/widgets/tickets_checkout_layout.dart';
 
 class TicketPaymentPage extends StatelessWidget {
   const TicketPaymentPage({super.key, required this.event});

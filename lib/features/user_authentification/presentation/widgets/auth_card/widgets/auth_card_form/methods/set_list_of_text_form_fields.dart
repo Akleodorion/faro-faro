@@ -1,10 +1,14 @@
+// Dart imports:
 import 'dart:math';
 
-import 'package:faro_clean_tdd/core/util/text_field_enum.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/constants/constants.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/my_text_form_field.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/remember_checkbox.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/text_field_enum.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/constants/constants.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/my_text_form_field.dart';
+import 'package:faro_faro/features/user_authentification/presentation/widgets/remember_checkbox.dart';
 
 List<Widget> setListOfTextFormField({
   required Map<String, dynamic> logInInfo,

@@ -1,13 +1,16 @@
 // ignore_for_file: constant_identifier_names
 
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/core/constants/server_constants.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/api_call_methods.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
+// Package imports:
 import 'package:http/http.dart' as http;
 
+// Project imports:
+import 'package:faro_faro/core/constants/server_constants.dart';
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/api_call_methods.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
 import '../../../../core/errors/failures.dart';
 
 abstract class MemberRemoteDataSource {

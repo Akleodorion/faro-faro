@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+
+// Project imports:
+import 'package:faro_faro/features/members/domain/entities/member.dart';
 
 class FetchMembersState extends Equatable {
   @override

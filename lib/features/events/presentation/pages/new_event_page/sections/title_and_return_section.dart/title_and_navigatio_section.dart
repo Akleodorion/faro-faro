@@ -1,6 +1,11 @@
-import 'package:faro_clean_tdd/features/events/presentation/providers/post_event/post_event_provider.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/presentation/providers/post_event/post_event_provider.dart';
 
 class TitleAndNavigationSection extends StatelessWidget {
   const TitleAndNavigationSection({super.key});

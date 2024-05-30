@@ -1,14 +1,19 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/features/pick_image/data/datasources/picked_image_local_data_source.dart';
-import 'package:faro_clean_tdd/features/pick_image/data/models/picked_image_model.dart';
+// Flutter imports:
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/features/pick_image/data/datasources/picked_image_local_data_source.dart';
+import 'package:faro_faro/features/pick_image/data/models/picked_image_model.dart';
 import 'picked_image_local_data_source_test.mocks.dart';
 
 @GenerateMocks([ImagePicker])

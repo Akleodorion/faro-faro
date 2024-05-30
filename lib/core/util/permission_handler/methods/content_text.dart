@@ -1,5 +1,6 @@
-import 'package:faro_clean_tdd/core/util/permission_handler/constants/permission_constants.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
+// Project imports:
+import 'package:faro_faro/core/util/permission_handler/constants/permission_constants.dart';
+import 'package:faro_faro/core/util/permission_handler/enum/permission_enum.dart';
 
 /// This method will either return a success String content or an error String content
 ///

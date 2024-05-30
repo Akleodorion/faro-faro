@@ -1,6 +1,10 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:dartz/dartz.dart';
+
+// Project imports:
 import '../../../../core/errors/failures.dart';
 import '../../data/models/event_model.dart';
 import '../entities/event.dart';

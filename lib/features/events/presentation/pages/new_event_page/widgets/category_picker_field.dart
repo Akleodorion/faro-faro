@@ -1,7 +1,12 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/internal_features/category_filter/data_source.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/internal_features/category_filter/data_source.dart';
 
 class CategoryPickerField extends ConsumerStatefulWidget {
   const CategoryPickerField({super.key, required this.setValue});

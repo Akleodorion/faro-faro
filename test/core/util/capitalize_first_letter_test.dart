@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/capitalize_first_letter.dart';
 
 void main() {
   late CapitalizeFirstLetterImpl capitalizeFirstLetterImpl;

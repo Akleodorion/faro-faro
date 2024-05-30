@@ -1,7 +1,11 @@
 // Cette classe va nous permettre de gérer l'ensemble des validations que nous devons faire au travers de l'application.
+
+// Package imports:
 import 'package:email_validator/email_validator.dart';
-import 'package:faro_clean_tdd/core/util/try_parse_time_of_day.dart';
 import 'package:intl/intl.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/try_parse_time_of_day.dart';
 
 abstract class ValidateInput {
   String? passwordValidator(String? password);

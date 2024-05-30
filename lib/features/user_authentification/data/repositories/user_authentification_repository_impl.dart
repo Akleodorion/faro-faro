@@ -1,14 +1,17 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/constants/error_constants.dart';
-import 'package:faro_clean_tdd/core/util/date_time_util/date_time_util.dart';
+
+// Project imports:
+import 'package:faro_faro/core/constants/error_constants.dart';
+import 'package:faro_faro/core/util/date_time_util/date_time_util.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/repositories/user_authentification_repository.dart';
 import '../datasources/user_local_data_source.dart';
 import '../datasources/user_remote_data_source.dart';
 import '../models/user_model.dart';
-import '../../domain/entities/user.dart';
-import '../../domain/repositories/user_authentification_repository.dart';
 
 typedef _SignInOrLogIn = Future<UserModel> Function();
 

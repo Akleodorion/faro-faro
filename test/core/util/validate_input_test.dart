@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/core/util/validate_input.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/validate_input.dart';
 
 void main() {
   late ValidateInputImpl sut;

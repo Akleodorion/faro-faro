@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
+// Package imports:
 import 'package:location/location.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
 
 abstract class LocationRepo {
   /// This method return a map

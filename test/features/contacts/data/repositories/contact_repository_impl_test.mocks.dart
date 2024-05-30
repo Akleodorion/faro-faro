@@ -3,19 +3,27 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+// Dart imports:
 import 'dart:async' as _i5;
 
-import 'package:faro_clean_tdd/core/network/network_info.dart' as _i4;
-import 'package:faro_clean_tdd/features/contacts/data/datasources/contact_remote_data_source.dart'
-    as _i6;
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart'
-    as _i7;
-import 'package:faro_clean_tdd/internal_features/contact_list/contact_list.dart'
-    as _i8;
+// Flutter imports:
 import 'package:flutter/foundation.dart' as _i3;
 import 'package:flutter/src/widgets/framework.dart' as _i2;
 import 'package:flutter/src/widgets/notification_listener.dart' as _i9;
+
+// Package imports:
 import 'package:mockito/mockito.dart' as _i1;
+
+// Project imports:
+import 'package:faro_faro/core/network/network_info.dart' as _i4;
+
+import 'package:faro_faro/features/contacts/data/datasources/contact_remote_data_source.dart'
+    as _i6;
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart'
+    as _i7;
+import 'package:faro_faro/internal_features/contact_list/contact_list.dart'
+    as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

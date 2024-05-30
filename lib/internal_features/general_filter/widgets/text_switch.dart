@@ -1,7 +1,12 @@
-import 'package:faro_clean_tdd/internal_features/general_filter/general_filter_provider.dart';
-import 'package:faro_clean_tdd/internal_features/general_filter/widgets/slider_filter.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/internal_features/general_filter/general_filter_provider.dart';
+import 'package:faro_faro/internal_features/general_filter/widgets/slider_filter.dart';
 
 class TextSwitch extends ConsumerStatefulWidget {
   const TextSwitch(

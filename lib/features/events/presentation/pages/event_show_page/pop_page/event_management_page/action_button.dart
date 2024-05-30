@@ -1,10 +1,15 @@
-import 'package:faro_clean_tdd/core/util/show_result_message_snackbar.dart';
-import 'package:faro_clean_tdd/core/util/usecase_alert_dialog.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/close_event/close_event_provider.dart';
-import 'package:faro_clean_tdd/features/events/presentation/providers/close_event/state/close_event_state.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/show_result_message_snackbar.dart';
+import 'package:faro_faro/core/util/usecase_alert_dialog.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/providers/close_event/close_event_provider.dart';
+import 'package:faro_faro/features/events/presentation/providers/close_event/state/close_event_state.dart';
 
 class ActionButton extends ConsumerWidget {
   const ActionButton({

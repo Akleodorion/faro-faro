@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
+// Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+// Project imports:
+import 'package:faro_faro/features/address/domain/entities/address.dart';
 
 class AddressModel extends Address {
   const AddressModel({

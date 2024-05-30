@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
+// Project imports:
 import '../errors/failures.dart';
 
 // Création d'une classe abstraite générique pour permettre de forcer l'utilisation d'une méthode call à nos UseCase.

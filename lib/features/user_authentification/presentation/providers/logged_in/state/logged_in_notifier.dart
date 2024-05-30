@@ -1,8 +1,11 @@
-import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/logged_in/state/logged_in_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/user_authentification/domain/entities/user.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/get_user_info.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_in_with_token.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/logged_in/state/logged_in_state.dart';
 
 class LoggedInNotifier extends StateNotifier<LoggedInState> {
   final GetUserInfo getUserInfoUsecase;

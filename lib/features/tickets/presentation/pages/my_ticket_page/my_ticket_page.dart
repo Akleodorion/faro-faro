@@ -1,9 +1,12 @@
-import 'package:faro_clean_tdd/core/util/capitalize_first_letter.dart';
-import 'package:faro_clean_tdd/core/util/general_spacers.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/pages/my_ticket_page/sections/image_section/image_section.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/capitalize_first_letter.dart';
+import 'package:faro_faro/core/util/general_spacers.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
+import 'package:faro_faro/features/tickets/presentation/pages/my_ticket_page/sections/image_section/image_section.dart';
 
 class MyTicketPage extends StatelessWidget {
   const MyTicketPage({

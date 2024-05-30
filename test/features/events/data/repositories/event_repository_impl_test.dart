@@ -1,22 +1,28 @@
+// Dart imports:
 import 'dart:io';
-import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/constants/error_constants.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/core/network/network_info.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/events/data/datasources/event_remote_data_source.dart';
-import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
-import 'package:faro_clean_tdd/features/events/data/repositories/event_repository_impl.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+// Project imports:
+import 'package:faro_faro/core/constants/error_constants.dart';
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/core/network/network_info.dart';
+import 'package:faro_faro/features/address/domain/entities/address.dart';
+import 'package:faro_faro/features/events/data/datasources/event_remote_data_source.dart';
+import 'package:faro_faro/features/events/data/models/event_model.dart';
+import 'package:faro_faro/features/events/data/repositories/event_repository_impl.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/tickets/data/models/ticket_model.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
 import 'event_repository_impl_test.mocks.dart';
 
 @GenerateMocks([EventRemoteDatasource, NetworkInfo])

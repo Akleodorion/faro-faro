@@ -1,8 +1,12 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:faro_clean_tdd/features/pick_image/data/models/picked_image_model.dart';
-import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
+import 'package:faro_faro/features/pick_image/data/models/picked_image_model.dart';
+import 'package:faro_faro/features/pick_image/domain/entities/picked_image.dart';
 
 void main() async {
   final tPickedImageModel = PickedImageModel(image: File('flyers.jpg'));

@@ -1,8 +1,11 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/features/events/domain/repositories/event_repository.dart';
 
+// Project imports:
+import 'package:faro_faro/features/events/domain/repositories/event_repository.dart';
 import '../../../../core/errors/failures.dart';
 import '../../data/models/event_model.dart';
 import '../entities/event.dart';

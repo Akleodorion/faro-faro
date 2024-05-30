@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/features/events/presentation/pages/new_event_page/new_event_page.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/presentation/pages/new_event_page/new_event_page.dart';
 
 class MyFloatingActionButton extends StatelessWidget {
   const MyFloatingActionButton({super.key});

@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/auth_card_form.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/auth_card_form.dart';
 
 class AuthCard extends StatelessWidget {
   const AuthCard({super.key});

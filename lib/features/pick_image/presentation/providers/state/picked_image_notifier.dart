@@ -1,7 +1,9 @@
-import 'package:faro_clean_tdd/features/pick_image/domain/usecases/pick_image_from_galery.dart';
-import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Project imports:
+import 'package:faro_faro/features/pick_image/domain/usecases/pick_image_from_galery.dart';
+import 'package:faro_faro/features/pick_image/presentation/providers/state/picked_image_state.dart';
 import '../../../../../core/errors/failures.dart';
 
 class PickedImageNotifier extends StateNotifier<PickedImageState> {

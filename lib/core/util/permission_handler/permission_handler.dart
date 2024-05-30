@@ -1,10 +1,15 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/constants/permission_constants.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/methods/content_text.dart';
-import 'package:faro_clean_tdd/general%20widgets/alert_dialog/Info_alert_dialog/info_alert_dialog.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:permission_handler/permission_handler.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/permission_handler/constants/permission_constants.dart';
+import 'package:faro_faro/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:faro_faro/core/util/permission_handler/methods/content_text.dart';
+import 'package:faro_faro/general%20widgets/alert_dialog/Info_alert_dialog/info_alert_dialog.dart';
 
 abstract class PermissionHandler {
   /// This function requests the permission for a specific feature.

@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:contacts_service/contacts_service.dart';
-import 'package:faro_clean_tdd/internal_features/contact_list/methods/filter_contact_list.dart';
+
+// Project imports:
+import 'package:faro_faro/internal_features/contact_list/methods/filter_contact_list.dart';
 
 abstract class ContactList {
   Future<List<String>> retrieveContacts();

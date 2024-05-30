@@ -1,14 +1,16 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/address/domain/usecases/get_current_location_address.dart';
-import 'package:faro_clean_tdd/features/address/domain/usecases/get_selected_location_address.dart';
-import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_notifier.dart';
-import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/address/domain/entities/address.dart';
+import 'package:faro_faro/features/address/domain/usecases/get_current_location_address.dart';
+import 'package:faro_faro/features/address/domain/usecases/get_selected_location_address.dart';
+import 'package:faro_faro/features/address/presentation/providers/state/address_notifier.dart';
+import 'package:faro_faro/features/address/presentation/providers/state/address_state.dart';
 import 'address_notifier_test.mocks.dart';
 
 @GenerateMocks([GetCurrentLocationAddress, GetSelectedLocationAddress])

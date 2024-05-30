@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart';
+
+// Project imports:
+import 'package:faro_faro/features/pick_image/domain/entities/picked_image.dart';
 
 abstract class PickedImageState extends Equatable {
   @override

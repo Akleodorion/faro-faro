@@ -3,13 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+// Dart imports:
 import 'dart:async' as _i4;
 import 'dart:ui' as _i5;
 
+// Package imports:
 import 'package:location/location.dart' as _i3;
+import 'package:mockito/mockito.dart' as _i1;
+
 import 'package:location_platform_interface/location_platform_interface.dart'
     as _i2;
-import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

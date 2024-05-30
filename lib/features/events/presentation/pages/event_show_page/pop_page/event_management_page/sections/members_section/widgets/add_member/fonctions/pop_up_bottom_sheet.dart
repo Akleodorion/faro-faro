@@ -1,8 +1,13 @@
-import 'package:faro_clean_tdd/features/contacts/presentation/providers/contact_provider.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/components/modal_bottom_sheet_layout.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/features/contacts/presentation/providers/contact_provider.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/components/modal_bottom_sheet_layout.dart';
 
 Future<dynamic> popUpBottomSheet({
   required BuildContext context,

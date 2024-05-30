@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart';
 
+// Project imports:
+import 'package:faro_faro/features/pick_image/domain/entities/picked_image.dart';
 import '../../../../core/errors/failures.dart';
 
 abstract class PickedImageRepository {

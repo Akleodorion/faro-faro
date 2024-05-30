@@ -1,7 +1,10 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/grid_view_event_card/grid_view_event_card.dart';
-import 'package:faro_clean_tdd/pages/home_page/constants/home_page_strings.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/widgets/grid_view_event_card/grid_view_event_card.dart';
+import 'package:faro_faro/pages/home_page/constants/home_page_strings.dart';
 
 class GridViewLayout extends StatelessWidget {
   const GridViewLayout({super.key, required this.events});

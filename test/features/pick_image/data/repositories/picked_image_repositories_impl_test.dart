@@ -1,15 +1,18 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/pick_image/data/datasources/picked_image_local_data_source.dart';
-import 'package:faro_clean_tdd/features/pick_image/data/models/picked_image_model.dart';
-import 'package:faro_clean_tdd/features/pick_image/data/repositories/picked_image_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/pick_image/data/datasources/picked_image_local_data_source.dart';
+import 'package:faro_faro/features/pick_image/data/models/picked_image_model.dart';
+import 'package:faro_faro/features/pick_image/data/repositories/picked_image_repository_impl.dart';
 import 'picked_image_repositories_impl_test.mocks.dart';
 
 @GenerateMocks([PickedImageLocalDataSource])

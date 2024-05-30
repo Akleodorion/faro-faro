@@ -3,17 +3,21 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+// Dart imports:
 import 'dart:async' as _i4;
 
-import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart'
-    as _i6;
-import 'package:faro_clean_tdd/features/user_authentification/domain/repositories/user_authentification_repository.dart'
-    as _i2;
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart'
-    as _i3;
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart'
-    as _i5;
+// Package imports:
 import 'package:mockito/mockito.dart' as _i1;
+
+import 'package:faro_faro/features/user_authentification/domain/entities/user.dart'
+    as _i6;
+import 'package:faro_faro/features/user_authentification/domain/repositories/user_authentification_repository.dart'
+    as _i2;
+import 'package:faro_faro/features/user_authentification/domain/usecases/get_user_info.dart'
+    as _i3;
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_in_with_token.dart'
+    as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

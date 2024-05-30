@@ -1,8 +1,11 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/features/contacts/data/models/contact_model.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 
+// Project imports:
+import 'package:faro_faro/features/contacts/data/models/contact_model.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {

@@ -1,13 +1,15 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/usecases/create_member_usecase.dart';
-import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/state/create_member_notifier.dart';
-import 'package:faro_clean_tdd/features/members/presentation/providers/create_member/state/create_member_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/members/domain/usecases/create_member_usecase.dart';
+import 'package:faro_faro/features/members/presentation/providers/create_member/state/create_member_notifier.dart';
+import 'package:faro_faro/features/members/presentation/providers/create_member/state/create_member_state.dart';
 import 'create_member_notifier_test.mocks.dart';
 
 @GenerateMocks([CreateMemberUsecase])

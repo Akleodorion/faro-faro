@@ -1,5 +1,8 @@
-import '../widgets/auth_card/auth_card.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import '../widgets/auth_card/auth_card.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

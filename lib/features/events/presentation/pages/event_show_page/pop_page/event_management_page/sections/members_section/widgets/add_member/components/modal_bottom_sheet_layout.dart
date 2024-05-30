@@ -1,8 +1,11 @@
-import 'package:faro_clean_tdd/features/contacts/domain/entities/contact.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/components/contact_grid_view.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/contacts/domain/entities/contact.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/components/contact_grid_view.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
 
 class ModalBottomSheetLayout extends StatelessWidget {
   const ModalBottomSheetLayout(

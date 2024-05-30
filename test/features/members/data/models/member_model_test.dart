@@ -1,9 +1,12 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/entities/member.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 
+// Project imports:
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/members/domain/entities/member.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {

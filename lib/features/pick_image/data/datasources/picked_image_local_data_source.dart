@@ -1,8 +1,15 @@
+// Dart imports:
 import 'dart:io';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/features/pick_image/data/models/picked_image_model.dart';
+
+// Flutter imports:
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:image_picker/image_picker.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/features/pick_image/data/models/picked_image_model.dart';
 
 abstract class PickedImageLocalDataSource {
   /// Should open the gallery and pick an image from there

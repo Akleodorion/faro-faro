@@ -1,19 +1,22 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/entities/user.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/get_user_info.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_in_with_token.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_in.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/log_user_out.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/sign_user_in.dart'
-    as si;
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_notifier.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/user_authentification/domain/entities/user.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/get_user_info.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_in_with_token.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_user_in.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/log_user_out.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/user_auth/state/user_notifier.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/user_auth/state/user_state.dart';
 import './user_notifier_test.mocks.dart';
+
+import 'package:faro_faro/features/user_authentification/domain/usecases/sign_user_in.dart'
+    as si;
 
 @GenerateMocks(
     [LogUserIn, si.SignUserIn, GetUserInfo, LogInWithToken, LogUserOutUsecase])

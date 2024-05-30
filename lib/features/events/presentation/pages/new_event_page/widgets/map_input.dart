@@ -1,13 +1,17 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
-import 'package:faro_clean_tdd/core/util/permission_handler/permission_handler.dart';
-import 'package:faro_clean_tdd/features/address/presentation/providers/state/address_state.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../../address/presentation/providers/address_provider.dart';
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/permission_handler/enum/permission_enum.dart';
+import 'package:faro_faro/core/util/permission_handler/permission_handler.dart';
+import 'package:faro_faro/features/address/presentation/providers/state/address_state.dart';
 import '../../../../../../pages/ticket_page/pop_page/map_page.dart';
+import '../../../../../address/presentation/providers/address_provider.dart';
 
 class MapInput extends ConsumerStatefulWidget {
   const MapInput({super.key});

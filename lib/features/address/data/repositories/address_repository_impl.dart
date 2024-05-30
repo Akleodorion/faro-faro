@@ -1,9 +1,12 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/address/data/datasources/address_remote_data_source.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
-import 'package:faro_clean_tdd/features/address/domain/repositories/address_repository.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/address/data/datasources/address_remote_data_source.dart';
+import 'package:faro_faro/features/address/domain/entities/address.dart';
+import 'package:faro_faro/features/address/domain/repositories/address_repository.dart';
 
 class AddressRepositoryImpl implements AddressRepository {
   AddressRepositoryImpl({required this.remoteDataSource});

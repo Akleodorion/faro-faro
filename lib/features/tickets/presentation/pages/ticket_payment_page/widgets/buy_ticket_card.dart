@@ -1,9 +1,12 @@
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/util/device_info.dart';
-import 'package:faro_clean_tdd/core/util/general_spacers.dart';
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/entities/ticket.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/util/device_info.dart';
+import 'package:faro_faro/core/util/general_spacers.dart';
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/tickets/domain/entities/ticket.dart';
 
 class BuyTicketCard extends StatelessWidget {
   const BuyTicketCard({

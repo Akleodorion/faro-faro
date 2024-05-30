@@ -1,8 +1,11 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/add_member.dart';
-import 'package:faro_clean_tdd/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/member_list_view/member_list_view.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/add_member/add_member.dart';
+import 'package:faro_faro/features/events/presentation/pages/event_show_page/pop_page/event_management_page/sections/members_section/widgets/member_list_view/member_list_view.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
 
 class MembersSection extends StatelessWidget {
   const MembersSection({

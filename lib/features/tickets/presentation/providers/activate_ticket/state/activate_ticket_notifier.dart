@@ -1,8 +1,11 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/tickets/data/models/ticket_model.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/usecases/activate_ticket_usecase.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/activate_ticket/state/activate_ticket_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/tickets/data/models/ticket_model.dart';
+import 'package:faro_faro/features/tickets/domain/usecases/activate_ticket_usecase.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/activate_ticket/state/activate_ticket_state.dart';
 
 class ActivateTicketNotifier extends StateNotifier<ActivateTicketState> {
   ActivateTicketNotifier({required this.usecase}) : super(Initial());

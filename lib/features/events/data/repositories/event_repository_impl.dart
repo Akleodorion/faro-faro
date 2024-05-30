@@ -1,13 +1,17 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/features/events/data/models/event_model.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/features/events/data/models/event_model.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/network_info.dart';
-import '../datasources/event_remote_data_source.dart';
 import '../../domain/entities/event.dart';
 import '../../domain/repositories/event_repository.dart';
+import '../datasources/event_remote_data_source.dart';
 
 typedef _PostOrUpdateEvent = Future<Event> Function();
 typedef _ActivateOrCloseEvent = Future<Event> Function();

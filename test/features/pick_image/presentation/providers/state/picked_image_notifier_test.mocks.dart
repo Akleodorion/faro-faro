@@ -3,17 +3,23 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+// Dart imports:
 import 'dart:async' as _i5;
 
+// Package imports:
 import 'package:dartz/dartz.dart' as _i3;
-import 'package:faro_clean_tdd/core/errors/failures.dart' as _i6;
-import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart'
-    as _i7;
-import 'package:faro_clean_tdd/features/pick_image/domain/repositories/picked_image_repository.dart'
-    as _i2;
-import 'package:faro_clean_tdd/features/pick_image/domain/usecases/pick_image_from_galery.dart'
-    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
+
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart' as _i6;
+
+import 'package:faro_faro/features/pick_image/domain/entities/picked_image.dart'
+    as _i7;
+import 'package:faro_faro/features/pick_image/domain/repositories/picked_image_repository.dart'
+    as _i2;
+import 'package:faro_faro/features/pick_image/domain/usecases/pick_image_from_galery.dart'
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

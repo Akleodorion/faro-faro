@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/core/util/size_info.dart';
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/size_info.dart';
 
 double getGlobalPadding(BuildContext context) {
   final bool isScreenSizeMini = SizeInfo(context: context).isScreenSizeMini();

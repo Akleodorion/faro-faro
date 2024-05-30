@@ -1,3 +1,4 @@
+// Project imports:
 import '../../../../../tickets/domain/entities/ticket.dart';
 
 Map<String, dynamic> getTicketInfo({required String qrcode}) {

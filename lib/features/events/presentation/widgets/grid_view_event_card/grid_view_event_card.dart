@@ -1,6 +1,9 @@
-import 'package:faro_clean_tdd/features/events/domain/entities/event.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/grid_view_event_card/components/grid_view_event_card_layout.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/domain/entities/event.dart';
+import 'package:faro_faro/features/events/presentation/widgets/grid_view_event_card/components/grid_view_event_card_layout.dart';
 
 class GridViewEventCard extends StatelessWidget {
   const GridViewEventCard({super.key, required this.event});

@@ -1,8 +1,11 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/request_reset_token.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/reset_password.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/password/state/password_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/request_reset_token.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/reset_password.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/password/state/password_state.dart';
 
 class PasswordNotifier extends StateNotifier<PasswordState> {
   final RequestResetTokenUsecase requestResetTokenUsecase;

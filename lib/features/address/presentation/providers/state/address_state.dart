@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
+
+// Project imports:
+import 'package:faro_faro/features/address/domain/entities/address.dart';
 
 abstract class AddressState extends Equatable {
   @override

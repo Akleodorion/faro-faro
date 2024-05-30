@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/core/util/permission_handler/enum/permission_enum.dart';
+// Package imports:
 import 'package:permission_handler/permission_handler.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/permission_handler/enum/permission_enum.dart';
 
 class PermissionConstants {
   static const title = "Permission requise";

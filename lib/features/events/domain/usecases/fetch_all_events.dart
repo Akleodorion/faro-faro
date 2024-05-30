@@ -1,8 +1,10 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import '../repositories/event_repository.dart';
 
+// Project imports:
 import '../../../../core/errors/failures.dart';
 import '../entities/event.dart';
+import '../repositories/event_repository.dart';
 
 class FetchAllEvents {
   final EventRepository repository;

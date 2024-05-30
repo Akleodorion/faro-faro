@@ -1,10 +1,13 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/exceptions.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/core/network/network_info.dart';
-import 'package:faro_clean_tdd/features/members/data/datasources/member_remote_data_source.dart';
-import 'package:faro_clean_tdd/features/members/data/models/member_model.dart';
-import 'package:faro_clean_tdd/features/members/domain/repositories/member_repository.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/exceptions.dart';
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/core/network/network_info.dart';
+import 'package:faro_faro/features/members/data/datasources/member_remote_data_source.dart';
+import 'package:faro_faro/features/members/data/models/member_model.dart';
+import 'package:faro_faro/features/members/domain/repositories/member_repository.dart';
 
 const String noInternetConnexion =
     'No internet connexion, please try again later.';

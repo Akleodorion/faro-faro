@@ -1,6 +1,9 @@
-import 'package:faro_clean_tdd/pages/search_page/pop_page/general_filter_page.dart';
-import 'package:faro_clean_tdd/features/events/presentation/widgets/event_list_search_bar/event_list_search_bar.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/features/events/presentation/widgets/event_list_search_bar/event_list_search_bar.dart';
+import 'package:faro_faro/pages/search_page/pop_page/general_filter_page.dart';
 
 class SearchAndFilterSection extends StatelessWidget {
   const SearchAndFilterSection({super.key});

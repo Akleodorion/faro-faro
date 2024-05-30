@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/core/util/size_info.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:faro_faro/core/util/size_info.dart';
 
 ThemeData getTheme(BuildContext context) {
   final double screenWidth = SizeInfo(context: context).width;

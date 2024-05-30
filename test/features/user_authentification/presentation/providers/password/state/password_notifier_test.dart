@@ -1,13 +1,15 @@
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/request_reset_token.dart';
-import 'package:faro_clean_tdd/features/user_authentification/domain/usecases/reset_password.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/password/state/password_notifier.dart';
-import 'package:faro_clean_tdd/features/user_authentification/presentation/providers/password/state/password_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/request_reset_token.dart';
+import 'package:faro_faro/features/user_authentification/domain/usecases/reset_password.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/password/state/password_notifier.dart';
+import 'package:faro_faro/features/user_authentification/presentation/providers/password/state/password_state.dart';
 import 'password_notifier_test.mocks.dart';
 
 @GenerateMocks([RequestResetTokenUsecase, ResetPasswordUsecase])

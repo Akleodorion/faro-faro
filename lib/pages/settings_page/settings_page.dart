@@ -1,8 +1,13 @@
-import 'package:faro_clean_tdd/pages/settings_page/constants/setting_page_strings.dart';
-import 'package:faro_clean_tdd/pages/settings_page/widgets/disconnect_button.dart';
-import 'package:faro_clean_tdd/pages/settings_page/widgets/profil_card.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/pages/settings_page/constants/setting_page_strings.dart';
+import 'package:faro_faro/pages/settings_page/widgets/disconnect_button.dart';
+import 'package:faro_faro/pages/settings_page/widgets/profil_card.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});

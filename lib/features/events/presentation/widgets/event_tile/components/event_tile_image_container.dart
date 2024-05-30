@@ -1,5 +1,8 @@
-import '../../../../domain/entities/event.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import '../../../../domain/entities/event.dart';
 
 class EventTileImageContainer extends StatelessWidget {
   const EventTileImageContainer({

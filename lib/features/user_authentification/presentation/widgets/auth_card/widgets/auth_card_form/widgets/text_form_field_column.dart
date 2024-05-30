@@ -1,5 +1,8 @@
-import 'package:faro_clean_tdd/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/methods/set_list_of_text_form_fields.dart';
+// Flutter imports:
 import 'package:flutter/widgets.dart';
+
+// Project imports:
+import 'package:faro_faro/features/user_authentification/presentation/widgets/auth_card/widgets/auth_card_form/methods/set_list_of_text_form_fields.dart';
 
 class TextFormFieldColum extends StatelessWidget {
   const TextFormFieldColum({

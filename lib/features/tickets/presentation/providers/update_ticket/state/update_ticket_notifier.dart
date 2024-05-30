@@ -1,7 +1,10 @@
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/tickets/domain/usecases/update_ticket_usecase.dart';
-import 'package:faro_clean_tdd/features/tickets/presentation/providers/update_ticket/state/update_ticket_state.dart';
+// Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/tickets/domain/usecases/update_ticket_usecase.dart';
+import 'package:faro_faro/features/tickets/presentation/providers/update_ticket/state/update_ticket_state.dart';
 
 class UpdateTicketNotifier extends StateNotifier<UpdateTicketState> {
   UpdateTicketNotifier({required this.usecase}) : super(Initial());

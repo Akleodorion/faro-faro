@@ -1,15 +1,18 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:dartz/dartz.dart';
-import 'package:faro_clean_tdd/core/errors/failures.dart';
-import 'package:faro_clean_tdd/features/pick_image/domain/entities/picked_image.dart';
-import 'package:faro_clean_tdd/features/pick_image/domain/usecases/pick_image_from_galery.dart';
-import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_notifier.dart';
-import 'package:faro_clean_tdd/features/pick_image/presentation/providers/state/picked_image_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+// Project imports:
+import 'package:faro_faro/core/errors/failures.dart';
+import 'package:faro_faro/features/pick_image/domain/entities/picked_image.dart';
+import 'package:faro_faro/features/pick_image/domain/usecases/pick_image_from_galery.dart';
+import 'package:faro_faro/features/pick_image/presentation/providers/state/picked_image_notifier.dart';
+import 'package:faro_faro/features/pick_image/presentation/providers/state/picked_image_state.dart';
 import 'picked_image_notifier_test.mocks.dart';
 
 @GenerateMocks([PickImageFromGalery])

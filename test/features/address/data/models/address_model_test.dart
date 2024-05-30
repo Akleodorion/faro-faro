@@ -1,10 +1,13 @@
+// Dart imports:
 import 'dart:convert';
 
-import 'package:faro_clean_tdd/features/address/data/models/address_model.dart';
-import 'package:faro_clean_tdd/features/address/domain/entities/address.dart';
+// Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// Project imports:
+import 'package:faro_faro/features/address/data/models/address_model.dart';
+import 'package:faro_faro/features/address/domain/entities/address.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() async {

@@ -1,6 +1,8 @@
-import '../../../../domain/entities/event.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
+import '../../../../domain/entities/event.dart';
 import 'event_tile_elevated_button.dart';
 
 class EventTileMoreInfoContainer extends StatelessWidget {
